@@ -1,0 +1,6 @@
+@Rentelligence.AI_HostAddress = http://localhost:5209
+
+GET {{Rentelligence.AI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
