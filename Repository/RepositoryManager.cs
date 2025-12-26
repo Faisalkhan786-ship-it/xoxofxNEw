@@ -21,6 +21,7 @@ namespace Repository
         private readonly Lazy<IEventRepository> _eventRepository;
         private readonly Lazy<IAuthenticationRepository> _authenticationRepository;
         private readonly Lazy<IGeographyRepository> _geographyRepository;
+        private readonly Lazy<IFundManagerRepository> _fundManagerRepository;
 
 
 
@@ -41,6 +42,7 @@ namespace Repository
             _adminAuthenticationRepository = new Lazy<IAdminAuthenticationRepository>(() => new AdminAuthenticationRepository(_dapperContext));
             _eventRepository = new Lazy<IEventRepository>(() => new EventRepository(_dapperContext, emailService));
             _geographyRepository = new Lazy<IGeographyRepository>(() => new GeographyRepository(_dapperContext));
+            _fundManagerRepository = new Lazy<IFundManagerRepository>(() => new FundManagerRepository(_dapperContext));
 
         }
 
@@ -59,6 +61,7 @@ namespace Repository
         public IAdminAuthenticationRepository adminAuthenticationRepository => _adminAuthenticationRepository.Value;
         public IEventRepository eventRepository => _eventRepository.Value;
         public IGeographyRepository geographyRepository => _geographyRepository.Value;
+        public IFundManagerRepository fundManagerRepository => _fundManagerRepository.Value;
 
     }
 }

@@ -20,6 +20,8 @@ namespace Service
         private readonly Lazy<IAuthenticationService> _authenticationContract;
         private readonly Lazy<IGeographyContract> _geographyContract;
 
+        private readonly Lazy<IFundManagerService> _fundManagerService;
+
         public ServiceManager(IRepositoryManager repositoryManager)
         {
           
@@ -35,6 +37,7 @@ namespace Service
             _eventService = new Lazy<IEventService>(() => new EventService(repositoryManager));
             _authenticationContract = new Lazy<IAuthenticationService>(() => new AuthenticationService(repositoryManager));
             _geographyContract = new Lazy<IGeographyContract>(() => new GeographyService(repositoryManager));
+            _fundManagerService = new Lazy<IFundManagerService>(() => new FundManagerService(repositoryManager));
 
         }
         public IAuthenticationService authenticationContract => _authenticationContract.Value;
@@ -49,6 +52,7 @@ namespace Service
         public IAdminAuthenticationContract adminAuthenticationContract => _adminAuthenticationContract.Value;
         public IEventService eventService => _eventService.Value;
         public IGeographyContract geographyContract => _geographyContract.Value;
+        public IFundManagerService fundManagerService => _fundManagerService.Value;
 
     }
 }

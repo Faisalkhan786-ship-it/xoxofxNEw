@@ -22,6 +22,7 @@ namespace RepositoryContract
         IEventRepository eventRepository { get; }
         IAuthenticationRepository authenticationRepository { get; }
         IGeographyRepository geographyRepository { get; }
+        IFundManagerRepository fundManagerRepository { get; }
 
     }
 }
