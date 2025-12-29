@@ -9,6 +9,7 @@ namespace Common
     public class Constant
     {
         public static string spAddUserRegistration = "SpAddUserRegistration";
+        public static string SpGetAllWalletHistory = "SpGetAllWalletHistory";
         public static string spAppLogin = "SpUserLogin";
         public static string spUserForgotPassword = "SpUserForgotPassword";
         public static string directMemberSearch = "SpDirectMemberSearch";

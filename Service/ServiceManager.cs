@@ -21,10 +21,12 @@ namespace Service
         private readonly Lazy<IGeographyContract> _geographyContract;
 
         private readonly Lazy<IFundManagerService> _fundManagerService;
+        private readonly Lazy<IAdminManageFundService> _adminManageFundService;
+        private readonly Lazy<ICommunityService> _communityContract;
 
         public ServiceManager(IRepositoryManager repositoryManager)
         {
-          
+            _communityContract = new Lazy<ICommunityService>(() => new CommunityService(repositoryManager));
             _categoryContract = new Lazy<ICategoryContract>(() => new CategoryService(repositoryManager));
             _subCategoryContract = new Lazy<ISubCategoryContract>(() => new SubCategoryService(repositoryManager));
             _subCategoryTypeContract = new Lazy<ISubCategoryTypeContract>(() => new SubCategoryTypeService(repositoryManager));
@@ -38,6 +40,7 @@ namespace Service
             _authenticationContract = new Lazy<IAuthenticationService>(() => new AuthenticationService(repositoryManager));
             _geographyContract = new Lazy<IGeographyContract>(() => new GeographyService(repositoryManager));
             _fundManagerService = new Lazy<IFundManagerService>(() => new FundManagerService(repositoryManager));
+            _adminManageFundService = new Lazy<IAdminManageFundService>(() => new AdminManageFundService(repositoryManager));
 
         }
         public IAuthenticationService authenticationContract => _authenticationContract.Value;
@@ -53,6 +56,8 @@ namespace Service
         public IEventService eventService => _eventService.Value;
         public IGeographyContract geographyContract => _geographyContract.Value;
         public IFundManagerService fundManagerService => _fundManagerService.Value;
+        public IAdminManageFundService adminManageFundService => _adminManageFundService.Value;
+        public ICommunityService communityContract => _communityContract.Value;
 
     }
 }

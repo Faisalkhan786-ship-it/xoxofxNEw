@@ -29,7 +29,12 @@ builder.Services.AddCors(options =>
             "https://ai-rentelligence-admin.vercel.app",
             "https://ai-rentelligence-home.vercel.app",
             "https://rentel-ai-market-place.vercel.app",
-            "https://ai-market-place-admin.vercel.app/"
+            "https://ai-market-place-admin.vercel.app/",
+            "https://santrix-global-agentic.vercel.app/",
+            "https://santrix-global-agentic-admin.vercel.app/",
+            "https://santrx.com/",
+            "https://apis.vibeworld.online/",
+            "https://vibeworld.online/"
         )
         .AllowAnyMethod()
         .AllowAnyHeader();

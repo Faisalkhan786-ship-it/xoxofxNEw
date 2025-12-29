@@ -22,6 +22,8 @@ namespace ServiceContract
         IAuthenticationService authenticationContract { get; }
         IGeographyContract geographyContract { get; }
         IFundManagerService fundManagerService { get; }
+        IAdminManageFundService adminManageFundService { get; }
+        ICommunityService communityContract { get; }
 
     }
 }

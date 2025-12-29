@@ -8,6 +8,7 @@ namespace Repository
     {
         private readonly DapperContext _dapperContext;
         private readonly EmailService _emailService; //Add Nwew
+        private readonly Lazy<ICommunityRepository> _communityRepository;
 
         private readonly Lazy<ICategoryRepository> _categoryRepository;
         private readonly Lazy<ISubCategoryRepository> _subCategoryRepository;
@@ -22,6 +23,7 @@ namespace Repository
         private readonly Lazy<IAuthenticationRepository> _authenticationRepository;
         private readonly Lazy<IGeographyRepository> _geographyRepository;
         private readonly Lazy<IFundManagerRepository> _fundManagerRepository;
+        private readonly Lazy<IAdminManageFundRepository> _adminManageFundRepository;
 
 
 
@@ -30,6 +32,7 @@ namespace Repository
             _dapperContext = dapperContext; 
             _emailService = emailService; //Add New
             _authenticationRepository = new Lazy<IAuthenticationRepository>(() => new AuthenticationRepository(_dapperContext, _emailService));//Add Email section
+            _communityRepository = new Lazy<ICommunityRepository>(() => new CommunityRepository(_dapperContext));
 
             _categoryRepository = new Lazy<ICategoryRepository>(() => new CategoryRepository(_dapperContext));
             _subCategoryRepository = new Lazy<ISubCategoryRepository>(() => new SubCategoryRepository(_dapperContext));
@@ -43,6 +46,7 @@ namespace Repository
             _eventRepository = new Lazy<IEventRepository>(() => new EventRepository(_dapperContext, emailService));
             _geographyRepository = new Lazy<IGeographyRepository>(() => new GeographyRepository(_dapperContext));
             _fundManagerRepository = new Lazy<IFundManagerRepository>(() => new FundManagerRepository(_dapperContext));
+            _adminManageFundRepository = new Lazy<IAdminManageFundRepository>(() => new AdminManageFundRepository(_dapperContext));
 
         }
 
@@ -62,6 +66,8 @@ namespace Repository
         public IEventRepository eventRepository => _eventRepository.Value;
         public IGeographyRepository geographyRepository => _geographyRepository.Value;
         public IFundManagerRepository fundManagerRepository => _fundManagerRepository.Value;
+        public IAdminManageFundRepository adminManageFundRepository => _adminManageFundRepository.Value;
+        public ICommunityRepository communityRepository => _communityRepository.Value;
 
     }
 }

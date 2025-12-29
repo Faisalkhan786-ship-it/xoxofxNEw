@@ -23,6 +23,9 @@ namespace RepositoryContract
         IAuthenticationRepository authenticationRepository { get; }
         IGeographyRepository geographyRepository { get; }
         IFundManagerRepository fundManagerRepository { get; }
+        IAdminManageFundRepository adminManageFundRepository { get; }
+        ICommunityRepository communityRepository { get; }
+
 
     }
 }
