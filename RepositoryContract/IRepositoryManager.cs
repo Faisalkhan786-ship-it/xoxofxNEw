@@ -9,6 +9,7 @@ namespace RepositoryContract
 {
     public interface IRepositoryManager
     {
+        IAdminMasterRepository adminMasterRepository { get; }
 
         ICategoryRepository categoryRepository { get; }
         ISubCategoryRepository subCategoryRepository { get; }

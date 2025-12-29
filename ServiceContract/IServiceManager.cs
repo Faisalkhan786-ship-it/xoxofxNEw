@@ -8,6 +8,7 @@ namespace ServiceContract
 {
     public interface IServiceManager
     {
+        IAdminMasterService adminMasterService { get; }
 
         ICategoryContract categoryContract { get; }
         ISubCategoryContract subCategoryContract { get; }

@@ -13,33 +13,43 @@ using Google.Apis.Auth.OAuth2;
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DbCon");
-
-// Allow CORS
+// Allow CORS - All Origins
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
     {
-        policy.WithOrigins(
-            "http://localhost:8081",
-            "http://localhost:3000",
-            "https://rentelligence.online",
-            "https://rentelligence.ai",
-            "https://app.rentelligence.ai",
-            "https://ai-rentelligence.vercel.app",
-            "https://ai-rentelligence-admin.vercel.app",
-            "https://ai-rentelligence-home.vercel.app",
-            "https://rentel-ai-market-place.vercel.app",
-            "https://ai-market-place-admin.vercel.app/",
-            "https://santrix-global-agentic.vercel.app/",
-            "https://santrix-global-agentic-admin.vercel.app/",
-            "https://santrx.com/",
-            "https://apis.vibeworld.online/",
-            "https://vibeworld.online/"
-        )
-        .AllowAnyMethod()
-        .AllowAnyHeader();
+        policy
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
     });
 });
+//// Allow CORS
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowAll", policy =>
+//    {
+//        policy.WithOrigins(
+//            "http://localhost:8081",
+//            "http://localhost:3000",
+//            "https://rentelligence.online",
+//            "https://rentelligence.ai",
+//            "https://app.rentelligence.ai",
+//            "https://ai-rentelligence.vercel.app",
+//            "https://ai-rentelligence-admin.vercel.app",
+//            "https://ai-rentelligence-home.vercel.app",
+//            "https://rentel-ai-market-place.vercel.app",
+//            "https://ai-market-place-admin.vercel.app/",
+//            "https://santrix-global-agentic.vercel.app/",
+//            "https://santrix-global-agentic-admin.vercel.app/",
+//            "https://santrx.com/",
+//            "https://apis.vibeworld.online/",
+//            "https://vibeworld.online/"
+//        )
+//        .AllowAnyMethod()
+//        .AllowAnyHeader();
+//    });
+//});
 
 
 // Swagger + MVC

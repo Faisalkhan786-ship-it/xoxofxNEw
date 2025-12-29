@@ -24,6 +24,8 @@ namespace Repository
         private readonly Lazy<IGeographyRepository> _geographyRepository;
         private readonly Lazy<IFundManagerRepository> _fundManagerRepository;
         private readonly Lazy<IAdminManageFundRepository> _adminManageFundRepository;
+        private readonly Lazy<IAdminMasterRepository> _adminMasterRepository;
+
 
 
 
@@ -31,6 +33,8 @@ namespace Repository
         {
             _dapperContext = dapperContext; 
             _emailService = emailService; //Add New
+            _adminMasterRepository = new Lazy<IAdminMasterRepository>(() => new AdminMasterRepository(_dapperContext));
+
             _authenticationRepository = new Lazy<IAuthenticationRepository>(() => new AuthenticationRepository(_dapperContext, _emailService));//Add Email section
             _communityRepository = new Lazy<ICommunityRepository>(() => new CommunityRepository(_dapperContext));
 
@@ -51,6 +55,7 @@ namespace Repository
         }
 
 
+        public IAdminMasterRepository adminMasterRepository => _adminMasterRepository.Value;
 
         public IAuthenticationRepository authenticationRepository => _authenticationRepository.Value;
         public ICategoryRepository categoryRepository => _categoryRepository.Value;

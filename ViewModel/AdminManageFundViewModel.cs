@@ -16,7 +16,7 @@ namespace ViewModel
     }
     public class AllWalletHistoryViewModel
     {
-        public Guid URID { get; set; }
+        public string? Authlogin { get; set; }
         public string WalletType { get; set; }
       
     }

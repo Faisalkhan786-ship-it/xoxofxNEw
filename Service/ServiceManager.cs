@@ -23,6 +23,7 @@ namespace Service
         private readonly Lazy<IFundManagerService> _fundManagerService;
         private readonly Lazy<IAdminManageFundService> _adminManageFundService;
         private readonly Lazy<ICommunityService> _communityContract;
+        private readonly Lazy<IAdminMasterService> _adminMasterService;
 
         public ServiceManager(IRepositoryManager repositoryManager)
         {
@@ -41,8 +42,10 @@ namespace Service
             _geographyContract = new Lazy<IGeographyContract>(() => new GeographyService(repositoryManager));
             _fundManagerService = new Lazy<IFundManagerService>(() => new FundManagerService(repositoryManager));
             _adminManageFundService = new Lazy<IAdminManageFundService>(() => new AdminManageFundService(repositoryManager));
+            _adminMasterService = new Lazy<IAdminMasterService>(() => new AdminMasterService(repositoryManager));
 
         }
+        public IAdminMasterService adminMasterService => _adminMasterService.Value;
         public IAuthenticationService authenticationContract => _authenticationContract.Value;
         public ICategoryContract categoryContract => _categoryContract.Value;
         public ISubCategoryContract subCategoryContract => _subCategoryContract.Value;

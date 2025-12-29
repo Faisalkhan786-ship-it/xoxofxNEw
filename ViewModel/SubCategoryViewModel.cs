@@ -10,6 +10,8 @@ namespace ViewModel
         public Guid categoryId { get; set; }
         [Required]
         public string? name { get; set; }
+        public string? SmartContractAddress { get; set; }
+        public decimal? AssetRate { get; set; }
         [Required]
         public Guid createdBy { get; set; }
         [Required]
@@ -33,5 +35,7 @@ namespace ViewModel
         [Required]
         public Guid updatedBy { get; set; }
         public IFormFile? image { get; set; }
+        public string? SmartContractAddress { get; set; }
+        public decimal? AssetRate { get; set; }
     }
 }

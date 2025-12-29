@@ -247,7 +247,7 @@ namespace Repository
         public async Task<ResponseViewModel> allWalletHistory(AllWalletHistoryViewModel model)
         {
             var parameters = new DynamicParameters();
-            parameters.Add("@URID", model.URID, DbType.Guid);
+            parameters.Add("@Authlogin", model.Authlogin, DbType.String);
             parameters.Add("@WalletType", model.WalletType, DbType.String);
 
             using var connection = _dapperContext.createConnection();

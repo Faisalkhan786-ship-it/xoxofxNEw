@@ -129,6 +129,10 @@ namespace Repository
             parameters.Add("@name", addSubCategory.name, DbType.String);
             parameters.Add("@createdBy", addSubCategory.createdBy, DbType.Guid);
             parameters.Add("@image", imagePath, DbType.String);
+            parameters.Add("@AssetRate", addSubCategory.AssetRate, DbType.Decimal);
+            parameters.Add("@SmartContractAddress", addSubCategory.SmartContractAddress, DbType.String);
+
+
 
             using (var connection = _dapperContext.createConnection())
             {
@@ -180,6 +184,9 @@ namespace Repository
             parameters.Add("@active", updateSubCategory.active ? 1 : 0, DbType.Boolean);
             parameters.Add("@updatedBy", updateSubCategory.updatedBy, DbType.Guid);
             parameters.Add("@image", imagePath, DbType.String);
+            parameters.Add("@AssetRate", updateSubCategory.AssetRate, DbType.Decimal);
+            parameters.Add("@SmartContractAddress", updateSubCategory.SmartContractAddress, DbType.String);
+
             using (var connection = _dapperContext.createConnection())
             {
                 var result = await connection.QueryFirstOrDefaultAsync<ResponseViewModel>(procedureName, parameters, commandType: CommandType.StoredProcedure);

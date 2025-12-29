@@ -276,12 +276,27 @@ namespace Model
             public string? status { get; set; }
             public bool active { get; set; }
             public string? image { get; set; }
+            public decimal? AssetRate { get; set; }
+            public string? SmartContractAddress { get; set; }
         }
 
 
+        public class SubCategory
+        {
+            public long SubcategoryId { get; set; }
+            public Guid CategoryId { get; set; }
+            public string CategoryName { get; set; }
+            public Guid SubCategoryGUID { get; set; }
+            public string Name { get; set; }
+            public string CreatedDate { get; set; }
+            public string Status { get; set; }
+            public bool Active { get; set; }
+            public string Image { get; set; }
+            public decimal? AssetRate { get; set; }
+            public string? SmartContractAddress { get; set; }
+        }
 
-        public record SubCategory(
-         Int64 subcategoryId, Guid categoryId, string categoryName, Guid subCategoryGUID, string name, string createdDate, string status, bool active, string image);
+        // public record SubCategory( Int64 subcategoryId, Guid categoryId, string categoryName, Guid subCategoryGUID, string name, string createdDate, string status, bool active, string image,decimal? AssetRate,string? SmartContractAddress)
         public record SubCategoryType(
             Int64 subcategoryTypeId, Guid categoryId, string categorName, Guid subcategoryGUID, string subCategoryName, Int64 subcategoryId, Guid subCategoryTypeGUID, string name, string createdDate, string status, bool active);
 
