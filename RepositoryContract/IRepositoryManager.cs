@@ -26,6 +26,7 @@ namespace RepositoryContract
         IFundManagerRepository fundManagerRepository { get; }
         IAdminManageFundRepository adminManageFundRepository { get; }
         ICommunityRepository communityRepository { get; }
+        ITicketRepository ticketRepository { get; }
 
 
     }

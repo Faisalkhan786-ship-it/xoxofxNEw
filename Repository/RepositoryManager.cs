@@ -25,6 +25,7 @@ namespace Repository
         private readonly Lazy<IFundManagerRepository> _fundManagerRepository;
         private readonly Lazy<IAdminManageFundRepository> _adminManageFundRepository;
         private readonly Lazy<IAdminMasterRepository> _adminMasterRepository;
+        private readonly Lazy<ITicketRepository> _ticketRepository;
 
 
 
@@ -51,8 +52,10 @@ namespace Repository
             _geographyRepository = new Lazy<IGeographyRepository>(() => new GeographyRepository(_dapperContext));
             _fundManagerRepository = new Lazy<IFundManagerRepository>(() => new FundManagerRepository(_dapperContext));
             _adminManageFundRepository = new Lazy<IAdminManageFundRepository>(() => new AdminManageFundRepository(_dapperContext));
+            _ticketRepository = new Lazy<ITicketRepository>(() => new TicketRepository(_dapperContext));
 
         }
+        public ITicketRepository ticketRepository => _ticketRepository.Value;
 
 
         public IAdminMasterRepository adminMasterRepository => _adminMasterRepository.Value;

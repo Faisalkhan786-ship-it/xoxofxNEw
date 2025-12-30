@@ -9,6 +9,7 @@ namespace ServiceContract
     public interface IServiceManager
     {
         IAdminMasterService adminMasterService { get; }
+        ITicketService ticketService { get; }
 
         ICategoryContract categoryContract { get; }
         ISubCategoryContract subCategoryContract { get; }

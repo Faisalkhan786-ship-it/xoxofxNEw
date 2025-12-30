@@ -24,9 +24,12 @@ namespace Service
         private readonly Lazy<IAdminManageFundService> _adminManageFundService;
         private readonly Lazy<ICommunityService> _communityContract;
         private readonly Lazy<IAdminMasterService> _adminMasterService;
+        private readonly Lazy<ITicketService> _ticketService;
 
         public ServiceManager(IRepositoryManager repositoryManager)
         {
+            _ticketService = new Lazy<ITicketService>(() => new TicketService(repositoryManager));
+
             _communityContract = new Lazy<ICommunityService>(() => new CommunityService(repositoryManager));
             _categoryContract = new Lazy<ICategoryContract>(() => new CategoryService(repositoryManager));
             _subCategoryContract = new Lazy<ISubCategoryContract>(() => new SubCategoryService(repositoryManager));
@@ -45,6 +48,8 @@ namespace Service
             _adminMasterService = new Lazy<IAdminMasterService>(() => new AdminMasterService(repositoryManager));
 
         }
+        public ITicketService ticketService => _ticketService.Value;
+    
         public IAdminMasterService adminMasterService => _adminMasterService.Value;
         public IAuthenticationService authenticationContract => _authenticationContract.Value;
         public ICategoryContract categoryContract => _categoryContract.Value;
