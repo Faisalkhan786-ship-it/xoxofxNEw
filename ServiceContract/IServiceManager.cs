@@ -10,6 +10,7 @@ namespace ServiceContract
     {
         IAdminMasterService adminMasterService { get; }
         ITicketService ticketService { get; }
+        IWalletReportService walletReportService { get; }
 
         ICategoryContract categoryContract { get; }
         ISubCategoryContract subCategoryContract { get; }

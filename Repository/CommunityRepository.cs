@@ -85,78 +85,122 @@ namespace Repository
                 };
             }
         }
-        public async Task<ResponseViewModel> getPersonalTeamList(PersonalTeamReportViewModel personalTeamReportViewModel)
+        public async Task<ResponseViewModel> getPersonalTeamList(PersonalTeamReportViewModel model)
         {
-            var procedureName = Constant.getPersonalTeamList_Search;
-            var parameters = new DynamicParameters();
-            parameters.Add("@AuthLogin", personalTeamReportViewModel.AuthLogin, DbType.String);
-            parameters.Add("@uRank", personalTeamReportViewModel.uRank, DbType.String);
-            parameters.Add("@lvl", personalTeamReportViewModel.lvl, DbType.String);
-            parameters.Add("@statusid", personalTeamReportViewModel.statusid, DbType.String);
-
-            using (var connection = _dapperContext.createConnection())
+            try
             {
-                var result = await connection.QueryAsync<PersonalTeamResultModel>(
-                    procedureName,
-                    parameters,
-                    commandType: CommandType.StoredProcedure
-                );
+                var parameters = new DynamicParameters();
+                parameters.Add("@AuthLogin", model.AuthLogin);
+                parameters.Add("@lvl", model.lvl ?? "");
+                parameters.Add("@statusid", model.statusid ?? "");
 
-                ResponseViewModel returnData;
-
-                if (result != null && result.Any())
+                using (var connection = _dapperContext.createConnection())
                 {
-                    var validation = result.FirstOrDefault();
+                    var result = (await connection.QueryAsync<PersonalTeamResultModel>(
+                        Constant.getPersonalTeamList_Search,
+                        parameters,
+                        commandType: CommandType.StoredProcedure
+                    )).ToList();
 
-                    if (validation != null)
+                    if (!result.Any())
                     {
-                        if (validation.statusCode == 1)
-                        {
-                            returnData = new ResponseViewModel
-                            {
-                                statusCode = (int)HttpStatusCode.OK,
-                                message = "Data found",
-                                data = result
-                            };
-                        }
-                        else if (validation.statusCode == 0)
-                        {
-                            returnData = new ResponseViewModel
-                            {
-                                statusCode = (int)HttpStatusCode.NotFound,
-                                message = "Wrong ID"
-                            };
-                        }
-                        else
-                        {
-                            returnData = new ResponseViewModel
-                            {
-                                statusCode = (int)HttpStatusCode.BadRequest,
-                                message = "Unexpected error"
-                            };
-                        }
-                    }
-                    else
-                    {
-                        returnData = new ResponseViewModel
+                        return new ResponseViewModel
                         {
                             statusCode = (int)HttpStatusCode.NotFound,
                             message = "Data not found"
                         };
                     }
-                }
-                else
-                {
-                    returnData = new ResponseViewModel
+
+                    return new ResponseViewModel
                     {
-                        statusCode = (int)HttpStatusCode.NotFound,
-                        message = "Data not found"
+                        statusCode = (int)HttpStatusCode.OK,
+                        message = "Data found",
+                        data = result
                     };
                 }
-
-                return returnData;
+            }
+            catch (Exception ex)
+            {
+                return new ResponseViewModel
+                {
+                    statusCode = (int)HttpStatusCode.InternalServerError,
+                    message = ex.Message
+                };
             }
         }
+
+        //public async Task<ResponseViewModel> getPersonalTeamList(PersonalTeamReportViewModel personalTeamReportViewModel)
+        //{
+        //    var procedureName = Constant.getPersonalTeamList_Search;
+        //    var parameters = new DynamicParameters();
+        //    parameters.Add("@AuthLogin", personalTeamReportViewModel.AuthLogin, DbType.String);
+        //    parameters.Add("@uRank", personalTeamReportViewModel.uRank, DbType.String);
+        //    parameters.Add("@lvl", personalTeamReportViewModel.lvl, DbType.String);
+        //    parameters.Add("@statusid", personalTeamReportViewModel.statusid, DbType.String);
+
+        //    using (var connection = _dapperContext.createConnection())
+        //    {
+        //        var result = await connection.QueryAsync<PersonalTeamResultModel>(
+        //            procedureName,
+        //            parameters,
+        //            commandType: CommandType.StoredProcedure
+        //        );
+
+        //        ResponseViewModel returnData;
+
+        //        if (result != null && result.Any())
+        //        {
+        //            var validation = result.FirstOrDefault();
+
+        //            if (validation != null)
+        //            {
+        //                if (validation.statusCode == 1)
+        //                {
+        //                    returnData = new ResponseViewModel
+        //                    {
+        //                        statusCode = (int)HttpStatusCode.OK,
+        //                        message = "Data found",
+        //                        data = result
+        //                    };
+        //                }
+        //                else if (validation.statusCode == 0)
+        //                {
+        //                    returnData = new ResponseViewModel
+        //                    {
+        //                        statusCode = (int)HttpStatusCode.NotFound,
+        //                        message = "Wrong ID"
+        //                    };
+        //                }
+        //                else
+        //                {
+        //                    returnData = new ResponseViewModel
+        //                    {
+        //                        statusCode = (int)HttpStatusCode.BadRequest,
+        //                        message = "Unexpected error"
+        //                    };
+        //                }
+        //            }
+        //            else
+        //            {
+        //                returnData = new ResponseViewModel
+        //                {
+        //                    statusCode = (int)HttpStatusCode.NotFound,
+        //                    message = "Data not found"
+        //                };
+        //            }
+        //        }
+        //        else
+        //        {
+        //            returnData = new ResponseViewModel
+        //            {
+        //                statusCode = (int)HttpStatusCode.NotFound,
+        //                message = "Data not found"
+        //            };
+        //        }
+
+        //        return returnData;
+        //    }
+        //}
         public class PersonalTeamResultModel
         {
             public int Id { get; set; }

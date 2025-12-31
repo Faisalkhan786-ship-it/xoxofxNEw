@@ -25,7 +25,7 @@ namespace ViewModel
     public class PersonalTeamReportViewModel
     {
         public string AuthLogin { get; set; }
-        public string? uRank { get; set; }
+        //public string? uRank { get; set; }
         public string? lvl { get; set; }
         public string? statusid { get; set; }
     }

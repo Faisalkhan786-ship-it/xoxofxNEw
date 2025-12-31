@@ -26,6 +26,7 @@ namespace Repository
         private readonly Lazy<IAdminManageFundRepository> _adminManageFundRepository;
         private readonly Lazy<IAdminMasterRepository> _adminMasterRepository;
         private readonly Lazy<ITicketRepository> _ticketRepository;
+        private readonly Lazy<IWalletReportRepository> _walletReportRepository;
 
 
 
@@ -38,6 +39,7 @@ namespace Repository
 
             _authenticationRepository = new Lazy<IAuthenticationRepository>(() => new AuthenticationRepository(_dapperContext, _emailService));//Add Email section
             _communityRepository = new Lazy<ICommunityRepository>(() => new CommunityRepository(_dapperContext));
+            _walletReportRepository = new Lazy<IWalletReportRepository>(() => new WalletReportRepository(_dapperContext, _emailService));
 
             _categoryRepository = new Lazy<ICategoryRepository>(() => new CategoryRepository(_dapperContext));
             _subCategoryRepository = new Lazy<ISubCategoryRepository>(() => new SubCategoryRepository(_dapperContext));
@@ -57,6 +59,7 @@ namespace Repository
         }
         public ITicketRepository ticketRepository => _ticketRepository.Value;
 
+        public IWalletReportRepository walletReportRepository => _walletReportRepository.Value;
 
         public IAdminMasterRepository adminMasterRepository => _adminMasterRepository.Value;
 
