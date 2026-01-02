@@ -842,6 +842,162 @@ namespace Repository
                 }
             }
         }
+
+        //public async Task<ResponseViewModel> addRechargeTransaction(addRechargeTransactionViewModel addRechargeTransactionViewModel)
+        //{
+        //    var procedureName = Constant.SpAddRechargeTransaction;
+        //    var parameters = new DynamicParameters();
+        //    parameters.Add("@URID", addRechargeTransactionViewModel.URID, DbType.Guid);
+        //    parameters.Add("@Rkprice", addRechargeTransactionViewModel.Rkprice, DbType.Decimal);
+        //    parameters.Add("@USDTValue", addRechargeTransactionViewModel.USDTValue, DbType.String);
+        //    parameters.Add("@createdBy", addRechargeTransactionViewModel.createdBy, DbType.Guid);
+        //    parameters.Add("@ByURID", addRechargeTransactionViewModel.ByURID, DbType.Guid);
+
+        //    using (var connection = _dapperContext.createConnection())
+        //    {
+        //        var result = await connection.QueryFirstOrDefaultAsync<ResponseViewModel>(
+        //          procedureName, parameters, commandType: CommandType.StoredProcedure);
+
+        //        if (result != null)
+        //        {
+        //            if (result.statusCode == 1)
+        //            {
+        //                result.statusCode = (int)HttpStatusCode.OK;
+        //                result.message = result.message;
+        //            }
+        //            else if (result.statusCode == 0 || result.statusCode == 2)
+        //            {
+        //                result.statusCode = (int)HttpStatusCode.ExpectationFailed;
+        //                result.message = result.message;
+        //            }
+        //            return result;
+        //        }
+        //        else
+        //        {
+        //            return new ResponseViewModel
+        //            {
+        //                statusCode = (int)HttpStatusCode.InternalServerError,
+        //                message = "No response from stored procedure"
+        //            };
+        //        }
+
+        //    }
+        //}
+        public async Task<ResponseViewModel> addRechargeTransaction(
+            addRechargeTransactionViewModel model)
+        {
+            var procedureName = Constant.SpAddRechargeTransaction;
+
+            var parameters = new DynamicParameters();
+            parameters.Add("@URID", model.URID, DbType.Guid);
+            parameters.Add("@Rkprice", model.Rkprice, DbType.Decimal);
+            parameters.Add("@USDTValue", model.USDTValue, DbType.Int32); // 🔥 FIXED
+            parameters.Add("@createdBy", model.createdBy, DbType.Guid);
+            parameters.Add("@ByURID", model.ByURID, DbType.Guid);
+
+            using (var connection = _dapperContext.createConnection())
+            {
+                var result = await connection.QueryFirstOrDefaultAsync<ResponseViewModel>(
+                    procedureName,
+                    parameters,
+                    commandType: CommandType.StoredProcedure
+                );
+
+                if (result == null)
+                {
+                    return new ResponseViewModel
+                    {
+                        statusCode = (int)HttpStatusCode.InternalServerError,
+                        message = "No response from stored procedure"
+                    };
+                }
+
+                // Status mapping (clean & correct)
+                result.statusCode = result.statusCode == 1
+                    ? (int)HttpStatusCode.OK
+                    : (int)HttpStatusCode.ExpectationFailed;
+
+                return result;
+            }
+        }
+        public async Task<ResponseViewModel> getspBindPackageUserSide()
+        {
+            var reportProc = Constant.bindPackageUserSide;
+
+            using (var connection = _dapperContext.createConnection())
+            {
+                try
+                {
+                    var result = (await connection.QueryAsync(
+                        reportProc,
+                        commandType: CommandType.StoredProcedure
+                    )).ToList();
+
+                    if (result == null || !result.Any())
+                    {
+                        return new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.NotFound,
+                            message = "No package found",
+                            data = null
+                        };
+                    }
+
+                    return new ResponseViewModel
+                    {
+                        statusCode = (int)HttpStatusCode.OK,
+                        message = "Data fetched successfully",
+                        data = result
+                    };
+                }
+                catch (Exception ex)
+                {
+                    return new ResponseViewModel
+                    {
+                        statusCode = (int)HttpStatusCode.InternalServerError,
+                        message = ex.Message,
+                        data = null
+                    };
+                }
+            }
+        }
+
+        //public async Task<ResponseViewModel> getspBindPackageUserSide()
+        //{
+        //    var reportProc = Constant.bindPackageUserSide;
+        //    var parameters = new DynamicParameters();
+
+        //    using (var connection = _dapperContext.createConnection())
+        //    {
+        //        try
+        //        {
+        //            var reportResult = await connection.QueryAsync(reportProc, parameters, commandType: CommandType.StoredProcedure);
+        //            var depositReportList = reportResult.ToList();
+        //            bool hasReport = depositReportList != null && depositReportList.Any();
+        //            var combinedData = new
+        //            {
+        //                UserAutoDeposit = depositReportList,
+        //            };
+
+        //            return new ResponseViewModel
+        //            {
+        //                statusCode = (int)HttpStatusCode.OK,
+        //                message = "Data fetched successfully",
+        //                data = combinedData
+        //            };
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            return new ResponseViewModel
+        //            {
+        //                statusCode = (int)HttpStatusCode.InternalServerError,
+        //                message = "An error occurred while fetching data: " + ex.Message,
+        //                data = null
+        //            };
+        //        }
+        //    }
+        //}
+
     }
 }
 

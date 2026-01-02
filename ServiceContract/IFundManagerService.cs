@@ -31,6 +31,8 @@ namespace ServiceContract
         public Task<ResponseViewModel> addAutoDeposit(TokenDepositsViewModel tokenDepositsViewModel);
 
         public Task<ResponseViewModel> upRentWithdReqStatus_Admin(AppRejFundViewModel appRejFundViewModel);
+        public Task<ResponseViewModel> addRechargeTransaction(addRechargeTransactionViewModel addRechargeTransactionViewModel);
+        public Task<ResponseViewModel> getspBindPackageUserSide();
 
     }
 }

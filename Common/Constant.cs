@@ -104,6 +104,7 @@ namespace Common
 
 
 
+        public static string bindPackageUserSide = "SPBindPackageUserSide";
         public static string upIncWithdReqStatus_Admin = "SpUpIncWithdReqStatus_Admin";
         public static string upRentWithdReqStatus_Admin = "SpUpRentWithdReqStatus_Admin";
         public static string getTokenDepositsByURID = "SpGetTokenDepositsByURID";
@@ -123,6 +124,7 @@ namespace Common
         public static string updateAdminProfile = "SpUpdateAdminProfile";
 
         public static string addAdminUser = "SpAddAdminUser";
+        public static string SpAddRechargeTransaction = "SpAddRechargeTransaction";
         public static string bulkRegistrationAdmin = "SpBulkRegistrationAdmin";
         public static string addFundRequest = "SpAddFundRequest";
         public static string addRequestUserwithdrawal = "SpAddRequestUserwithdrawal";

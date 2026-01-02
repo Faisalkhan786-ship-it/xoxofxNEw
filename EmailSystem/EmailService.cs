@@ -120,9 +120,9 @@ namespace EmailSystem
             try
             {
                 string subject = "One-Time Passcode (OTP)";
-                string name = "Dear Rentelligence User";
+                string name = "Dear Sentrix Global";
 
-                string logoUrl = "https://imagedelivery.net/nq9qT5FHZv9Sg48UUnD1-A/893ab68a-6977-4ac1-a97e-9c68846cf400/public";
+                string logoUrl = "https://imagedelivery.net/nq9qT5FHZv9Sg48UUnD1-A/5065e357-641d-409a-e8c2-75f3b888d600/public";
 
                 string body = $@"
 <div style='max-width:600px;margin:auto;font-family:Arial,sans-serif;
@@ -214,7 +214,7 @@ namespace EmailSystem
             try
             {
                 string subject = $"One-Time Passcode (OTP) — UK Time: {ukTime}";
-                string logoUrl = "https://imagedelivery.net/nq9qT5FHZv9Sg48UUnD1-A/893ab68a-6977-4ac1-a97e-9c68846cf400/public";
+                string logoUrl = "https://imagedelivery.net/nq9qT5FHZv9Sg48UUnD1-A/5065e357-641d-409a-e8c2-75f3b888d600/public";
 
                 string body = $@"
 <div style='max-width:600px;margin:auto;font-family:Arial,sans-serif;
@@ -328,7 +328,7 @@ namespace EmailSystem
                 html.Append("<div style='background-color:#ffffff;padding:25px 20px;text-align:center;'>");
 
                 // Logo
-                html.Append("<img src='https://imagedelivery.net/nq9qT5FHZv9Sg48UUnD1-A/893ab68a-6977-4ac1-a97e-9c68846cf400/public' alt='Rentelligence Logo' style='height:48px;margin-bottom:15px;' />");
+                html.Append("<img src='https://imagedelivery.net/nq9qT5FHZv9Sg48UUnD1-A/5065e357-641d-409a-e8c2-75f3b888d600/public' alt='Rentelligence Logo' style='height:48px;margin-bottom:15px;' />");
 
                 html.Append($"<h2 style='color:#2c3e50;margin-bottom:8px;font-weight:600;'>Dear {userName},</h2>");
                 html.Append($"<p style='color:#444;font-size:15px;margin-top:0;'>{messageIntro}</p>");
@@ -411,7 +411,7 @@ namespace EmailSystem
             try
             {
                 string subject = "One-Time Passcode (OTP)";
-                string logoUrl = "https://imagedelivery.net/nq9qT5FHZv9Sg48UUnD1-A/893ab68a-6977-4ac1-a97e-9c68846cf400/public";
+                string logoUrl = "https://imagedelivery.net/nq9qT5FHZv9Sg48UUnD1-A/5065e357-641d-409a-e8c2-75f3b888d600/public";
 
                 string body = $@"
 <div style='max-width:600px;margin:auto;font-family:Arial,sans-serif;
@@ -505,7 +505,7 @@ namespace EmailSystem
             try
             {
                 string subject = "Welcome to Rentelligence, " + Name;
-                string logoUrl = "https://imagedelivery.net/nq9qT5FHZv9Sg48UUnD1-A/893ab68a-6977-4ac1-a97e-9c68846cf400/public";
+                string logoUrl = "https://imagedelivery.net/nq9qT5FHZv9Sg48UUnD1-A/5065e357-641d-409a-e8c2-75f3b888d600/public";
 
                 string body = $@"
 <!DOCTYPE html>
@@ -556,7 +556,7 @@ namespace EmailSystem
 
                         <!-- LOGO -->
                         <div style='text-align:center; margin-bottom:20px;'>
-                            <img src='https://imagedelivery.net/nq9qT5FHZv9Sg48UUnD1-A/893ab68a-6977-4ac1-a97e-9c68846cf400/public' 
+                            <img src='https://imagedelivery.net/nq9qT5FHZv9Sg48UUnD1-A/5065e357-641d-409a-e8c2-75f3b888d600/public' 
                                  style='width:140px; height:auto; border-radius:8px; border:1px solid #eee; padding:6px;'>
                         </div>
 

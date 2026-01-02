@@ -148,5 +148,27 @@ namespace Rentelligence.AI.MarketPlace.Controllers
             var getUserWalletBalance = await _serviceManager.fundManagerService.upRentWithdReqStatus_Admin(appRejFundViewModel);
             return Ok(getUserWalletBalance);
         }
+
+        [HttpPost("addRechargeTransaction")]
+        public async Task<IActionResult> addRechargeTransaction(addRechargeTransactionViewModel addRechargeTransactionViewModel)
+        {
+            _logger.logInfo($" {LoggingEvents.updateItem} addRechargeTransaction");
+            var returnData = await _serviceManager.fundManagerService.addRechargeTransaction(addRechargeTransactionViewModel);
+            return Ok(returnData);
+        }
+        //   public async Task<IActionResult> getUserAutoDeposit(Guid URID)
+        //{
+        //    _logger.logInfo($" {LoggingEvents.getByIdItem} getUserAutoDeposit");
+        //    var getUserAutoDeposit = await _serviceManager.fundManagerService.getUserAutoDeposit(URID);
+        //    return Ok(getUserAutoDeposit);
+        //}
+        [HttpPost("getUserPackage")]
+
+        public async Task<IActionResult> getUserPackage()
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} getspBindPackageUserSide");
+            var getspBindPackageUserSide = await _serviceManager.fundManagerService.getspBindPackageUserSide();
+            return Ok(getspBindPackageUserSide);
+        }
     }
 }

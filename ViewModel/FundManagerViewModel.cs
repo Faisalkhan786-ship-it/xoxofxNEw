@@ -82,5 +82,13 @@ namespace ViewModel
         public string? FromDate { get; set; }
         public string? ToDate { get; set; }
     }
-
+    public class addRechargeTransactionViewModel
+    {
+        public Guid URID { get; set; }
+        public Guid createdBy { get; set; }
+        public Guid ByURID { get; set; }
+        public int USDTValue { get; set; }
+        public decimal Rkprice { get; set; }
+     
+    }
 }

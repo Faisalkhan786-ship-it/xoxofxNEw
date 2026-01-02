@@ -110,6 +110,16 @@ namespace Service
             var upIncWithdReqStatus_Admin = await _repositoryManager.fundManagerRepository.upRentWithdReqStatus_Admin(appRejFundViewModel);
             return upIncWithdReqStatus_Admin;
         }
+        public async Task<ResponseViewModel> addRechargeTransaction(addRechargeTransactionViewModel addRechargeTransactionViewModel)
+        {
+            var upIncWithdReqStatus_Admin = await _repositoryManager.fundManagerRepository.addRechargeTransaction(addRechargeTransactionViewModel);
+            return upIncWithdReqStatus_Admin;
+        }
+        public async Task<ResponseViewModel> getspBindPackageUserSide()
+        {
+            var getUserAutoDeposit = await _repositoryManager.fundManagerRepository.getspBindPackageUserSide();
+            return getUserAutoDeposit;
+        }
     }
 }
 
