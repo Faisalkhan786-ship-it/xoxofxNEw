@@ -29,7 +29,7 @@ namespace EmailSystem
                 ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
                 MailMessage Email = new MailMessage();
                 Email.To.Add(EmailID);
-                Email.From = new MailAddress("noreply@smtpmails.online", "noreply@rentelligence.ai");
+                Email.From = new MailAddress("noreply@smtpmails.online", "noreply@santrixglobal.com");
                 Email.Subject = subject;
                 Email.Body = body;
                 Email.IsBodyHtml = IsHTML;
@@ -115,12 +115,12 @@ namespace EmailSystem
         }
 
         //-----------------Send OTP User Registration
-        public void SendOtpEmailForUser(string otp, string emailId, int actionType = 1, string purpose = "Rentelligence")
+        public void SendOtpEmailForUser(string otp, string emailId, int actionType = 1, string purpose = "SantrixGlobal")
         {
             try
             {
                 string subject = "One-Time Passcode (OTP)";
-                string name = "Dear Sentrix Global";
+                string name = "Dear User";
 
                 string logoUrl = "https://imagedelivery.net/nq9qT5FHZv9Sg48UUnD1-A/5065e357-641d-409a-e8c2-75f3b888d600/public";
 
@@ -137,7 +137,8 @@ namespace EmailSystem
         <img src='{logoUrl}' alt='Rentelligence Logo' style='height:38px;margin-bottom:15px;' />
         <h2 style='color:#2c3e50;margin-bottom:10px;font-weight:600;'> {name},</h2>
 
-        <p style='color:#444;font-size:15px;margin:0;'>Thank you for registering with <strong>Rentelligence</strong>.</p>
+        <p style='color:#444;font-size:15px;margin:0;'>Thank you for registering with <strong>SantrixGlobal
+</strong>.</p>
         <p style='color:#444;font-size:15px;margin-top:10px;'>To complete your email verification, please use the One-Time Passcode (OTP) provided below:</p>
 
         <div style='margin:25px 0;'>
@@ -155,7 +156,7 @@ namespace EmailSystem
     </div>
 
     <div style='background-color:#fafafa;padding:16px 20px;text-align:center;font-size:12px;color:#999;'>
-        <p style='margin:4px 0;'>Thank you,<br/>The Rentelligence Team</p>
+        <p style='margin:4px 0;'>Thank you,<br/>The SantrixGlobal Team</p>
 
         <div style='margin-top:12px; text-align:center;'>
             <a href='https://www.instagram.com/rentelligence.ai?igsh=bmdxcXJqaDd2empk' target='_blank' style='margin: 0 8px; text-decoration:none;'>
@@ -229,7 +230,7 @@ namespace EmailSystem
         <img src='{logoUrl}' alt='Rentelligence Logo' style='height:38px;margin-bottom:15px;' />
         <h2 style='color:#2c3e50;margin-bottom:10px;font-weight:600;'>Dear {name},</h2>
 
-        <p style='color:#444;font-size:15px;margin:0;'>Thank you for choosing <strong>Rentelligence</strong>.</p>
+        <p style='color:#444;font-size:15px;margin:0;'>Thank you for choosing <strong>SantrixGlobal</strong>.</p>
         <p style='color:#444;font-size:15px;margin-top:10px;'>To proceed with your withdrawal request, please use the OTP provided below:</p>
 
         <div style='margin:25px 0;'>
@@ -259,7 +260,7 @@ namespace EmailSystem
     </div>
 
     <div style='background-color:#fafafa;padding:16px 20px;text-align:center;font-size:12px;color:#999;'>
-        <p style='margin:4px 0;'>Thank you,<br/>The Rentelligence Team</p>
+        <p style='margin:4px 0;'>Thank you,<br/>The SantrixGlobal Team</p>
               <div style='margin-top:12px; text-align:center;'>
                    <a href='https://www.instagram.com/rentelligence.ai?igsh=bmdxcXJqaDd2empk' target='_blank' style='margin: 0 8px; text-decoration:none;'>
                        <img src='https://cdn-icons-png.flaticon.com/24/174/174855.png' alt='Instagram' style='width:24px;height:24px;' />
@@ -308,12 +309,12 @@ namespace EmailSystem
         {
             try
             {
-                string userName = "Rentelligence User";
+                string userName = "SantrixGlobal User";
                 string messageIntro = "As requested, here are your login credentials:";
                 string emailTo = emailId?.Trim();
 
                 // Subject
-                string subject = "Your Rentelligence Login Credentials";
+                string subject = "Your SantrixGlobal Login Credentials";
 
                 // HTML Body
                 StringBuilder html = new StringBuilder();
@@ -406,7 +407,7 @@ namespace EmailSystem
         }
 
         //----------------Send OTP Fund Request
-        public void SendOtpEmailForRequestFund(string otp, string emailId, string name, int actionType = 1, string purpose = "Rentelligence")
+        public void SendOtpEmailForRequestFund(string otp, string emailId, string name, int actionType = 1, string purpose = "SantrixGlobal")
         {
             try
             {
@@ -443,7 +444,7 @@ namespace EmailSystem
     </div>
 
     <div style='background-color:#fafafa;padding:16px 20px;text-align:center;font-size:12px;color:#999;'>
-        <p style='margin:4px 0;'>Thank you,<br/>The Rentelligence Team</p>
+        <p style='margin:4px 0;'>Thank you,<br/>The SantrixGlobal Team</p>
 
         <div style='margin-top:12px; text-align:center;'>
             <a href='https://www.instagram.com/rentelligence.ai?igsh=bmdxcXJqaDd2empk' target='_blank' style='margin: 0 8px; text-decoration:none;'>
@@ -504,7 +505,7 @@ namespace EmailSystem
 
             try
             {
-                string subject = "Welcome to Rentelligence, " + Name;
+                string subject = "Welcome to SantrixGlobal, " + Name;
                 string logoUrl = "https://imagedelivery.net/nq9qT5FHZv9Sg48UUnD1-A/5065e357-641d-409a-e8c2-75f3b888d600/public";
 
                 string body = $@"
@@ -562,7 +563,7 @@ namespace EmailSystem
 
                         <!-- TITLE -->
                         <h2 style='text-align:center; color:#333; margin:0 0 8px;'>
-                            🚀 Welcome to Rentelligence, {Name}!
+                            🚀 Welcome to SantrixGlobal, {Name}!
                         </h2>
 
                         <p style='text-align:center; color:#666; margin-top:0;'>
@@ -572,7 +573,7 @@ namespace EmailSystem
                         <!-- CONTENT -->
                         <p style='color:#444; line-height:1.6; text-align:justify;'>
                             The future isn’t coming — it’s already here, and it’s <b>Agentic</b>. 
-                            With Rentelligence, you now have access to a powerful ecosystem where AI agents work for you, 
+                            With SantrixGlobal, you now have access to a powerful ecosystem where AI agents work for you, 
                             generate consistent rewards, and free your time for what truly matters.
                         </p>
 
@@ -614,7 +615,7 @@ namespace EmailSystem
                         </div>
 
                         <p style='text-align:center; color:#bbb; font-size:12px; margin-top:15px;'>
-                            © {DateTime.Now.Year} Rentelligence. All rights reserved.
+                            © {DateTime.Now.Year} SantrixGlobal. All rights reserved.
                         </p>
 
                     </td>
@@ -656,7 +657,7 @@ namespace EmailSystem
         }
 
         //Event Email User
-        public void SendOtpEmailForEventUser(string otp, string emailId, int actionType = 1, string purpose = "Rentelligence")
+        public void SendOtpEmailForEventUser(string otp, string emailId, int actionType = 1, string purpose = "SantrixGlobal")
         {
             try
             {
@@ -692,7 +693,7 @@ background:#ffffff;border-radius:8px;border:3px solid #003399;'>   <!-- BLUE BOL
 
          <p style='margin-top:10px;'>
       If you have any questions or need further assistance, please do not hesitate to contact us at 
-      <a href='mailto:support@rentelligence.ai' style='color:#0047d1;text-decoration:none;font-weight:bold;'>
+      <a href='mailto:support@santrixglobal.ai' style='color:#0047d1;text-decoration:none;font-weight:bold;'>
           support@rentelligence.ai
       </a>.
       We are here to support you and ensure your experience with us is exceptional.

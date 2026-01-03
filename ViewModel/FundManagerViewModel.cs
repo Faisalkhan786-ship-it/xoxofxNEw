@@ -14,6 +14,7 @@ namespace ViewModel
         public string? RefrenceNo { get; set; }
         public string? DepositDetails { get; set; }
         public string? Remark { get; set; }
+        public int RequestType { get; set; }
     }
     public class WithDrawalRequestViewModel
     {

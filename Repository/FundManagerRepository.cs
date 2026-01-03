@@ -32,6 +32,7 @@ namespace Repository
             parameters.Add("@DepositDetails", fundManagerViewModel.DepositDetails, DbType.String);
             parameters.Add("@RefrenceNo", fundManagerViewModel.RefrenceNo, DbType.String);
             parameters.Add("@Remark", fundManagerViewModel.Remark, DbType.String);
+            parameters.Add("@RequestType", fundManagerViewModel.RequestType, DbType.Int32);
 
             using (var connection = _dapperContext.createConnection())
             {
