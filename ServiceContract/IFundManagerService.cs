@@ -33,6 +33,7 @@ namespace ServiceContract
         public Task<ResponseViewModel> upRentWithdReqStatus_Admin(AppRejFundViewModel appRejFundViewModel);
         public Task<ResponseViewModel> addRechargeTransaction(addRechargeTransactionViewModel addRechargeTransactionViewModel);
         public Task<ResponseViewModel> getspBindPackageUserSide();
+        public Task<ResponseViewModel> getUserDormantReportDetails(Guid URID);
 
     }
 }

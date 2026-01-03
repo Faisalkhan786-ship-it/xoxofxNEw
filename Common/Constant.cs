@@ -79,6 +79,7 @@ namespace Common
         public static string updateUserProfile = "SpUpdateUserProfile";
         public static string fundType = "SpFundType";
         public static string getFundRequestReport = "SpGetFundRequestReport";
+        public static string getDormantReport = "SpGetDormantReport";
         public static string depositWalletBal = "SpDepositWalletBal";
         public static string fundTypeWiseCrDr = "spFundTypeWiseCrDr";
         public static string spPayModeMaster = "SpPayModeMaster";

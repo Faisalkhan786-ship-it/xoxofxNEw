@@ -170,5 +170,12 @@ namespace Rentelligence.AI.MarketPlace.Controllers
             var getspBindPackageUserSide = await _serviceManager.fundManagerService.getspBindPackageUserSide();
             return Ok(getspBindPackageUserSide);
         }
+        [HttpGet("getUserDormantReportDetails")]
+        public async Task<IActionResult> getUserDormantReportDetails(Guid URID)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} adminLogin");
+            var getUserDormantReportDetails = await _serviceManager.fundManagerService.getUserDormantReportDetails(URID);
+            return Ok(getUserDormantReportDetails);
+        }
     }
 }

@@ -120,6 +120,11 @@ namespace Service
             var getUserAutoDeposit = await _repositoryManager.fundManagerRepository.getspBindPackageUserSide();
             return getUserAutoDeposit;
         }
+        public async Task<ResponseViewModel> getUserDormantReportDetails(Guid URID)
+        {
+            var getUserDormantReportDetails = await _repositoryManager.fundManagerRepository.getUserDormantReportDetails(URID);
+            return getUserDormantReportDetails;
+        }
     }
 }
 

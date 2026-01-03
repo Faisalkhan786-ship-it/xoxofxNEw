@@ -998,6 +998,81 @@ namespace Repository
         //        }
         //    }
         //}
+        public async Task<ResponseViewModel> getUserDormantReportDetails(Guid URID)
+        {
+            var procedureName1 = Constant.getDormantReport;
+            var procedureName2 = Constant.spGetUser_WalletBalance;
+
+            var parameters = new DynamicParameters();
+            parameters.Add("@URID", URID, DbType.Guid);
+
+            using (var connection = _dapperContext.createConnection())
+            {
+                var fundResult = await connection.QueryAsync<dynamic>(
+                    procedureName1, parameters, commandType: CommandType.StoredProcedure);
+
+                var walletResult = await connection.QueryAsync<WalletBalanceModel>(
+                    procedureName2, parameters, commandType: CommandType.StoredProcedure);
+
+                var fundList = fundResult?.ToList();
+                var walletList = walletResult?.ToList();
+
+                ResponseViewModel returnData;
+
+                if (fundList != null && fundList.Any())
+                {
+                    var validation = fundList.First();
+
+                    if (validation.statusCode == 1)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.OK,
+                            message = validation.message,
+                            data = new
+                            {
+                                Dormant = fundList,
+                                WalletBalance = walletList
+                            }
+                        };
+                    }
+                    else if (validation.statusCode == 0)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.Conflict,
+                            message = validation.message
+                        };
+                    }
+                    else if (validation.statusCode == -1)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.Conflict,
+                            message = validation.message
+                        };
+                    }
+                    else
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.BadRequest,
+                            message = validation.message
+                        };
+                    }
+                }
+                else
+                {
+                    returnData = new ResponseViewModel
+                    {
+                        statusCode = (int)HttpStatusCode.NotFound,
+                        message = "Something went wrong with server error."
+                    };
+                }
+
+                return returnData;
+            }
+        }
 
     }
 }
