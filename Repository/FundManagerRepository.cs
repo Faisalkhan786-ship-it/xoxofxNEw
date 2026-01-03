@@ -1015,6 +1015,8 @@ namespace Repository
                     procedureName2, parameters, commandType: CommandType.StoredProcedure);
 
                 var fundList = fundResult?.ToList();
+
+
                 var walletList = walletResult?.ToList();
 
                 ResponseViewModel returnData;
@@ -1073,7 +1075,78 @@ namespace Repository
                 return returnData;
             }
         }
+        public async Task<ResponseViewModel> getRechargeTransaction(Guid URID)
+        {
+            var procedureName1 = Constant.getRechargeTransaction;
 
+            var parameters = new DynamicParameters();
+            parameters.Add("@URID", URID, DbType.Guid);
+
+            using (var connection = _dapperContext.createConnection())
+            {
+                var fundResult = await connection.QueryAsync<dynamic>(
+                    procedureName1, parameters, commandType: CommandType.StoredProcedure);
+
+
+                var fundList = fundResult?.ToList();
+
+
+
+                ResponseViewModel returnData;
+
+                if (fundList != null && fundList.Any())
+                {
+                    var validation = fundList.First();
+
+                    if (validation.statusCode == 1)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.OK,
+                            message = validation.message,
+                            data = new
+                            {
+                                recharge = fundList,
+                            }
+                        };
+                    }
+                    else if (validation.statusCode == 0)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.Conflict,
+                            message = validation.message
+                        };
+                    }
+                    else if (validation.statusCode == -1)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.Conflict,
+                            message = validation.message
+                        };
+                    }
+                    else
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.BadRequest,
+                            message = validation.message
+                        };
+                    }
+                }
+                else
+                {
+                    returnData = new ResponseViewModel
+                    {
+                        statusCode = (int)HttpStatusCode.NotFound,
+                        message = "Something went wrong with server error."
+                    };
+                }
+
+                return returnData;
+            }
+        }
     }
 }
 

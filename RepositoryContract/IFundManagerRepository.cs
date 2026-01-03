@@ -31,6 +31,7 @@ namespace RepositoryContract
         public Task<ResponseViewModel> addRechargeTransaction(addRechargeTransactionViewModel addRechargeTransactionViewModel);
         public Task<ResponseViewModel> getspBindPackageUserSide();
         public Task<ResponseViewModel> getUserDormantReportDetails(Guid URID);
+        public Task<ResponseViewModel> getRechargeTransaction(Guid URID);
 
     }
 }

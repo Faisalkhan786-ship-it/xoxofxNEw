@@ -177,5 +177,12 @@ namespace Rentelligence.AI.MarketPlace.Controllers
             var getUserDormantReportDetails = await _serviceManager.fundManagerService.getUserDormantReportDetails(URID);
             return Ok(getUserDormantReportDetails);
         }
+        [HttpGet("getRechargeTransaction")]
+        public async Task<IActionResult> getRechargeTransaction(Guid URID)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} getRechargeTransaction");
+            var getRechargeTransaction = await _serviceManager.fundManagerService.getRechargeTransaction(URID);
+            return Ok(getRechargeTransaction);
+        }
     }
 }

@@ -125,6 +125,11 @@ namespace Service
             var getUserDormantReportDetails = await _repositoryManager.fundManagerRepository.getUserDormantReportDetails(URID);
             return getUserDormantReportDetails;
         }
+        public async Task<ResponseViewModel> getRechargeTransaction(Guid URID)
+        {
+            var getRechargeTransaction = await _repositoryManager.fundManagerRepository.getRechargeTransaction(URID);
+            return getRechargeTransaction;
+        }
     }
 }
 
