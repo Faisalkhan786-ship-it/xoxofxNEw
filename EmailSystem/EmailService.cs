@@ -29,7 +29,7 @@ namespace EmailSystem
                 ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
                 MailMessage Email = new MailMessage();
                 Email.To.Add(EmailID);
-                Email.From = new MailAddress("noreply@smtpmails.online", "noreply@santrixglobal.com");
+                Email.From = new MailAddress("noreply@smtpmails.online", "noreply@santrxglobal.com");
                 Email.Subject = subject;
                 Email.Body = body;
                 Email.IsBodyHtml = IsHTML;
@@ -159,13 +159,13 @@ namespace EmailSystem
         <p style='margin:4px 0;'>Thank you,<br/>The SantrixGlobal Team</p>
 
         <div style='margin-top:12px; text-align:center;'>
-            <a href='https://www.instagram.com/rentelligence.ai?igsh=bmdxcXJqaDd2empk' target='_blank' style='margin: 0 8px; text-decoration:none;'>
+            <a href='' target='_blank' style='margin: 0 8px; text-decoration:none;'>
                 <img src='https://cdn-icons-png.flaticon.com/24/174/174855.png' alt='Instagram' style='width:24px;height:24px;' />
             </a>
-            <a href='https://www.facebook.com/rentelligenceai' target='_blank' style='margin: 0 8px; text-decoration:none;'>
+            <a href='' target='_blank' style='margin: 0 8px; text-decoration:none;'>
                 <img src='https://cdn-icons-png.flaticon.com/24/733/733547.png' alt='Facebook' style='width:24px;height:24px;' />
             </a>
-            <a href='https://www.twitter.com/your_twitter_profile' target='_blank' style='margin: 0 8px; text-decoration:none;'>
+            <a href='' target='_blank' style='margin: 0 8px; text-decoration:none;'>
                 <img src='https://cdn-icons-png.flaticon.com/512/5968/5968958.png' alt='X' style='width:24px;height:24px;' />
             </a>
         </div>
@@ -353,17 +353,17 @@ namespace EmailSystem
                 html.Append("<div style='margin-top:10px;'>");
 
                 // Instagram
-                html.Append("<a href='https://www.instagram.com/rentelligence.ai?igsh=bmdxcXJqaDd2empk' target='_blank' style='margin: 0 10px;'>");
+                html.Append("<a href='' target='_blank' style='margin: 0 10px;'>");
                 html.Append("<img src='https://cdn-icons-png.flaticon.com/24/174/174855.png' alt='Instagram' style='width:24px;height:24px;'>");
                 html.Append("</a>");
 
                 // Facebook
-                html.Append("<a href='https://www.facebook.com/rentelligenceai' target='_blank' style='margin: 0 10px;'>");
+                html.Append("<a href='' target='_blank' style='margin: 0 10px;'>");
                 html.Append("<img src='https://cdn-icons-png.flaticon.com/24/733/733547.png' alt='Facebook' style='width:24px;height:24px;'>");
                 html.Append("</a>");
 
                 // X (Twitter)
-                html.Append("<a href='https://www.twitter.com/your_twitter_profile' target='_blank' style='margin: 0 10px;'>");
+                html.Append("<a href='' target='_blank' style='margin: 0 10px;'>");
                 html.Append("<img src='https://cdn-icons-png.flaticon.com/512/5968/5968958.png' alt='X' style='width:24px;height:24px;'>");
                 html.Append("</a>");
 
@@ -447,13 +447,13 @@ namespace EmailSystem
         <p style='margin:4px 0;'>Thank you,<br/>The SantrixGlobal Team</p>
 
         <div style='margin-top:12px; text-align:center;'>
-            <a href='https://www.instagram.com/rentelligence.ai?igsh=bmdxcXJqaDd2empk' target='_blank' style='margin: 0 8px; text-decoration:none;'>
+            <a href='' target='_blank' style='margin: 0 8px; text-decoration:none;'>
                 <img src='https://cdn-icons-png.flaticon.com/24/174/174855.png' alt='Instagram' style='width:24px;height:24px;' />
             </a>
-            <a href='https://www.facebook.com/rentelligenceai' target='_blank' style='margin: 0 8px; text-decoration:none;'>
+            <a href='' target='_blank' style='margin: 0 8px; text-decoration:none;'>
                 <img src='https://cdn-icons-png.flaticon.com/24/733/733547.png' alt='Facebook' style='width:24px;height:24px;' />
             </a>
-            <a href='https://www.twitter.com/your_twitter_profile' target='_blank' style='margin: 0 8px; text-decoration:none;'>
+            <a href='' target='_blank' style='margin: 0 8px; text-decoration:none;'>
                 <img src='https://cdn-icons-png.flaticon.com/512/5968/5968958.png' alt='X' style='width:24px;height:24px;' />
             </a>
         </div>
@@ -603,10 +603,10 @@ namespace EmailSystem
                         <p style='text-align:center; color:#999; font-size:14px;'>Follow us on</p>
 
                         <div style='text-align:center; margin-top:10px;'>
-                            <a href='https://www.instagram.com/rentelligence.ai?igsh=bmdxcXJqaDd2empk'>
+                            <a href=''>
                                 <img src='https://cdn-icons-png.flaticon.com/24/174/174855.png' style='margin:0 8px;'>
                             </a>
-                            <a href='https://www.facebook.com/rentelligenceai'>
+                            <a href=''>
                                 <img src='https://cdn-icons-png.flaticon.com/24/733/733547.png' style='margin:0 8px;'>
                             </a>
                             <a href='#'>
@@ -704,13 +704,13 @@ background:#ffffff;border-radius:8px;border:3px solid #003399;'>   <!-- BLUE BOL
 
     <!-- FOOTER SOCIAL -->
     <div style='text-align:center;padding:15px 0;background:#fafafa;border-top:1px solid #e5e5e5;'>
-        <a href='https://www.facebook.com/rentelligenceai' style='margin:0 8px;'>
+        <a href='' style='margin:0 8px;'>
             <img src='https://cdn-icons-png.flaticon.com/24/733/733547.png' width='22' />
         </a>
-        <a href='https://www.instagram.com/rentelligence.ai' style='margin:0 8px;'>
+        <a href='' style='margin:0 8px;'>
             <img src='https://cdn-icons-png.flaticon.com/24/174/174855.png' width='22' />
         </a>
-          <a href='https://www.twitter.com/your_twitter_profile' target='_blank' style='margin: 0 8px; text-decoration:none;'>
+          <a href='' target='_blank' style='margin: 0 8px; text-decoration:none;'>
                         <img src='https://cdn-icons-png.flaticon.com/512/5968/5968958.png' alt='X' style='width:24px;height:24px;' />
                     </a>
             </div>
