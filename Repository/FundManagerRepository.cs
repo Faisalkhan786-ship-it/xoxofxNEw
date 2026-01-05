@@ -33,6 +33,11 @@ namespace Repository
             parameters.Add("@RefrenceNo", fundManagerViewModel.RefrenceNo, DbType.String);
             parameters.Add("@Remark", fundManagerViewModel.Remark, DbType.String);
             parameters.Add("@RequestType", fundManagerViewModel.RequestType, DbType.Int32);
+            parameters.Add(
+                "@SubCatID",
+                fundManagerViewModel.SubCatID ?? (object)DBNull.Value,
+                DbType.Guid
+            );
 
             using (var connection = _dapperContext.createConnection())
             {

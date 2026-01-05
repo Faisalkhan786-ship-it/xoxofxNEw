@@ -9,6 +9,7 @@ namespace ViewModel
     public class FundManagerViewModel
     {
         public Guid URID { get; set; }
+        public Guid? SubCatID { get; set; }
         public string? PaymentMode { get; set; }
         public decimal Amount { get; set; }
         public string? RefrenceNo { get; set; }
