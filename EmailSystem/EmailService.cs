@@ -115,7 +115,7 @@ namespace EmailSystem
         }
 
         //-----------------Send OTP User Registration
-        public void SendOtpEmailForUser(string otp, string emailId, int actionType = 1, string purpose = "SantrixGlobal")
+        public void SendOtpEmailForUser(string otp, string emailId, int actionType = 1, string purpose = "SantrxGlobal")
         {
             try
             {
@@ -134,12 +134,22 @@ namespace EmailSystem
     box-shadow: 0 4px 12px rgba(0,0,0,0.06);'>
 
     <div style='background-color:#ffffff;padding:25px 20px;text-align:center;border-bottom:1px solid #f0f0f0;'>
-        <img src='{logoUrl}' alt='Rentelligence Logo' style='height:38px;margin-bottom:15px;' />
-        <h2 style='color:#2c3e50;margin-bottom:10px;font-weight:600;'> {name},</h2>
 
-        <p style='color:#444;font-size:15px;margin:0;'>Thank you for registering with <strong>SantrixGlobal
-</strong>.</p>
-        <p style='color:#444;font-size:15px;margin-top:10px;'>To complete your email verification, please use the One-Time Passcode (OTP) provided below:</p>
+        <!-- 🔹 LOGO FIX START -->
+        <div style='background:#000;display:inline-block;padding:10px 14px;border-radius:10px;margin-bottom:15px;'>
+            <img src='{logoUrl}' alt='Santrix Global Logo' style='height:38px;display:block;' />
+        </div>
+        <!-- 🔹 LOGO FIX END -->
+
+        <h2 style='color:#2c3e50;margin-bottom:10px;font-weight:600;'>Dear User,</h2>
+
+        <p style='color:#444;font-size:15px;margin:0;'>
+            Thank you for registering with <strong>SantrixGlobal</strong>.
+        </p>
+
+        <p style='color:#444;font-size:15px;margin-top:10px;'>
+            To complete your email verification, please use the One-Time Passcode (OTP) below:
+        </p>
 
         <div style='margin:25px 0;'>
             <span style='display:inline-block;padding:14px 24px;font-size:26px;
@@ -151,26 +161,26 @@ namespace EmailSystem
                 letter-spacing:6px;'>🎯 {otp}</span>
         </div>
 
-        <p style='color:#444;font-size:14px;'>Please enter this code in the verification screen to continue.</p>
-        <p style='color:#777;font-size:13px;'>Note: This code is valid for a limited time. If you did not request this verification, please ignore this email.</p>
+        <p style='color:#444;font-size:14px;'>
+            Please enter this code in the verification screen to continue.
+        </p>
+
+        <p style='color:#777;font-size:13px;'>
+            Note: This code is valid for a limited time. If you did not request this, please ignore this email.
+        </p>
     </div>
 
     <div style='background-color:#fafafa;padding:16px 20px;text-align:center;font-size:12px;color:#999;'>
-        <p style='margin:4px 0;'>Thank you,<br/>The SantrixGlobal Team</p>
+        <p style='margin:4px 0;'>Thank you,<br/>The SantrxGlobal Team</p>
 
-        <div style='margin-top:12px; text-align:center;'>
-            <a href='' target='_blank' style='margin: 0 8px; text-decoration:none;'>
-                <img src='https://cdn-icons-png.flaticon.com/24/174/174855.png' alt='Instagram' style='width:24px;height:24px;' />
-            </a>
-            <a href='' target='_blank' style='margin: 0 8px; text-decoration:none;'>
-                <img src='https://cdn-icons-png.flaticon.com/24/733/733547.png' alt='Facebook' style='width:24px;height:24px;' />
-            </a>
-            <a href='' target='_blank' style='margin: 0 8px; text-decoration:none;'>
-                <img src='https://cdn-icons-png.flaticon.com/512/5968/5968958.png' alt='X' style='width:24px;height:24px;' />
-            </a>
+        <div style='margin-top:12px;'>
+            <a href='#' style='margin:0 8px;'><img src='https://cdn-icons-png.flaticon.com/24/174/174855.png' width='24'/></a>
+            <a href='#' style='margin:0 8px;'><img src='https://cdn-icons-png.flaticon.com/24/733/733547.png' width='24'/></a>
+            <a href='#' style='margin:0 8px;'><img src='https://cdn-icons-png.flaticon.com/512/5968/5968958.png' width='24'/></a>
         </div>
     </div>
 </div>";
+
 
                 bool sent = false;
 
@@ -304,7 +314,7 @@ namespace EmailSystem
             }
         }
 
-        //----------------Send OTP Forgot Password
+        //---------------- Forgot Password
         public void SendOtpEmailForForgotPassword(string authLogin, string authPass, string emailId, int actionType)
         {
             try

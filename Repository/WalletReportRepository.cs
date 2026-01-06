@@ -256,6 +256,7 @@ namespace Repository
             public string? withdrawalmode { get; set; }
             public decimal AdminCharges { get; set; }
             public string? Transhash2 { get; set; }
+            public string? CreatedDate { get; set; }
         }
         public async Task<ResponseViewModel> getRechargeTransact(Guid URID)
         {
