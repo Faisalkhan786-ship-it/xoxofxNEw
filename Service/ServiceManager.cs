@@ -26,6 +26,7 @@ namespace Service
         private readonly Lazy<IAdminMasterService> _adminMasterService;
         private readonly Lazy<ITicketService> _ticketService;
         private readonly Lazy<IWalletReportService> _walletReportService;
+        private readonly Lazy<IAdminManageService> _adminManageService;
 
         public ServiceManager(IRepositoryManager repositoryManager)
         {
@@ -48,6 +49,7 @@ namespace Service
             _fundManagerService = new Lazy<IFundManagerService>(() => new FundManagerService(repositoryManager));
             _adminManageFundService = new Lazy<IAdminManageFundService>(() => new AdminManageFundService(repositoryManager));
             _adminMasterService = new Lazy<IAdminMasterService>(() => new AdminMasterService(repositoryManager));
+            _adminManageService = new Lazy<IAdminManageService>(() => new AdminManageService(repositoryManager));
 
         }
         public ITicketService ticketService => _ticketService.Value;
@@ -69,6 +71,7 @@ namespace Service
         public IFundManagerService fundManagerService => _fundManagerService.Value;
         public IAdminManageFundService adminManageFundService => _adminManageFundService.Value;
         public ICommunityService communityContract => _communityContract.Value;
+        public IAdminManageService adminManageService => _adminManageService.Value;
 
     }
 }

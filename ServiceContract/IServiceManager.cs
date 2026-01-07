@@ -27,6 +27,7 @@ namespace ServiceContract
         IFundManagerService fundManagerService { get; }
         IAdminManageFundService adminManageFundService { get; }
         ICommunityService communityContract { get; }
+        IAdminManageService adminManageService { get; }
 
     }
 }

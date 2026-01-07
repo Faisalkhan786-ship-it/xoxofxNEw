@@ -28,6 +28,7 @@ namespace RepositoryContract
         ICommunityRepository communityRepository { get; }
         ITicketRepository ticketRepository { get; }
         IWalletReportRepository walletReportRepository { get; }
+        IAdminManageRepository adminManageRepository { get; }
 
 
     }
