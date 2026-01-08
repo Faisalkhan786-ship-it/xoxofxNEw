@@ -582,12 +582,12 @@ namespace EmailSystem
 
                         <!-- CONTENT -->
                         <p style='color:#444; line-height:1.6; text-align:justify;'>
-                            The future isn’t coming — it’s already here, and it’s <b>Agentic</b>. 
-                            With SantrixGlobal, you now have access to a powerful ecosystem where AI agents work for you, 
+                            The future isn’t coming — it’s already here, and it’s <b>Assetes</b>. 
+                            With SantrixGlobal, you now have access to a powerful ecosystem where Assets work for you, 
                             generate consistent rewards, and free your time for what truly matters.
                         </p>
 
-                        <h3 style='color:#333;'>🤖 Put Your Agents to Work</h3>
+                        <h3 style='color:#333;'>🤖 Put Your Assets to Work</h3>
                         <p style='color:#555;'>Let them earn while you live smarter.</p>
 
                         <h3 style='color:#333;'>🛠️ Your Capital. Our Platform.</h3>
@@ -604,7 +604,7 @@ namespace EmailSystem
                         </table>
 
                         <p style='text-align:center; color:#666; font-size:15px;'>
-                            Welcome aboard {Name}. Let’s create passive income — the Rentelligent way.
+                            Welcome aboard {Name}. Let’s create passive income — the Santrx way.
                         </p>
 
                         <hr style='border:none; border-top:1px solid #eee; margin:30px 0;'>

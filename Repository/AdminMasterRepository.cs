@@ -429,7 +429,7 @@ namespace Repository
             var procedureName = Constant.getLeaseStatement;
             var parameters = new DynamicParameters();
             parameters.Add("@AuthLogin", leaseStatementViewModel.AuthLogin ?? "", DbType.String);
-            parameters.Add("@productName", leaseStatementViewModel.productName ?? "", DbType.String);
+            //parameters.Add("@productName", leaseStatementViewModel.productName ?? "", DbType.String);
 
             // Agar empty hai to NULL bhej do, SP default le legi
             parameters.Add("@FromDate", string.IsNullOrEmpty(leaseStatementViewModel.FromDate) ? null : leaseStatementViewModel.FromDate, DbType.String);
