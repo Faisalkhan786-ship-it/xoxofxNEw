@@ -76,6 +76,12 @@ builder.Services.AddAuthentication(option =>
     };
 });
 
+
+
+// Dependency Injection on particular Component Self Deposit
+builder.Services.AddScoped<ISelfRepository, SelfRepository>();
+builder.Services.AddScoped<EmailService>();
+
 // Dependency Injection
 builder.Services.AddScoped<EmailService>();
 

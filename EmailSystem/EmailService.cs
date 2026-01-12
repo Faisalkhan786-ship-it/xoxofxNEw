@@ -272,13 +272,13 @@ namespace EmailSystem
     <div style='background-color:#fafafa;padding:16px 20px;text-align:center;font-size:12px;color:#999;'>
         <p style='margin:4px 0;'>Thank you,<br/>The SantrixGlobal Team</p>
               <div style='margin-top:12px; text-align:center;'>
-                   <a href='https://www.instagram.com/rentelligence.ai?igsh=bmdxcXJqaDd2empk' target='_blank' style='margin: 0 8px; text-decoration:none;'>
+                   <a href='' target='_blank' style='margin: 0 8px; text-decoration:none;'>
                        <img src='https://cdn-icons-png.flaticon.com/24/174/174855.png' alt='Instagram' style='width:24px;height:24px;' />
                    </a>
-                   <a href='https://www.facebook.com/rentelligenceai' target='_blank' style='margin: 0 8px; text-decoration:none;'>
+                   <a href='' target='_blank' style='margin: 0 8px; text-decoration:none;'>
                        <img src='https://cdn-icons-png.flaticon.com/24/733/733547.png' alt='Facebook' style='width:24px;height:24px;' />
                    </a>
-                   <a href='https://www.twitter.com/your_twitter_profile' target='_blank' style='margin: 0 8px; text-decoration:none;'>
+                   <a href='' target='_blank' style='margin: 0 8px; text-decoration:none;'>
                        <img src='https://cdn-icons-png.flaticon.com/512/5968/5968958.png' alt='X' style='width:24px;height:24px;' />
                    </a>
                </div>
@@ -353,7 +353,7 @@ namespace EmailSystem
                 html.Append("</div>");
 
                 html.Append("<p style='color:#555;font-size:14px;'>For your security, we recommend changing your password after logging in.</p>");
-                html.Append("<p style='color:#333;font-size:14px;margin-top:8px;'>Thank you for choosing <strong>Rentelligence</strong>.</p>");
+                html.Append("<p style='color:#333;font-size:14px;margin-top:8px;'>Thank you for choosing <strong>Santrx</strong>.</p>");
                 html.Append("</div>");
 
                 // Footer with social links
@@ -378,7 +378,7 @@ namespace EmailSystem
                 html.Append("</a>");
 
                 html.Append("</div>");
-                html.Append("<p style='margin-top:10px;color:#aaa;'>© 2025 Rentelligence. All rights reserved.</p>");
+                html.Append("<p style='margin-top:10px;color:#aaa;'>© 2025 Santrx. All rights reserved.</p>");
                 html.Append("</div>");
                 html.Append("</div>");
 
@@ -704,12 +704,12 @@ background:#ffffff;border-radius:8px;border:3px solid #003399;'>   <!-- BLUE BOL
          <p style='margin-top:10px;'>
       If you have any questions or need further assistance, please do not hesitate to contact us at 
       <a href='mailto:support@santrixglobal.ai' style='color:#0047d1;text-decoration:none;font-weight:bold;'>
-          support@rentelligence.ai
+          support@Santrx.ai
       </a>.
       We are here to support you and ensure your experience with us is exceptional.
   </p>
 
-        <p style='margin-top:25px;'>Best Regards,<br/>Rentelligence Team</p>
+        <p style='margin-top:25px;'>Best Regards,<br/>Santrx Team</p>
     </div>
 
     <!-- FOOTER SOCIAL -->

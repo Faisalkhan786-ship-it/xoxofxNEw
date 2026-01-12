@@ -55,7 +55,27 @@ namespace Common
 
         //    return model;
         //}
+        public static AddAddressResponseModelViewModel CreateAccount()
+        {
+            var model = new AddAddressResponseModelViewModel();
 
+            try
+            {
+                var ecKey = EthECKey.GenerateKey();
+                string privateKey = ecKey.GetPrivateKeyAsBytes().ToHex();
+
+                var account = new Account(privateKey);
+                model.WalletAddress = account.Address;
+                model.PrivateKey = account.PrivateKey;
+            }
+            catch
+            {
+                model.WalletAddress = null;
+                model.PrivateKey = null;
+            }
+
+            return model;
+        }
         public static string Encrypt(string encryptString)
         {
             const string key = "EthereumHGW^&@^&@^#@%%%^$^%$$#$#$^%*&JKJKJKJHJHG%^^%$%^$%^$%^$%%%%^$ETH";

@@ -31,12 +31,14 @@ namespace Common
         private string pvtKeyUSDT = "0xf58236467310aa5be46e6a3e79ba1e99b29ed37e9cbd184df43d0978c21fd53c"; //ye change karte hai 
         private string pvtKeyBNB = "0xf58236467310aa5be46e6a3e79ba1e99b29ed37e9cbd184df43d0978c21fd53c"; //same upar neche 
         private string pvtKeyECLAT = "";
-        private string ContractAddressUSDT = "0x55d398326f99059fF775485246999027B3197955";
-        private string ContractAddressECLAT = "0x55d398326f99059fF775485246999027B3197955";
         private string DepositAddress = "0x162757Ddea75bD3Aa41d89f354933b36CeE8AB4f"; //ye change karte hai 
-        //private string DepositAddress = "0x08c7AD647f33EfbE861850aF0dd7F31ae36e3C33"; //ye change karte hai 
+
+        private string ContractAddressUSDT = "0x55d398326f99059fF775485246999027B3197955";
+        private string ContractAddressECLAT = "0x564bb8396308Fc4f2B59e55588cA024a08159232";//sito
+        //usdt
         private string ABIUSDT = @"[{'inputs':[],'payable':false,'stateMutability':'nonpayable','type':'constructor'},{'anonymous':false,'inputs':[{'indexed':true,'internalType':'address','name':'owner','type':'address'},{'indexed':true,'internalType':'address','name':'spender','type':'address'},{'indexed':false,'internalType':'uint256','name':'value','type':'uint256'}],'name':'Approval','type':'event'},{'anonymous':false,'inputs':[{'indexed':true,'internalType':'address','name':'previousOwner','type':'address'},{'indexed':true,'internalType':'address','name':'newOwner','type':'address'}],'name':'OwnershipTransferred','type':'event'},{'anonymous':false,'inputs':[{'indexed':true,'internalType':'address','name':'from','type':'address'},{'indexed':true,'internalType':'address','name':'to','type':'address'},{'indexed':false,'internalType':'uint256','name':'value','type':'uint256'}],'name':'Transfer','type':'event'},{'constant':true,'inputs':[],'name':'_decimals','outputs':[{'internalType':'uint8','name':'','type':'uint8'}],'payable':false,'stateMutability':'view','type':'function'},{'constant':true,'inputs':[],'name':'_name','outputs':[{'internalType':'string','name':'','type':'string'}],'payable':false,'stateMutability':'view','type':'function'},{'constant':true,'inputs':[],'name':'_symbol','outputs':[{'internalType':'string','name':'','type':'string'}],'payable':false,'stateMutability':'view','type':'function'},{'constant':true,'inputs':[{'internalType':'address','name':'owner','type':'address'},{'internalType':'address','name':'spender','type':'address'}],'name':'allowance','outputs':[{'internalType':'uint256','name':'','type':'uint256'}],'payable':false,'stateMutability':'view','type':'function'},{'constant':false,'inputs':[{'internalType':'address','name':'spender','type':'address'},{'internalType':'uint256','name':'amount','type':'uint256'}],'name':'approve','outputs':[{'internalType':'bool','name':'','type':'bool'}],'payable':false,'stateMutability':'nonpayable','type':'function'},{'constant':true,'inputs':[{'internalType':'address','name':'account','type':'address'}],'name':'balanceOf','outputs':[{'internalType':'uint256','name':'','type':'uint256'}],'payable':false,'stateMutability':'view','type':'function'},{'constant':false,'inputs':[{'internalType':'uint256','name':'amount','type':'uint256'}],'name':'burn','outputs':[{'internalType':'bool','name':'','type':'bool'}],'payable':false,'stateMutability':'nonpayable','type':'function'},{'constant':true,'inputs':[],'name':'decimals','outputs':[{'internalType':'uint8','name':'','type':'uint8'}],'payable':false,'stateMutability':'view','type':'function'},{'constant':false,'inputs':[{'internalType':'address','name':'spender','type':'address'},{'internalType':'uint256','name':'subtractedValue','type':'uint256'}],'name':'decreaseAllowance','outputs':[{'internalType':'bool','name':'','type':'bool'}],'payable':false,'stateMutability':'nonpayable','type':'function'},{'constant':true,'inputs':[],'name':'getOwner','outputs':[{'internalType':'address','name':'','type':'address'}],'payable':false,'stateMutability':'view','type':'function'},{'constant':false,'inputs':[{'internalType':'address','name':'spender','type':'address'},{'internalType':'uint256','name':'addedValue','type':'uint256'}],'name':'increaseAllowance','outputs':[{'internalType':'bool','name':'','type':'bool'}],'payable':false,'stateMutability':'nonpayable','type':'function'},{'constant':false,'inputs':[{'internalType':'uint256','name':'amount','type':'uint256'}],'name':'mint','outputs':[{'internalType':'bool','name':'','type':'bool'}],'payable':false,'stateMutability':'nonpayable','type':'function'},{'constant':true,'inputs':[],'name':'name','outputs':[{'internalType':'string','name':'','type':'string'}],'payable':false,'stateMutability':'view','type':'function'},{'constant':true,'inputs':[],'name':'owner','outputs':[{'internalType':'address','name':'','type':'address'}],'payable':false,'stateMutability':'view','type':'function'},{'constant':false,'inputs':[],'name':'renounceOwnership','outputs':[],'payable':false,'stateMutability':'nonpayable','type':'function'},{'constant':true,'inputs':[],'name':'symbol','outputs':[{'internalType':'string','name':'','type':'string'}],'payable':false,'stateMutability':'view','type':'function'},{'constant':true,'inputs':[],'name':'totalSupply','outputs':[{'internalType':'uint256','name':'','type':'uint256'}],'payable':false,'stateMutability':'view','type':'function'},{'constant':false,'inputs':[{'internalType':'address','name':'recipient','type':'address'},{'internalType':'uint256','name':'amount','type':'uint256'}],'name':'transfer','outputs':[{'internalType':'bool','name':'','type':'bool'}],'payable':false,'stateMutability':'nonpayable','type':'function'},{'constant':false,'inputs':[{'internalType':'address','name':'sender','type':'address'},{'internalType':'address','name':'recipient','type':'address'},{'internalType':'uint256','name':'amount','type':'uint256'}],'name':'transferFrom','outputs':[{'internalType':'bool','name':'','type':'bool'}],'payable':false,'stateMutability':'nonpayable','type':'function'},{'constant':false,'inputs':[{'internalType':'address','name':'newOwner','type':'address'}],'name':'transferOwnership','outputs':[],'payable':false,'stateMutability':'nonpayable','type':'function'}]";
-        private string ABIECLAT = @"[{'inputs':[],'payable':false,'stateMutability':'nonpayable','type':'constructor'},{'anonymous':false,'inputs':[{'indexed':true,'internalType':'address','name':'owner','type':'address'},{'indexed':true,'internalType':'address','name':'spender','type':'address'},{'indexed':false,'internalType':'uint256','name':'value','type':'uint256'}],'name':'Approval','type':'event'},{'anonymous':false,'inputs':[{'indexed':true,'internalType':'address','name':'previousOwner','type':'address'},{'indexed':true,'internalType':'address','name':'newOwner','type':'address'}],'name':'OwnershipTransferred','type':'event'},{'anonymous':false,'inputs':[{'indexed':true,'internalType':'address','name':'from','type':'address'},{'indexed':true,'internalType':'address','name':'to','type':'address'},{'indexed':false,'internalType':'uint256','name':'value','type':'uint256'}],'name':'Transfer','type':'event'},{'constant':true,'inputs':[{'internalType':'address','name':'owner','type':'address'},{'internalType':'address','name':'spender','type':'address'}],'name':'allowance','outputs':[{'internalType':'uint256','name':'','type':'uint256'}],'payable':false,'stateMutability':'view','type':'function'},{'constant':false,'inputs':[{'internalType':'address','name':'spender','type':'address'},{'internalType':'uint256','name':'amount','type':'uint256'}],'name':'approve','outputs':[{'internalType':'bool','name':'','type':'bool'}],'payable':false,'stateMutability':'nonpayable','type':'function'},{'constant':true,'inputs':[{'internalType':'address','name':'account','type':'address'}],'name':'balanceOf','outputs':[{'internalType':'uint256','name':'','type':'uint256'}],'payable':false,'stateMutability':'view','type':'function'},{'constant':true,'inputs':[],'name':'decimals','outputs':[{'internalType':'uint8','name':'','type':'uint8'}],'payable':false,'stateMutability':'view','type':'function'},{'constant':false,'inputs':[{'internalType':'address','name':'spender','type':'address'},{'internalType':'uint256','name':'subtractedValue','type':'uint256'}],'name':'decreaseAllowance','outputs':[{'internalType':'bool','name':'','type':'bool'}],'payable':false,'stateMutability':'nonpayable','type':'function'},{'constant':true,'inputs':[],'name':'getOwner','outputs':[{'internalType':'address','name':'','type':'address'}],'payable':false,'stateMutability':'view','type':'function'},{'constant':false,'inputs':[{'internalType':'address','name':'spender','type':'address'},{'internalType':'uint256','name':'addedValue','type':'uint256'}],'name':'increaseAllowance','outputs':[{'internalType':'bool','name':'','type':'bool'}],'payable':false,'stateMutability':'nonpayable','type':'function'},{'constant':true,'inputs':[],'name':'name','outputs':[{'internalType':'string','name':'','type':'string'}],'payable':false,'stateMutability':'view','type':'function'},{'constant':true,'inputs':[],'name':'owner','outputs':[{'internalType':'address','name':'','type':'address'}],'payable':false,'stateMutability':'view','type':'function'},{'constant':false,'inputs':[],'name':'renounceOwnership','outputs':[],'payable':false,'stateMutability':'nonpayable','type':'function'},{'constant':true,'inputs':[],'name':'symbol','outputs':[{'internalType':'string','name':'','type':'string'}],'payable':false,'stateMutability':'view','type':'function'},{'constant':true,'inputs':[],'name':'totalSupply','outputs':[{'internalType':'uint256','name':'','type':'uint256'}],'payable':false,'stateMutability':'view','type':'function'},{'constant':false,'inputs':[{'internalType':'address','name':'recipient','type':'address'},{'internalType':'uint256','name':'amount','type':'uint256'}],'name':'transfer','outputs':[{'internalType':'bool','name':'','type':'bool'}],'payable':false,'stateMutability':'nonpayable','type':'function'},{'constant':false,'inputs':[{'internalType':'address','name':'sender','type':'address'},{'internalType':'address','name':'recipient','type':'address'},{'internalType':'uint256','name':'amount','type':'uint256'}],'name':'transferFrom','outputs':[{'internalType':'bool','name':'','type':'bool'}],'payable':false,'stateMutability':'nonpayable','type':'function'},{'constant':false,'inputs':[{'internalType':'address','name':'newOwner','type':'address'}],'name':'transferOwnership','outputs':[],'payable':false,'stateMutability':'nonpayable','type':'function'}]";
+        //sito
+        private string ABIECLAT = @"[{'inputs':[{'internalType':'uint256','name':'initialSupply','type':'uint256'}],'stateMutability':'nonpayable','type':'constructor'},{'anonymous':false,'inputs':[{'indexed':true,'internalType':'address','name':'owner','type':'address'},{'indexed':true,'internalType':'address','name':'spender','type':'address'},{'indexed':false,'internalType':'uint256','name':'value','type':'uint256'}],'name':'Approval','type':'event'},{'anonymous':false,'inputs':[{'indexed':true,'internalType':'address','name':'previousOwner','type':'address'},{'indexed':true,'internalType':'address','name':'newOwner','type':'address'}],'name':'OwnershipTransferred','type':'event'},{'anonymous':false,'inputs':[{'indexed':true,'internalType':'address','name':'from','type':'address'},{'indexed':true,'internalType':'address','name':'to','type':'address'},{'indexed':false,'internalType':'uint256','name':'value','type':'uint256'}],'name':'Transfer','type':'event'},{'inputs':[{'internalType':'address','name':'owner','type':'address'},{'internalType':'address','name':'spender','type':'address'}],'name':'allowance','outputs':[{'internalType':'uint256','name':'','type':'uint256'}],'stateMutability':'view','type':'function'},{'inputs':[{'internalType':'address','name':'spender','type':'address'},{'internalType':'uint256','name':'amount','type':'uint256'}],'name':'approve','outputs':[{'internalType':'bool','name':'','type':'bool'}],'stateMutability':'nonpayable','type':'function'},{'inputs':[{'internalType':'address','name':'account','type':'address'}],'name':'balanceOf','outputs':[{'internalType':'uint256','name':'','type':'uint256'}],'stateMutability':'view','type':'function'},{'inputs':[{'internalType':'uint256','name':'amount','type':'uint256'}],'name':'burn','outputs':[{'internalType':'bool','name':'','type':'bool'}],'stateMutability':'nonpayable','type':'function'},{'inputs':[],'name':'decimals','outputs':[{'internalType':'uint8','name':'','type':'uint8'}],'stateMutability':'view','type':'function'},{'inputs':[{'internalType':'address','name':'spender','type':'address'},{'internalType':'uint256','name':'subtractedValue','type':'uint256'}],'name':'decreaseAllowance','outputs':[{'internalType':'bool','name':'','type':'bool'}],'stateMutability':'nonpayable','type':'function'},{'inputs':[{'internalType':'address','name':'spender','type':'address'},{'internalType':'uint256','name':'addedValue','type':'uint256'}],'name':'increaseAllowance','outputs':[{'internalType':'bool','name':'','type':'bool'}],'stateMutability':'nonpayable','type':'function'},{'inputs':[],'name':'name','outputs':[{'internalType':'string','name':'','type':'string'}],'stateMutability':'view','type':'function'},{'inputs':[],'name':'owner','outputs':[{'internalType':'address','name':'','type':'address'}],'stateMutability':'view','type':'function'},{'inputs':[],'name':'renounceOwnership','outputs':[],'stateMutability':'nonpayable','type':'function'},{'inputs':[],'name':'symbol','outputs':[{'internalType':'string','name':'','type':'string'}],'stateMutability':'view','type':'function'},{'inputs':[],'name':'totalSupply','outputs':[{'internalType':'uint256','name':'','type':'uint256'}],'stateMutability':'view','type':'function'},{'inputs':[{'internalType':'address','name':'to','type':'address'},{'internalType':'uint256','name':'amount','type':'uint256'}],'name':'transfer','outputs':[{'internalType':'bool','name':'','type':'bool'}],'stateMutability':'nonpayable','type':'function'},{'inputs':[{'internalType':'address','name':'from','type':'address'},{'internalType':'address','name':'to','type':'address'},{'internalType':'uint256','name':'amount','type':'uint256'}],'name':'transferFrom','outputs':[{'internalType':'bool','name':'','type':'bool'}],'stateMutability':'nonpayable','type':'function'},{'inputs':[{'internalType':'address','name':'newOwner','type':'address'}],'name':'transferOwnership','outputs':[],'stateMutability':'nonpayable','type':'function'}]"; //sito
 
 
         public async Task<string> GetUSDTBalance(string walletAddress, string privateKey)
@@ -46,6 +48,22 @@ namespace Common
                 var account = new Account(privateKey);
                 var web3 = new Web3(account, "https://bsc-dataseed.binance.org/");
                 var contract = web3.Eth.GetContract(ABIUSDT, ContractAddressUSDT);
+                var getBalance = contract.GetFunction("balanceOf");
+                var balance = await getBalance.CallAsync<BigInteger>(walletAddress);
+                return Web3.Convert.FromWeiToBigDecimal(balance).ToString();
+            }
+            catch
+            {
+                return "0";
+            }
+        }
+        public async Task<string> GetSITOBalance(string walletAddress, string privateKey)
+        {
+            try
+            {
+                var account = new Account(privateKey);
+                var web3 = new Web3(account, "https://bsc-dataseed.binance.org/");
+                var contract = web3.Eth.GetContract(ABIECLAT, ContractAddressECLAT);
                 var getBalance = contract.GetFunction("balanceOf");
                 var balance = await getBalance.CallAsync<BigInteger>(walletAddress);
                 return Web3.Convert.FromWeiToBigDecimal(balance).ToString();
@@ -70,40 +88,6 @@ namespace Common
                 return "0";
             }
         }
-
-        //public async Task<int> TransferBNBToAWallet(string walletAddress, string amount)
-        //{
-        //    try
-        //    {
-        //        var account = new Account(pvtKeyBNB);
-        //        var web3 = new Web3(account, "https://bsc-dataseed.binance.org/");
-        //        web3.TransactionManager.UseLegacyAsDefault = true;
-
-        //        decimal valueInBNB = Convert.ToDecimal(amount);
-        //        BigInteger valueInWei = Web3.Convert.ToWei(valueInBNB);
-
-        //        // 100% FIX — Self-created raw transaction
-        //        var gasPrice = await web3.Eth.GasPrice.SendRequestAsync();
-        //        var gasLimit = new HexBigInteger(21000);
-
-        //        var txn = new TransactionInput
-        //        {
-        //            From = account.Address,
-        //            To = walletAddress,
-        //            Value = new HexBigInteger(valueInWei),
-        //            Gas = gasLimit,
-        //            GasPrice = gasPrice
-        //        };
-
-        //        string txnHash = await web3.Eth.TransactionManager.SendTransactionAsync(txn);
-
-        //        return string.IsNullOrEmpty(txnHash) ? 0 : 1;
-        //    }
-        //    catch
-        //    {
-        //        return 0;
-        //    }
-        //}
 
 
         public async Task<int> TransferBNBToAWallet(string walletAddress, string amount)
@@ -176,24 +160,52 @@ namespace Common
             return transHash;
         }
 
-        //public async Task<string> TransferUSDT(string privateKey, string amountOfToken)
-        //{
-        //    try
-        //    {
-        //        var account = new Account(privateKey);
-        //        var web3 = new Web3(account, "https://bsc-dataseed.binance.org/");
-        //        web3.TransactionManager.UseLegacyAsDefault = true;
-        //        var contract = web3.Eth.GetContract(ABIUSDT, ContractAddressUSDT);
-        //        var transfer = contract.GetFunction("transfer");
-        //        var wei = Web3.Convert.ToWei(amountOfToken);
-        //        var txnReceipt = await transfer.SendTransactionAndWaitForReceiptAsync(account.Address, null, null, null, DepositAddress, wei);
-        //        return txnReceipt.TransactionHash;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return "";
-        //    }
-        //}
+        public async Task<string> TransferSITO(string PkeyUSSDT, string amountoftoken)
+        {
+
+            string transHash = "";
+            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+            try
+            {
+                string Contractaddress = ContractAddressECLAT;
+                string ABI = ABIECLAT;
+                var privateKey = "";
+
+                privateKey = PkeyUSSDT;
+
+
+                var account = new Account(privateKey);
+
+                var fromAccount = account.Address;
+
+                var web3 = new Web3(account, "https://bsc-dataseed.binance.org/");
+
+                web3.TransactionManager.UseLegacyAsDefault = true;
+
+                Contract smartContract = web3.Eth.GetContract(ABI, Contractaddress);
+
+                string toAddress = DepositAddress;
+                string amountOfToken = amountoftoken;
+                var wei = Web3.Convert.ToWei(amountOfToken);
+
+                object[] parameters = new object[2] { toAddress, wei };
+
+                Function transfer = smartContract.GetFunction("transfer");
+
+                HexBigInteger estimatedGas = await transfer.EstimateGasAsync(account.Address, null, null, parameters);
+
+                TransactionReceipt transferResult = await transfer.SendTransactionAndWaitForReceiptAsync(account.Address, estimatedGas, null, null, parameters);
+
+                transHash = transferResult.TransactionHash;
+            }
+            catch (Exception ex)
+            {
+
+                transHash = "";
+            }
+
+            return transHash;
+        }
 
         public static string EnryptString(string strEncrypted)
         {
