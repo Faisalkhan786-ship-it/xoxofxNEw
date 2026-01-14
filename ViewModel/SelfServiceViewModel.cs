@@ -73,8 +73,9 @@ namespace ViewModel
     //-------3
     public class resposeAddFundModel
     {
+
         public string? Transhas { get; set; }
-        public string? DepositUSDT { get; set; }
+        public decimal? DepositUSDT { get; set; }
     }
     public class AddFundModel
     {

@@ -248,99 +248,128 @@ namespace Repository
 
             return result;
         }
+
         public async Task<Result2<resposeAddFundModel>> SendSITODepositRequest(RequestDepositusdtModel model)
         {
-            GetWalletBalance resModel = new GetWalletBalance();
             Result2<resposeAddFundModel> result = new Result2<resposeAddFundModel>();
             resposeAddFundModel modelObj = new resposeAddFundModel();
 
             using (var conn = _dapperContext.createConnection())
             {
-                string sql = "SpGetUserWalletDetails";
-                var parameters = new DynamicParameters();
-                parameters.Add("@URID", model.URID);
+                var paramCheck = new DynamicParameters();
+                paramCheck.Add("@URID", model.URID);
 
-                Guid? URID = await conn.ExecuteScalarAsync<Guid?>(sql, parameters, commandType: CommandType.StoredProcedure);
+                Guid? URID = await conn.ExecuteScalarAsync<Guid?>(
+                    "SpGetUserWalletDetails",
+                    paramCheck,
+                    commandType: CommandType.StoredProcedure
+                );
 
-                if (URID.HasValue)
+                if (!URID.HasValue)
                 {
-                    string WalletAddress = "";
-                    string privateKey = "";
-
-                    var detailsParams = new DynamicParameters();
-                    detailsParams.Add("@URID", URID.Value);
-
-                    var userDetails = await conn.QueryAsync("SpGetUserWalletDetails", detailsParams, commandType: CommandType.StoredProcedure);
-
-                    foreach (var row in userDetails)
-                    {
-                        WalletAddress = row.WalletAddress;
-                        privateKey = GenerateWalletKey.Decrypt(row.PrivateKey);
-                    }
-
-                    resModel.USDTBalance = await encryptDecrypt.GetSITOBalance(WalletAddress, privateKey);
-
-                    if (Convert.ToDouble(resModel.USDTBalance) > 0)
-                    {
-                        string userBNBBalance = await encryptDecrypt.GetBNBBalance(WalletAddress);
-
-                        //if (Convert.ToDouble(userBNBBalance) < 0.00012)
-                        //{
-                        //    await encryptDecrypt.TransferBNBToAWallet(WalletAddress, "0.00009");
-                        //    await Task.Delay(2000);
-                        //}
-
-                        if (Convert.ToDouble(userBNBBalance) <= 0.00012)
-                        {
-                            await encryptDecrypt.TransferBNBToAWallet(WalletAddress, "0.00009");
-                            await Task.Delay(2000);
-                        }
-
-
-                        string trx = await encryptDecrypt.TransferUSDT(privateKey, resModel.USDTBalance.ToString());
-
-                        if (string.IsNullOrEmpty(trx) || trx.Length < 20)
-                        {
-                            result.status = "failed";
-                            result.message = "Server busy! Transfer Rentelligence fees, please try again.";
-                        }
-                        else
-                        {
-                            var param = new DynamicParameters();
-                            param.Add("@URID", URID.Value);
-                            param.Add("@Usdtvalue", resModel.USDTBalance);
-                            param.Add("@Walletaddress", WalletAddress);
-                            param.Add("@TranshHash", trx);
-                            param.Add("@TokenType", 1);
-
-                            int res = await conn.QuerySingleAsync<int>("SpAddTempFundDepositRecords", param, commandType: CommandType.StoredProcedure);
-
-                            modelObj.Transhas = trx;
-                            modelObj.DepositUSDT = resModel.USDTBalance;
-
-                            result.status = "Succeed";
-                            result.message = "Payment detected. We are waiting for blockchain network approval. Your request will be processed shortly.";
-                            result.data = modelObj;
-                        }
-                    }
-                    else
-                    {
-                        result.status = "403";
-                        result.message = "Sorry, the minimum required deposit is STO 10. Please adjust your amount to continue.";
-                    }
+                    result.status = "401";
+                    result.message = "Unauthorized request.";
+                    return result;
                 }
-                else
+
+                string WalletAddress = "";
+                string privateKey = "";
+
+                var details = await conn.QueryAsync(
+                    "SpGetUserWalletDetails",
+                    paramCheck,
+                    commandType: CommandType.StoredProcedure
+                );
+
+                foreach (var row in details)
+                {
+                    WalletAddress = row.WalletAddress;
+                    privateKey = GenerateWalletKey.Decrypt(row.PrivateKey);
+                }
+
+                if (string.IsNullOrEmpty(WalletAddress) || string.IsNullOrEmpty(privateKey))
                 {
                     result.status = "failed";
-                    result.message = "You are not authorized, please try again.";
+                    result.message = "Wallet details not found.";
+                    return result;
                 }
+
+                decimal usdtBalance = Convert.ToDecimal(
+                    await encryptDecrypt.GetSITOBalance(WalletAddress, privateKey)
+                );
+
+                // Minimum deposit check
+                if (usdtBalance < 10)
+                {
+                    result.status = "403";
+                    result.message = "Minimum deposit is SIITO 10 USDT.";
+                    return result;
+                }
+
+                //  Check & refill BNB gas
+                decimal bnbBalance = Convert.ToDecimal(
+                    await encryptDecrypt.GetBNBBalance(WalletAddress)
+                );
+
+                if (bnbBalance < 0.00007m)
+                {
+                    await encryptDecrypt.TransferBNBToAWallet(WalletAddress, "0.00009");
+                    await Task.Delay(12000); // wait for blockchain confirmation
+                }
+
+                //  Always send slightly less than full balance
+                decimal sendAmount = usdtBalance;
+
+                if (sendAmount < 10)
+                {
+                    result.status = "failed";
+                    result.message = "Insufficient transferable balance.";
+                    return result;
+                }
+
+                // 🔁 Retry mechanism (3 attempts)
+                string trx = "";
+                for (int i = 0; i < 3; i++)
+                {
+                    trx = await encryptDecrypt.TransferSITO(privateKey, sendAmount.ToString());
+                    if (!string.IsNullOrEmpty(trx) && trx.Length > 20)
+                        break;
+
+                    await Task.Delay(4000);
+                }
+
+                if (string.IsNullOrEmpty(trx) || trx.Length < 20)
+                {
+                    result.status = "failed";
+                    result.message = "Transaction failed due to blockchain network fees. Please try again.";
+                    return result;
+                }
+
+                // 🔴 Save temp deposit record
+                var saveParam = new DynamicParameters();
+                saveParam.Add("@URID", URID.Value);
+                saveParam.Add("@Usdtvalue", sendAmount);
+                saveParam.Add("@Walletaddress", WalletAddress);
+                saveParam.Add("@TranshHash", trx);
+                saveParam.Add("@TokenType", 1);
+
+                await conn.ExecuteAsync(
+                    "SpAddTempFundDepositRecords",
+                    saveParam,
+                    commandType: CommandType.StoredProcedure
+                );
+
+                modelObj.Transhas = trx;
+                modelObj.DepositUSDT = sendAmount;
+
+                result.status = "success";
+                result.message = "Payment detected. Waiting for blockchain confirmation.";
+                result.data = modelObj;
             }
 
             return result;
         }
 
-
-        //BNB Withdrawal Reqeuest 
         public async Task<Result2<resposeAddFundModel>> SendUSDTDepositRequest(RequestDepositusdtModel model)
         {
             GetWalletBalance resModel = new GetWalletBalance();
@@ -363,7 +392,8 @@ namespace Repository
                     var detailsParams = new DynamicParameters();
                     detailsParams.Add("@URID", URID.Value);
 
-                    var userDetails = await conn.QueryAsync("SpGetUserWalletDetails", detailsParams, commandType: CommandType.StoredProcedure);
+                    var userDetails = await conn.QueryAsync("SpGetUserWalletDetails",detailsParams, commandType: CommandType.StoredProcedure
+                    );
 
                     foreach (var row in userDetails)
                     {
@@ -373,43 +403,46 @@ namespace Repository
 
                     resModel.USDTBalance = await encryptDecrypt.GetUSDTBalance(WalletAddress, privateKey);
 
-                    if (Convert.ToDouble(resModel.USDTBalance) > 0)
+                    if (Convert.ToDouble(resModel.USDTBalance) > 0.01)
                     {
                         string userBNBBalance = await encryptDecrypt.GetBNBBalance(WalletAddress);
 
-                        //if (Convert.ToDouble(userBNBBalance) < 0.00012)
-                        //{
-                        //    await encryptDecrypt.TransferBNBToAWallet(WalletAddress, "0.00009");
-                        //    await Task.Delay(2000);
-                        //}
-
-                        if (Convert.ToDouble(userBNBBalance) <= 0.00012)
+                        if (Convert.ToDouble(userBNBBalance) <= 0.00007)
                         {
                             await encryptDecrypt.TransferBNBToAWallet(WalletAddress, "0.00009");
                             await Task.Delay(2000);
                         }
 
-
-                        string trx = await encryptDecrypt.TransferUSDT(privateKey, resModel.USDTBalance.ToString());
+                        string trx = await encryptDecrypt.TransferUSDT(
+                            privateKey,
+                            resModel.USDTBalance.ToString()
+                        );
 
                         if (string.IsNullOrEmpty(trx) || trx.Length < 20)
                         {
                             result.status = "failed";
-                            result.message = "Server busy! Transfer Rentelligence fees, please try again.";
+                            result.message = "Server busy! Transfer Santrx fees, please try again.";
                         }
                         else
                         {
+                            //  ONLY DECIMAL FIX START
+                            decimal usdtValue = Convert.ToDecimal(resModel.USDTBalance);
+                   
+
                             var param = new DynamicParameters();
                             param.Add("@URID", URID.Value);
-                            param.Add("@Usdtvalue", resModel.USDTBalance);
+                            param.Add("@Usdtvalue", usdtValue, DbType.Decimal); 
                             param.Add("@Walletaddress", WalletAddress);
                             param.Add("@TranshHash", trx);
                             param.Add("@TokenType", 2);
 
-                            int res = await conn.QuerySingleAsync<int>("SpAddTempFundDepositRecords", param, commandType: CommandType.StoredProcedure);
+                            await conn.ExecuteAsync(
+                                "SpAddTempFundDepositRecords",
+                                param,
+                                commandType: CommandType.StoredProcedure
+                            );
 
                             modelObj.Transhas = trx;
-                            modelObj.DepositUSDT = resModel.USDTBalance;
 
                             result.status = "Succeed";
                             result.message = "Payment detected. We are waiting for blockchain network approval. Your request will be processed shortly.";
@@ -433,7 +466,180 @@ namespace Repository
         }
 
 
-       
+        //public async Task<Result2<resposeAddFundModel>> SendSITODepositRequest(RequestDepositusdtModel model)
+        //{
+        //    GetWalletBalance resModel = new GetWalletBalance();
+        //    Result2<resposeAddFundModel> result = new Result2<resposeAddFundModel>();
+        //    resposeAddFundModel modelObj = new resposeAddFundModel();
+
+        //    using (var conn = _dapperContext.createConnection())
+        //    {
+        //        string sql = "SpGetUserWalletDetails";
+        //        var parameters = new DynamicParameters();
+        //        parameters.Add("@URID", model.URID);
+
+        //        Guid? URID = await conn.ExecuteScalarAsync<Guid?>(sql, parameters, commandType: CommandType.StoredProcedure);
+
+        //        if (URID.HasValue)
+        //        {
+        //            string WalletAddress = "";
+        //            string privateKey = "";
+
+        //            var detailsParams = new DynamicParameters();
+        //            detailsParams.Add("@URID", URID.Value);
+
+        //            var userDetails = await conn.QueryAsync("SpGetUserWalletDetails", detailsParams, commandType: CommandType.StoredProcedure);
+
+        //            foreach (var row in userDetails)
+        //            {
+        //                WalletAddress = row.WalletAddress;
+        //                privateKey = GenerateWalletKey.Decrypt(row.PrivateKey);
+        //            }
+
+        //            resModel.USDTBalance = await encryptDecrypt.GetSITOBalance(WalletAddress, privateKey);
+
+        //            if (Convert.ToDouble(resModel.USDTBalance) > 10)
+        //            {
+        //                string userBNBBalance = await encryptDecrypt.GetBNBBalance(WalletAddress);
+
+
+
+        //                if (Convert.ToDouble(userBNBBalance) <= 0.00007)
+        //                {
+        //                    await encryptDecrypt.TransferBNBToAWallet(WalletAddress, "0.00009");
+        //                    await Task.Delay(2000);
+        //                }
+
+
+        //                string trx = await encryptDecrypt.TransferUSDT(privateKey, resModel.USDTBalance.ToString());
+
+        //                if (string.IsNullOrEmpty(trx) || trx.Length < 20)
+        //                {
+        //                    result.status = "failed";
+        //                    result.message = "Server busy! Transfer Santrx fees, please try again.";
+        //                }
+        //                else
+        //                {
+        //                    var param = new DynamicParameters();
+        //                    param.Add("@URID", URID.Value);
+        //                    param.Add("@Usdtvalue", resModel.USDTBalance);
+        //                    param.Add("@Walletaddress", WalletAddress);
+        //                    param.Add("@TranshHash", trx);
+        //                    param.Add("@TokenType", 1);
+
+        //                    int res = await conn.QuerySingleAsync<int>("SpAddTempFundDepositRecords", param, commandType: CommandType.StoredProcedure);
+
+        //                    modelObj.Transhas = trx;
+        //                    modelObj.DepositUSDT = resModel.USDTBalance;
+
+        //                    result.status = "Succeed";
+        //                    result.message = "Payment detected. We are waiting for blockchain network approval. Your request will be processed shortly.";
+        //                    result.data = modelObj;
+        //                }
+        //            }
+        //            else
+        //            {
+        //                result.status = "403";
+        //                result.message = "Sorry, the minimum required deposit is SIITO 10. Please adjust your amount to continue.";
+        //            }
+        //        }
+        //        else
+        //        {
+        //            result.status = "failed";
+        //            result.message = "You are not authorized, please try again.";
+        //        }
+        //    }
+
+        //    return result;
+        //}
+
+
+        //BNB Withdrawal Reqeuest 
+        //public async Task<Result2<resposeAddFundModel>> SendUSDTDepositRequest(RequestDepositusdtModel model)
+        //{
+        //    GetWalletBalance resModel = new GetWalletBalance();
+        //    Result2<resposeAddFundModel> result = new Result2<resposeAddFundModel>();
+        //    resposeAddFundModel modelObj = new resposeAddFundModel();
+
+        //    using (var conn = _dapperContext.createConnection())
+        //    {
+        //        string sql = "SpGetUserWalletDetails";
+        //        var parameters = new DynamicParameters();
+        //        parameters.Add("@URID", model.URID);
+
+        //        Guid? URID = await conn.ExecuteScalarAsync<Guid?>(sql, parameters, commandType: CommandType.StoredProcedure);
+
+        //        if (URID.HasValue)
+        //        {
+        //            string WalletAddress = "";
+        //            string privateKey = "";
+
+        //            var detailsParams = new DynamicParameters();
+        //            detailsParams.Add("@URID", URID.Value);
+
+        //            var userDetails = await conn.QueryAsync("SpGetUserWalletDetails", detailsParams, commandType: CommandType.StoredProcedure);
+
+        //            foreach (var row in userDetails)
+        //            {
+        //                WalletAddress = row.WalletAddress;
+        //                privateKey = GenerateWalletKey.Decrypt(row.PrivateKey);
+
+        //            }
+
+        //            resModel.USDTBalance = await encryptDecrypt.GetUSDTBalance(WalletAddress, privateKey);
+
+        //            if (Convert.ToDouble(resModel.USDTBalance) > 0.01)
+        //            {
+        //                string userBNBBalance = await encryptDecrypt.GetBNBBalance(WalletAddress);
+
+        //                if (Convert.ToDouble(userBNBBalance) <= 0.00007)
+        //                {
+        //                    await encryptDecrypt.TransferBNBToAWallet(WalletAddress, "0.00009");
+        //                    await Task.Delay(2000);
+        //                }
+
+
+        //                string trx = await encryptDecrypt.TransferUSDT(privateKey, resModel.USDTBalance.ToString());
+
+        //                if (string.IsNullOrEmpty(trx) || trx.Length < 20)
+        //                {
+        //                    result.status = "failed";
+        //                    result.message = "Server busy! Transfer Santrx fees, please try again.";
+        //                }
+        //                else
+        //                {
+        //                    var param = new DynamicParameters();
+        //                    param.Add("@URID", URID.Value);
+        //                    param.Add("@Usdtvalue", resModel.USDTBalance);
+        //                    param.Add("@Walletaddress", WalletAddress);
+        //                    param.Add("@TranshHash", trx);
+        //                    param.Add("@TokenType", 2);
+
+        //                    int res = await conn.QuerySingleAsync<int>("SpAddTempFundDepositRecords", param, commandType: CommandType.StoredProcedure);
+
+        //                    modelObj.Transhas = trx;
+        //                    //modelObj.DepositUSDT = resModel.USDTBalance;
+
+        //                    result.status = "Succeed";
+        //                    result.message = "Payment detected. We are waiting for blockchain network approval. Your request will be processed shortly.";
+        //                    result.data = modelObj;
+        //                }
+        //            }
+        //            else
+        //            {
+        //                result.status = "403";
+        //                result.message = "Sorry, the minimum required deposit is $10. Please adjust your amount to continue.";
+        //            }
+        //        }
+        //        else
+        //        {
+        //            result.status = "failed";
+        //            result.message = "You are not authorized, please try again.";
+        //        }
+        //    }
+
+        //    return result;
+        //}
 
 
         //get All Wallet Address (Admin site)
@@ -550,6 +756,7 @@ namespace Repository
 
             using (var connection = _dapperContext.createConnection())
             {
+
                 var result = await connection.QueryAsync<WalletInfoModelDetailsBYURID>(
                     procedureName,
                     parameters,
