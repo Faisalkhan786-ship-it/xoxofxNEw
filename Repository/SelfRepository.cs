@@ -345,7 +345,7 @@ namespace Repository
                     return result;
                 }
 
-                // 🔴 Save temp deposit record
+                //  Save temp deposit record
                 var saveParam = new DynamicParameters();
                 saveParam.Add("@URID", URID.Value);
                 saveParam.Add("@Usdtvalue", sendAmount);
