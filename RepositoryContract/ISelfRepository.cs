@@ -17,6 +17,7 @@ namespace RepositoryContract
         Task<Result2<resposeAddFundModel>> SendSITODepositRequest(RequestDepositusdtModel model);
         public Task<ResponseViewModel> getAllWalletAddressByURID(Guid URID);
         public Task<ResponseViewModel> GetSelfDepsiteByURID(Guid URID);
+        public Task<ResponseViewModel> GetAllSelfDepositeAdmin();
 
     }
 }

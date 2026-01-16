@@ -155,10 +155,10 @@ namespace Repository
                     {
                         string userBNBBalance = await encryptDecrypt.GetBNBBalance(modelObj.WalletAddress);
 
-                        if (Convert.ToDouble(userBNBBalance) < 0.0012)
+                        if (Convert.ToDouble(userBNBBalance) < 0.00007)
                         {
-                            await encryptDecrypt.TransferBNBToAWallet(modelObj.WalletAddress, "0.0014");
-                            await Task.Delay(2000); // avoid using Thread.Sleep
+                            await encryptDecrypt.TransferBNBToAWallet(modelObj.WalletAddress, "0.00009");
+                            await Task.Delay(2000); 
                         }
                     }
 
@@ -228,9 +228,9 @@ namespace Repository
                     {
                         string userBNBBalance = await encryptDecrypt.GetBNBBalance(modelObj.WalletAddress);
 
-                        if (Convert.ToDouble(userBNBBalance) < 0.0012)
+                        if (Convert.ToDouble(userBNBBalance) < 0.00007)
                         {
-                            await encryptDecrypt.TransferBNBToAWallet(modelObj.WalletAddress, "0.0014");
+                            await encryptDecrypt.TransferBNBToAWallet(modelObj.WalletAddress, "0.00009");
                             await Task.Delay(2000); // avoid using Thread.Sleep
                         }
                     }
@@ -302,7 +302,7 @@ namespace Repository
                 if (usdtBalance < 10)
                 {
                     result.status = "403";
-                    result.message = "Minimum deposit is SIITO 10 USDT.";
+                    result.message = "Minimum deposit is SIITO 10 .";
                     return result;
                 }
 
@@ -313,7 +313,7 @@ namespace Repository
 
                 if (bnbBalance < 0.00007m)
                 {
-                    await encryptDecrypt.TransferBNBToAWallet(WalletAddress, "0.00009");
+                    await encryptDecrypt.TransferBNBToAWallet(WalletAddress, "0.00009"); //ye cut hoga bnb
                     await Task.Delay(12000); // wait for blockchain confirmation
                 }
 
@@ -835,6 +835,64 @@ namespace Repository
         {
             public int statuscode { get; set; }
             public string? message { get; set; }
+            public string? WalletAddress { get; set; }
+            public decimal? USDAmount { get; set; }
+            public string? TransHash { get; set; }
+            public string? CreadtedDate { get; set; }
+            public string? Status { get; set; }
+        }
+
+        public async Task<ResponseViewModel> GetAllSelfDepositeAdmin()
+        {
+            var procedureName = Constant.getAllSelfDepositeAdmin;
+            var parameters = new DynamicParameters();
+
+            using (var connection = _dapperContext.createConnection())
+            {
+
+                var result = await connection.QueryAsync<WalletInfoModelDetailsBYURIDAdmin>(
+                    procedureName,
+                    commandType: CommandType.StoredProcedure
+                );
+
+                if (result != null && result.Any())
+                {
+                    var firstRecord = result.First();
+
+                    if (firstRecord.statuscode == 1)
+                    {
+                        return new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.OK,
+                            message = firstRecord.message,
+                            data = result
+                        };
+                    }
+                    else if (firstRecord.statuscode == 0)
+                    {
+                        return new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.NotFound,
+                            message = "Data not found"
+                        };
+                    }
+                }
+
+                return new ResponseViewModel
+                {
+                    statusCode = (int)HttpStatusCode.NotFound,
+                    message = "Data not found"
+                };
+            }
+        }
+
+        public class WalletInfoModelDetailsBYURIDAdmin
+        {
+            public int statuscode { get; set; }
+            public string? message { get; set; }
+            public string? FullName { get; set; }
+            public string? Authlogin { get; set; }
+            public string? Email { get; set; }
             public string? WalletAddress { get; set; }
             public decimal? USDAmount { get; set; }
             public string? TransHash { get; set; }

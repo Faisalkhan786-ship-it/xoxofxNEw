@@ -64,6 +64,7 @@ namespace Common
         public static string getUserWalletAddressListForAdmin = "SpGetUserWalletAddressListForAdmin";
         public static string getWalletAddresByURID = "SpGetWalletAddresByURID";
         public static string getSelfDepsiteByURID = "SpGetSelfDepsiteByURID";
+        public static string getAllSelfDepositeAdmin = "SpGetAllSelfDepositeAdmin";
         public static string getAllContacUs = "SpGetAllContacUs";
         public static string addContactUs = "SpAddContactUs";
         public static string getRecDetails_ByTId = "SpGetRecDetails_ByTId";

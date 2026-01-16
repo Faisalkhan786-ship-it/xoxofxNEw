@@ -159,5 +159,13 @@ namespace Rentelligence.AI.Controllers
             var getAllWalletAddress = await _selfRepository.GetSelfDepsiteByURID(URID);
             return Ok(getAllWalletAddress);
         }
+
+         //get USDT details list By URID
+        [HttpPost("getAllSelfDepositeAdmin")]
+        public async Task<IActionResult> getAllSelfDepositeAdmin()
+        {
+            var GetAllSelfDepositeAdmin = await _selfRepository.GetAllSelfDepositeAdmin();
+            return Ok(GetAllSelfDepositeAdmin);
+        }
     }
 }
