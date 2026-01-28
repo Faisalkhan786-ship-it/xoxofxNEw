@@ -178,6 +178,7 @@ namespace Repository
             public Guid URID { get; set; }
             public int CountryId { get; set; }
             public string? ProfileImage { get; set; }
+            public string? AuthPass { get; set; }
         }
 
         public async Task<ResponseViewModel> downloadExcel(AdminDownloadExcelViewModel adminDownloadExcelViewModel)

@@ -32,7 +32,10 @@ namespace RepositoryContract
         public Task<ResponseViewModel> getRechargeTransactionAdmin(RechargeTransactionAdminViewModel rechargeTransactionAdminViewModel);
         public Task<ResponseViewModel> getDownloadleaseagentbyRID(Guid RechargeId);
 
+        public Task<ResponseViewModel> addRechargeTransactionAdmin(AddRechargeTransactionAdminViewModel addRechargeTransactionAdminViewModel);
 
+        public Task<ResponseViewModel> addRechargeTransactionUser(AddRechargeTransactionUserViewModel addRechargeTransactionUserViewModel);
+        public Task<ResponseViewModel> getBindBuyPackageList(Guid URID);
 
     }
 }

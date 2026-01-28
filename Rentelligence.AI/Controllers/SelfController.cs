@@ -162,9 +162,9 @@ namespace Rentelligence.AI.Controllers
 
          //get USDT details list By URID
         [HttpPost("getAllSelfDepositeAdmin")]
-        public async Task<IActionResult> getAllSelfDepositeAdmin()
+        public async Task<IActionResult> getAllSelfDepositeAdmin(SelfDepositeAdmin selfDepositeAdmin)
         {
-            var GetAllSelfDepositeAdmin = await _selfRepository.GetAllSelfDepositeAdmin();
+            var GetAllSelfDepositeAdmin = await _selfRepository.GetAllSelfDepositeAdmin(selfDepositeAdmin);
             return Ok(GetAllSelfDepositeAdmin);
         }
     }

@@ -51,7 +51,12 @@ namespace ViewModel
 
     }
     //----------------------yaha se add hua 
-
+    public class SelfDepositeAdmin
+    {
+        public string? AuthLogin { get; set; }
+        public string? FromDate { get; set; }
+        public string? ToDate { get; set; }
+    }
     public class RequestModel
     {
         public string? LoginId { get; set; }

@@ -842,49 +842,108 @@ namespace Repository
             public string? Status { get; set; }
         }
 
-        public async Task<ResponseViewModel> GetAllSelfDepositeAdmin()
+        public async Task<ResponseViewModel> GetAllSelfDepositeAdmin(SelfDepositeAdmin selfDepositeAdmin)
         {
-            var procedureName = Constant.getAllSelfDepositeAdmin;
+            var UnApWithIncome = Constant.getAllSelfDepositeAdmin;
+
             var parameters = new DynamicParameters();
+            parameters.Add("@AuthLogin", selfDepositeAdmin.AuthLogin, DbType.String);
+            parameters.Add("@FromDate", selfDepositeAdmin.FromDate, DbType.String);
+            parameters.Add("@ToDate", selfDepositeAdmin.ToDate, DbType.String);
+
 
             using (var connection = _dapperContext.createConnection())
             {
-
-                var result = await connection.QueryAsync<WalletInfoModelDetailsBYURIDAdmin>(
-                    procedureName,
-                    commandType: CommandType.StoredProcedure
-                );
-
-                if (result != null && result.Any())
+                try
                 {
-                    var firstRecord = result.First();
+                    // Fetch All Fund Requests
+                    var reportResult = await connection.QueryAsync(UnApWithIncome, parameters, commandType: CommandType.StoredProcedure);
+                    var depositReportList = reportResult.ToList();
 
-                    if (firstRecord.statuscode == 1)
+                    // Fetch Approved Fund Requests
+              
+                    bool hasReport = depositReportList != null && depositReportList.Any();
+
+                    if (hasReport)
                     {
+                        var combinedData = new
+                        {
+                            UnApWithIncome = depositReportList,
+                        };
+
                         return new ResponseViewModel
                         {
                             statusCode = (int)HttpStatusCode.OK,
-                            message = firstRecord.message,
-                            data = result
+                            message = "Data fetched successfully",
+                            data = combinedData
                         };
                     }
-                    else if (firstRecord.statuscode == 0)
+                    else
                     {
                         return new ResponseViewModel
                         {
                             statusCode = (int)HttpStatusCode.NotFound,
-                            message = "Data not found"
+                            message = "No data found",
+                            data = null
                         };
                     }
                 }
-
-                return new ResponseViewModel
+                catch (Exception ex)
                 {
-                    statusCode = (int)HttpStatusCode.NotFound,
-                    message = "Data not found"
-                };
+                    return new ResponseViewModel
+                    {
+                        statusCode = (int)HttpStatusCode.InternalServerError,
+                        message = "An error occurred while fetching data: " + ex.Message,
+                        data = null
+                    };
+                }
             }
         }
+
+
+        //public async Task<ResponseViewModel> GetAllSelfDepositeAdmin()
+        //{
+        //    var procedureName = Constant.getAllSelfDepositeAdmin;
+        //    var parameters = new DynamicParameters();
+
+        //    using (var connection = _dapperContext.createConnection())
+        //    {
+
+        //        var result = await connection.QueryAsync<WalletInfoModelDetailsBYURIDAdmin>(
+        //            procedureName,
+        //            commandType: CommandType.StoredProcedure
+        //        );
+
+        //        if (result != null && result.Any())
+        //        {
+        //            var firstRecord = result.First();
+
+        //            if (firstRecord.statuscode == 1)
+        //            {
+        //                return new ResponseViewModel
+        //                {
+        //                    statusCode = (int)HttpStatusCode.OK,
+        //                    message = firstRecord.message,
+        //                    data = result
+        //                };
+        //            }
+        //            else if (firstRecord.statuscode == 0)
+        //            {
+        //                return new ResponseViewModel
+        //                {
+        //                    statusCode = (int)HttpStatusCode.NotFound,
+        //                    message = "Data not found"
+        //                };
+        //            }
+        //        }
+
+        //        return new ResponseViewModel
+        //        {
+        //            statusCode = (int)HttpStatusCode.NotFound,
+        //            message = "Data not found"
+        //        };
+        //    }
+        //}
 
         public class WalletInfoModelDetailsBYURIDAdmin
         {

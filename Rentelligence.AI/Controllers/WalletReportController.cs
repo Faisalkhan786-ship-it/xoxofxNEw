@@ -191,7 +191,31 @@ namespace Rentelligence.AI.Controllers
             _logger.logInfo($" {LoggingEvents.getByIdItem} appLogin");
             var getRechargeTransactionAdmin = await _serviceManager.walletReportService.getRechargeTransactionAdmin(rechargeTransactionAdminViewModel);
             return Ok(getRechargeTransactionAdmin);
-        }   
+        }
+        [HttpPost("addRechargeTransactionAdmin")]
+        //  [Authorize]
+        public async Task<IActionResult> addRechargeTransactionAdmin(AddRechargeTransactionAdminViewModel addRechargeTransactionAdminViewModel)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} appLogin");
+            var addRechargeTransactionAdmin = await _serviceManager.walletReportService.addRechargeTransactionAdmin(addRechargeTransactionAdminViewModel);
+            return Ok(addRechargeTransactionAdmin);
+        }
 
+        [HttpPost("addRechargeTransactionUser")]
+         [Authorize]
+        public async Task<IActionResult> addRechargeTransactionUser(AddRechargeTransactionUserViewModel addRechargeTransactionUserViewModel)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} appLogin");
+            var addRechargeTransactionUser = await _serviceManager.walletReportService.addRechargeTransactionUser(addRechargeTransactionUserViewModel);
+            return Ok(addRechargeTransactionUser);
+        }
+        [HttpPost("getBindBuyPackageList")]
+        [Authorize]
+        public async Task<IActionResult> getBindBuyPackageList(Guid URID)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} getBindBuyPackageList");
+            var getBindBuyPackageList = await _serviceManager.walletReportService.getBindBuyPackageList(URID);
+            return Ok(getBindBuyPackageList);
+        }
     }
 }

@@ -49,6 +49,21 @@ namespace ViewModel
 
     }
 
+    public class AddRechargeTransactionAdminViewModel
+    {
+        public Guid URID { get; set; }
+        public int PackageType { get; set; }
+        public int USDTValue { get; set; }
+
+    }
+    public class AddRechargeTransactionUserViewModel
+    {
+        public Guid URID { get; set; }
+        public Guid createdBy { get; set; }
+        public Guid ByURID { get; set; }
+        public int PackageType { get; set; }
+
+    }
     public class UpdateRentWalletAdressViewModel
     {
         public string? AuthLoginId { get; set; }

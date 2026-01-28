@@ -117,5 +117,20 @@ namespace Service
             var getDownloadleaseagentbyRID = await _repositoryManager.walletReportRepository.getDownloadleaseagentbyRID(RechargeId);
             return getDownloadleaseagentbyRID;
         }
+        public async Task<ResponseViewModel> addRechargeTransactionAdmin(AddRechargeTransactionAdminViewModel addRechargeTransactionAdminViewModel)
+        {
+            var addRechargeTransactionAdmin = await _repositoryManager.walletReportRepository.addRechargeTransactionAdmin(addRechargeTransactionAdminViewModel);
+            return addRechargeTransactionAdmin;
+        }
+        public async Task<ResponseViewModel> addRechargeTransactionUser(AddRechargeTransactionUserViewModel addRechargeTransactionUserViewModel)
+        {
+            var addRechargeTransactionUser = await _repositoryManager.walletReportRepository.addRechargeTransactionUser(addRechargeTransactionUserViewModel);
+            return addRechargeTransactionUser;
+        }
+        public async Task<ResponseViewModel> getBindBuyPackageList(Guid URID)
+        {
+            var getBindBuyPackageList = await _repositoryManager.walletReportRepository.getBindBuyPackageList(URID);
+            return getBindBuyPackageList;
+        }
     }
 }

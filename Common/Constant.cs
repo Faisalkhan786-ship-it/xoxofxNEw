@@ -33,6 +33,7 @@ namespace Common
         public static string get_Diff_Rank_LeaderShip = "SPGet_Diff_Rank_LeaderShip";
         public static string recDetails_ByTId = "SpGetRecDetails_ByTId";
         public static string getPerformanceRewardList = "SPGetPerformanceRewardList";
+        public static string bindBuyPackage = "SPBindBuyPackage";
         public static string getUserUnseenNotiCount = "SpGetUserUnseenNotiCount";
         public static string updateUserNotiSeenStatus = "SpUpdateUserNotiSeenStatus";
         public static string addExpoTokens = "SpAddExpoTokens";
@@ -47,6 +48,8 @@ namespace Common
         public static string getUserAffiliateDashboard = "SpGetUserAffiliateDashboard";
         public static string getLBRank = "spGetLBRank";
         public static string leaseAgent = "SpLeaseAgent";
+        public static string SpAddRechargeTransactionAdmin = "SpAddRechargeTransactionAdmin";
+        public static string SpAddRechargeTransactionUser = "SpAddRechargeTransactionUser";
         public static string getLeaseStatement = "SpGetLeaseStatement";
         public static string validateOtp = "SpValidateOtp";
         //public static string getorderLeaseSendEmail = "SpGetorderLeaseSendEmail";

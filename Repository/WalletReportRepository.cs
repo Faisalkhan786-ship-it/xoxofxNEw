@@ -1188,6 +1188,177 @@ namespace Repository
                 }
             }
         }
+        public async Task<ResponseViewModel> addRechargeTransactionAdmin(AddRechargeTransactionAdminViewModel addRechargeTransactionAdminViewModel)
+        {
+            var procedureName = Constant.SpAddRechargeTransactionAdmin;
+            var parameters = new DynamicParameters();
+            parameters.Add("@URID", addRechargeTransactionAdminViewModel.URID, DbType.Guid);
+            parameters.Add("@PackageType", addRechargeTransactionAdminViewModel.PackageType, DbType.Int32);
+            parameters.Add("@USDTValue", addRechargeTransactionAdminViewModel.USDTValue, DbType.Int32);
+            using (var connection = _dapperContext.createConnection())
+            {
+                var result = await connection.QueryAsync(procedureName, parameters, commandType: CommandType.StoredProcedure);
+                ResponseViewModel returnData;
+                if (result != null && result.Any())
+                {
+                    var validation = result.First();
+                    if (validation.statusCode == 1)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.OK,
+                            message = validation.message,
+                            data = result
+                        };
+                    }
+                    else if (validation.statusCode == 0)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.Conflict,
+                            message = validation.message
+                        };
+                    }
+                    else if (validation.statusCode == -1)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.Conflict,
+                            message = validation.message
+                        };
+                    }
+                    else
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.BadRequest,
+                            message = validation.message
+                        };
+                    }
+                }
+                else
+                {
+                    returnData = new ResponseViewModel
+                    {
+                        statusCode = (int)HttpStatusCode.NotFound,
+                        message = "Data Not Found."
+                    };
+                }
+                return returnData;
+            }
+        }
+
+        public async Task<ResponseViewModel> addRechargeTransactionUser(AddRechargeTransactionUserViewModel addRechargeTransactionUserViewModel)
+        {
+            var procedureName = Constant.SpAddRechargeTransactionUser;
+            var parameters = new DynamicParameters();
+            parameters.Add("@URID", addRechargeTransactionUserViewModel.URID, DbType.Guid);
+            parameters.Add("@PackageType", addRechargeTransactionUserViewModel.PackageType, DbType.Int32);
+            parameters.Add("@createdBy", addRechargeTransactionUserViewModel.createdBy, DbType.Guid);
+            parameters.Add("@ByURID", addRechargeTransactionUserViewModel.ByURID, DbType.Guid);
+            using (var connection = _dapperContext.createConnection())
+            {
+                var result = await connection.QueryAsync(procedureName, parameters, commandType: CommandType.StoredProcedure);
+                ResponseViewModel returnData;
+                if (result != null && result.Any())
+                {
+                    var validation = result.First();
+                    if (validation.statusCode == 1)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.OK,
+                            message = validation.message,
+                            data = result
+                        };
+                    }
+                    else if (validation.statusCode == 0)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.Conflict,
+                            message = validation.message
+                        };
+                    }
+                    else if (validation.statusCode == -1)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.Conflict,
+                            message = validation.message
+                        };
+                    }
+                    else
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.BadRequest,
+                            message = validation.message
+                        };
+                    }
+                }
+                else
+                {
+                    returnData = new ResponseViewModel
+                    {
+                        statusCode = (int)HttpStatusCode.NotFound,
+                        message = "Data Not Found."
+                    };
+                }
+                return returnData;
+            }
+        }
+        public async Task<ResponseViewModel> getBindBuyPackageList(Guid URID)
+        {
+            var incomeProc = Constant.bindBuyPackage;
+
+            var parameters = new DynamicParameters();
+            parameters.Add("@URID", URID, DbType.Guid);
+
+            using (var connection = _dapperContext.createConnection())
+            {
+                try
+                {
+                    var incomeResult = await connection.QueryAsync(incomeProc, parameters, commandType: CommandType.StoredProcedure);
+                    var incomeList = incomeResult.ToList();
+
+
+                    if ((incomeList != null && incomeList.Any()))
+                    {
+                        var message = "Data fetched successfully";
+                        var combinedData = new
+                        {
+                            bindBuyPackage = incomeList,
+                        };
+
+                        return new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.OK,
+                            message = message,
+                            data = combinedData
+                        };
+                    }
+                    else
+                    {
+                        return new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.NotFound,
+                            message = "No transaction types found.",
+                            data = null
+                        };
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return new ResponseViewModel
+                    {
+                        statusCode = (int)HttpStatusCode.InternalServerError,
+                        message = $"Error occurred: {ex.Message}",
+                        data = null
+                    };
+                }
+            }
+        }
 
     }
 }
