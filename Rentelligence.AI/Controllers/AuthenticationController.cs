@@ -155,7 +155,7 @@ namespace Rentelligence.AI.MarketPlace.Controllers
     
 
         [HttpGet("userDashboardDetails")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> userDashboardDetails(Guid URID)
         {
             _logger.logInfo($" {LoggingEvents.getByIdItem} UserDashboardDetails");

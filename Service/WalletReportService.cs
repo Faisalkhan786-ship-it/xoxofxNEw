@@ -132,5 +132,16 @@ namespace Service
             var getBindBuyPackageList = await _repositoryManager.walletReportRepository.getBindBuyPackageList(URID);
             return getBindBuyPackageList;
         }
+
+        public async Task<ResponseViewModel> getSingleLeg_Report(String AuthLogin)
+        {
+            var getSingleLeg_Report = await _repositoryManager.walletReportRepository.getSingleLeg_Report(AuthLogin);
+            return getSingleLeg_Report;
+        }
+        public async Task<ResponseViewModel> getUserAllWalletBalance(Guid URID)
+        {
+            var getUserAllWalletBalance = await _repositoryManager.walletReportRepository.getUserAllWalletBalance(URID);
+            return getUserAllWalletBalance;
+        }
     }
 }

@@ -179,7 +179,7 @@ namespace Repository
             parameters.Add("@Email", addAppUser.Email, DbType.String);
             parameters.Add("@CountryId", addAppUser.CountryId, DbType.Int32);
             parameters.Add("@Address", addAppUser.Address, DbType.String);
-            parameters.Add("@OTPregpage", addAppUser.OTPregpage, DbType.String);
+            //parameters.Add("@OTPregpage", addAppUser.OTPregpage, DbType.String);
             parameters.Add("@intResult", dbType: DbType.Int64, direction: ParameterDirection.Output);
             
             // 🔹 Step 2: Email ActionType decide karo

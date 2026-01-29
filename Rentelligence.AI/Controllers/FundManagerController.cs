@@ -16,7 +16,7 @@ namespace Rentelligence.AI.MarketPlace.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class FundManagerController : ControllerBase
     {
         private readonly IServiceManager _serviceManager;

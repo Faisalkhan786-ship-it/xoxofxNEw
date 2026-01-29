@@ -196,16 +196,16 @@ namespace Rentelligence.AI.Controllers
         //  [Authorize]
         public async Task<IActionResult> addRechargeTransactionAdmin(AddRechargeTransactionAdminViewModel addRechargeTransactionAdminViewModel)
         {
-            _logger.logInfo($" {LoggingEvents.getByIdItem} appLogin");
+            _logger.logInfo($" {LoggingEvents.getByIdItem} addRechargeTransactionAdmin");
             var addRechargeTransactionAdmin = await _serviceManager.walletReportService.addRechargeTransactionAdmin(addRechargeTransactionAdminViewModel);
             return Ok(addRechargeTransactionAdmin);
         }
 
         [HttpPost("addRechargeTransactionUser")]
-         [Authorize]
+        [Authorize]
         public async Task<IActionResult> addRechargeTransactionUser(AddRechargeTransactionUserViewModel addRechargeTransactionUserViewModel)
         {
-            _logger.logInfo($" {LoggingEvents.getByIdItem} appLogin");
+            _logger.logInfo($" {LoggingEvents.getByIdItem} addRechargeTransactionUser");
             var addRechargeTransactionUser = await _serviceManager.walletReportService.addRechargeTransactionUser(addRechargeTransactionUserViewModel);
             return Ok(addRechargeTransactionUser);
         }
@@ -216,6 +216,22 @@ namespace Rentelligence.AI.Controllers
             _logger.logInfo($" {LoggingEvents.getByIdItem} getBindBuyPackageList");
             var getBindBuyPackageList = await _serviceManager.walletReportService.getBindBuyPackageList(URID);
             return Ok(getBindBuyPackageList);
+        }
+        [HttpPost("getSingleLeg_Report")]
+        [Authorize]
+        public async Task<IActionResult> getSingleLeg_Report(String AuthLogin)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} getSingleLeg_Report");
+            var getSingleLeg_Report = await _serviceManager.walletReportService.getSingleLeg_Report(AuthLogin);
+            return Ok(getSingleLeg_Report);
+        }
+        [HttpPost("getUserAllWalletBalance")]
+        [Authorize]
+        public async Task<IActionResult> getUserAllWalletBalance(Guid URID)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} getUserAllWalletBalance");
+            var getUserAllWalletBalance = await _serviceManager.walletReportService.getUserAllWalletBalance(URID);
+            return Ok(getUserAllWalletBalance);
         }
     }
 }

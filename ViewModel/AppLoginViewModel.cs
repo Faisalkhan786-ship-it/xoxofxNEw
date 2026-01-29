@@ -56,7 +56,7 @@ namespace ViewModel
         public string? Email { get; set; }
         public int? CountryId { get; set; }
         public string? Address { get; set; }
-        public string? OTPregpage { get; set; }
+        //public string? OTPregpage { get; set; }
     }
 
     public class SendOtpRequestViewModel

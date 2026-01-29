@@ -31,7 +31,9 @@ namespace Common
         public static string getRentWalletByURID = "SpGetRentWalletByURID";
         public static string get_TransactionIncome_History = "SpGet_TransactionIncome_History";
         public static string get_Diff_Rank_LeaderShip = "SPGet_Diff_Rank_LeaderShip";
+        public static string getUser_WalletBalance = "SpGetUser_WalletBalance";
         public static string recDetails_ByTId = "SpGetRecDetails_ByTId";
+        public static string getSingleLeg_Report = "SpGetSingleLeg_Report";
         public static string getPerformanceRewardList = "SPGetPerformanceRewardList";
         public static string bindBuyPackage = "SPBindBuyPackage";
         public static string getUserUnseenNotiCount = "SpGetUserUnseenNotiCount";

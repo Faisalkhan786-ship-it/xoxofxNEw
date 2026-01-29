@@ -1359,7 +1359,100 @@ namespace Repository
                 }
             }
         }
+        public async Task<ResponseViewModel> getSingleLeg_Report(String AuthLogin)
+        {
+            var incomeProc = Constant.getSingleLeg_Report;
+            var parameters = new DynamicParameters();
+            parameters.Add("@AuthLogin", AuthLogin, DbType.String);
 
+            using (var connection = _dapperContext.createConnection())
+            {
+                try
+                {
+                    var incomeResult = await connection.QueryAsync(incomeProc, parameters, commandType: CommandType.StoredProcedure);
+                    var incomeList = incomeResult.ToList();
+
+                    if (incomeList != null && incomeList.Any())
+                    {
+                        return new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.OK,
+                            message = "Data fetched successfully",
+                            data = new { leaseagent = incomeList }
+                        };
+                    }
+                    else
+                    {
+                        return new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.NotFound,
+                            message = "No data found for this RechargeId.",
+                            data = null
+                        };
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return new ResponseViewModel
+                    {
+                        statusCode = (int)HttpStatusCode.InternalServerError,
+                        message = $"Error occurred: {ex.Message}",
+                        data = null
+                    };
+                }
+            }
+        }
+        public async Task<ResponseViewModel> getUserAllWalletBalance(Guid URID)
+        {
+            var incomeProc = Constant.getUser_WalletBalance;
+
+            var parameters = new DynamicParameters();
+            parameters.Add("@URID", URID, DbType.Guid);
+
+            using (var connection = _dapperContext.createConnection())
+            {
+                try
+                {
+                    var incomeResult = await connection.QueryAsync(incomeProc, parameters, commandType: CommandType.StoredProcedure);
+                    var incomeList = incomeResult.ToList();
+
+
+                    if ((incomeList != null && incomeList.Any()))
+                    {
+                        var message = "Data fetched successfully";
+                        var combinedData = new
+                        {
+                            WalletBalance = incomeList,
+                        };
+
+                        return new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.OK,
+                            message = message,
+                            data = combinedData
+                        };
+                    }
+                    else
+                    {
+                        return new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.NotFound,
+                            message = "No transaction types found.",
+                            data = null
+                        };
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return new ResponseViewModel
+                    {
+                        statusCode = (int)HttpStatusCode.InternalServerError,
+                        message = $"Error occurred: {ex.Message}",
+                        data = null
+                    };
+                }
+            }
+        }
     }
 }
 

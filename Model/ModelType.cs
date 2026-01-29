@@ -136,6 +136,27 @@ namespace Model
 
         }
 
+        //public class PersonalTeam
+        //{
+        //    public int id { get; set; }
+        //    public string? Loginid { get; set; }
+        //    public string? SponsorId { get; set; }
+        //    public string? Name { get; set; }
+        //    public string? RegDate { get; set; }
+        //    public string? Email { get; set; }
+        //    public string? Mobile { get; set; }
+        //    public string? TopupDate { get; set; }
+        //    public decimal TopupValue { get; set; }
+        //    public decimal TeamBusiness { get; set; }
+        //    public int uLvl { get; set; }
+        //    public string? Urank { get; set; }
+        //    public string? status { get; set; }
+        //    public string? LeaseAmount { get; set; }
+        //    public decimal TotTeam { get; set; }
+        //    public int ActiveTeam { get; set; }
+        //    public decimal MonthlySelf { get; set; }
+        //    public decimal MonthlyTeam { get; set; }
+        //}
         public class PersonalTeam
         {
             public int id { get; set; }
@@ -145,17 +166,38 @@ namespace Model
             public string? RegDate { get; set; }
             public string? Email { get; set; }
             public string? Mobile { get; set; }
+
+            // Topup related
+            public string? Topup { get; set; }          // Activated
             public string? TopupDate { get; set; }
-            public decimal TopupValue { get; set; }
+            public decimal TopupValue { get; set; }     // agar kahin use ho raha ho
+            public decimal TopupAmount { get; set; }    // 125.00
+
+            // Team / Business
             public decimal TeamBusiness { get; set; }
-            public int uLvl { get; set; }
-            public string? Urank { get; set; }
-            public string? status { get; set; }
-            public string? LeaseAmount { get; set; }
             public decimal TotTeam { get; set; }
             public int ActiveTeam { get; set; }
+
+            // Monthly
             public decimal MonthlySelf { get; set; }
             public decimal MonthlyTeam { get; set; }
+
+            // Level / Rank
+            public int uLvl { get; set; }
+            public string? Urank { get; set; }
+
+            // Status
+            public string? status { get; set; }         // Active (User)
+            public int statusCode { get; set; }         // 1
+            public string? message { get; set; }        // Success
+
+            // Country
+            public string? Country_Code { get; set; }   // IN
+            public string? Country_Name { get; set; }   // India
+            public string? CountryFlag { get; set; }    // flag url
+
+            // Others
+            public string? LeaseAmount { get; set; }
         }
 
         public class UserRegistrationModel
