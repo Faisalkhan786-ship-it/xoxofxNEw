@@ -70,82 +70,130 @@ namespace Repository
             }
         }
 
+        //public async Task<ResponseViewModel> getUserWalletDetails(Guid URID)
+        //{
+        //    var procedureName1 = Constant.getFundRequestReport;
+        //    var procedureName2 = Constant.spGetUser_WalletBalance;
+
+        //    var parameters = new DynamicParameters();
+        //    parameters.Add("@URID", URID, DbType.Guid);
+
+        //    using (var connection = _dapperContext.createConnection())
+        //    {
+        //        var fundResult = await connection.QueryAsync<dynamic>(
+        //            procedureName1, parameters, commandType: CommandType.StoredProcedure);
+
+        //        var walletResult = await connection.QueryAsync<WalletBalanceModel>(
+        //            procedureName2, parameters, commandType: CommandType.StoredProcedure);
+
+        //        var fundList = fundResult?.ToList();
+        //        var walletList = walletResult?.ToList();
+
+        //        ResponseViewModel returnData;
+
+        //        if (fundList != null && fundList.Any())
+        //        {
+        //            var validation = fundList.First();
+
+        //            if (validation.statusCode == 1)
+        //            {
+        //                returnData = new ResponseViewModel
+        //                {
+        //                    statusCode = (int)HttpStatusCode.OK,
+        //                    message = validation.message,
+        //                    data = new
+        //                    {
+        //                        FundRequests = fundList,
+        //                        WalletBalance = walletList
+        //                    }
+        //                };
+        //            }
+        //            else if (validation.statusCode == 0)
+        //            {
+        //                returnData = new ResponseViewModel
+        //                {
+        //                    statusCode = (int)HttpStatusCode.Conflict,
+        //                    message = validation.message
+        //                };
+        //            }
+        //            else if (validation.statusCode == -1)
+        //            {
+        //                returnData = new ResponseViewModel
+        //                {
+        //                    statusCode = (int)HttpStatusCode.Conflict,
+        //                    message = validation.message
+        //                };
+        //            }
+        //            else
+        //            {
+        //                returnData = new ResponseViewModel
+        //                {
+        //                    statusCode = (int)HttpStatusCode.BadRequest,
+        //                    message = validation.message
+        //                };
+        //            }
+        //        }
+        //        else
+        //        {
+        //            returnData = new ResponseViewModel
+        //            {
+        //                statusCode = (int)HttpStatusCode.NotFound,
+        //                message = "Something went wrong with server error."
+        //            };
+        //        }
+
+        //        return returnData;
+        //    }
+        //}
+
         public async Task<ResponseViewModel> getUserWalletDetails(Guid URID)
         {
-            var procedureName1 = Constant.getFundRequestReport;
-            var procedureName2 = Constant.spGetUser_WalletBalance;
-
             var parameters = new DynamicParameters();
             parameters.Add("@URID", URID, DbType.Guid);
 
             using (var connection = _dapperContext.createConnection())
             {
                 var fundResult = await connection.QueryAsync<dynamic>(
-                    procedureName1, parameters, commandType: CommandType.StoredProcedure);
+                    Constant.getFundRequestReport,
+                    parameters,
+                    commandType: CommandType.StoredProcedure);
 
                 var walletResult = await connection.QueryAsync<WalletBalanceModel>(
-                    procedureName2, parameters, commandType: CommandType.StoredProcedure);
+                    Constant.spGetUser_WalletBalance,
+                    parameters,
+                    commandType: CommandType.StoredProcedure);
 
                 var fundList = fundResult?.ToList();
                 var walletList = walletResult?.ToList();
 
-                ResponseViewModel returnData;
+                bool hasFundData = fundList != null && fundList.Any();
+                bool hasWalletData = walletList != null && walletList.Any();
 
-                if (fundList != null && fundList.Any())
+                // ❌ dono empty
+                if (!hasFundData && !hasWalletData)
                 {
-                    var validation = fundList.First();
-
-                    if (validation.statusCode == 1)
-                    {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.OK,
-                            message = validation.message,
-                            data = new
-                            {
-                                FundRequests = fundList,
-                                WalletBalance = walletList
-                            }
-                        };
-                    }
-                    else if (validation.statusCode == 0)
-                    {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.Conflict,
-                            message = validation.message
-                        };
-                    }
-                    else if (validation.statusCode == -1)
-                    {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.Conflict,
-                            message = validation.message
-                        };
-                    }
-                    else
-                    {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.BadRequest,
-                            message = validation.message
-                        };
-                    }
-                }
-                else
-                {
-                    returnData = new ResponseViewModel
+                    return new ResponseViewModel
                     {
                         statusCode = (int)HttpStatusCode.NotFound,
-                        message = "Something went wrong with server error."
+                        message = "No data found"
                     };
                 }
 
-                return returnData;
+                // ✅ statusCode/message fund se uthao agar available ho
+                var validation = hasFundData ? fundList.First() : null;
+
+                return new ResponseViewModel
+                {
+                    statusCode = (int)HttpStatusCode.OK,
+                    message = validation?.message ?? "Data fetched successfully",
+                    data = new
+                    {
+                        FundRequests = hasFundData ? fundList : new List<object>(),
+                        WalletBalance = hasWalletData ? walletList : new List<WalletBalanceModel>()
+                    }
+                };
             }
         }
-
 
 
 
