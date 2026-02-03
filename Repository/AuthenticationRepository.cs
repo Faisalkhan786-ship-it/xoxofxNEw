@@ -33,9 +33,9 @@ namespace Repository
         }
         public async Task<ResponseViewModel> appLogin(AppLoginViewModel appLogin)
         {
-            var procedureName = Constant.spAppLogin;
+            var procedureName = Constant.userLogin;
             var parameters = new DynamicParameters();
-            parameters.Add("@LoginID", appLogin.username, DbType.String);
+            parameters.Add("@Email", appLogin.username, DbType.String);
             parameters.Add("@Password", appLogin.password, DbType.String);
             using (var connection = _dapperContext.createConnection())
             {
@@ -89,24 +89,81 @@ namespace Repository
                 return returnData;
             }
         }
-
+        public async Task<ResponseViewModel> adminUserLogin(AppUserAdminLoginViewModel appUserAdminLoginViewModel)
+        {
+            var procedureName = Constant.adminUserLogin;
+            var parameters = new DynamicParameters();
+            parameters.Add("@LoginID", appUserAdminLoginViewModel.username, DbType.String);
+            using (var connection = _dapperContext.createConnection())
+            {
+                var result = await connection.QueryAsync(procedureName, parameters, commandType: CommandType.StoredProcedure);
+                ResponseViewModel returnData;
+                if (result != null && result.Any())
+                {
+                    var validation = result.First();
+                    if (validation.statusCode == 1)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.OK,
+                            message = validation.message,
+                            data = result
+                        };
+                    }
+                    else if (validation.statusCode == 0)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.Conflict,
+                            message = validation.message
+                        };
+                    }
+                    else if (validation.statusCode == -1)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.Conflict,
+                            message = validation.message
+                        };
+                    }
+                    else
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.BadRequest,
+                            message = validation.message
+                        };
+                    }
+                }
+                else
+                {
+                    returnData = new ResponseViewModel
+                    {
+                        statusCode = (int)HttpStatusCode.NotFound,
+                        message = "Something went to wrong with server error."
+                    };
+                }
+                return returnData;
+            }
+        }
+                      
         public async Task<ResponseViewModellogin> addAppUser(AddAppUserViewModel addAppUser)
         {
-            var procedureName = Constant.spAddUserRegistration;
-            var welcomeProc = Constant.spWelcomeDetails;
+            var procedureName = Constant.addUsersAccount;
+            var welcomeProc = Constant.welcomeDetails;
 
             var parameters = new DynamicParameters();
 
-            parameters.Add("@IntroURID",
-                addAppUser.IntroURID == null || addAppUser.IntroURID == Guid.Empty
-                ? (object)DBNull.Value
-                : addAppUser.IntroURID,
-                DbType.Guid);
+            // ------------------------------
+            //  MOBILE VALIDATION + CLEANUP
+            // ------------------------------
+            addAppUser.PhoneNo = addAppUser.PhoneNo?
+                .Trim()
+                .Replace(" ", "")
+                .Replace("+91", "");
 
-            //  Mobile Cleanup + Validation
-            addAppUser.Mobile = addAppUser.Mobile?.Trim().Replace(" ", "").Replace("+91", "");
-            if (string.IsNullOrEmpty(addAppUser.Mobile) ||
-                !System.Text.RegularExpressions.Regex.IsMatch(addAppUser.Mobile, @"^[0-9]{7,13}$"))
+            if (string.IsNullOrEmpty(addAppUser.PhoneNo) ||
+                !Regex.IsMatch(addAppUser.PhoneNo, @"^[0-9]{7,13}$"))
             {
                 return new ResponseViewModellogin
                 {
@@ -115,10 +172,11 @@ namespace Repository
                 };
             }
 
-            // Email Validation
+            // ------------------------------
+            //       EMAIL VALIDATION
+            // ------------------------------
             if (string.IsNullOrWhiteSpace(addAppUser.Email) ||
-                !System.Text.RegularExpressions.Regex.IsMatch(addAppUser.Email.Trim(),
-                    @"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.IgnoreCase))
+                !Regex.IsMatch(addAppUser.Email.Trim(), @"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.IgnoreCase))
             {
                 return new ResponseViewModellogin
                 {
@@ -127,20 +185,13 @@ namespace Repository
                 };
             }
 
-            // Strong Password Validation
+            // ------------------------------
+            //      STRONG PASSWORD CHECK
+            // ------------------------------
             var strongPasswordRegex =
-                new System.Text.RegularExpressions.Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$");
+                 new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#]).{8,}$");
 
-            if (addAppUser.Password.Length < 8)
-            {
-                return new ResponseViewModellogin
-                {
-                    statusCode = (int)HttpStatusCode.BadRequest,
-                    message = "Password must be at least 8 characters."
-                };
-            }
-
-            if (!strongPasswordRegex.IsMatch(addAppUser.Password))
+            if (!strongPasswordRegex.IsMatch(addAppUser.PasswordHash))
             {
                 return new ResponseViewModellogin
                 {
@@ -149,107 +200,76 @@ namespace Repository
                 };
             }
 
-            //  Name Validation (FName + LName)
-            var nameRegex = new System.Text.RegularExpressions.Regex(@"^(?![0-9]+$)[A-Za-z0-9\s]+$");
-
-            if (string.IsNullOrWhiteSpace(addAppUser.FName) ||
-                !nameRegex.IsMatch(addAppUser.FName))
-            {
-                return new ResponseViewModellogin
-                {
-                    statusCode = (int)HttpStatusCode.BadRequest,
-                    message = "First Name cannot be only numbers and must contain letters."
-                };
-            }
-
-            if (string.IsNullOrWhiteSpace(addAppUser.LName) ||
-                !nameRegex.IsMatch(addAppUser.LName))
-            {
-                return new ResponseViewModellogin
-                {
-                    statusCode = (int)HttpStatusCode.BadRequest,
-                    message = "Last Name cannot be only numbers and must contain letters."
-                };
-            }
-
-            parameters.Add("@Password", addAppUser.Password, DbType.String);
-            parameters.Add("@FName", addAppUser.FName, DbType.String);
-            parameters.Add("@LName", addAppUser.LName, DbType.String);
-            parameters.Add("@Mobile", addAppUser.Mobile, DbType.String);
-            parameters.Add("@Email", addAppUser.Email, DbType.String);
-            parameters.Add("@CountryId", addAppUser.CountryId, DbType.Int32);
-            parameters.Add("@Address", addAppUser.Address, DbType.String);
-            //parameters.Add("@OTPregpage", addAppUser.OTPregpage, DbType.String);
+            // ------------------------------
+            //    PARAMETERS FOR PROCEDURE
+            // ------------------------------
+            parameters.Add("@FullName", addAppUser.FullName);
+            parameters.Add("@Email", addAppUser.Email);
+            parameters.Add("@PasswordHash", addAppUser.PasswordHash);
+            parameters.Add("@PhoneNo", addAppUser.PhoneNo);
             parameters.Add("@intResult", dbType: DbType.Int64, direction: ParameterDirection.Output);
-            
-            // 🔹 Step 2: Email ActionType decide karo
-            int actionType = 1;
-            using (var connection = _dapperContext.createConnection())
+
+            using var connection = _dapperContext.createConnection();
+
+            // ------------------------------
+            //    CALL MAIN INSERT PROC
+            // ------------------------------
+            var insertedUser = await connection.QueryFirstOrDefaultAsync<dynamic>(
+                procedureName,
+                parameters,
+                commandType: CommandType.StoredProcedure
+            );
+
+            long intResult = parameters.Get<long>("@intResult");
+
+            if (intResult == 1 && insertedUser != null)
             {
-                var result = await connection.QueryFirstOrDefaultAsync<EmailActionModel>(
-                    "Sp_GetEmailByActionType",
+                string email = insertedUser.Email;
+                string plainPassword = "";
+
+                // ------------------------------
+                //     CALL WELCOME PROC
+                // ------------------------------
+                var welcomeParams = new DynamicParameters();
+                welcomeParams.Add("@Email", email);
+
+                var welcomeResult = await connection.QueryFirstOrDefaultAsync<dynamic>(
+                    welcomeProc,
+                    welcomeParams,
                     commandType: CommandType.StoredProcedure
                 );
-                actionType = result?.ActionType ?? 1;
-            }
 
-            using (var connection = _dapperContext.createConnection())
-            {
-                // ⚡ Pehle user add karte hain
-                var insertedUser = await connection.QueryFirstOrDefaultAsync<dynamic>(
-                    procedureName,
-                    parameters,
-                    commandType: CommandType.StoredProcedure
-                );
-
-                var intResult = parameters.Get<long>("@intResult");
-
-                if (intResult > 0 && insertedUser != null)
+                if (welcomeResult != null && welcomeResult.statusCode == 1)
                 {
-                    string authLogin = insertedUser.AuthLogin;  //  SpAddUserRegistration se mila AuthLogin
-                    string plainPassword = string.Empty;
+                    plainPassword = welcomeResult.AuthPass;
 
-                    // Ab welcome proc call karte hain
-                    var welcomeParams = new DynamicParameters();
-                    welcomeParams.Add("@AuthLogin", authLogin, DbType.String);
-
-                    var welcomeResult = await connection.QueryFirstOrDefaultAsync<dynamic>(
-                        welcomeProc,
-                        welcomeParams,
-                        commandType: CommandType.StoredProcedure
+                    _emailService.SendOtpEmailForUserRegistrationWelcomletter(
+                        plainPassword,
+                        email,
+                        addAppUser.FullName
                     );
-
-                    if (welcomeResult != null && welcomeResult.statusCode == 1)
-                    {
-                        plainPassword = welcomeResult.AuthPass;
-                        string name = addAppUser.FName + " " + addAppUser.LName;
-
-                        // Send email
-                        _emailService.SendOtpEmailForUserRegistrationWelcomletter(authLogin, plainPassword, addAppUser.Email, name,actionType);
-                    }
-
-                    return new ResponseViewModellogin
-                    {
-                        statusCode = (int)HttpStatusCode.OK,
-                        message = "User Registered Successfully and Login Credentials Sent to Email.",
-                        AuthLogin = authLogin,
-                        AuthPassword = plainPassword,
-                        Email = addAppUser.Email,
-                        Name = addAppUser.FName + " " + addAppUser.LName
-                    };
                 }
-                else
+
+                return new ResponseViewModellogin
                 {
-                    return new ResponseViewModellogin
-                    {
-                        statusCode = intResult == -1 || intResult == -2 ? (int)HttpStatusCode.Conflict : (int)HttpStatusCode.BadRequest,
-                        message = intResult == -1 ? "Email already exists" :
-                                  "Something went wrong"
-                    };
-                }
+                    statusCode = (int)HttpStatusCode.OK,
+                    message = "User Registered Successfully and Login Credentials Sent to Email.",
+                    Email = email,
+                    AuthPassword = plainPassword,
+                    Name = addAppUser.FullName
+                };
             }
-        }                     
-    
+
+            // ------------------------------
+            //    FAILURE RESPONSE
+            // ------------------------------
+            return new ResponseViewModellogin
+            {
+                statusCode = intResult == -1 ? (int)HttpStatusCode.Conflict : (int)HttpStatusCode.BadRequest,
+                message = intResult == -1 ? "Email or Mobile already exists" : "Something went wrong"
+            };
+        }
+
         public async Task<ResponseViewModel> getByReferralId(string loginId)
         {
             var procedureName = Constant.spGetByReferralId;
@@ -949,19 +969,11 @@ namespace Repository
 
         public async Task<ResponseViewModel> forgotPassword(ForgotPasswordViewModel forgotPassword)
         {
-            var procedureName = Constant.spUserForgotPassword;
+            var procedureName = Constant.userForgotPassword;
             var parameters = new DynamicParameters();
-            parameters.Add("@loginId", forgotPassword.UserId, DbType.String);
             parameters.Add("@Email", forgotPassword.Email, DbType.String);
             int actionType = 1;
-            using (var connection = _dapperContext.createConnection())
-            {
-                var result = await connection.QueryFirstOrDefaultAsync<EmailActionModel>(
-                    "Sp_GetEmailByActionType",
-                    commandType: CommandType.StoredProcedure
-                );
-                actionType = result?.ActionType ?? 1;
-            }
+        
             using (var connection = _dapperContext.createConnection())
             {
                 var result = await connection.QueryFirstOrDefaultAsync<dynamic>(
@@ -973,13 +985,12 @@ namespace Repository
 
                     if (status == 1)
                     {
-                        string authLogin = result.AuthLogin ?? string.Empty;
                         string authPass = result.AuthPass ?? string.Empty;
                         string email = result.Email ?? string.Empty;
 
                         if (!string.IsNullOrEmpty(email))
                         {
-                            _emailService.SendOtpEmailForForgotPassword(authLogin, authPass, email,actionType);
+                            _emailService.SendOtpEmailForForgotPassword(authPass, email);
                         }
 
                         return new ResponseViewModel
@@ -988,7 +999,6 @@ namespace Repository
                             message = result.message ?? "Password reset email sent.",
                             data = new
                             {
-                                AuthLogin = authLogin,
                                 AuthPass = authPass,
                                 Email = email
                             }

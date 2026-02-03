@@ -21,6 +21,11 @@ namespace Service
             var appLoginDetails = await _repositoryManager.authenticationRepository.appLogin(appLogin);
             return appLoginDetails;
         }
+        public async Task<ResponseViewModel> adminUserLogin(AppUserAdminLoginViewModel appUserAdminLoginViewModel)
+        {
+            var adminUserLogin = await _repositoryManager.authenticationRepository.adminUserLogin(appUserAdminLoginViewModel);
+            return adminUserLogin;
+        }
 
         public async Task<ResponseViewModellogin> addAppUser(AddAppUserViewModel addAppUser)
         {

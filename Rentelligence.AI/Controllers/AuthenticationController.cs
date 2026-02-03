@@ -56,9 +56,8 @@ namespace Rentelligence.AI.MarketPlace.Controllers
 
             return Ok(response);
         }
-
+               
         
-
         private string GenerateTokenForUserName(AppLoginViewModel login)
         {
             var claims = new[]
@@ -98,192 +97,81 @@ namespace Rentelligence.AI.MarketPlace.Controllers
             return Ok(returnData);
         }
 
-        [HttpPost("changePassword")]
+        //[HttpPost("changePassword")]
 
-        public async Task<IActionResult> changePassword(ChangePasswordViewModel changePasswordViewModel)
-        {
-            _logger.logInfo($" {LoggingEvents.updateItem} changePassword");
-            var returnData = await _serviceManager.authenticationContract.changePassword(changePasswordViewModel);
-            return Ok(returnData);
-        }
-
-
+        //public async Task<IActionResult> changePassword(ChangePasswordViewModel changePasswordViewModel)
+        //{
+        //    _logger.logInfo($" {LoggingEvents.updateItem} changePassword");
+        //    var returnData = await _serviceManager.authenticationContract.changePassword(changePasswordViewModel);
+        //    return Ok(returnData);
+        //}
 
 
-        [HttpPost("sendOtp")]
-        public async Task<IActionResult> sendOtp(SendOtpViewModel sendOtp)
-        {
-            try
-            {
-                _logger.logInfo($"{LoggingEvents.getByIdItem} sendOtp");
 
-                var loginDetails = await _serviceManager.authenticationContract.sendOtp(sendOtp);
-                if (loginDetails.statusCode == 200)
-                {
-                    loginDetails.message = "OTP generated successfully.";
-                }
 
-                return Ok(loginDetails);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { message = "Something went wrong.", error = ex.Message });
-            }
-        }
+        //[HttpPost("sendOtp")]
+        //public async Task<IActionResult> sendOtp(SendOtpViewModel sendOtp)
+        //{
+        //    try
+        //    {
+        //        _logger.logInfo($"{LoggingEvents.getByIdItem} sendOtp");
 
-        [HttpGet("getByReferralId")]
-        public async Task<IActionResult> getByReferralId(string loginId)
-        {
-            _logger.logInfo($" {LoggingEvents.getByIdItem} getByIdProduct loginId ${loginId}");
-            var getByRefreralId = await _serviceManager.authenticationContract.getByReferralId(loginId);
-            if (getByRefreralId.statusCode == (int)HttpStatusCode.NotFound)
-            {
-                _logger.logWarn($"{LoggingEvents.getItemNotFound},No Product Found");
-            }
-            return Ok(getByRefreralId);
-        }
+        //        var loginDetails = await _serviceManager.authenticationContract.sendOtp(sendOtp);
+        //        if (loginDetails.statusCode == 200)
+        //        {
+        //            loginDetails.message = "OTP generated successfully.";
+        //        }
 
-        [HttpGet("getAllUserRegitration")]
-        [Authorize]
-        public async Task<IActionResult> getAllUserRegitration()
-        {
-            _logger.logInfo($" {LoggingEvents.getByIdItem} appLogin");
-            var loginDetails = await _serviceManager.authenticationContract.GetAllUserRegitration();
-            return Ok(loginDetails);
-        }
+        //        return Ok(loginDetails);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, new { message = "Something went wrong.", error = ex.Message });
+        //    }
+        //}
 
-    
-
-        [HttpGet("userDashboardDetails")]
-        //[Authorize]
-        public async Task<IActionResult> userDashboardDetails(Guid URID)
-        {
-            _logger.logInfo($" {LoggingEvents.getByIdItem} UserDashboardDetails");
-            var UserDashboardDetails = await _serviceManager.authenticationContract.UserDashboardDetails(URID);
-            return Ok(UserDashboardDetails);
-        }
+      
+           
+        //[HttpGet("userDashboardDetails")]
+        //public async Task<IActionResult> userDashboardDetails(Guid URID)
+        //{
+        //    _logger.logInfo($" {LoggingEvents.getByIdItem} UserDashboardDetails");
+        //    var UserDashboardDetails = await _serviceManager.authenticationContract.UserDashboardDetails(URID);
+        //    return Ok(UserDashboardDetails);
+        //}
 
       
 
-        [HttpPost("validateOtp")]
-        public async Task<IActionResult> validateOtp(ValidateOtpViewModel validateOtpViewModel)
-        {
+        //[HttpPost("validateOtp")]
+        //public async Task<IActionResult> validateOtp(ValidateOtpViewModel validateOtpViewModel)
+        //{
 
-            _logger.logInfo($"{LoggingEvents.getByIdItem} sendOtp");
-            var loginDetails = await _serviceManager.authenticationContract.validateOtp(validateOtpViewModel);
-            return Ok(loginDetails);
+        //    _logger.logInfo($"{LoggingEvents.getByIdItem} sendOtp");
+        //    var loginDetails = await _serviceManager.authenticationContract.validateOtp(validateOtpViewModel);
+        //    return Ok(loginDetails);
 
-        }
+        //}
 
+                            
+        //[HttpPost("updateUserProfile")]
+        //[Authorize]
 
-        [HttpGet("userAffiliateDashboard")]
-        [Authorize]
-        public async Task<IActionResult> userAffiliateDashboard(Guid URID)
-        {
-            _logger.logInfo($" {LoggingEvents.getByIdItem} UserDashboardDetails");
-            var UserDashboardDetails = await _serviceManager.authenticationContract.UserUserRentelligenceDashboard(URID);
-            return Ok(UserDashboardDetails);
-        }
+        //public async Task<IActionResult> updateUserProfile(UpdateUserProfileViewModel updateUserProfile)
+        //{
+        //    _logger.logInfo($" {LoggingEvents.updateItem} changePassword");
+        //    var updatepro = await _serviceManager.authenticationContract.updateUserProfile(updateUserProfile);
+        //    return Ok(updatepro);
+        //}
 
-        [HttpGet("getLBRank")]
-        public async Task<IActionResult> getLBRank()
-        {
-            _logger.logInfo($" {LoggingEvents.getByIdItem} UserDashboardDetails");
-            var UserDashboardDetails = await _serviceManager.authenticationContract.getLBRank();
-            return Ok(UserDashboardDetails);
-        }
+        //[HttpPost("updateUserProfileImage")]
+        //[Authorize]
 
-        [HttpPost("sendOtpFundRequest")]
-        public async Task<IActionResult> sendOtpFundTransfer(SendOtpFundRequestViewModel sendOtp)
-        {
-            try
-            {
-                _logger.logInfo($"{LoggingEvents.getByIdItem} sendOtp");
-
-                var loginDetails = await _serviceManager.authenticationContract.sendOtpRequest(sendOtp);
-                if (loginDetails.statusCode == 200)
-                {
-                    loginDetails.message = "OTP Send Your Regsiterd Email successfully.";
-                }
-
-                return Ok(loginDetails);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { message = "Something went wrong.", error = ex.Message });
-            }
-        }
-
-        [HttpPost("sendOtpWithdrawalRequest")]
-        public async Task<IActionResult> sendOtpWithdrawalRequest(SendOtpWithdrawalViewModel sendOtp)
-        {
-            try
-            {
-                _logger.logInfo($"{LoggingEvents.getByIdItem} sendOtp");
-
-                var loginDetails = await _serviceManager.authenticationContract.sendOtpWithdrawal(sendOtp);
-                if (loginDetails.statusCode == 200)
-                {
-                    loginDetails.message = "OTP Send Your Regsiterd Email successfully.";
-                }
-
-                return Ok(loginDetails);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { message = "Something went wrong.", error = ex.Message });
-            }
-        }
-        [HttpPost("updateUserProfile")]
-        [Authorize]
-
-        public async Task<IActionResult> updateUserProfile(UpdateUserProfileViewModel updateUserProfile)
-        {
-            _logger.logInfo($" {LoggingEvents.updateItem} changePassword");
-            var updatepro = await _serviceManager.authenticationContract.updateUserProfile(updateUserProfile);
-            return Ok(updatepro);
-        }
-
-        [HttpPost("updateUserProfileImage")]
-        [Authorize]
-
-        public async Task<IActionResult> updateUserProfileImage(UpdateUserImageViewModel updateUserImageViewModel)
-        {
-            _logger.logInfo($" {LoggingEvents.updateItem} changePassword");
-            var updatepro = await _serviceManager.authenticationContract.updateUserProfileImage(updateUserImageViewModel);
-            return Ok(updatepro);
-        }
-
-        [HttpGet("getAgentAnalyticsUser")]
-        [Authorize]
-        public async Task<IActionResult> getAgentAnalyticsUser(Guid URID)
-        {
-            _logger.logInfo($" {LoggingEvents.getByIdItem} getAgentAnalyticsUser");
-            var getAgentAnalyticsUser = await _serviceManager.authenticationContract.getAgentAnalyticsUser(URID);
-            return Ok(getAgentAnalyticsUser);
-        }
-
-       [Authorize]
-        [HttpPost("sendOtpEvent")]
-        public async Task<IActionResult> sendOtpEvent(SendOtpFundRequestViewModel sendOtp)
-        {
-            try
-            {
-                _logger.logInfo($"{LoggingEvents.getByIdItem} sendOtpEvent");
-
-                var loginDetails = await _serviceManager.authenticationContract.sendOtpEvent(sendOtp);
-                if (loginDetails.statusCode == 200)
-                {
-                    loginDetails.message = "OTP Send Your Regsiterd Email successfully.";
-                }
-
-                return Ok(loginDetails);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { message = "Something went wrong.", error = ex.Message });
-            }
-        }
+        //public async Task<IActionResult> updateUserProfileImage(UpdateUserImageViewModel updateUserImageViewModel)
+        //{
+        //    _logger.logInfo($" {LoggingEvents.updateItem} changePassword");
+        //    var updatepro = await _serviceManager.authenticationContract.updateUserProfileImage(updateUserImageViewModel);
+        //    return Ok(updatepro);
+        //}       
     }
 }
 

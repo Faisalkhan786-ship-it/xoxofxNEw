@@ -8,10 +8,24 @@ namespace Common
 {
     public class Constant
     {
+        //start
+        public static string addUsersAccount = "SpAddUsersAccount";
+        public static string welcomeDetails = "SpWelcomeDetails";
+        public static string userLogin = "SpUserLogin";
+        public static string userForgotPassword = "SpUserForgotPassword";
+
+
+        //End
+
+
+
+
+
+
         public static string spAddUserRegistration = "SpAddUserRegistration";
         public static string SpGetAllWalletHistory = "SpGetAllWalletHistory";
         public static string spAppLogin = "SpUserLogin";
-        public static string spUserForgotPassword = "SpUserForgotPassword";
+        public static string adminUserLogin = "SpAdminUserLogin";
         public static string directMemberSearch = "SpDirectMemberSearch";
         public static string spGetAllUserRegitration = "SpGetAllUserRegitration";
         public static string getUserNameByEmailId = "SpGetUserNameByEmailId";

@@ -29,7 +29,7 @@ namespace EmailSystem
                 ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
                 MailMessage Email = new MailMessage();
                 Email.To.Add(EmailID);
-                Email.From = new MailAddress("noreply@smtpmails.online", "noreply@santrxglobals.com");
+                Email.From = new MailAddress("noreply@smtpmails.online", "noreply@aichat.com");
                 Email.Subject = subject;
                 Email.Body = body;
                 Email.IsBodyHtml = IsHTML;
@@ -315,16 +315,16 @@ namespace EmailSystem
         }
 
         //---------------- Forgot Password
-        public void SendOtpEmailForForgotPassword(string authLogin, string authPass, string emailId, int actionType)
+        public void SendOtpEmailForForgotPassword(string authPass, string emailId)
         {
             try
             {
-                string userName = "SantrixGlobal User";
+                string userName = "AIChatBot User";
                 string messageIntro = "As requested, here are your login credentials:";
                 string emailTo = emailId?.Trim();
 
                 // Subject
-                string subject = "Your SantrixGlobal Login Credentials";
+                string subject = "Your AIChatBot Login Credentials";
 
                 // HTML Body
                 StringBuilder html = new StringBuilder();
@@ -339,7 +339,7 @@ namespace EmailSystem
                 html.Append("<div style='background-color:#ffffff;padding:25px 20px;text-align:center;'>");
 
                 // Logo
-                html.Append("<img src='https://imagedelivery.net/nq9qT5FHZv9Sg48UUnD1-A/222f2792-e560-422a-09c6-17e44f99fa00/public' alt='Rentelligence Logo' style='height:48px;margin-bottom:15px;' />");
+                html.Append("<img src='' alt='Rentelligence Logo' style='height:48px;margin-bottom:15px;' />");
 
                 html.Append($"<h2 style='color:#2c3e50;margin-bottom:8px;font-weight:600;'>Dear {userName},</h2>");
                 html.Append($"<p style='color:#444;font-size:15px;margin-top:0;'>{messageIntro}</p>");
@@ -348,7 +348,7 @@ namespace EmailSystem
                 html.Append("<div style='margin:20px auto 25px auto;max-width:90%;background:#eef3ff;");
                 html.Append("border:1px solid #d0d9ff;border-radius:10px;padding:16px;'>");
 
-                html.Append($"<p style='margin:0;font-size:16px;'><strong>Login ID:</strong> {authLogin}</p>");
+                html.Append($"<p style='margin:0;font-size:16px;'><strong>Login ID:</strong> {emailTo}</p>");
                 html.Append($"<p style='margin:8px 0 0;font-size:16px;'><strong>Password:</strong> {authPass}</p>");
                 html.Append("</div>");
 
@@ -385,25 +385,7 @@ namespace EmailSystem
                 string body = html.ToString();
                 bool sent = false;
 
-                // 🔹 ActionType == 1 → pehle One, fallback Two
-                if (actionType == 1)
-                {
-                    sent = SendEmailCommonone(emailTo, subject, body, true);
-                    if (!sent)
-                        sent = SendEmailCommonTWO(emailTo, subject, body, true);
-                }
-                // 🔹 ActionType == 2 → pehle Two, fallback One
-                else if (actionType == 2)
-                {
-                    sent = SendEmailCommonTWO(emailTo, subject, body, true);
-                    if (!sent)
-                        sent = SendEmailCommonone(emailTo, subject, body, true);
-                }
-                // 🔹 Baaki sab (3, 4, 5... ya koi unknown) → sirf One
-                else
-                {
-                    sent = SendEmailCommonone(emailTo, subject, body, true);
-                }
+                SendEmailCommonone(emailTo, subject, body, true);
 
                 if (!sent)
                 {
@@ -509,14 +491,14 @@ namespace EmailSystem
 
         //----------------Send Welcome Letter
 
-        public void SendOtpEmailForUserRegistrationWelcomletter(string authLogin, string plainPassword, string emailid, string Name, int actionType)
+        public void SendOtpEmailForUserRegistrationWelcomletter(string plainPassword, string emailid, string Name)
         {
             string EmailID = emailid.Trim();
 
             try
             {
-                string subject = "Welcome to SantrixGlobal, " + Name;
-                string logoUrl = "https://imagedelivery.net/nq9qT5FHZv9Sg48UUnD1-A/222f2792-e560-422a-09c6-17e44f99fa00/public";
+                string subject = "Welcome to AI Chat Bot, " + Name;
+                string logoUrl = "";
 
                 string body = $@"
 <!DOCTYPE html>
@@ -597,7 +579,7 @@ namespace EmailSystem
                         <table width='100%' style='background:#f8f8ff; border:1px solid #6c63ff; border-radius:8px; margin:25px 0;' cellpadding='12'>
                             <tr>
                                 <td align='center'>
-                                    <p style='margin:0; font-size:16px;'><b>Login ID:</b> {authLogin}</p>
+                                    <p style='margin:0; font-size:16px;'><b>Login ID:</b> {emailid}</p>
                                     <p style='margin-top:8px; font-size:16px;'><b>Password:</b> {plainPassword}</p>
                                 </td>
                             </tr>
@@ -625,7 +607,7 @@ namespace EmailSystem
                         </div>
 
                         <p style='text-align:center; color:#bbb; font-size:12px; margin-top:15px;'>
-                            © {DateTime.Now.Year} SantrixGlobal. All rights reserved.
+                            © {DateTime.Now.Year} AICHatBOT. All rights reserved.
                         </p>
 
                     </td>
@@ -644,24 +626,9 @@ namespace EmailSystem
 </body>
 </html>";
 
+                SendEmailCommonone(emailid.Trim(), subject, body, true);
 
-                bool sent = false;
-
-                // ActionType Logic
-                if (actionType == 1)
-                {
-                    sent = SendEmailCommonone(emailid.Trim(), subject, body, true);
-                    if (!sent) sent = SendEmailCommonTWO(emailid.Trim(), subject, body, true);
-                }
-                else if (actionType == 2)
-                {
-                    sent = SendEmailCommonTWO(emailid.Trim(), subject, body, true);
-                    if (!sent) sent = SendEmailCommonone(emailid.Trim(), subject, body, true);
-                }
-                else
-                {
-                    sent = SendEmailCommonone(emailid.Trim(), subject, body, true);
-                }
+                
             }
             catch { }
         }

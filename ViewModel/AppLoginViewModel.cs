@@ -16,6 +16,11 @@ namespace ViewModel
         [Required]
         public string? password { get; set; }
     }
+    public class AppUserAdminLoginViewModel
+    {
+        [Required]
+        public string? username { get; set; }
+    }
 
     public class SendOtpWithdrawalViewModel
     {
@@ -46,17 +51,11 @@ namespace ViewModel
     }
 
     public class AddAppUserViewModel
-    {
-        public Guid IntroURID { get; set; }
-        public string? Password { get; set; }
-        public string? FName { get; set; }
-        public string? LName { get; set; }
-
-        public string? Mobile { get; set; }
-        public string? Email { get; set; }
-        public int? CountryId { get; set; }
-        public string? Address { get; set; }
-        //public string? OTPregpage { get; set; }
+    {      
+        public string? FullName { get; set; }       
+        public string? Email { get; set; }       
+        public string? PasswordHash { get; set; }       
+        public string? PhoneNo { get; set; }       
     }
 
     public class SendOtpRequestViewModel
@@ -66,7 +65,6 @@ namespace ViewModel
     }
     public class ForgotPasswordViewModel
     {
-        public string? UserId { get; set; }
         public string? Email { get; set; }
     }
 
@@ -124,7 +122,6 @@ namespace ViewModel
         public string? message { get; set; }
         public object? data { get; set; }
 
-        public string? AuthLogin { get; set; }
         public string? AuthPassword { get; set; }
         public string? Email { get; set; }
         public string? Name { get; set; }

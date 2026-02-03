@@ -10,6 +10,7 @@ namespace ServiceContract
     public interface IAuthenticationService
     {
         public Task<ResponseViewModel> appLogin(AppLoginViewModel appLogin);
+        public Task<ResponseViewModel> adminUserLogin(AppUserAdminLoginViewModel appUserAdminLoginViewModel);
         public Task<ResponseViewModellogin> addAppUser(AddAppUserViewModel addAppUser);
         public Task<ResponseViewModel> getByReferralId(string loginId);
         public Task<ResponseViewModel> changePassword(ChangePasswordViewModel changePasswordViewModel);
