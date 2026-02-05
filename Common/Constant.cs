@@ -13,6 +13,10 @@ namespace Common
         public static string welcomeDetails = "SpWelcomeDetails";
         public static string userLogin = "SpUserLogin";
         public static string userForgotPassword = "SpUserForgotPassword";
+        public static string insertChatMessage = "SpInsertChatMessage";
+        public static string insertNewChat = "SpInsertNewChat";
+        public static string getUserChats = "SpGetUserChats";
+        public static string getChatMessages = "SpGetChatMessages";
 
 
         //End

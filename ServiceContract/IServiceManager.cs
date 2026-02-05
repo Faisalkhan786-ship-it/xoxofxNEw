@@ -16,6 +16,8 @@ namespace ServiceContract
 
         IAdminManageFundService adminManageFundService { get; }
         IAdminManageService adminManageService { get; }
-
+        IMenuContract menuContract { get; }
+        ISubMenuContract subMenuContract { get; }
+        IChatMasterServices chatMasterServices { get; }
     }
 }

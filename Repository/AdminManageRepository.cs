@@ -86,68 +86,113 @@ namespace Repository
         //    }
         //}
 
+        //public async Task<ResponseViewModel> adminSearchAllUsers(AdminManageViewModel adminManageViewModel)
+        //{
+        //    var procedureName = Constant.searchAllUsers;
+        //    var parameters = new DynamicParameters();
+
+        //    parameters.Add("@Fullname", adminManageViewModel.Fullname ?? "", DbType.String);
+        //    parameters.Add("@Active", adminManageViewModel.Active ?? "", DbType.String);
+        //    parameters.Add("@PhoneNo", adminManageViewModel.PhoneNo ?? "", DbType.String);
+        //    parameters.Add("@Email", adminManageViewModel.Email ?? "", DbType.String);
+
+
+        //    // Date agar empty hai to NULL bhejna
+        //    parameters.Add("@FromDate", string.IsNullOrEmpty(adminManageViewModel.FromDate) ? null : adminManageViewModel.FromDate, DbType.String);
+        //    parameters.Add("@ToDate", string.IsNullOrEmpty(adminManageViewModel.ToDate) ? null : adminManageViewModel.ToDate, DbType.String);
+
+        //    using (var connection = _dapperContext.createConnection())
+        //    {
+        //        var result = await connection.QueryAsync(procedureName, parameters, commandType: CommandType.StoredProcedure);
+        //        ResponseViewModel returnData;
+        //        if (result != null && result.Any())
+        //        {
+        //            var validation = result.First();
+        //            if (validation.statusCode == 1)
+        //            {
+        //                returnData = new ResponseViewModel
+        //                {
+        //                    statusCode = (int)HttpStatusCode.OK,
+        //                    message = validation.message,
+        //                    data = result
+        //                };
+        //            }
+        //            else if (validation.statusCode == 0 || validation.statusCode == -1)
+        //            {
+        //                returnData = new ResponseViewModel
+        //                {
+        //                    statusCode = (int)HttpStatusCode.Conflict,
+        //                    message = validation.message
+        //                };
+        //            }
+        //            else
+        //            {
+        //                returnData = new ResponseViewModel
+        //                {
+        //                    statusCode = (int)HttpStatusCode.BadRequest,
+        //                    message = validation.message
+        //                };
+        //            }
+        //        }
+        //        else
+        //        {
+        //            returnData = new ResponseViewModel
+        //            {
+        //                statusCode = (int)HttpStatusCode.NotFound,
+        //                message = "Something went wrong with server error."
+        //            };
+        //        }
+        //        return returnData;
+        //    }
+        //}
         public async Task<ResponseViewModel> adminSearchAllUsers(AdminManageViewModel adminManageViewModel)
         {
             var procedureName = Constant.searchAllUsers;
             var parameters = new DynamicParameters();
 
-            parameters.Add("@AuthLogin", adminManageViewModel.AuthLogin ?? "", DbType.String);
-            parameters.Add("@Fname", adminManageViewModel.Fname ?? "", DbType.String);
+            parameters.Add("@Fullname", adminManageViewModel.Fullname ?? "", DbType.String);
             parameters.Add("@Active", adminManageViewModel.Active ?? "", DbType.String);
-            parameters.Add("@Mobile", adminManageViewModel.Mobile ?? "", DbType.String);
+            parameters.Add("@PhoneNo", adminManageViewModel.PhoneNo ?? "", DbType.String);
             parameters.Add("@Email", adminManageViewModel.Email ?? "", DbType.String);
 
-            // Kid int hai, isliye string ki jagah int bhejna
-            parameters.Add("@Kid", string.IsNullOrEmpty(adminManageViewModel.Kid) ? 0 : Convert.ToInt32(adminManageViewModel.Kid), DbType.Int32);
-
-            parameters.Add("@Walletid", adminManageViewModel.Walletid ?? "", DbType.String);
-
-            // Date agar empty hai to NULL bhejna
-            parameters.Add("@FromDate", string.IsNullOrEmpty(adminManageViewModel.FromDate) ? null : adminManageViewModel.FromDate, DbType.String);
-            parameters.Add("@ToDate", string.IsNullOrEmpty(adminManageViewModel.ToDate) ? null : adminManageViewModel.ToDate, DbType.String);
+            parameters.Add("@FromDate", string.IsNullOrEmpty(adminManageViewModel.FromDate) ? null : adminManageViewModel.FromDate);
+            parameters.Add("@ToDate", string.IsNullOrEmpty(adminManageViewModel.ToDate) ? null : adminManageViewModel.ToDate);
 
             using (var connection = _dapperContext.createConnection())
             {
-                var result = await connection.QueryAsync(procedureName, parameters, commandType: CommandType.StoredProcedure);
-                ResponseViewModel returnData;
-                if (result != null && result.Any())
+                var result = await connection.QueryAsync<dynamic>(procedureName, parameters, commandType: CommandType.StoredProcedure);
+
+                if (result == null || !result.Any())
                 {
-                    var validation = result.First();
-                    if (validation.statusCode == 1)
+                    return new ResponseViewModel
                     {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.OK,
-                            message = validation.message,
-                            data = result
-                        };
-                    }
-                    else if (validation.statusCode == 0 || validation.statusCode == -1)
+                        statusCode = (int)HttpStatusCode.NotFound,
+                        message = "No data found."
+                    };
+                }
+
+                // Take first row for statusCode & message
+                var firstRow = result.First();
+
+                int status = firstRow.statusCode;
+
+                if (status == 1)
+                {
+                    return new ResponseViewModel
                     {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.Conflict,
-                            message = validation.message
-                        };
-                    }
-                    else
-                    {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.BadRequest,
-                            message = validation.message
-                        };
-                    }
+                        statusCode = (int)HttpStatusCode.OK,
+                        message = firstRow.message,
+                        data = result
+                    };
                 }
                 else
                 {
-                    returnData = new ResponseViewModel
+                    return new ResponseViewModel
                     {
-                        statusCode = (int)HttpStatusCode.NotFound,
-                        message = "Something went wrong with server error."
+                        statusCode = (int)HttpStatusCode.BadRequest,
+                        message = firstRow.message
                     };
                 }
-                return returnData;
             }
         }
 

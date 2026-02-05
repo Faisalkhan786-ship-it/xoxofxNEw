@@ -15,17 +15,21 @@ namespace Service
         private readonly Lazy<IAdminMasterService> _adminMasterService;
 
         private readonly Lazy<IAdminManageService> _adminManageService;
-
+        private readonly Lazy<IMenuContract> _menuContract;
+        private readonly Lazy<ISubMenuContract> _subMenuContract;
+        private readonly Lazy<IChatMasterServices> _chatMasterServices;
         public ServiceManager(IRepositoryManager repositoryManager)
         {
 
             _adminAuthenticationContract = new Lazy<IAdminAuthenticationContract>(() => new AdminAuthenticationService(repositoryManager));
 
             _authenticationContract = new Lazy<IAuthenticationService>(() => new AuthenticationService(repositoryManager));
-
             _adminManageFundService = new Lazy<IAdminManageFundService>(() => new AdminManageFundService(repositoryManager));
             _adminMasterService = new Lazy<IAdminMasterService>(() => new AdminMasterService(repositoryManager));
             _adminManageService = new Lazy<IAdminManageService>(() => new AdminManageService(repositoryManager));
+            _menuContract = new Lazy<IMenuContract>(() => new MenuService(repositoryManager));
+            _subMenuContract = new Lazy<ISubMenuContract>(() => new SubMenuService(repositoryManager));
+            _chatMasterServices = new Lazy<IChatMasterServices>(() => new ChatMasterServices(repositoryManager));
 
         }
 
@@ -37,6 +41,8 @@ namespace Service
         public IAdminManageFundService adminManageFundService => _adminManageFundService.Value;
 
         public IAdminManageService adminManageService => _adminManageService.Value;
-
+        public IMenuContract menuContract => _menuContract.Value;
+        public ISubMenuContract subMenuContract => _subMenuContract.Value;
+        public IChatMasterServices chatMasterServices => _chatMasterServices.Value;
     }
 }

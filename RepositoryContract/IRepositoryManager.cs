@@ -13,12 +13,12 @@ namespace RepositoryContract
 
         
         IAdminAuthenticationRepository adminAuthenticationRepository { get; }
-        IAuthenticationRepository authenticationRepository { get; }
-       
+        IAuthenticationRepository authenticationRepository { get; }      
         IAdminManageFundRepository adminManageFundRepository { get; }
-
         IAdminManageRepository adminManageRepository { get; }
-
+        IMenuRepository menuRepository { get; }
+        ISubMenuRepository subMenuRepository { get; }
+        IChatMasterRepository chatMasterRepository { get; }
 
     }
 }

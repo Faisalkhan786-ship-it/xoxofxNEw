@@ -130,6 +130,26 @@ namespace ViewModel
             return JsonConvert.SerializeObject(this);
         }
     }
+    public class ResponseViewModelchatmaster
+    {
+        public int statusCode { get; set; }
+        public string? message { get; set; }
+        public int MessageId { get; set; }
+        public int ChatId { get; set; }
+    }
+
+    //public class ResponseViewModelchatmaster
+    //{
+    //    public int statusCode { get; set; }
+    //    public string message { get; set; }
+    //    public int MessageId { get; set; } // ← ADD THIS
+    //}
+    public class ResponseViewModelNewChat
+    {
+        public int statusCode { get; set; }
+        public string message { get; set; }
+        public int ChatId { get; set; } // ← ADD THIS
+    }
     public class ResponseViewModel
     {
         public int statusCode { get; set; }

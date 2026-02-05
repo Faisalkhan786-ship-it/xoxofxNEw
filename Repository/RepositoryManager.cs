@@ -15,7 +15,9 @@ namespace Repository
         private readonly Lazy<IAdminMasterRepository> _adminMasterRepository;
 
         private readonly Lazy<IAdminManageRepository> _adminManageRepository;
-
+        private readonly Lazy<IMenuRepository> _menuRepository;
+        private readonly Lazy<ISubMenuRepository> _subMenuRepository;
+        private readonly Lazy<IChatMasterRepository> _chatMasterRepository;
 
 
 
@@ -30,6 +32,9 @@ namespace Repository
             _adminAuthenticationRepository = new Lazy<IAdminAuthenticationRepository>(() => new AdminAuthenticationRepository(_dapperContext));
             _adminManageFundRepository = new Lazy<IAdminManageFundRepository>(() => new AdminManageFundRepository(_dapperContext));
             _adminManageRepository = new Lazy<IAdminManageRepository>(() => new AdminManageRepository(_dapperContext));
+            _menuRepository = new Lazy<IMenuRepository>(() => new MenuRepository(_dapperContext));
+            _subMenuRepository = new Lazy<ISubMenuRepository>(() => new SubMenuRepository(_dapperContext));
+            _chatMasterRepository = new Lazy<IChatMasterRepository>(() => new ChatMasterRepository(_dapperContext));
 
         }
 
@@ -42,6 +47,8 @@ namespace Repository
        
         public IAdminManageFundRepository adminManageFundRepository => _adminManageFundRepository.Value;
         public IAdminManageRepository adminManageRepository => _adminManageRepository.Value;
-
+        public IMenuRepository menuRepository => _menuRepository.Value;
+        public ISubMenuRepository subMenuRepository => _subMenuRepository.Value;
+        public IChatMasterRepository chatMasterRepository => _chatMasterRepository.Value;
     }
 }

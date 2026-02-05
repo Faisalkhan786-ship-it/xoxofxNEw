@@ -8,13 +8,10 @@ namespace ViewModel
 {
     public class AdminManageViewModel
     {
-        public string? AuthLogin { get; set; }
-        public string? Fname { get; set; }
+        public string? Fullname { get; set; }
         public string? Active { get; set; }
-        public string? Mobile { get; set; }
+        public string? PhoneNo { get; set; }
         public string? Email { get; set; }
-        public string? Kid { get; set; }
-        public string? Walletid { get; set; }
         public string? FromDate { get; set; }
         public string? ToDate { get; set; }
     }

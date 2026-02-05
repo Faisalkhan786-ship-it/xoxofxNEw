@@ -315,88 +315,174 @@ namespace EmailSystem
         }
 
         //---------------- Forgot Password
+        //public void SendOtpEmailForForgotPassword(string authPass, string emailId)
+        //{
+        //    try
+        //    {
+        //        string userName = "AIChatBot User";
+        //        string messageIntro = "As requested, here are your login credentials:";
+        //        string emailTo = emailId?.Trim();
+
+        //        // Subject
+        //        string subject = "Your AIChatBot Login Credentials";
+
+        //        // HTML Body
+        //        StringBuilder html = new StringBuilder();
+
+        //        html.Append("<div style='max-width:600px;margin:auto;font-family:Arial,sans-serif;");
+        //        html.Append("border:2px solid transparent;border-radius:12px;");
+        //        html.Append("background-image: linear-gradient(white, white), linear-gradient(90deg, #4A3AFF, #00C6FF);");
+        //        html.Append("background-origin: border-box;background-clip: content-box, border-box;");
+        //        html.Append("box-shadow: 0 4px 12px rgba(0,0,0,0.06);'>");
+
+        //        // Inner content
+        //        html.Append("<div style='background-color:#ffffff;padding:25px 20px;text-align:center;'>");
+
+        //        // Logo
+        //        html.Append("<img src='' alt='Rentelligence Logo' style='height:48px;margin-bottom:15px;' />");
+
+        //        html.Append($"<h2 style='color:#2c3e50;margin-bottom:8px;font-weight:600;'>Dear {userName},</h2>");
+        //        html.Append($"<p style='color:#444;font-size:15px;margin-top:0;'>{messageIntro}</p>");
+
+        //        // Credentials box
+        //        html.Append("<div style='margin:20px auto 25px auto;max-width:90%;background:#eef3ff;");
+        //        html.Append("border:1px solid #d0d9ff;border-radius:10px;padding:16px;'>");
+
+        //        html.Append($"<p style='margin:0;font-size:16px;'><strong>Login ID:</strong> {emailTo}</p>");
+        //        html.Append($"<p style='margin:8px 0 0;font-size:16px;'><strong>Password:</strong> {authPass}</p>");
+        //        html.Append("</div>");
+
+        //        html.Append("<p style='color:#555;font-size:14px;'>For your security, we recommend changing your password after logging in.</p>");
+        //        html.Append("<p style='color:#333;font-size:14px;margin-top:8px;'>Thank you for choosing <strong>Santrx</strong>.</p>");
+        //        html.Append("</div>");
+
+        //        // Footer with social links
+        //        html.Append("<div style='background-color:#fafafa;padding:16px 20px;text-align:center;font-size:12px;color:#999;'>");
+        //        html.Append("<p style='margin:4px 0;'>Follow us</p>");
+
+        //        html.Append("<div style='margin-top:10px;'>");
+
+        //        // Instagram
+        //        html.Append("<a href='' target='_blank' style='margin: 0 10px;'>");
+        //        html.Append("<img src='https://cdn-icons-png.flaticon.com/24/174/174855.png' alt='Instagram' style='width:24px;height:24px;'>");
+        //        html.Append("</a>");
+
+        //        // Facebook
+        //        html.Append("<a href='' target='_blank' style='margin: 0 10px;'>");
+        //        html.Append("<img src='https://cdn-icons-png.flaticon.com/24/733/733547.png' alt='Facebook' style='width:24px;height:24px;'>");
+        //        html.Append("</a>");
+
+        //        // X (Twitter)
+        //        html.Append("<a href='' target='_blank' style='margin: 0 10px;'>");
+        //        html.Append("<img src='https://cdn-icons-png.flaticon.com/512/5968/5968958.png' alt='X' style='width:24px;height:24px;'>");
+        //        html.Append("</a>");
+
+        //        html.Append("</div>");
+        //        html.Append("<p style='margin-top:10px;color:#aaa;'>© 2025 Santrx. All rights reserved.</p>");
+        //        html.Append("</div>");
+        //        html.Append("</div>");
+
+        //        string body = html.ToString();
+        //        bool sent = false;
+
+        //        SendEmailCommonone(emailTo, subject, body, true);
+
+        //        if (!sent)
+        //        {
+        //            Console.WriteLine("Both email methods failed!");
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine("OTP Email Error (Forgot Password): " + ex.Message);
+        //    }
+        //}
+
+
         public void SendOtpEmailForForgotPassword(string authPass, string emailId)
         {
             try
             {
                 string userName = "AIChatBot User";
-                string messageIntro = "As requested, here are your login credentials:";
                 string emailTo = emailId?.Trim();
 
-                // Subject
-                string subject = "Your AIChatBot Login Credentials";
+                string subject = "Your AI ChatBot Password Reset Details";
 
-                // HTML Body
                 StringBuilder html = new StringBuilder();
 
                 html.Append("<div style='max-width:600px;margin:auto;font-family:Arial,sans-serif;");
                 html.Append("border:2px solid transparent;border-radius:12px;");
                 html.Append("background-image: linear-gradient(white, white), linear-gradient(90deg, #4A3AFF, #00C6FF);");
                 html.Append("background-origin: border-box;background-clip: content-box, border-box;");
-                html.Append("box-shadow: 0 4px 12px rgba(0,0,0,0.06);'>");
+                html.Append("box-shadow: 0 4px 12px rgba(0,0,0,0.08);'>");
 
-                // Inner content
+                // Inner Box
                 html.Append("<div style='background-color:#ffffff;padding:25px 20px;text-align:center;'>");
 
                 // Logo
-                html.Append("<img src='' alt='Rentelligence Logo' style='height:48px;margin-bottom:15px;' />");
+                html.Append("<img src='https://imagedelivery.net/nq9qT5FHZv9Sg48UUnD1-A/94a258bf-e030-4091-fbcb-af1024c7a000/public' ");
+                html.Append("style='width:135px;margin-bottom:18px;border-radius:8px;border:1px solid #eee;padding:6px;' />");
 
-                html.Append($"<h2 style='color:#2c3e50;margin-bottom:8px;font-weight:600;'>Dear {userName},</h2>");
-                html.Append($"<p style='color:#444;font-size:15px;margin-top:0;'>{messageIntro}</p>");
+                // Title
+                html.Append($"<h2 style='color:#222;margin-bottom:8px;font-weight:600;'>Password Reset Request</h2>");
+                html.Append($"<p style='color:#555;font-size:15px;margin-top:0;'>Hello {userName}, here are your updated login details.</p>");
 
-                // Credentials box
-                html.Append("<div style='margin:20px auto 25px auto;max-width:90%;background:#eef3ff;");
-                html.Append("border:1px solid #d0d9ff;border-radius:10px;padding:16px;'>");
+                // Credentials Box
+                html.Append("<div style='margin:20px auto 25px auto;max-width:90%;background:#f1f3ff;");
+                html.Append("border:1px solid #cdd5ff;border-radius:10px;padding:16px;'>");
 
-                html.Append($"<p style='margin:0;font-size:16px;'><strong>Login ID:</strong> {emailTo}</p>");
-                html.Append($"<p style='margin:8px 0 0;font-size:16px;'><strong>Password:</strong> {authPass}</p>");
+                html.Append($"<p style='margin:0;font-size:16px;color:#333;'><strong>Login ID:</strong> {emailTo}</p>");
+                html.Append($"<p style='margin:8px 0 0;font-size:16px;color:#333;'><strong>New Password:</strong> {authPass}</p>");
                 html.Append("</div>");
 
-                html.Append("<p style='color:#555;font-size:14px;'>For your security, we recommend changing your password after logging in.</p>");
-                html.Append("<p style='color:#333;font-size:14px;margin-top:8px;'>Thank you for choosing <strong>Santrx</strong>.</p>");
+                // Message
+                html.Append("<p style='color:#666;font-size:14px;'>");
+                html.Append("For your safety, please change your password after logging in.");
+                html.Append("</p>");
+
+                html.Append("<p style='color:#444;font-size:14px;margin-top:10px;'>");
+                html.Append("If you did not request this, please ignore this email.");
+                html.Append("</p>");
+
                 html.Append("</div>");
 
-                // Footer with social links
+                // Footer
                 html.Append("<div style='background-color:#fafafa;padding:16px 20px;text-align:center;font-size:12px;color:#999;'>");
                 html.Append("<p style='margin:4px 0;'>Follow us</p>");
 
                 html.Append("<div style='margin-top:10px;'>");
 
                 // Instagram
-                html.Append("<a href='' target='_blank' style='margin: 0 10px;'>");
-                html.Append("<img src='https://cdn-icons-png.flaticon.com/24/174/174855.png' alt='Instagram' style='width:24px;height:24px;'>");
+                html.Append("<a href='#' target='_blank' style='margin:0 10px;'>");
+                html.Append("<img src='https://cdn-icons-png.flaticon.com/24/174/174855.png' style='width:24px;height:24px;'>");
                 html.Append("</a>");
 
                 // Facebook
-                html.Append("<a href='' target='_blank' style='margin: 0 10px;'>");
-                html.Append("<img src='https://cdn-icons-png.flaticon.com/24/733/733547.png' alt='Facebook' style='width:24px;height:24px;'>");
+                html.Append("<a href='#' target='_blank' style='margin:0 10px;'>");
+                html.Append("<img src='https://cdn-icons-png.flaticon.com/24/733/733547.png' style='width:24px;height:24px;'>");
                 html.Append("</a>");
 
                 // X (Twitter)
-                html.Append("<a href='' target='_blank' style='margin: 0 10px;'>");
-                html.Append("<img src='https://cdn-icons-png.flaticon.com/512/5968/5968958.png' alt='X' style='width:24px;height:24px;'>");
+                html.Append("<a href='#' target='_blank' style='margin:0 10px;'>");
+                html.Append("<img src='https://cdn-icons-png.flaticon.com/512/5968/5968958.png' style='width:24px;height:24px;'>");
                 html.Append("</a>");
 
                 html.Append("</div>");
-                html.Append("<p style='margin-top:10px;color:#aaa;'>© 2025 Santrx. All rights reserved.</p>");
+
+                html.Append("<p style='margin-top:10px;color:#aaa;'>© 2026 AIChatBot. All rights reserved.</p>");
                 html.Append("</div>");
                 html.Append("</div>");
 
                 string body = html.ToString();
-                bool sent = false;
 
                 SendEmailCommonone(emailTo, subject, body, true);
-
-                if (!sent)
-                {
-                    Console.WriteLine("Both email methods failed!");
-                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine("OTP Email Error (Forgot Password): " + ex.Message);
             }
         }
+
 
         //----------------Send OTP Fund Request
         public void SendOtpEmailForRequestFund(string otp, string emailId, string name, int actionType = 1, string purpose = "SantrixGlobal")
@@ -497,143 +583,152 @@ namespace EmailSystem
 
             try
             {
-                string subject = "Welcome to AI Chat Bot, " + Name;
-                string logoUrl = "";
+                string subject = $"Welcome to AI Chat Assistant, {Name}!";
 
                 string body = $@"
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
     <style>
-        /* MOBILE FIX */
         @media only screen and (max-width: 600px) {{
-            .main-container {{
-                width: 100% !important;
-                margin: 0 !important;
-                padding: 0 !important;
-            }}
-            .inner-box {{
-                width: 100% !important;
-                padding: 15px !important;
-                border-radius: 10px !important;
-            }}
-            .content {{
-                padding: 10px !important;
-            }}
-            h2 {{ font-size: 20px !important; }}
-            p {{ font-size: 14px !important; }}
+            .container {{ width:100% !important; padding:0 !important; }}
+            .card {{ padding:15px !important; border-radius:10px !important; }}
+            h2 {{ font-size:22px !important; }}
+            p {{ font-size:14px !important; }}
         }}
     </style>
 </head>
 
-<body style='margin:0; padding:0; background:#f4f4f4; font-family:Arial;'>
+<body style='margin:0; padding:0; background:#eef1f7; font-family:Arial;'>
+    <table width='100%' cellspacing='0' cellpadding='0'>
+        <tr>
+            <td align='center'>
 
-<table role='presentation' width='100%' cellpadding='0' cellspacing='0' border='0' bgcolor='#f4f4f4'>
-<tr>
-<td align='center'>
+                <table class='container' width='100%' style='max-width:600px; margin:20px auto;'>
+                    <tr>
+                        <td>
 
-    <table role='presentation' class='main-container' width='100%' style='max-width:600px; width:100%; margin:0 auto; padding:0;' border='0' cellspacing='0' cellpadding='0'>
-    <tr>
-        <td>
+                            <table class='card' width='100%'
+                                style='background:#fff; padding:30px; border-radius:16px;
+                                border:2px solid transparent;
+                                background-image:linear-gradient(#fff,#fff),linear-gradient(90deg,#4A3AFF,#00C6FF);
+                                background-origin:border-box; background-clip:content-box,border-box;'>
 
-            <table role='presentation' width='100%' 
-                style='background:white; border-radius:15px; border:3px solid transparent;
-                background-image:linear-gradient(white, white), linear-gradient(90deg, #4A3AFF, #00C6FF);
-                background-origin:border-box; background-clip:content-box, border-box;' 
-                class='inner-box' cellpadding='0' cellspacing='0'>
+                                <!-- LOGO -->
+                                <tr>
+                                    <td align='center' style='padding-bottom:20px;'>
+                                        <img src='https://imagedelivery.net/nq9qT5FHZv9Sg48UUnD1-A/94a258bf-e030-4091-fbcb-af1024c7a000/public'
+                                        style='width:140px; border-radius:8px; padding:6px; border:1px solid #eee;' />
+                                    </td>
+                                </tr>
 
-                <tr>
-                    <td class='content' style='padding:25px;'>
+                                <!-- TITLE -->
+                                <tr>
+                                    <td align='center'>
+                                        <h2 style='margin:0; color:#222;'>Welcome to AI Chat Assistant, {Name}!</h2>
+                                        <p style='color:#666; margin-top:8px;'>
+                                            Your personal AI companion is ready to help.
+                                        </p>
+                                    </td>
+                                </tr>
 
-                        <!-- LOGO -->
-                        <div style='text-align:center; margin-bottom:20px;'>
-                            <img src='https://imagedelivery.net/nq9qT5FHZv9Sg48UUnD1-A/222f2792-e560-422a-09c6-17e44f99fa00/public' 
-                                 style='width:140px; height:auto; border-radius:8px; border:1px solid #eee; padding:6px;'>
-                        </div>
+                                <!-- MAIN CONTENT -->
+                                <tr>
+                                    <td style='color:#444; padding-top:15px; line-height:1.6;'>
 
-                        <!-- TITLE -->
-                        <h2 style='text-align:center; color:#333; margin:0 0 8px;'>
-                            🚀 Welcome to SantrixGlobal, {Name}!
-                        </h2>
+                                        <p>
+                                            You have successfully registered on our AI Chat Platform —  
+                                            a smart assistant designed to make your everyday tasks faster, easier, and more productive.
+                                        </p>
 
-                        <p style='text-align:center; color:#666; margin-top:0;'>
-                            We're thrilled to have you on board.
-                        </p>
+                                        <h3 style='color:#333; margin-top:20px;'>🤖 Smart Conversations</h3>
+                                        <p>
+                                            Ask anything, get instant responses, create content, learn new things,  
+                                            or automate your daily tasks with ease.
+                                        </p>
 
-                        <!-- CONTENT -->
-                        <p style='color:#444; line-height:1.6; text-align:justify;'>
-                            The future isn’t coming — it’s already here, and it’s <b>Assetes</b>. 
-                            With SantrixGlobal, you now have access to a powerful ecosystem where Assets work for you, 
-                            generate consistent rewards, and free your time for what truly matters.
-                        </p>
+                                        <h3 style='color:#333; margin-top:15px;'>⚡ Boost Productivity</h3>
+                                        <p>
+                                            Whether it's writing, coding, planning, or brainstorming —  
+                                            your AI assistant works with you 24/7.
+                                        </p>
 
-                        <h3 style='color:#333;'>🤖 Put Your Assets to Work</h3>
-                        <p style='color:#555;'>Let them earn while you live smarter.</p>
+                                        <h3 style='color:#333; margin-top:15px;'>🧠 Learn & Create</h3>
+                                        <p>
+                                            Generate ideas, improve your skills, get explanations, summaries,  
+                                            and much more in seconds.
+                                        </p>
 
-                        <h3 style='color:#333;'>🛠️ Your Capital. Our Platform.</h3>
-                        <p style='color:#555;'>Together, we build a future where money works smarter.</p>
+                                    </td>
+                                </tr>
 
-                        <!-- LOGIN BOX -->
-                        <table width='100%' style='background:#f8f8ff; border:1px solid #6c63ff; border-radius:8px; margin:25px 0;' cellpadding='12'>
-                            <tr>
-                                <td align='center'>
-                                    <p style='margin:0; font-size:16px;'><b>Login ID:</b> {emailid}</p>
-                                    <p style='margin-top:8px; font-size:16px;'><b>Password:</b> {plainPassword}</p>
-                                </td>
-                            </tr>
-                        </table>
+                                <!-- LOGIN DETAILS -->
+                                <tr>
+                                    <td>
+                                        <table width='100%'
+                                            style='background:#f8f8ff; border:1px solid #6c63ff; border-radius:10px; margin:25px 0;' cellpadding='10'>
+                                            <tr>
+                                                <td align='center' style='font-size:16px; color:#333;'>
+                                                    <b>Login ID:</b> {emailid}<br>
+                                                    <b>Password:</b> {plainPassword}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
 
-                        <p style='text-align:center; color:#666; font-size:15px;'>
-                            Welcome aboard {Name}. Let’s create passive income — the Santrx way.
-                        </p>
+                                <!-- FOOTER MESSAGE -->
+                                <tr>
+                                    <td align='center'>
+                                        <p style='color:#666; font-size:15px;'>
+                                            We're excited to have you onboard.  
+                                            Start chatting and experience the power of AI!
+                                        </p>
+                                    </td>
+                                </tr>
 
-                        <hr style='border:none; border-top:1px solid #eee; margin:30px 0;'>
+                                <tr>
+                                    <td>
+                                        <hr style='border:none; border-top:1px solid #eee; margin:25px 0;'>
+                                    </td>
+                                </tr>
 
-                        <!-- SOCIAL -->
-                        <p style='text-align:center; color:#999; font-size:14px;'>Follow us on</p>
+                                <!-- SOCIAL ICONS -->
+                                <tr>
+                                    <td align='center'>
+                                        <p style='color:#999; font-size:14px; margin-bottom:10px;'>Follow us</p>
 
-                        <div style='text-align:center; margin-top:10px;'>
-                            <a href=''>
-                                <img src='https://cdn-icons-png.flaticon.com/24/174/174855.png' style='margin:0 8px;'>
-                            </a>
-                            <a href=''>
-                                <img src='https://cdn-icons-png.flaticon.com/24/733/733547.png' style='margin:0 8px;'>
-                            </a>
-                            <a href='#'>
-                                <img src='https://cdn-icons-png.flaticon.com/24/5968/5968958.png' style='margin:0 8px; width:24px;'>
-                            </a>
-                        </div>
+                                        <a href='#'><img src='https://cdn-icons-png.flaticon.com/24/174/174855.png' style='margin:0 6px;'></a>
+                                        <a href='#'><img src='https://cdn-icons-png.flaticon.com/24/733/733547.png' style='margin:0 6px;'></a>
+                                        <a href='#'><img src='https://cdn-icons-png.flaticon.com/24/5968/5968958.png' style='margin:0 6px; width:24px;'></a>
 
-                        <p style='text-align:center; color:#bbb; font-size:12px; margin-top:15px;'>
-                            © {DateTime.Now.Year} AICHatBOT. All rights reserved.
-                        </p>
+                                        <p style='color:#bbb; font-size:12px; margin-top:15px;'>
+                                            © {DateTime.Now.Year} AI Chat Assistant. All rights reserved.
+                                        </p>
+                                    </td>
+                                </tr>
 
-                    </td>
-                </tr>
+                            </table>
 
-            </table>
+                        </td>
+                    </tr>
+                </table>
 
-        </td>
-    </tr>
+            </td>
+        </tr>
     </table>
-
-</td>
-</tr>
-</table>
-
 </body>
 </html>";
 
                 SendEmailCommonone(emailid.Trim(), subject, body, true);
-
-                
             }
             catch { }
         }
 
-        //Event Email User
+
+
         public void SendOtpEmailForEventUser(string otp, string emailId, int actionType = 1, string purpose = "SantrixGlobal")
         {
             try
