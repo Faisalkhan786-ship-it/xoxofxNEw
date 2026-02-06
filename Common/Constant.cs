@@ -17,6 +17,8 @@ namespace Common
         public static string insertNewChat = "SpInsertNewChat";
         public static string getUserChats = "SpGetUserChats";
         public static string getChatMessages = "SpGetChatMessages";
+        public static string getUserChatsAdmin = "spGetUserChatsAdmin";
+        public static string chatMsgByIdAdmin = "SpChatMsgByIdAdmin";
 
 
         //End

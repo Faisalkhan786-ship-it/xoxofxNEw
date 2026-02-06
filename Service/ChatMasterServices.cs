@@ -37,5 +37,17 @@ namespace Service
             var getChatMessagesChatId = await _repositoryManager.chatMasterRepository.getChatMessagesChatId(chatMessagesViewModel);
             return getChatMessagesChatId;
         }
+
+        public async Task<ResponseViewModel> getUserAllChatsAdmin(Guid USERID)
+        {
+            var getUserAllChatsAdmin = await _repositoryManager.chatMasterRepository.getUserAllChatsAdmin(USERID);
+            return getUserAllChatsAdmin;
+        }
+
+        public async Task<ResponseViewModel> chatMsgByIdAdmin(int ChatId)
+        {
+            var chatMsgByIdAdmin = await _repositoryManager.chatMasterRepository.chatMsgByIdAdmin(ChatId);
+            return chatMsgByIdAdmin;
+        }
     }
 }

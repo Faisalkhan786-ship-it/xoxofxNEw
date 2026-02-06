@@ -64,5 +64,30 @@ namespace ChatBot_API.Controllers
             }
             return Ok(getChatMessagesChatId);
         }
+
+        [HttpGet("getUserAllChatsAdmin")]
+        public async Task<IActionResult> getUserAllChatsAdmin(Guid USERID)
+        {
+            _logger.logInfo($" {LoggingEvents.getAllItem} getUserAllChatsAdmin");
+            var getUserAllChatsAdmin = await _serviceManager.chatMasterServices.getUserAllChatsAdmin(USERID);
+            if (getUserAllChatsAdmin.statusCode == (int)HttpStatusCode.NotFound)
+            {
+                _logger.logWarn($"{LoggingEvents.getItemNotFound},No chat Found");
+            }
+            return Ok(getUserAllChatsAdmin);
+        }
+
+
+        [HttpGet("chatMsgByIdAdmin")]
+        public async Task<IActionResult> chatMsgByIdAdmin(int ChatId)
+        {
+            _logger.logInfo($" {LoggingEvents.getAllItem} chatMsgByIdAdmin");
+            var chatMsgByIdAdmin = await _serviceManager.chatMasterServices.chatMsgByIdAdmin(ChatId);
+            if (chatMsgByIdAdmin.statusCode == (int)HttpStatusCode.NotFound)
+            {
+                _logger.logWarn($"{LoggingEvents.getItemNotFound},No chat Found");
+            }
+            return Ok(chatMsgByIdAdmin);
+        }
     }
 }

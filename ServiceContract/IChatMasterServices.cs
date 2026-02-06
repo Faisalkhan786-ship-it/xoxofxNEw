@@ -13,6 +13,8 @@ namespace ServiceContract
         public Task<ResponseViewModelNewChat> addNewChat(NewChatViewModel newChatViewModel);
         public Task<ResponseViewModel> getUserAllChatsbyUserId(Guid USERID);
         public Task<ResponseViewModel> getChatMessagesChatId(ChatMessagesViewModel chatMessagesViewModel);
+        public Task<ResponseViewModel> getUserAllChatsAdmin(Guid USERID);
+        public Task<ResponseViewModel> chatMsgByIdAdmin(int ChatId);
 
     }
 }
