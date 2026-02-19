@@ -370,6 +370,59 @@ namespace Repository
             }
         }
 
+        public async Task<ResponseViewModel> useCredit(UseCreditViewModel useCreditViewModel)
+        {
+            var procedureName = Constant.updateCredit;
+            var parameters = new DynamicParameters();
+            parameters.Add("@UserId", useCreditViewModel.UserId, DbType.Guid);
 
+            using (var connection = _dapperContext.createConnection())
+            {
+                var result = await connection.QueryFirstOrDefaultAsync<ResponseViewModel>(
+                    procedureName, parameters,
+                    commandType: CommandType.StoredProcedure
+                );
+
+                // status mapping
+                if (result != null && result.statusCode == 1)
+                {
+                    result.statusCode = (int)HttpStatusCode.OK;
+                }
+                else
+                {
+                    result.statusCode = (int)HttpStatusCode.ExpectationFailed;
+                }
+
+                return result;
+            }
+        }
+
+        public async Task<ResponseViewModel> userDeleteChat(ChatMessagesViewModel chatMessagesViewModel)
+        {
+            var procedureName = Constant.userDeleteChat;
+            var parameters = new DynamicParameters();
+            parameters.Add("@USERID", chatMessagesViewModel.UserId, DbType.Guid);
+            parameters.Add("@ChatId", chatMessagesViewModel.ChatId, DbType.Int32);
+
+            using (var connection = _dapperContext.createConnection())
+            {
+                var result = await connection.QueryFirstOrDefaultAsync<ResponseViewModel>(
+                    procedureName, parameters,
+                    commandType: CommandType.StoredProcedure
+                );
+
+                // status mapping
+                if (result != null && result.statusCode == 1)
+                {
+                    result.statusCode = (int)HttpStatusCode.OK;
+                }
+                else
+                {
+                    result.statusCode = (int)HttpStatusCode.ExpectationFailed;
+                }
+
+                return result;
+            }
+        }
     }
 }

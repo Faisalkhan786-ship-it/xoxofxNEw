@@ -89,5 +89,20 @@ namespace ChatBot_API.Controllers
             }
             return Ok(chatMsgByIdAdmin);
         }
+
+        [HttpPost("useCredit")]
+        public async Task<IActionResult> useCredit(UseCreditViewModel useCreditViewModel)
+        {
+            _logger.logInfo($" {LoggingEvents.addItem} useCreditViewModel");
+            var useCredit = await _serviceManager.chatMasterServices.useCredit(useCreditViewModel);
+            return Ok(useCredit);
+        }
+        [HttpPost("userDeleteChat")]
+        public async Task<IActionResult> userDeleteChat(ChatMessagesViewModel chatMessagesViewModel)
+        {
+            _logger.logInfo($" {LoggingEvents.addItem} userDeleteChat");
+            var userDeleteChat = await _serviceManager.chatMasterServices.userDeleteChat(chatMessagesViewModel);
+            return Ok(userDeleteChat);
+        }
     }
 }

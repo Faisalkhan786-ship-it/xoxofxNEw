@@ -19,10 +19,16 @@ namespace ViewModel
         public string? ChatName { get; set; }
 
     }
+    public class UseCreditViewModel
+    {
+        public Guid UserId { get; set; }
+
+    }
     public class ChatMessagesViewModel
     {
         public int? ChatId { get; set; }
         public Guid UserId { get; set; }
 
     }
+  
 }

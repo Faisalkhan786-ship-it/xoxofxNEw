@@ -49,5 +49,15 @@ namespace Service
             var chatMsgByIdAdmin = await _repositoryManager.chatMasterRepository.chatMsgByIdAdmin(ChatId);
             return chatMsgByIdAdmin;
         }
+        public async Task<ResponseViewModel> useCredit(UseCreditViewModel useCreditViewModel)
+        {
+            var useCredit = await _repositoryManager.chatMasterRepository.useCredit(useCreditViewModel);
+            return useCredit;
+        }
+        public async Task<ResponseViewModel> userDeleteChat(ChatMessagesViewModel chatMessagesViewModel)
+        {
+            var userDeleteChat = await _repositoryManager.chatMasterRepository.userDeleteChat(chatMessagesViewModel);
+            return userDeleteChat;
+        }
     }
 }
