@@ -18,70 +18,7 @@ namespace Repository
         private readonly DapperContext _dapperContext;
         public ChatMasterRepository(DapperContext dapperContext) =>
             _dapperContext = dapperContext;
-
-        //public async Task<ResponseViewModelchatmaster> addChatMessage(ChatMasterViewModel chatMasterViewModel)
-        //{
-        //    var procedureName = Constant.insertChatMessage;
-        //    var parameters = new DynamicParameters();
-        //    parameters.Add("@ChatId", chatMasterViewModel.ChatId, DbType.Int32);
-        //    parameters.Add("@UserId", chatMasterViewModel.UserId, DbType.Guid);
-        //    parameters.Add("@MessageText", chatMasterViewModel.MessageText, DbType.String);
-        //    parameters.Add("@IsUser", chatMasterViewModel.IsUser, DbType.Int32);
-
-        //    using (var connection = _dapperContext.createConnection())
-        //    {
-        //        var result = await connection.QueryFirstOrDefaultAsync<ResponseViewModelchatmaster>(procedureName, parameters, commandType: CommandType.StoredProcedure);
-        //        if (result.statusCode == 1)
-        //        {
-        //            result.statusCode = (int)HttpStatusCode.OK;
-        //            result.message = result.message;
-        //        }
-        //        else if (result.statusCode == 0)
-        //        {
-        //            result.statusCode = (int)HttpStatusCode.ExpectationFailed;
-        //            result.message = result.message;
-        //        }
-        //        else
-        //        {
-        //            result.statusCode = (int)HttpStatusCode.ExpectationFailed;
-        //            result.message = result.message;
-        //        }
-        //        return result;
-        //    }
-        //}
-
-        //public async Task<ResponseViewModelchatmaster> addChatMessage(ChatMasterViewModel chatMasterViewModel)
-        //{
-        //    var procedureName = Constant.insertChatMessage;
-        //    var parameters = new DynamicParameters();
-
-        //    parameters.Add("@ChatId", chatMasterViewModel.ChatId, DbType.Int32);
-        //    parameters.Add("@UserId", chatMasterViewModel.UserId, DbType.Guid);
-        //    parameters.Add("@MessageText", chatMasterViewModel.MessageText, DbType.String);
-        //    parameters.Add("@IsUser", chatMasterViewModel.IsUser, DbType.Int32);
-
-        //    using (var connection = _dapperContext.createConnection())
-        //    {
-        //        var result = await connection.QueryFirstOrDefaultAsync<ResponseViewModelchatmaster>(
-        //            procedureName, parameters,
-        //            commandType: CommandType.StoredProcedure
-        //        );
-
-        //        // status mapping
-        //        if (result != null && result.statusCode == 1)
-        //        {
-        //            result.statusCode = (int)HttpStatusCode.OK;
-        //        }
-        //        else
-        //        {
-        //            result.statusCode = (int)HttpStatusCode.ExpectationFailed;
-        //        }
-
-        //        return result;
-        //    }
-        //}
-
-
+       
         //ye wali use ho rahi hai me 
         public async Task<ResponseViewModelchatmaster> addChatMessage(ChatMasterViewModel chatMasterViewModel)
         {
@@ -397,6 +334,36 @@ namespace Repository
             }
         }
 
+        public async Task<ResponseViewModel> insertlinkedid(UselinkedidViewModel uselinkedViewModel)
+        {
+            var procedureName = Constant.insertlinkedid;
+            var parameters = new DynamicParameters();
+            parameters.Add("@UserID", uselinkedViewModel.UserId, DbType.Guid);
+            parameters.Add("@ThirdPartyUserId", uselinkedViewModel.ThirdPartyUserId, DbType.String);
+            parameters.Add("@ThirdPartyPackage", uselinkedViewModel.ThirdPartyPackage, DbType.Decimal);
+            parameters.Add("@LinkedDate", uselinkedViewModel.LinkedDate ?? DateTime.Now);
+            parameters.Add("@LinkedRemark", uselinkedViewModel.LinkedRemark);
+
+            using (var connection = _dapperContext.createConnection())
+            {
+                var result = await connection.QueryFirstOrDefaultAsync<ResponseViewModel>(
+                    procedureName, parameters,
+                    commandType: CommandType.StoredProcedure
+                );
+
+                // status mapping
+                if (result != null && result.statusCode == 1)
+                {
+                    result.statusCode = (int)HttpStatusCode.OK;
+                }
+                else
+                {
+                    result.statusCode = (int)HttpStatusCode.ExpectationFailed;
+                }
+
+                return result;
+            }
+        }
         public async Task<ResponseViewModel> userDeleteChat(ChatMessagesViewModel chatMessagesViewModel)
         {
             var procedureName = Constant.userDeleteChat;

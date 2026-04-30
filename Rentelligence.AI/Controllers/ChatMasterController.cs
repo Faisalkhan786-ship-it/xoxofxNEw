@@ -1,11 +1,13 @@
 ﻿using Common;
 using EmailSystem;
 using LoggerService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ServiceContract;
 using System.Net;
 using ViewModel;
+using static Rentelligence.AI.MarketPlace.Controllers.AuthenticationController;
 
 namespace ChatBot_API.Controllers
 {
@@ -34,14 +36,8 @@ namespace ChatBot_API.Controllers
             var addChatMessage = await _serviceManager.chatMasterServices.addChatMessage(chatMasterViewModel);
             return Ok(addChatMessage);
         }
-        //[HttpPost("addNewChat")]
-        //public async Task<IActionResult> addNewChat(NewChatViewModel newChatViewModel)
-        //{
-        //     _logger.logInfo($" {LoggingEvents.addItem} addNewChat");
-        //    var addNewChat = await _serviceManager.chatMasterServices.addNewChat(newChatViewModel);
-        //    return Ok(addNewChat);
-        //}
 
+        //[Authorize(Roles = Roles.User)]
         [HttpGet("getUserAllChatsbyUserId")]
         public async Task<IActionResult> getUserAllChatsbyUserId(Guid USERID)
         {
@@ -103,6 +99,14 @@ namespace ChatBot_API.Controllers
             _logger.logInfo($" {LoggingEvents.addItem} userDeleteChat");
             var userDeleteChat = await _serviceManager.chatMasterServices.userDeleteChat(chatMessagesViewModel);
             return Ok(userDeleteChat);
+        }
+
+        [HttpPost("insertlinkedid")]
+        public async Task<IActionResult> insertlinkedid(UselinkedidViewModel uselinkedViewModel)
+        {
+            _logger.logInfo($" {LoggingEvents.addItem} uselinkedViewModel");
+            var uselinkedid = await _serviceManager.chatMasterServices.insertlinkedid(uselinkedViewModel);
+            return Ok(uselinkedid);
         }
     }
 }

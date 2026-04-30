@@ -207,6 +207,7 @@ namespace Repository
             parameters.Add("@Email", addAppUser.Email);
             parameters.Add("@PasswordHash", addAppUser.PasswordHash);
             parameters.Add("@PhoneNo", addAppUser.PhoneNo);
+            parameters.Add("@countryid", addAppUser.countryId);
             parameters.Add("@intResult", dbType: DbType.Int64, direction: ParameterDirection.Output);
 
             using var connection = _dapperContext.createConnection();
@@ -636,6 +637,64 @@ namespace Repository
                 return returnData;
             }
         }
+        public async Task<ResponseViewModel> validateOtpbyEmail(ValidateOtpViewModelbyemail validateOtpViewModelbyemail)
+        {
+            var procedureName = Constant.validateOtpbtEmailId;
+            var parameters = new DynamicParameters();
+            parameters.Add("@URID", validateOtpViewModelbyemail.Email, DbType.String);
+            parameters.Add("@otp", validateOtpViewModelbyemail.otp, DbType.String);
+            using (var connection = _dapperContext.createConnection())
+            {
+                var result = await connection.QueryAsync(procedureName, parameters, commandType: CommandType.StoredProcedure);
+                ResponseViewModel returnData;
+                if (result != null && result.Any())
+                {
+                    var validation = result.First();
+                    if (validation.statusCode == 1)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.OK,
+                            message = validation.message,
+                            data = result
+                        };
+                    }
+                    else if (validation.statusCode == 0)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.Conflict,
+                            message = validation.message
+                        };
+                    }
+                    else if (validation.statusCode == -1)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.Conflict,
+                            message = validation.message
+                        };
+                    }
+                    else
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.BadRequest,
+                            message = validation.message
+                        };
+                    }
+                }
+                else
+                {
+                    returnData = new ResponseViewModel
+                    {
+                        statusCode = (int)HttpStatusCode.NotFound,
+                        message = "Something went to wrong with server error."
+                    };
+                }
+                return returnData;
+            }
+        }
 
         public async Task<ResponseViewModel> validateOtp(ValidateOtpViewModel validateOtpViewModel)
         {
@@ -829,10 +888,15 @@ namespace Repository
             var otp = new Random().Next(100000, 999999).ToString();
             await Task.Delay(10);
             // Save OTP in DB
-            var procedureName = Constant.updateOtp;
-            var parameters = new DynamicParameters();
-            parameters.Add("@EmailId", sendOtp.EmailId, DbType.String);
-            parameters.Add("@otp", otp, DbType.Int32);
+            //var procedureName = Constant.updateOtp;
+            using (var connection = _dapperContext.createConnection())
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@EmailId", sendOtp.EmailId, DbType.String);
+                parameters.Add("@otp", otp, DbType.Int32);
+
+                await connection.ExecuteAsync("SpUpdateOtp", parameters, commandType: CommandType.StoredProcedure);
+            }
             using (var connection = _dapperContext.createConnection())
             {
                 //  Get Email Routing info from SP
@@ -1026,6 +1090,55 @@ namespace Repository
             }
         }
 
+        public async Task<ResponseViewModel> VerifyLoginid(verifyloginidViewModel verifyloginid)
+        {
+            var procedureName = Constant.userVerifyloginid;
+            var parameters = new DynamicParameters();
+            parameters.Add("@LoginId", verifyloginid.Loginid, DbType.String);
+
+            using (var connection = _dapperContext.createConnection())
+            {
+                var result = await connection.QueryFirstOrDefaultAsync<dynamic>(
+                    procedureName, parameters, commandType: CommandType.StoredProcedure);
+
+                if (result != null)
+                {
+                    int status = result.Status ?? 0;
+
+                    if (status == 1)
+                    {
+                        return new ResponseViewModel
+                        {
+                            statusCode = 200,
+                            message = result.Message ?? "LoginId verified successfully.",
+                            data = new
+                            {
+                                Package = result.Package
+                            }
+                        };
+                    }
+                    else
+                    {
+                        return new ResponseViewModel
+                        {
+                            statusCode = 401,
+                            message = result.Message ?? "Invalid LoginId.",
+                            data = null
+                        };
+                    }
+                }
+                else
+                {
+                    return new ResponseViewModel
+                    {
+                        statusCode = 500,
+                        message = "No response from server.",
+                        data = null
+                    };
+                }
+            }
+        }
+
         //public async Task<ResponseViewModel> sendOtpEvent(SendOtpFundRequestViewModel sendOtp)
         //{
         //    var otp = new Random().Next(100000, 999999).ToString();
@@ -1093,7 +1206,296 @@ namespace Repository
                 message = "OTP sent to email successfully."
             };
         }
+        public async Task<ResponseViewModel> userDashboard(Guid URID)
+        {
+            var procedureName = Constant.getUserDashboardDetails;
+            var parameters = new DynamicParameters();
+            parameters.Add("@URID", URID, DbType.Guid);
+            using (var connection = _dapperContext.createConnection())
+            {
+                var result = await connection.QueryAsync(procedureName, parameters, commandType: CommandType.StoredProcedure);
+                ResponseViewModel returnData;
+                if (result != null && result.Any())
+                {
+                    var validation = result.First();
+                    if (validation.statusCode == 1)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.OK,
+                            message = validation.message,
+                            data = result
+                        };
+                    }
+                    else if (validation.statusCode == 0)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.Conflict,
+                            message = validation.message
+                        };
+                    }
+                    else if (validation.statusCode == -1)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.Conflict,
+                            message = validation.message
+                        };
+                    }
+                    else
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.BadRequest,
+                            message = validation.message
+                        };
+                    }
+                }
+                else
+                {
+                    returnData = new ResponseViewModel
+                    {
+                        statusCode = (int)HttpStatusCode.NotFound,
+                        message = "Something went to wrong with server error."
+                    };
+                }
+                return returnData;
+            }
+        }
 
 
+        public async Task<ResponseViewModel> getTransactionLog(Guid URID)
+        {
+            var procedureName = Constant.getTransactionLog;
+            var parameters = new DynamicParameters();
+            parameters.Add("@URID", URID, DbType.Guid);
+            using (var connection = _dapperContext.createConnection())
+            {
+                var result = await connection.QueryAsync(procedureName, parameters, commandType: CommandType.StoredProcedure);
+                ResponseViewModel returnData;
+                if (result != null && result.Any())
+                {
+                    var validation = result.First();
+                    if (validation.statusCode == 1)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.OK,
+                            message = validation.message,
+                            data = result
+                        };
+                    }
+                    else if (validation.statusCode == 0)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.Conflict,
+                            message = validation.message
+                        };
+                    }
+                    else if (validation.statusCode == -1)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.Conflict,
+                            message = validation.message
+                        };
+                    }
+                    else
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.BadRequest,
+                            message = validation.message
+                        };
+                    }
+                }
+                else
+                {
+                    returnData = new ResponseViewModel
+                    {
+                        statusCode = (int)HttpStatusCode.NotFound,
+                        message = "Something went to wrong with server error."
+                    };
+                }
+                return returnData;
+            }
+        }
+
+        public async Task<ResponseViewModel> getABREngine(Guid URID)
+        {
+            var procedureName = Constant.getABREngine;
+            var parameters = new DynamicParameters();
+            parameters.Add("@URID", URID, DbType.Guid);
+            using (var connection = _dapperContext.createConnection())
+            {
+                var result = await connection.QueryAsync(procedureName, parameters, commandType: CommandType.StoredProcedure);
+                ResponseViewModel returnData;
+                if (result != null && result.Any())
+                {
+                    var validation = result.First();
+                    if (validation.statusCode == 1)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.OK,
+                            message = validation.message,
+                            data = result
+                        };
+                    }
+                    else if (validation.statusCode == 0)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.Conflict,
+                            message = validation.message
+                        };
+                    }
+                    else if (validation.statusCode == -1)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.Conflict,
+                            message = validation.message
+                        };
+                    }
+                    else
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.BadRequest,
+                            message = validation.message
+                        };
+                    }
+                }
+                else
+                {
+                    returnData = new ResponseViewModel
+                    {
+                        statusCode = (int)HttpStatusCode.NotFound,
+                        message = "Something went to wrong with server error."
+                    };
+                }
+                return returnData;
+            }
+        }
+
+        public async Task<ResponseViewModel> getUserAnalytics(Guid URID)
+        {
+            var procedureName = Constant.getUserAnalytics;
+            var parameters = new DynamicParameters();
+            parameters.Add("@URID", URID, DbType.Guid);
+            using (var connection = _dapperContext.createConnection())
+            {
+                var result = await connection.QueryAsync(procedureName, parameters, commandType: CommandType.StoredProcedure);
+                ResponseViewModel returnData;
+                if (result != null && result.Any())
+                {
+                    var validation = result.First();
+                    if (validation.statusCode == 1)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.OK,
+                            message = validation.message,
+                            data = result
+                        };
+                    }
+                    else if (validation.statusCode == 0)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.Conflict,
+                            message = validation.message
+                        };
+                    }
+                    else if (validation.statusCode == -1)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.Conflict,
+                            message = validation.message
+                        };
+                    }
+                    else
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.BadRequest,
+                            message = validation.message
+                        };
+                    }
+                }
+                else
+                {
+                    returnData = new ResponseViewModel
+                    {
+                        statusCode = (int)HttpStatusCode.NotFound,
+                        message = "Something went to wrong with server error."
+                    };
+                }
+                return returnData;
+            }
+        }
+
+
+        public async Task<ResponseViewModel> getUserLinkedIds(Guid URID)
+        {
+            var procedureName = Constant.getUserLinkedIds;
+            var parameters = new DynamicParameters();
+            parameters.Add("@URID", URID, DbType.Guid);
+            using (var connection = _dapperContext.createConnection())
+            {
+                var result = await connection.QueryAsync(procedureName, parameters, commandType: CommandType.StoredProcedure);
+                ResponseViewModel returnData;
+                if (result != null && result.Any())
+                {
+                    var validation = result.First();
+                    if (validation.statusCode == 1)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.OK,
+                            message = validation.message,
+                            data = result
+                        };
+                    }
+                    else if (validation.statusCode == 0)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.Conflict,
+                            message = validation.message
+                        };
+                    }
+                    else if (validation.statusCode == -1)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.Conflict,
+                            message = validation.message
+                        };
+                    }
+                    else
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.BadRequest,
+                            message = validation.message
+                        };
+                    }
+                }
+                else
+                {
+                    returnData = new ResponseViewModel
+                    {
+                        statusCode = (int)HttpStatusCode.NotFound,
+                        message = "Something went to wrong with server error."
+                    };
+                }
+                return returnData;
+            }
+        }
     }
 }

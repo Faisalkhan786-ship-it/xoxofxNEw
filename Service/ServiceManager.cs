@@ -18,6 +18,8 @@ namespace Service
         private readonly Lazy<IMenuContract> _menuContract;
         private readonly Lazy<ISubMenuContract> _subMenuContract;
         private readonly Lazy<IChatMasterServices> _chatMasterServices;
+        private readonly Lazy<ITransactionsLogService> _transactionsLogService;
+        private readonly Lazy<IGeographyContract> _geographyContract;
         public ServiceManager(IRepositoryManager repositoryManager)
         {
 
@@ -30,6 +32,8 @@ namespace Service
             _menuContract = new Lazy<IMenuContract>(() => new MenuService(repositoryManager));
             _subMenuContract = new Lazy<ISubMenuContract>(() => new SubMenuService(repositoryManager));
             _chatMasterServices = new Lazy<IChatMasterServices>(() => new ChatMasterServices(repositoryManager));
+            _transactionsLogService = new Lazy<ITransactionsLogService>(() => new TransactionsLogService(repositoryManager));
+            _geographyContract = new Lazy<IGeographyContract>(() => new GeographyService(repositoryManager));
 
         }
 
@@ -44,5 +48,7 @@ namespace Service
         public IMenuContract menuContract => _menuContract.Value;
         public ISubMenuContract subMenuContract => _subMenuContract.Value;
         public IChatMasterServices chatMasterServices => _chatMasterServices.Value;
+        public ITransactionsLogService transactionsLogService => _transactionsLogService.Value;
+        public IGeographyContract geographyContract => _geographyContract.Value;
     }
 }

@@ -16,7 +16,9 @@ namespace RepositoryContract
         public Task<ResponseViewModel> getUserAllChatsAdmin(Guid USERID);
         public Task<ResponseViewModel> chatMsgByIdAdmin(int ChatId);
         public Task<ResponseViewModel> useCredit(UseCreditViewModel useCreditViewModel);
+        public Task<ResponseViewModel> insertlinkedid(UselinkedidViewModel uselinkedViewModel);
         public Task<ResponseViewModel> userDeleteChat(ChatMessagesViewModel chatMessagesViewModel);
+       
 
     }
 }

@@ -8,13 +8,13 @@
 
   <ItemGroup>
     <Compile Remove="Views\**" />
-    <Compile Remove="wwwroot\BannerImage\**" />
     <Content Remove="Views\**" />
-    <Content Remove="wwwroot\BannerImage\**" />
     <EmbeddedResource Remove="Views\**" />
-    <EmbeddedResource Remove="wwwroot\BannerImage\**" />
     <None Remove="Views\**" />
-    <None Remove="wwwroot\BannerImage\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="EmailLogo\Logo.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,6 +40,10 @@
     <ProjectReference Include="..\ServiceContract\ServiceContract.csproj" />
     <ProjectReference Include="..\Service\Service.csproj" />
     <ProjectReference Include="..\ViewModel\ViewModel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>

@@ -50,9 +50,17 @@ namespace ViewModel
         public string otp { get; set; }
     }
 
+    public class ValidateOtpViewModelbyemail
+    {
+        [Required]
+        public string Email { get; set; }
+        public string otp { get; set; }
+    }
+
     public class AddAppUserViewModel
     {      
         public string? FullName { get; set; }       
+        public string? countryId { get; set; }       
         public string? Email { get; set; }       
         public string? PasswordHash { get; set; }       
         public string? PhoneNo { get; set; }       
@@ -66,6 +74,16 @@ namespace ViewModel
     public class ForgotPasswordViewModel
     {
         public string? Email { get; set; }
+    }
+    public class verifyloginidViewModel
+    {
+        public string? Loginid { get; set; }
+    }
+    public class VerifyLoginResponse
+    {
+        public int Status { get; set; }
+        public string? Message { get; set; }
+        public decimal? Package { get; set; }
     }
 
     public class ForgotPasswordResult

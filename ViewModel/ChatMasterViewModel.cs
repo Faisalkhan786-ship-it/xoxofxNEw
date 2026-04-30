@@ -24,6 +24,15 @@ namespace ViewModel
         public Guid UserId { get; set; }
 
     }
+    public class UselinkedidViewModel
+    {
+        public Guid UserId { get; set; }
+        public string? ThirdPartyUserId { get; set; }
+        public decimal? ThirdPartyPackage { get; set; }
+        public DateTime? LinkedDate { get; set; }
+        public string? LinkedRemark { get; set; }
+
+    }
     public class ChatMessagesViewModel
     {
         public int? ChatId { get; set; }

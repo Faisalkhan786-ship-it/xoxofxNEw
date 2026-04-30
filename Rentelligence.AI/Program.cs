@@ -1,61 +1,38 @@
-﻿using EmailSystem;
+﻿
+
+using Common;
+using EmailSystem;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.IdentityModel.Tokens;
 using Rentelligence.AI.Extensions;
-using Rentelligence.AI.Middleware;
 using Repository;
 using RepositoryContract;
 using Serilog;
 using System.Text;
-using FirebaseAdmin;
-using Google.Apis.Auth.OAuth2;
+using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Connection String
 var connectionString = builder.Configuration.GetConnectionString("DbCon");
-// Allow CORS - All Origins
+
+// ✅ CORS - Allow All
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
     {
-        policy
-            .AllowAnyOrigin()
-            .AllowAnyMethod()
-            .AllowAnyHeader();
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
     });
 });
-//// Allow CORS
-//builder.Services.AddCors(options =>
-//{
-//    options.AddPolicy("AllowAll", policy =>
-//    {
-//        policy.WithOrigins(
-//            "http://localhost:8081",
-//            "http://localhost:3000",
-//            "https://rentelligence.online",
-//            "https://rentelligence.ai",
-//            "https://app.rentelligence.ai",
-//            "https://ai-rentelligence.vercel.app",
-//            "https://ai-rentelligence-admin.vercel.app",
-//            "https://ai-rentelligence-home.vercel.app",
-//            "https://rentel-ai-market-place.vercel.app",
-//            "https://ai-market-place-admin.vercel.app/",
-//            "https://santrix-global-agentic.vercel.app/",
-//            "https://santrix-global-agentic-admin.vercel.app/",
-//            "https://santrx.com/",
-//            "https://apis.vibeworld.online/",
-//            "https://vibeworld.online/"
-//        )
-//        .AllowAnyMethod()
-//        .AllowAnyHeader();
-//    });
-//});
 
+// ✅ Services
+builder.Services.AddScoped<EmailService>();
+builder.Services.AddControllers();
 
-// Swagger + MVC
-builder.Services.AddControllersWithViews();
-
-// JWT Authentication
+// ✅ JWT Authentication
 builder.Services.AddAuthentication(option =>
 {
     option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -76,82 +53,58 @@ builder.Services.AddAuthentication(option =>
     };
 });
 
+builder.Services.AddAuthorization();
 
-
-// Dependency Injection on particular Component Self Deposit
-builder.Services.AddScoped<EmailService>();
-
-// Dependency Injection
-builder.Services.AddScoped<EmailService>();
-
+// ✅ Rate Limiting
+builder.Services.AddRateLimiter(options =>
+{
+    options.AddFixedWindowLimiter("api", opt =>
+    {
+        opt.Window = TimeSpan.FromMinutes(1);
+        opt.PermitLimit = 30;
+        opt.QueueLimit = 0;
+    });
+});
+//builder.Services.AddScoped<TransactionsLogRepository>();
+builder.Services.AddScoped<ITransactionsLogRepository, TransactionsLogRepository>();
+// ✅ Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Custom Extensions
+// ✅ Custom DI
 builder.Services.addDapperContext();
 builder.Services.ConfigureRepositoryManager();
 builder.Services.ConfigureServiceManager();
-builder.Services.ConfigureLoggerService();
+builder.Services.ConfigureLoggerServce();
+builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddAuthorization();
-
-builder.Services.AddHttpClient("Rentelligence", x =>
-{
-    x.BaseAddress = new Uri("Rentelligence.AI");
-});
-
-//  Firebase Initialization (Safe Mode)
-try
-{
-    var firebasePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/firebase-service-account.json");
-
-    if (File.Exists(firebasePath))
-    {
-        FirebaseApp.Create(new AppOptions()
-        {
-            Credential = GoogleCredential.FromFile(firebasePath)
-        });
-
-        Console.WriteLine(" Firebase initialized successfully.");
-    }
-    else
-    {
-        Console.WriteLine(" Firebase config file not found. Skipping Firebase initialization.");
-    }
-}
-catch (Exception ex)
-{
-    Console.WriteLine(" Firebase initialization failed: " + ex.Message);
-}
-
-//  Build App
+// Build
 var app = builder.Build();
 
-//  Swagger
+//  Swagger Auth Middleware
+app.UseWhen(context => context.Request.Path.StartsWithSegments("/arbionapis"), appBuilder =>
+{
+    appBuilder.UseMiddleware<SwaggerAuthMiddleware>();
+});
+
+//  Swagger UI
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "AgentOnDemand API V1");
+    c.RoutePrefix = "arbionapis";
+});
 
-//  Exception middleware
-app.UseMiddleware<ExceptionMiddleware>();
-
+// Middleware Order (IMPORTANT)
 app.UseHttpsRedirection();
-app.UseCors("AllowAll");
+
+app.UseCors("AllowAll");   // ✅ FIXED
+
+app.UseRateLimiter();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
-//  Static Files
-app.UseStaticFiles();
-
-//  MVC + API Routes
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Portfolio}/{action=Index}/{id?}"
-);
-
 app.MapControllers();
 
 app.Run();
-
-
-

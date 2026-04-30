@@ -31,40 +31,49 @@ namespace Rentelligence.AI.MarketPlace.Controllers
             _configuration = configuration;
         }
 
+        
         [HttpPost("adminLogin")]
         public async Task<IActionResult> adminLogin(AdminUserLoginViewModel adminLogin)
         {
-            _logger.logInfo($" {LoggingEvents.getByIdItem} adminLogin");
-            var adminDetails = await _serviceManager.adminAuthenticationContract.adminUserLogin(adminLogin);
-            string token = null;
+            _logger.logInfo($"{LoggingEvents.getByIdItem} adminLogin");
 
-            if (adminDetails.statusCode == (int)HttpStatusCode.OK)
+            var adminDetails = await _serviceManager.adminAuthenticationContract.adminUserLogin(adminLogin);
+
+            string token = null;
+            var userData = (adminDetails.data as IEnumerable<dynamic>)?.FirstOrDefault();
+
+            if (adminDetails.statusCode == (int)HttpStatusCode.OK && userData != null)
             {
-                token = AdminGenerateTokenForUserName(adminLogin);
+                token = AdminGenerateTokenForUserName(userData);
             }
             else
             {
-                _logger.logWarn($"{LoggingEvents.getItemNotFound},No User Found");
+                _logger.logWarn($"{LoggingEvents.getItemNotFound}, No User Found");
             }
+
             var response = new
             {
                 token,
-                adminDetails.statusCode,
-                adminDetails.message,
-                data = (adminDetails.data as IEnumerable<object>)?.FirstOrDefault()
+                statusCode = adminDetails.statusCode,
+                message = adminDetails.message,
+                data = userData
             };
 
             return Ok(response);
         }
-
-        private string AdminGenerateTokenForUserName(AdminUserLoginViewModel adminUserLogin)
+        private string AdminGenerateTokenForUserName(dynamic adminData)
         {
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim("username",adminUserLogin.username.ToString()),
-            };
+        new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
+        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+
+        new Claim("username", adminData.username.ToString()),
+        new Claim(ClaimTypes.Role, adminData.Role.ToString()),
+
+        new Claim("adminUserId", adminData.adminUserId.ToString()),
+        new Claim("appRoleId", adminData.appRoleId.ToString())
+    };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -72,7 +81,7 @@ namespace Rentelligence.AI.MarketPlace.Controllers
             var token = new JwtSecurityToken(
                 _configuration["Jwt:Issuer"],
                 _configuration["Jwt:Audience"],
-                claims: claims,
+                claims,
                 expires: DateTime.Now.AddDays(30),
                 signingCredentials: signIn);
 
@@ -87,9 +96,7 @@ namespace Rentelligence.AI.MarketPlace.Controllers
             return Ok(returnData);
         }
 
-
         [HttpPost("getAdminUserDetails")]
-
         public async Task<IActionResult> getAdminUserDetails(AdminUserGuidViewModel adminUserGuid)
         {
   
@@ -98,7 +105,6 @@ namespace Rentelligence.AI.MarketPlace.Controllers
         }
     
         [HttpGet("getAdminDashboardDetails")]
-
         public async Task<IActionResult> getAdminDashboardDetails(Guid adminUserId)
         {
             _logger.logInfo($" {LoggingEvents.updateItem} getAdminDashboardDetails");
@@ -107,7 +113,6 @@ namespace Rentelligence.AI.MarketPlace.Controllers
         }
 
         [HttpGet("getAllAdminList")]
-
         public async Task<IActionResult> getAllAdminList()
         {
             _logger.logInfo($" {LoggingEvents.updateItem} getAllAdminList");
@@ -116,7 +121,6 @@ namespace Rentelligence.AI.MarketPlace.Controllers
         }
 
         [HttpPost("adminDeActivate")]
-
         public async Task<IActionResult> adminDeActivate(Guid adminuserId)
         {
             _logger.logInfo($" {LoggingEvents.updateItem} getAdminUserDetails");
@@ -125,7 +129,6 @@ namespace Rentelligence.AI.MarketPlace.Controllers
         }
 
         [HttpPost("adminActivate")]
-
         public async Task<IActionResult> adminActivate(Guid adminuserId)
         {
 
@@ -135,7 +138,6 @@ namespace Rentelligence.AI.MarketPlace.Controllers
         }
 
         [HttpPost("addBulkRegsitration")]
-
         public async Task<IActionResult> addBulkRegsitration(BulkRegsitrationViewModel bulkRegsitrationViewModel)
         {
             _logger.logInfo($" {LoggingEvents.updateItem} addBulkRegsitration");
@@ -154,7 +156,6 @@ namespace Rentelligence.AI.MarketPlace.Controllers
         }
 
         [HttpPost("updateAdminProfile")]
-
         public async Task<IActionResult> updateAdminProfile(UpdateAdminProfileViewModel updateAdminProfileViewModel)
         {
             _logger.logInfo($" {LoggingEvents.updateItem} addAdminUser");

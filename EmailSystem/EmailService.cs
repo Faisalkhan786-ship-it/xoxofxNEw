@@ -29,7 +29,7 @@ namespace EmailSystem
                 ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
                 MailMessage Email = new MailMessage();
                 Email.To.Add(EmailID);
-                Email.From = new MailAddress("noreply@smtpmails.online", "noreply@acanza.tech");
+                Email.From = new MailAddress("noreply@smtpmails.online", "noreply@arbionai.com");
                 Email.Subject = subject;
                 Email.Body = body;
                 Email.IsBodyHtml = IsHTML;
@@ -53,14 +53,14 @@ namespace EmailSystem
         }
 
 
-        //----------Action Type 2 Rentelligence Wali Mail jayegi 
+        //----------Action Type 2 per ye wali
 
         public bool SendEmailCommonTWO(string emailId, string subject, string body, bool isHtml = true)
         {
             try
             {
                 var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("Rentelligence", "noreply@rentelligence.ai"));
+                message.From.Add(new MailboxAddress("arbion", "noreply@arbion.ai"));
                 message.To.Add(new MailboxAddress(emailId, emailId));
                 message.Subject = subject;
 
@@ -115,14 +115,15 @@ namespace EmailSystem
         }
 
         //-----------------Send OTP User Registration
-        public void SendOtpEmailForUser(string otp, string emailId, int actionType = 1, string purpose = "SantrxGlobal")
+        public void SendOtpEmailForUser(string otp, string emailId, int actionType = 1, string purpose = "Arbion")
         {
             try
             {
                 string subject = "One-Time Passcode (OTP)";
                 string name = "Dear User";
-
-                string logoUrl = "https://imagedelivery.net/nq9qT5FHZv9Sg48UUnD1-A/5eca37a2-f40e-4ded-152e-2df67488bc00/public";
+                //var logoUrl = Path.Combine(Directory.GetCurrentDirectory(), "EmailLogo", "Logo.png");
+                //string logoUrl = "https://www.theia.org/sites/default/files/2024-11/Arbion%20logo.png";
+                //string logoUrl = "https://imagedelivery.net/nq9qT5FHZv9Sg48UUnD1-A/5eca37a2-f40e-4ded-152e-2df67488bc00/public";
 
                 string body = $@"
 <div style='max-width:600px;margin:auto;font-family:Arial,sans-serif;
@@ -135,16 +136,12 @@ namespace EmailSystem
 
     <div style='background-color:#ffffff;padding:25px 20px;text-align:center;border-bottom:1px solid #f0f0f0;'>
 
-        <!-- 🔹 LOGO FIX START -->
-        <div style='background:#000;display:inline-block;padding:10px 14px;border-radius:10px;margin-bottom:15px;'>
-            <img src='{logoUrl}' alt='Santrix Global Logo' style='height:38px;display:block;' />
-        </div>
-        <!-- 🔹 LOGO FIX END -->
+      
 
         <h2 style='color:#2c3e50;margin-bottom:10px;font-weight:600;'>Dear User,</h2>
 
         <p style='color:#444;font-size:15px;margin:0;'>
-            Thank you for registering with <strong>SantrixGlobal</strong>.
+            Thank you for registering with <strong>arbion</strong>.
         </p>
 
         <p style='color:#444;font-size:15px;margin-top:10px;'>
@@ -171,7 +168,7 @@ namespace EmailSystem
     </div>
 
     <div style='background-color:#fafafa;padding:16px 20px;text-align:center;font-size:12px;color:#999;'>
-        <p style='margin:4px 0;'>Thank you,<br/>The SantrxGlobal Team</p>
+        <p style='margin:4px 0;'>Thank you,<br/>The Arbion Team</p>
 
         <div style='margin-top:12px;'>
             <a href='#' style='margin:0 8px;'><img src='https://cdn-icons-png.flaticon.com/24/174/174855.png' width='24'/></a>
@@ -220,12 +217,13 @@ namespace EmailSystem
 
         //----------------Send OTP Withdrawal Request
 
-        public void SendOtpEmailForRequestFundWithdrawal(string otp,string emailId,string WalletAddress,string name,int actionType,string ukTime)
+        public void SendOtpEmailForRequestFundWithdrawal(string otp, string emailId, string WalletAddress, string name, int actionType, string ukTime)
         {
             try
             {
                 string subject = $"One-Time Passcode (OTP) — UK Time: {ukTime}";
-                string logoUrl = "https://imagedelivery.net/nq9qT5FHZv9Sg48UUnD1-A/222f2792-e560-422a-09c6-17e44f99fa00/public";
+                var logoUrl = Path.Combine(Directory.GetCurrentDirectory(), "EmailLogo", "Logo.png");
+                //string logoUrl = "https://imagedelivery.net/nq9qT5FHZv9Sg48UUnD1-A/222f2792-e560-422a-09c6-17e44f99fa00/public";
 
                 string body = $@"
 <div style='max-width:600px;margin:auto;font-family:Arial,sans-serif;
@@ -240,7 +238,7 @@ namespace EmailSystem
         <img src='{logoUrl}' alt='Rentelligence Logo' style='height:38px;margin-bottom:15px;' />
         <h2 style='color:#2c3e50;margin-bottom:10px;font-weight:600;'>Dear {name},</h2>
 
-        <p style='color:#444;font-size:15px;margin:0;'>Thank you for choosing <strong>SantrixGlobal</strong>.</p>
+        <p style='color:#444;font-size:15px;margin:0;'>Thank you for choosing <strong>arbion</strong>.</p>
         <p style='color:#444;font-size:15px;margin-top:10px;'>To proceed with your withdrawal request, please use the OTP provided below:</p>
 
         <div style='margin:25px 0;'>
@@ -270,7 +268,7 @@ namespace EmailSystem
     </div>
 
     <div style='background-color:#fafafa;padding:16px 20px;text-align:center;font-size:12px;color:#999;'>
-        <p style='margin:4px 0;'>Thank you,<br/>The SantrixGlobal Team</p>
+        <p style='margin:4px 0;'>Thank you,<br/>The arbion Team</p>
               <div style='margin-top:12px; text-align:center;'>
                    <a href='' target='_blank' style='margin: 0 8px; text-decoration:none;'>
                        <img src='https://cdn-icons-png.flaticon.com/24/174/174855.png' alt='Instagram' style='width:24px;height:24px;' />
@@ -315,15 +313,14 @@ namespace EmailSystem
         }
 
 
-
         public void SendOtpEmailForForgotPassword(string authPass, string emailId)
         {
             try
             {
-                string userName = "Acanza Tech User";
+                string userName = "Arbion  User";
                 string emailTo = emailId?.Trim();
 
-                string subject = "Acanza Tech ChatBot Password Reset Details";
+                string subject = "Arbion Password Reset Details";
 
                 StringBuilder html = new StringBuilder();
 
@@ -331,9 +328,9 @@ namespace EmailSystem
                 html.Append("background:#ffffff;border-radius:12px;border:1px solid #e6e6e6;");
                 html.Append("padding:25px 20px;text-align:center;'>");
 
-                // Logo
-                html.Append("<img src='https://imagedelivery.net/nq9qT5FHZv9Sg48UUnD1-A/5eca37a2-f40e-4ded-152e-2df67488bc00/public' ");
-                html.Append("style='width:120px;margin-bottom:10px;display:block;margin-left:auto;margin-right:auto;' />");
+                //// Logo
+                //html.Append("<img src='' ");
+                //html.Append("style='width:120px;margin-bottom:10px;display:block;margin-left:auto;margin-right:auto;' />");
 
                 // Title
                 html.Append("<h2 style='color:#222;margin-top:10px;margin-bottom:6px;font-weight:600;'>Password Reset Request</h2>");
@@ -380,12 +377,14 @@ namespace EmailSystem
 
 
         //----------------Send OTP Fund Request
-        public void SendOtpEmailForRequestFund(string otp, string emailId, string name, int actionType = 1, string purpose = "SantrixGlobal")
+        public void SendOtpEmailForRequestFund(string otp, string emailId, string name, int actionType = 1, string purpose = "Arbion")
         {
             try
             {
                 string subject = "One-Time Passcode (OTP)";
-                string logoUrl = "https://imagedelivery.net/nq9qT5FHZv9Sg48UUnD1-A/222f2792-e560-422a-09c6-17e44f99fa00/public";
+                //string logoUrl = "https://imagedelivery.net/nq9qT5FHZv9Sg48UUnD1-A/222f2792-e560-422a-09c6-17e44f99fa00/public";
+                var logoUrl = Path.Combine(Directory.GetCurrentDirectory(), "EmailLogo", "Logo.png");
+
 
                 string body = $@"
 <div style='max-width:600px;margin:auto;font-family:Arial,sans-serif;
@@ -417,7 +416,7 @@ namespace EmailSystem
     </div>
 
     <div style='background-color:#fafafa;padding:16px 20px;text-align:center;font-size:12px;color:#999;'>
-        <p style='margin:4px 0;'>Thank you,<br/>The SantrixGlobal Team</p>
+        <p style='margin:4px 0;'>Thank you,<br/>The Arbion Team</p>
 
         <div style='margin-top:12px; text-align:center;'>
             <a href='' target='_blank' style='margin: 0 8px; text-decoration:none;'>
@@ -471,166 +470,140 @@ namespace EmailSystem
 
 
         //----------------Send Welcome Letter
-
         public void SendOtpEmailForUserRegistrationWelcomletter(string plainPassword, string emailid, string Name)
         {
             string EmailID = emailid.Trim();
 
             try
             {
-                string subject = $"Welcome to Acanza Tech, {Name}!";
+                string subject = $"🚀 Welcome to Arbion , {Name}!";
 
                 string body = $@"
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset='UTF-8'>
-    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-    <style>
-        @media only screen and (max-width: 600px) {{
-            .container {{ width:100% !important; padding:0 !important; }}
-            .card {{ padding:15px !important; border-radius:10px !important; }}
-            h2 {{ font-size:22px !important; }}
-            p {{ font-size:14px !important; }}
-        }}
-    </style>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
 </head>
 
-<body style='margin:0; padding:0; background:#f3f4f6; font-family:Arial;'>
-    <table width='100%' cellspacing='0' cellpadding='0'>
-        <tr>
-            <td align='center'>
+<body style='margin:0; padding:0; background:#0b0f1a; font-family:Arial;'>
 
-                <table class='container' width='100%' style='max-width:600px; margin:20px auto;'>
-                    <tr>
-                        <td>
+<table width='100%' cellspacing='0' cellpadding='0'>
+<tr>
+<td align='center'>
 
-                            <table class='card' width='100%' 
-                                style='background:#fff; padding:30px; border-radius:16px;
-                                border:1px solid #ddd;'>
+<table width='100%' style='max-width:620px; margin:30px auto;'>
 
-                                <!-- LOGO -->
-                                <tr>
-                                    <td align='center' style='padding-bottom:20px;'>
-                                        <img src='https://imagedelivery.net/nq9qT5FHZv9Sg48UUnD1-A/5eca37a2-f40e-4ded-152e-2df67488bc00/public'
-                                        style='width:140px;' />
-                                    </td>
-                                </tr>
+<tr>
+<td style='background:#111827; border-radius:16px; padding:30px;
+border:1px solid #1f2937; color:#e5e7eb;'>
 
-                                <!-- TITLE -->
-                                <tr>
-                                    <td align='center'>
-                                        <h2 style='margin:0; color:#222;'>Welcome to Acanza Tech Assistant, {Name}!</h2>
-                                        <p style='color:#666; margin-top:8px;'>
-                                            Your personal AI companion is ready to help.
-                                        </p>
-                                    </td>
-                                </tr>
 
-                                <!-- MAIN CONTENT -->
-                                <tr>
-                                    <td style='color:#444; padding-top:15px; line-height:1.6;'>
 
-                                        <p>
-                                            You have successfully registered on our AI Chat Platform — 
-                                            a smart assistant designed to make your daily tasks easier and more productive.
-                                        </p>
+<!-- TITLE -->
+<h2 style='text-align:center; margin:0; color:#ffffff;'>
+Welcome to Arbion, {Name}! 🚀
+</h2>
 
-                                        <h3 style='color:#333; margin-top:20px;'>🤖 Smart Conversations</h3>
-                                        <p>
-                                            Ask anything, get instant responses, create content, learn new things, 
-                                            or automate your workflow.
-                                        </p>
+<p style='text-align:center; color:#9ca3af; margin-top:8px;'>
+Your AI-powered arbitrage engine is now live
+</p>
 
-                                        <h3 style='color:#333; margin-top:15px;'>⚡ Boost Productivity</h3>
-                                        <p>
-                                            Whether it's writing, coding, planning, or brainstorming — 
-                                            your AI assistant works with you 24/7.
-                                        </p>
+<!-- CONTENT -->
+<div style='margin-top:25px; line-height:1.7; font-size:15px;'>
 
-                                        <h3 style='color:#333; margin-top:15px;'>🧠 Learn & Create</h3>
-                                        <p>
-                                            Generate ideas, improve your skills, get explanations, summaries, 
-                                            and much more in seconds.
-                                        </p>
+<p>
+Welcome to <b>Arbion  Engine</b> — your gateway to automated crypto arbitrage profits.
+</p>
 
-                                    </td>
-                                </tr>
+<p>
+Our AI scans multiple networks in real-time to detect profitable opportunities across 
+<b>SOL, ETH, and BSC</b>.
+</p>
 
-                                <!-- LOGIN DETAILS -->
-                                <tr>
-                                    <td>
-                                        <table width='100%'
-                                            style='background:#f7f7f7; border:1px solid #ccc; border-radius:10px; margin:25px 0;' cellpadding='12'>
-                                            <tr>
-                                                <td align='center' style='font-size:16px; color:#333;'>
-                                                    <b>Login ID:</b> {emailid}<br>
-                                                    <b>Password:</b> {plainPassword}
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
+<h3 style='color:#60a5fa;'>⚡ Automated Arbitrage</h3>
+<p>
+Execute trades instantly by capturing price differences across exchanges.
+</p>
 
-                                <!-- FOOTER MESSAGE -->
-                                <tr>
-                                    <td align='center'>
-                                        <p style='color:#666; font-size:15px;'>
-                                            We're excited to have you onboard.<br>
-                                            Start chatting and experience the power of AI!
-                                        </p>
-                                    </td>
-                                </tr>
+<h3 style='color:#34d399;'>📊 Real-Time Opportunities</h3>
+<p>
+Track live spreads, monitor profits, and access high-frequency insights.
+</p>
 
-                                <tr>
-                                    <td>
-                                        <hr style='border:none; border-top:1px solid #eee; margin:25px 0;'>
-                                    </td>
-                                </tr>
+<h3 style='color:#fbbf24;'>🚀 Passive Income 24/7</h3>
+<p>
+Let the system work continuously with optimized execution strategies.
+</p>
 
-                                <!-- SOCIAL ICONS -->
-                                <tr>
-                                    <td align='center'>
-                                        <p style='color:#999; font-size:14px; margin-bottom:10px;'>Follow us</p>
+<h3 style='color:#a78bfa;'>🔐 Secure & Smart</h3>
+<p>
+Your funds stay in your control while Arbion handles analysis.
+</p>
 
-                                        <a href='#'><img src='https://cdn-icons-png.flaticon.com/24/174/174855.png' style='margin:0 6px;'></a>
-                                        <a href='#'><img src='https://cdn-icons-png.flaticon.com/24/733/733547.png' style='margin:0 6px;'></a>
-                                        <a href='#'><img src='https://cdn-icons-png.flaticon.com/24/5968/5968958.png' style='margin:0 6px; width:24px;'></a>
+</div>
 
-                                        <p style='color:#bbb; font-size:12px; margin-top:15px;'>
-                                            © {DateTime.Now.Year} Acanza Tech. All rights reserved.
-                                        </p>
-                                    </td>
-                                </tr>
+<!-- LOGIN DETAILS -->
+<div style='background:#0f172a; border:1px solid #374151;
+border-radius:10px; padding:15px; margin:25px 0; text-align:center;'>
 
-                            </table>
+<p style='margin:5px 0;'><b>Email:</b> {emailid}</p>
+<p style='margin:5px 0;'><b>Password:</b> {plainPassword}</p>
 
-                        </td>
-                    </tr>
-                </table>
+</div>
 
-            </td>
-        </tr>
-    </table>
+<!-- CTA BUTTON -->
+<div style='text-align:center; margin-top:20px;'>
+<a href='https://arbionai.com/'
+style='display:inline-block; padding:14px 30px;
+background:linear-gradient(90deg,#6366f1,#8b5cf6);
+color:white; text-decoration:none; border-radius:8px;
+font-weight:bold;'>
+
+Start Profiting Now 🚀
+
+</a>
+</div>
+
+<!-- FOOTER -->
+<div style='text-align:center; margin-top:30px; color:#6b7280; font-size:13px;'>
+
+<p>Follow us</p>
+
+<img src='https://cdn-icons-png.flaticon.com/24/174/174855.png' style='margin:0 6px;'/>
+<img src='https://cdn-icons-png.flaticon.com/24/733/733547.png' style='margin:0 6px;'/>
+<img src='https://cdn-icons-png.flaticon.com/24/5968/5968958.png' style='margin:0 6px; width:24px;'/>
+
+<p style='margin-top:15px;'>
+© {DateTime.Now.Year} Arbion. All rights reserved.
+</p>
+
+</div>
+
+</td>
+</tr>
+
+</table>
+
+</td>
+</tr>
+</table>
+
 </body>
 </html>";
 
-                SendEmailCommonone(emailid.Trim(), subject, body, true);
+                SendEmailCommonone(EmailID, subject, body, true);
             }
             catch { }
         }
+        //        public void SendOtpEmailForUserRegistrationWelcomletter(string plainPassword, string emailid, string Name)
+        //        {
+        //            string EmailID = emailid.Trim();
 
-
-
-        //public void SendOtpEmailForUserRegistrationWelcomletter(string plainPassword, string emailid, string Name)
-        //{
-        //    string EmailID = emailid.Trim();
-
-        //    try
-        //    {
-        //        string subject = $"Welcome to Acanza Tech, {Name}!";
-
-        //        string body = $@"
+        //            try
+        //            {
+        //                string subject = $"Welcome to Arbion , {Name}!";
+        //                string body = $@"
         //<!DOCTYPE html>
         //<html>
         //<head>
@@ -646,7 +619,7 @@ namespace EmailSystem
         //    </style>
         //</head>
 
-        //<body style='margin:0; padding:0; background:#eef1f7; font-family:Arial;'>
+        //<body style='margin:0; padding:0; background:#f3f4f6; font-family:Arial;'>
         //    <table width='100%' cellspacing='0' cellpadding='0'>
         //        <tr>
         //            <td align='center'>
@@ -655,24 +628,22 @@ namespace EmailSystem
         //                    <tr>
         //                        <td>
 
-        //                            <table class='card' width='100%'
+        //                            <table class='card' width='100%' 
         //                                style='background:#fff; padding:30px; border-radius:16px;
-        //                                border:2px solid transparent;
-        //                                background-image:linear-gradient(#fff,#fff),linear-gradient(90deg,#4A3AFF,#00C6FF);
-        //                                background-origin:border-box; background-clip:content-box,border-box;'>
+        //                                border:1px solid #ddd;'>
 
         //                                <!-- LOGO -->
         //                                <tr>
         //                                    <td align='center' style='padding-bottom:20px;'>
         //                                        <img src='https://imagedelivery.net/nq9qT5FHZv9Sg48UUnD1-A/5eca37a2-f40e-4ded-152e-2df67488bc00/public'
-        //                                        style='width:140px; border-radius:8px; padding:6px; border:1px solid #eee;' />
+        //                                        style='width:140px;' />
         //                                    </td>
         //                                </tr>
 
         //                                <!-- TITLE -->
         //                                <tr>
         //                                    <td align='center'>
-        //                                        <h2 style='margin:0; color:#222;'>Welcome to AI Chat Assistant, {Name}!</h2>
+        //                                        <h2 style='margin:0; color:#222;'>Welcome to Acanza Tech Assistant, {Name}!</h2>
         //                                        <p style='color:#666; margin-top:8px;'>
         //                                            Your personal AI companion is ready to help.
         //                                        </p>
@@ -684,25 +655,25 @@ namespace EmailSystem
         //                                    <td style='color:#444; padding-top:15px; line-height:1.6;'>
 
         //                                        <p>
-        //                                            You have successfully registered on our AI Chat Platform —  
-        //                                            a smart assistant designed to make your everyday tasks faster, easier, and more productive.
+        //                                            You have successfully registered on our AI Chat Platform — 
+        //                                            a smart assistant designed to make your daily tasks easier and more productive.
         //                                        </p>
 
         //                                        <h3 style='color:#333; margin-top:20px;'>🤖 Smart Conversations</h3>
         //                                        <p>
-        //                                            Ask anything, get instant responses, create content, learn new things,  
-        //                                            or automate your daily tasks with ease.
+        //                                            Ask anything, get instant responses, create content, learn new things, 
+        //                                            or automate your workflow.
         //                                        </p>
 
         //                                        <h3 style='color:#333; margin-top:15px;'>⚡ Boost Productivity</h3>
         //                                        <p>
-        //                                            Whether it's writing, coding, planning, or brainstorming —  
+        //                                            Whether it's writing, coding, planning, or brainstorming — 
         //                                            your AI assistant works with you 24/7.
         //                                        </p>
 
         //                                        <h3 style='color:#333; margin-top:15px;'>🧠 Learn & Create</h3>
         //                                        <p>
-        //                                            Generate ideas, improve your skills, get explanations, summaries,  
+        //                                            Generate ideas, improve your skills, get explanations, summaries, 
         //                                            and much more in seconds.
         //                                        </p>
 
@@ -713,7 +684,7 @@ namespace EmailSystem
         //                                <tr>
         //                                    <td>
         //                                        <table width='100%'
-        //                                            style='background:#f8f8ff; border:1px solid #6c63ff; border-radius:10px; margin:25px 0;' cellpadding='10'>
+        //                                            style='background:#f7f7f7; border:1px solid #ccc; border-radius:10px; margin:25px 0;' cellpadding='12'>
         //                                            <tr>
         //                                                <td align='center' style='font-size:16px; color:#333;'>
         //                                                    <b>Login ID:</b> {emailid}<br>
@@ -728,7 +699,7 @@ namespace EmailSystem
         //                                <tr>
         //                                    <td align='center'>
         //                                        <p style='color:#666; font-size:15px;'>
-        //                                            We're excited to have you onboard.  
+        //                                            We're excited to have you onboard.<br>
         //                                            Start chatting and experience the power of AI!
         //                                        </p>
         //                                    </td>
@@ -767,17 +738,17 @@ namespace EmailSystem
         //</body>
         //</html>";
 
-        //        SendEmailCommonone(emailid.Trim(), subject, body, true);
-        //    }
-        //    catch { }
-        //}
+        //                SendEmailCommonone(emailid.Trim(), subject, body, true);
+        //            }
+        //            catch { }
+        //        }
 
 
-        public void SendOtpEmailForEventUser(string otp, string emailId, int actionType = 1, string purpose = "SantrixGlobal")
+        public void SendOtpEmailForEventUser(string otp, string emailId, int actionType = 1, string purpose = "Arbion")
         {
             try
             {
-                string subject = "Your Event Booking Verification Code";
+                string subject = "Your Event Arbion Verification Code";
 
                 string body = $@"
 <div style='max-width:650px;margin:auto;padding:0;font-family:Arial,Helvetica,sans-serif;
@@ -809,13 +780,13 @@ background:#ffffff;border-radius:8px;border:3px solid #003399;'>   <!-- BLUE BOL
 
          <p style='margin-top:10px;'>
       If you have any questions or need further assistance, please do not hesitate to contact us at 
-      <a href='mailto:support@santrixglobal.ai' style='color:#0047d1;text-decoration:none;font-weight:bold;'>
-          support@Santrx.ai
+      <a href='' style='color:#0047d1;text-decoration:none;font-weight:bold;'>
+          support@Arbion.ai
       </a>.
       We are here to support you and ensure your experience with us is exceptional.
   </p>
 
-        <p style='margin-top:25px;'>Best Regards,<br/>Santrx Team</p>
+        <p style='margin-top:25px;'>Best Regards,<br/>Arbion Team</p>
     </div>
 
     <!-- FOOTER SOCIAL -->

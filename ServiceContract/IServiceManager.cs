@@ -19,5 +19,7 @@ namespace ServiceContract
         IMenuContract menuContract { get; }
         ISubMenuContract subMenuContract { get; }
         IChatMasterServices chatMasterServices { get; }
+        IGeographyContract geographyContract { get; }
+        ITransactionsLogService transactionsLogService { get; }
     }
 }

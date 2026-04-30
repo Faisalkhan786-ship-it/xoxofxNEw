@@ -13,6 +13,7 @@ namespace Common
         public static string welcomeDetails = "SpWelcomeDetails";
         public static string userLogin = "SpUserLogin";
         public static string userForgotPassword = "SpUserForgotPassword";
+        public static string userVerifyloginid = "SPThirdPartVerifyLoginId";
         public static string insertChatMessage = "SpInsertChatMessage";
         public static string insertNewChat = "SpInsertNewChat";
         public static string getUserChats = "SpGetUserChats";
@@ -20,8 +21,14 @@ namespace Common
         public static string getUserChatsAdmin = "spGetUserChatsAdmin";
         public static string chatMsgByIdAdmin = "SpChatMsgByIdAdmin";
         public static string updateCredit = "UpdateCredit";
+        public static string insertlinkedid = "spInsertLinkedId";
         public static string userDeleteChat = "SpUserDeleteChat";
         //End
+
+
+        public static string spGetAllCountry = "SpGetAllCountry";
+        public static string spGetAllState = "SpGetAllState";
+        public static string spGetAllCity = "SpGetAllCity";
 
 
         public static string spAddUserRegistration = "SpAddUserRegistration";
@@ -63,6 +70,10 @@ namespace Common
         public static string allUnApprRentWalletWithdrawal = "SpAllUnApprRentWalletWithdrawal";
         public static string addRechargeTransaction = "SpAddRechargeTransaction";
         public static string getUserDashboardDetails = "SpGetUserDashboardDetails";
+        public static string getTransactionLog = "SpGetTransactionLog";
+        public static string getABREngine = "SpGetABREngine";
+        public static string getUserAnalytics = "SpGetUserAnalytics";
+        public static string getUserLinkedIds = "SpGetUserLinkedIds";
         public static string getUserAffiliateDashboard = "SpGetUserAffiliateDashboard";
         public static string getLBRank = "spGetLBRank";
         public static string leaseAgent = "SpLeaseAgent";
@@ -70,6 +81,7 @@ namespace Common
         public static string SpAddRechargeTransactionUser = "SpAddRechargeTransactionUser";
         public static string getLeaseStatement = "SpGetLeaseStatement";
         public static string validateOtp = "SpValidateOtp";
+        public static string validateOtpbtEmailId = "SpValidateOtpbtEmailId";
         //public static string getorderLeaseSendEmail = "SpGetorderLeaseSendEmail";
         public static string getAgentAnalyticsUser = "SpGetAgentAnalyticsUser";
         public static string accStatementAccType = "SpGetAccStatementAccType";
@@ -442,13 +454,6 @@ namespace Common
         public static string spDeleteShippingMethod = "SpDeleteShippingMethod";
 
 
-
-        public static string spGetAllCountry = "SpGetAllCountry";
-        public static string spGetAllState = "SpGetAllState";
-        public static string spGetAllCity = "SpGetAllCity";
-
-
-
         public static string spAddRatingReview = "SpAddRatingReview";
         public static string spGetRatingReview = "SpGetRatingReview";
         public static string spGetProductFAQByProductId = "SpGetProductFAQByProductId";
@@ -471,5 +476,9 @@ namespace Common
 
         public static string spUpdatePinCodeshipping = "SpUpdatePinCodeshipping";
         public static string spDeletePinCodeshipping = "SpDeletePinCodeshipping";
+
+
+
+        public static string addTransactionsLog = "SPInsertAPITransactionsLog";
     }
 }

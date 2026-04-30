@@ -54,6 +54,11 @@ namespace Service
             var useCredit = await _repositoryManager.chatMasterRepository.useCredit(useCreditViewModel);
             return useCredit;
         }
+        public async Task<ResponseViewModel> insertlinkedid(UselinkedidViewModel uselinkedViewModel)
+        {
+            var uselinkedid = await _repositoryManager.chatMasterRepository.insertlinkedid(uselinkedViewModel);
+            return uselinkedid;
+        }
         public async Task<ResponseViewModel> userDeleteChat(ChatMessagesViewModel chatMessagesViewModel)
         {
             var userDeleteChat = await _repositoryManager.chatMasterRepository.userDeleteChat(chatMessagesViewModel);
