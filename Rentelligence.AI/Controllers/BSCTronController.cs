@@ -427,6 +427,86 @@ namespace Arbion_Apis.Controllers
             }
         }
 
+        [HttpPost("Scan1")]
+        public async Task<IActionResult> ScanBSC1()
+        {
+            try
+            {
+                string apiKey = "ND92YAICDVZ9Y1CAEM9WBDB1H5SWZ8CBHK";
+
+                string url = $"https://api.bscscan.com/api" +
+                             $"?module=account" +
+                             $"&action=tokentx" +
+                             $"&contractaddress=0x55d398326f99059ff775485246999027b3197955" +
+                             $"&page=1&offset=100&sort=desc" +
+                             $"&apikey={apiKey}";
+
+                var client = new HttpClient();
+                var response = await client.GetStringAsync(url);
+
+                dynamic json = JsonConvert.DeserializeObject(response);
+
+                if (json.status != "1")
+                {
+                    return Ok(new
+                    {
+                        status = "error",
+                        message = json.message.ToString()
+                    });
+                }
+
+                var result = json.result;
+
+                var existing = LoadStore();
+                var existingHashes = new HashSet<string>(existing.Select(x => x.txHash));
+
+                int newCount = 0;
+
+                foreach (var tx in result)
+                {
+                    string hash = tx.hash;
+
+                    if (existingHashes.Contains(hash))
+                        continue;
+
+                    decimal value = Convert.ToDecimal(tx.value.ToString()) / 1000000000000000000; // 18 decimals
+
+                    var record = new BSCTxRecord
+                    {
+                        chain = "BSC",
+                        datetime = DateTimeOffset.FromUnixTimeSeconds((long)tx.timeStamp).DateTime.ToString("yyyy-MM-dd HH:mm:ss"),
+                        txHash = hash,
+                        fromAddress = tx.from,
+                        toAddress = tx.to,
+                        amount = value.ToString("N2"),
+                        rawAmount = value,
+                        tokenSymbol = "USDT",
+                        explorerUrl = $"https://bscscan.com/tx/{hash}"
+                    };
+
+                    existing.Insert(0, record);
+                    newCount++;
+                }
+
+                SaveStore(existing);
+
+                return Ok(new
+                {
+                    status = "success",
+                    newRecords = newCount,
+                    total = existing.Count
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    status = "error",
+                    message = ex.Message
+                });
+            }
+        }
+
         [HttpPost("ForceScan")]
         public async Task<IActionResult> ForceScan()
         {
