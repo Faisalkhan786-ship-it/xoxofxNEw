@@ -9,11 +9,12 @@ namespace RepositoryContract
 {
     public interface IAdminMasterRepository
     {
+        public Task<ResponseViewModel> userNameByLoginId(string authLogin);
+        public Task<ResponseViewModel> addCreditAndDebitFund(AdminManageFundViewModel adminManageFundViewModel);
         public Task<ResponseViewModel> chanegAdminPassword(AdminMasterViewModel adminMasterViewModel);
         public Task<ResponseViewModel> chanegAdminSponsorID(AdminChangeSponsorIdViewModel AdminChangeSponsorIdViewModel);
         public Task<ResponseViewModel> blockUserByAdmin(string authLogin);
-        public Task<ResponseViewModel> userNameByLoginId(string authLogin);
-
+       
         public Task<ResponseViewModel> downloadExcel(AdminDownloadExcelViewModel adminDownloadExcelViewModel);
         public Task<ResponseViewModel> getEditNews(NewsViewModel newsViewModel);
         public Task<ResponseViewModel> updateNews(UpdateViewModel updateViewModel);

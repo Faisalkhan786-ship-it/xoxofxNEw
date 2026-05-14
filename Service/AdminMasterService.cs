@@ -17,6 +17,19 @@ namespace Service
             _repositoryManager = repositoryManager;
         }
 
+        public async Task<ResponseViewModel> addCreditAndDebitFund(AdminManageFundViewModel adminManageFundViewModel)
+        {
+            var getUserWalletDetails = await _repositoryManager.adminMasterRepository.addCreditAndDebitFund(adminManageFundViewModel);
+            return getUserWalletDetails;
+        }
+        public async Task<ResponseViewModel> userNameByLoginId(string authLogin)
+        {
+            var userNameByLoginId = await _repositoryManager.adminMasterRepository.userNameByLoginId(authLogin);
+            return userNameByLoginId;
+        }
+
+
+
         public async Task<ResponseViewModel> chanegAdminPassword(AdminMasterViewModel adminMasterViewModel)
         {
             var chanegAdminPassword = await _repositoryManager.adminMasterRepository.chanegAdminPassword(adminMasterViewModel);
@@ -32,12 +45,6 @@ namespace Service
         {
             var blockUserByAdmin = await _repositoryManager.adminMasterRepository.blockUserByAdmin(authLogin);
             return blockUserByAdmin;
-        }
-
-        public async Task<ResponseViewModel> userNameByLoginId(string authLogin)
-        {
-            var userNameByLoginId = await _repositoryManager.adminMasterRepository.userNameByLoginId(authLogin);
-            return userNameByLoginId;
         }
         public async Task<ResponseViewModel> downloadExcel(AdminDownloadExcelViewModel adminDownloadExcelViewModel)
         {

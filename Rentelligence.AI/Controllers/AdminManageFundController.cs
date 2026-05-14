@@ -53,6 +53,47 @@ namespace Rentelligence.AI.MarketPlace.Controllers
             return Ok(getAllROIWithdrawalReport_Admin);
         }
 
+        [HttpPost("updateIncomeWalletAdress")]
+        public async Task<IActionResult> updateIncomeWalletAdress(UpdateIncometWalletAdressViewModel updateIncometWalletAdressViewModel)
+        {
+            _logger.logInfo($" {LoggingEvents.updateItem} updateIncomeWalletAdress");
+            var update = await _serviceManager.adminManageFundService.updateIncomeWalletAdress(updateIncometWalletAdressViewModel);
+            return Ok(update);
+        }
+      
+        [HttpPut("UpIncomeWithdReqStatus_Admin")]
+        public async Task<IActionResult> UpIncomeWithdReqStatus_Admin(AppRejFundViewModel appRejFundViewModel)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} adminLogin");
+            var upIncWithdReqStatus_Admin = await _serviceManager.adminManageFundService.upIncWithdReqStatus_Admin(appRejFundViewModel);
+            return Ok(upIncWithdReqStatus_Admin);
+        }
+       
+
+        [HttpPut("updateRoiWalletAdress")]
+        public async Task<IActionResult> updateRoiWalletAdress(UpdateIncometWalletAdressViewModel updateIncometWalletAdressViewModel)
+        {
+            _logger.logInfo($" {LoggingEvents.updateItem} updateRoiWalletAdress");
+            var update = await _serviceManager.adminManageFundService.updateRoiWalletAdress(updateIncometWalletAdressViewModel);
+            return Ok(update);
+        }
+
+        [HttpPut("upROIWithdReqStatus_Admin")]
+        public async Task<IActionResult> upROIWithdReqStatus_Admin(AppRejFundViewModel appRejFundViewModel)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} adminLogin");
+            var getUserWalletBalance = await _serviceManager.adminManageFundService.upROIWithdReqStatus_Admin(appRejFundViewModel);
+            return Ok(getUserWalletBalance);
+        }
+
+
+        [HttpPut("updateFundRequestStatus_Admin")]
+        public async Task<IActionResult> updateFundRequestStatus_Admin(AppRejFundViewModel appRejFundViewModel)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} adminLogin");
+            var getUserWalletBalance = await _serviceManager.adminManageFundService.updateFundRequestStatus_Admin(appRejFundViewModel);
+            return Ok(getUserWalletBalance);
+        }
 
         //[HttpGet("getUserWalletDetails")]
         //public async Task<IActionResult> getUserWalletDetails(string loginId)
@@ -62,13 +103,7 @@ namespace Rentelligence.AI.MarketPlace.Controllers
         //    return Ok(returnData);
         //}
 
-        //[HttpPost("addCreditAndDebitFund")]
-        //public async Task<IActionResult> addCreditAndDebitFund(AdminManageFundViewModel adminManageFundViewModel)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} adminLogin");
-        //    var add = await _serviceManager.adminManageFundService.addCreditAndDebitFund(adminManageFundViewModel);
-        //    return Ok(add);
-        //}
+
         //[HttpPost("allWalletHistory")]
         //public async Task<IActionResult> allWalletHistory(AllWalletHistoryViewModel allWalletHistoryViewModel)
         //{

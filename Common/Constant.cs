@@ -46,7 +46,7 @@ namespace Common
 
         //-------------END
        
-        //-------Withdrawal
+        //-------Wallet Request And Withdrawal
 
         public static string getAllUnAppFundRequestReport_Admin = "SpGetAllUnAppFundRequestReport_Admin";
         public static string getAllApprovedFundRequestReport_Admin = "SpGetAllApprovedFundRequestReport_Admin";
@@ -56,17 +56,30 @@ namespace Common
 
         public static string allApprROIWithdrawalHistory_Admin = "SpAllApprROIWithdrawalHistory_Admin";
         public static string unApprROIWithdrawalHistory_Admin = "SpAllUnApprROIWithdrawalHistory_Admin";
+        
+
+        public static string updateIncomeWalletAdress = "SpUpdateIncomeWalletAdress";
+        public static string upIncWithdReqStatus_Admin = "SpUpIncWithdReqStatus_Admin";
+       
+        public static string upROIWithdReqStatus_Admin = "SpUpROIWithdReqStatus_Admin";
+        public static string updateROIWalletAdress = "SpUpdateROIWalletAdress";
+
+        public static string updateFundRequestStatus_Admin = "SpUpdateFundRequestStatus_Admin";
+
 
         //------------END
 
-        //Admin Master
+        //------Admin Master
         public static string spGetUserNameByLoginId = "SpGetUserNameByLoginId";
-        //End 
+        public static string spFundFromAdmin = "SpFundFromAdmin";
+        public static string spUpdateAdminPassWord = "SpAdminChangePassword";
+        //-----End 
 
-        //Country , State , City 
+        //-----Country , State , City 
         public static string spGetAllCountry = "SpGetAllCountry";
         public static string spGetAllState = "SpGetAllState";
         public static string spGetAllCity = "SpGetAllCity";
+        //-----End
 
 
 
@@ -199,17 +212,14 @@ namespace Common
         public static string spGetUser_WalletBalance = "SpGetUser_WalletBalance";
         public static string spDepositWalletReport = "SpDepositWalletReport";
         public static string getIncomeToDepositWalletReport = "SpGetIncomeToDepositWalletReport";
-        public static string updateFundRequestStatus_Admin = "SpUpdateFundRequestStatus_Admin";
 
 
 
         public static string bindPackageUserSide = "SPBindPackageUserSide";
-        public static string upIncWithdReqStatus_Admin = "SpUpIncWithdReqStatus_Admin";
         public static string upRentWithdReqStatus_Admin = "SpUpRentWithdReqStatus_Admin";
         public static string getTokenDepositsByURID = "SpGetTokenDepositsByURID";
 
 
-        public static string spUpdateAdminPassWord = "SpAdminChangePassword";
         public static string spChangeSponsorID = "SpChangeSponsorID";
         public static string updateNews = "SpUpdateNews";
         public static string updateSettings = "SpUpdateSettings";
@@ -227,7 +237,6 @@ namespace Common
         public static string fundTransferDepositToDeposit = "SpFundTransferDepositToDeposit";
         public static string transferIncomeToDepositWallet = "SpTransferIncomeToDepositWallet";
         public static string addToken_Deposits = "SpAddToken_Deposits";
-        public static string spFundFromAdmin = "SpFundFromAdmin";
         public static string adminForgotPassword = "SpAdminForgotPassword";
         public static string spGetTodayOrderList = "SpGetTodayOrderList";
 
@@ -281,7 +290,6 @@ namespace Common
         public static string spUpdateCategory = "SpUpdateCategory";
         public static string spDeleteCategory = "SpDeleteCategory";
         public static string updateRentWalletAdress = "SpUpdateRentWalletAdress";
-        public static string updateIncomeWalletAdress = "SpUpdateIncomeWalletAdress";
         public static string addcloudImage = "AddcloudImage";
         public static string getcloudImage = "spGetcloudImage";
         public static string deleteCloudImage = "DeleteCloudImage";

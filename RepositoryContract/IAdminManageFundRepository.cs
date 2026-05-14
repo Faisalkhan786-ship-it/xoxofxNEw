@@ -18,5 +18,12 @@ namespace RepositoryContract
         public Task<ResponseViewModel> getAllFundRequestReport_Admin(UnAppIncomeViewModel appUnAppFundRequestModel);
         public Task<ResponseViewModel> getAllUserWithdrawalRequest_Admin(UnAppIncomeViewModel appUnAppIncomeVideoModel);
         public Task<ResponseViewModel> getAllUserROIWithdrawalRequest_Admin(UnAppIncomeViewModel appUnAppIncomeVideoModel);
+        public Task<ResponseViewModel> updateIncomeWalletAdress(UpdateIncometWalletAdressViewModel updateIncometWalletAdressViewModel);
+        public Task<ResponseViewModel> upIncWithdReqStatus_Admin(AppRejFundViewModel appRejFundViewModel);
+        public Task<ResponseViewModel> upROIWithdReqStatus_Admin(AppRejFundViewModel appRejFundViewModel);
+        public Task<ResponseViewModel> updateFundRequestStatus_Admin(AppRejFundViewModel appRejFundViewModel);
+        public Task<ResponseViewModel> updateRoiWalletAdress(UpdateIncometWalletAdressViewModel updateIncometWalletAdressViewModel);
+
+
     }
 }

@@ -22,11 +22,7 @@ namespace Service
         //    return getUserWalletDetails;
         //}
 
-        //public async Task<ResponseViewModel> addCreditAndDebitFund(AdminManageFundViewModel adminManageFundViewModel)
-        //{
-        //    var getUserWalletDetails = await _repositoryManager.adminManageFundRepository.addCreditAndDebitFund(adminManageFundViewModel);
-        //    return getUserWalletDetails;
-        //}
+
         //public async Task<ResponseViewModel> getFundType()
         //{
         //    var getUserWalletDetails = await _repositoryManager.adminManageFundRepository.getFundType();
@@ -61,6 +57,31 @@ namespace Service
         {
             var getAllUserROIWithdrawalRequest_Admin = await _repositoryManager.adminManageFundRepository.getAllUserROIWithdrawalRequest_Admin(appUnAppIncomeVideoModel);
             return getAllUserROIWithdrawalRequest_Admin;
+        }
+        public async Task<ResponseViewModel> updateIncomeWalletAdress(UpdateIncometWalletAdressViewModel updateIncometWalletAdressViewModel)
+        {
+            var update = await _repositoryManager.adminManageFundRepository.updateIncomeWalletAdress(updateIncometWalletAdressViewModel);
+            return update;
+        }
+        public async Task<ResponseViewModel> upIncWithdReqStatus_Admin(AppRejFundViewModel appRejFundViewModel)
+        {
+            var upIncWithdReqStatus_Admin = await _repositoryManager.adminManageFundRepository.upIncWithdReqStatus_Admin(appRejFundViewModel);
+            return upIncWithdReqStatus_Admin;
+        }
+        public async Task<ResponseViewModel> upROIWithdReqStatus_Admin(AppRejFundViewModel appRejFundViewModel)
+        {
+            var upROIWithdReqStatus_Admin = await _repositoryManager.adminManageFundRepository.upROIWithdReqStatus_Admin(appRejFundViewModel);
+            return upROIWithdReqStatus_Admin;
+        }
+        public async Task<ResponseViewModel> updateFundRequestStatus_Admin(AppRejFundViewModel appRejFundViewModel)
+        {
+            var updateFundRequestStatus_Admin = await _repositoryManager.adminManageFundRepository.updateFundRequestStatus_Admin(appRejFundViewModel);
+            return updateFundRequestStatus_Admin;
+        }
+        public async Task<ResponseViewModel> updateRoiWalletAdress(UpdateIncometWalletAdressViewModel updateIncometWalletAdressViewModel)
+        {
+            var update = await _repositoryManager.adminManageFundRepository.updateRoiWalletAdress(updateIncometWalletAdressViewModel);
+            return update;
         }
     }
 }

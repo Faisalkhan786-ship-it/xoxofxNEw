@@ -28,13 +28,13 @@ namespace Rentelligence.AI.Controllers
             emailService = new EmailService(configuration);
             _configuration = configuration;
         }
-        //[HttpPost("chanegAdminPassword")]
-        //public async Task<IActionResult> chanegAdminPassword(AdminMasterViewModel adminMasterViewModel)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} chanegAdminPassword");
-        //    var chanegAdminPassword = await _serviceManager.adminMasterService.chanegAdminPassword(adminMasterViewModel);
-        //    return Ok(chanegAdminPassword);
-        //}
+        [HttpPost("chanegAdminPassword")]
+        public async Task<IActionResult> chanegAdminPassword(AdminMasterViewModel adminMasterViewModel)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} chanegAdminPassword");
+            var chanegAdminPassword = await _serviceManager.adminMasterService.chanegAdminPassword(adminMasterViewModel);
+            return Ok(chanegAdminPassword);
+        }
         //[HttpPost("chanegAdminSponsorID")]
         //public async Task<IActionResult> chanegAdminSponsorID(AdminChangeSponsorIdViewModel AdminChangeSponsorIdViewModel)
         //{
@@ -50,13 +50,20 @@ namespace Rentelligence.AI.Controllers
         //    var blockUserByAdmin = await _serviceManager.adminMasterService.blockUserByAdmin(authLogin);
         //    return Ok(blockUserByAdmin);
         //}
-
+       
         [HttpGet("userNameByLoginId")]
         public async Task<IActionResult> userNameByLoginId(string authLogin)
         {
             _logger.logInfo($" {LoggingEvents.getByIdItem} userNameByLoginId");
             var userNameByLoginId = await _serviceManager.adminMasterService.userNameByLoginId(authLogin);
             return Ok(userNameByLoginId);
+        }
+        [HttpPost("addCreditAndDebitFund")]
+        public async Task<IActionResult> addCreditAndDebitFund(AdminManageFundViewModel adminManageFundViewModel)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} adminLogin");
+            var add = await _serviceManager.adminMasterService.addCreditAndDebitFund(adminManageFundViewModel);
+            return Ok(add);
         }
         //[HttpPost("downloadExcel")]
         //public async Task<IActionResult> downloadExcel(AdminDownloadExcelViewModel adminDownloadExcelViewModel)

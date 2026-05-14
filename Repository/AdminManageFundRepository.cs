@@ -143,37 +143,7 @@ namespace Repository
         //    }
         //}
 
-        //public async Task<ResponseViewModel> addCreditAndDebitFund(AdminManageFundViewModel adminManageFundViewModel)
-        //{
-        //    var procedureName = Constant.spFundFromAdmin;
-        //    var parameters = new DynamicParameters();
-        //    parameters.Add("@Wallettype", adminManageFundViewModel.Wallettype, DbType.Int32);
-        //    parameters.Add("@CrDr", adminManageFundViewModel.CrDr, DbType.Int32);
-        //    parameters.Add("@URID", adminManageFundViewModel.URID, DbType.Guid);
-        //    parameters.Add("@Amt", adminManageFundViewModel.Amt, DbType.Decimal);
-        //    parameters.Add("@Remark", adminManageFundViewModel.Remark, DbType.String);
-        //    using (var connection = _dapperContext.createConnection())
-        //    {
-        //        var result = await connection.QueryFirstOrDefaultAsync<ResponseViewModel>(procedureName, parameters, commandType: CommandType.StoredProcedure);
-        //        if (result.statusCode == 1)
-        //        {
-        //            result.statusCode = (int)HttpStatusCode.OK;
-        //            result.message = result.message;
-        //        }
-        //        else if (result.statusCode == 0)
-        //        {
-        //            result.statusCode = (int)HttpStatusCode.ExpectationFailed;
-        //            result.message = result.message;
-        //        }
-        //        else
-        //        {
-        //            result.statusCode = (int)HttpStatusCode.ExpectationFailed;
-        //            result.message = result.message;
-        //        }
-        //        return result;
-        //    }
-        //}
-
+        
         //public async Task<ResponseViewModel> getFundType()
         //{
         //    var procedureName = Constant.fundType;
@@ -535,5 +505,185 @@ namespace Repository
                 }
             }
         }
+
+        public async Task<ResponseViewModel> updateIncomeWalletAdress(UpdateIncometWalletAdressViewModel updateIncometWalletAdressViewModel)
+        {
+            var procedureName = Constant.updateIncomeWalletAdress;
+            var parameters = new DynamicParameters();
+            parameters.Add("@AuthLoginId", updateIncometWalletAdressViewModel.AuthLoginId, DbType.String);
+            parameters.Add("@debit", updateIncometWalletAdressViewModel.debit, DbType.Decimal);
+            parameters.Add("@WalletAdreess", updateIncometWalletAdressViewModel.Wallet, DbType.String);
+            parameters.Add("@TransHash", updateIncometWalletAdressViewModel.TransHash, DbType.String);
+            using (var connection = _dapperContext.createConnection())
+            {
+                var result = await connection.QueryFirstOrDefaultAsync<ResponseViewModel>(procedureName, parameters, commandType: CommandType.StoredProcedure);
+                if (result.statusCode == 1)
+                {
+                    result.statusCode = (int)HttpStatusCode.OK;
+                    result.message = result.message;
+                }
+                else if (result.statusCode == 0)
+                {
+                    result.statusCode = (int)HttpStatusCode.ExpectationFailed;
+                    result.message = result.message;
+                }
+                else
+                {
+                    result.statusCode = (int)HttpStatusCode.ExpectationFailed;
+                    result.message = result.message;
+                }
+                return result;
+            }
+        }
+        public async Task<ResponseViewModel> upIncWithdReqStatus_Admin(AppRejFundViewModel appRejFundViewModel)
+        {
+            var reportProc = Constant.upIncWithdReqStatus_Admin;
+            var parameters = new DynamicParameters();
+            parameters.Add("@AuthLoginId", appRejFundViewModel.AuthLoginId, DbType.String);
+            parameters.Add("@Rfstatus", appRejFundViewModel.Rfstatus, DbType.Int32);
+            parameters.Add("@Remark", appRejFundViewModel.Remark, DbType.String);
+            parameters.Add("@Id", appRejFundViewModel.Id, DbType.Int32);
+
+            using (var connection = _dapperContext.createConnection())
+            {
+                try
+                {
+                    var reportResult = await connection.QueryAsync(reportProc, parameters, commandType: CommandType.StoredProcedure);
+                    var depositReportList = reportResult.ToList();
+                    bool hasReport = depositReportList != null && depositReportList.Any();
+                    var combinedData = new
+                    {
+                        updateFundRequest = depositReportList,
+                    };
+
+                    return new ResponseViewModel
+                    {
+                        statusCode = (int)HttpStatusCode.OK,
+                        message = "Data fetched successfully",
+                        data = combinedData
+                    };
+                }
+                catch (Exception ex)
+                {
+                    return new ResponseViewModel
+                    {
+                        statusCode = (int)HttpStatusCode.InternalServerError,
+                        message = "An error occurred while fetching data: " + ex.Message,
+                        data = null
+                    };
+                }
+            }
+        }
+
+        public async Task<ResponseViewModel> upROIWithdReqStatus_Admin(AppRejFundViewModel appRejFundViewModel)
+        {
+            var reportProc = Constant.upROIWithdReqStatus_Admin;
+            var parameters = new DynamicParameters();
+            parameters.Add("@AuthLoginId", appRejFundViewModel.AuthLoginId, DbType.String);
+            parameters.Add("@Rfstatus", appRejFundViewModel.Rfstatus, DbType.Int32);
+            parameters.Add("@Remark", appRejFundViewModel.Remark, DbType.String);
+            parameters.Add("@Id", appRejFundViewModel.Id, DbType.Int32);
+
+            using (var connection = _dapperContext.createConnection())
+            {
+                try
+                {
+                    var reportResult = await connection.QueryAsync(reportProc, parameters, commandType: CommandType.StoredProcedure);
+                    var depositReportList = reportResult.ToList();
+                    bool hasReport = depositReportList != null && depositReportList.Any();
+                    var combinedData = new
+                    {
+                        updateFundRequest = depositReportList,
+                    };
+
+                    return new ResponseViewModel
+                    {
+                        statusCode = (int)HttpStatusCode.OK,
+                        message = "Data fetched successfully",
+                        data = combinedData
+                    };
+                }
+                catch (Exception ex)
+                {
+                    return new ResponseViewModel
+                    {
+                        statusCode = (int)HttpStatusCode.InternalServerError,
+                        message = "An error occurred while fetching data: " + ex.Message,
+                        data = null
+                    };
+                }
+            }
+        }
+
+        public async Task<ResponseViewModel> updateFundRequestStatus_Admin(AppRejFundViewModel appRejFundViewModel)
+        {
+            var reportProc = Constant.updateFundRequestStatus_Admin;
+            var parameters = new DynamicParameters();
+            parameters.Add("@AuthLoginId", appRejFundViewModel.AuthLoginId, DbType.String);
+            parameters.Add("@Rfstatus", appRejFundViewModel.Rfstatus, DbType.Int32);
+            parameters.Add("@Remark", appRejFundViewModel.Remark, DbType.String);
+            parameters.Add("@Id", appRejFundViewModel.Id, DbType.Int32);
+
+            using (var connection = _dapperContext.createConnection())
+            {
+                try
+                {
+                    var reportResult = await connection.QueryAsync(reportProc, parameters, commandType: CommandType.StoredProcedure);
+                    var depositReportList = reportResult.ToList();
+                    bool hasReport = depositReportList != null && depositReportList.Any();
+                    var combinedData = new
+                    {
+                        updateFundRequest = depositReportList,
+                    };
+
+                    return new ResponseViewModel
+                    {
+                        statusCode = (int)HttpStatusCode.OK,
+                        message = "Data fetched successfully",
+                        data = combinedData
+                    };
+                }
+                catch (Exception ex)
+                {
+                    return new ResponseViewModel
+                    {
+                        statusCode = (int)HttpStatusCode.InternalServerError,
+                        message = "An error occurred while fetching data: " + ex.Message,
+                        data = null
+                    };
+                }
+            }
+        }
+
+        public async Task<ResponseViewModel> updateRoiWalletAdress(UpdateIncometWalletAdressViewModel updateIncometWalletAdressViewModel)
+        {
+            var procedureName = Constant.updateROIWalletAdress;
+            var parameters = new DynamicParameters();
+            parameters.Add("@AuthLoginId", updateIncometWalletAdressViewModel.AuthLoginId, DbType.String);
+            parameters.Add("@debit", updateIncometWalletAdressViewModel.debit, DbType.Decimal);
+            parameters.Add("@WalletAdreess", updateIncometWalletAdressViewModel.Wallet, DbType.String);
+            parameters.Add("@TransHash", updateIncometWalletAdressViewModel.TransHash, DbType.String);
+            using (var connection = _dapperContext.createConnection())
+            {
+                var result = await connection.QueryFirstOrDefaultAsync<ResponseViewModel>(procedureName, parameters, commandType: CommandType.StoredProcedure);
+                if (result.statusCode == 1)
+                {
+                    result.statusCode = (int)HttpStatusCode.OK;
+                    result.message = result.message;
+                }
+                else if (result.statusCode == 0)
+                {
+                    result.statusCode = (int)HttpStatusCode.ExpectationFailed;
+                    result.message = result.message;
+                }
+                else
+                {
+                    result.statusCode = (int)HttpStatusCode.ExpectationFailed;
+                    result.message = result.message;
+                }
+                return result;
+            }
+        }
+
     }
 }

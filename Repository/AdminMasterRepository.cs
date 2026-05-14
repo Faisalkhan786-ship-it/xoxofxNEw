@@ -21,6 +21,36 @@ namespace Repository
         {
             _dapperContext = dapperContext;
         }
+        public async Task<ResponseViewModel> addCreditAndDebitFund(AdminManageFundViewModel adminManageFundViewModel)
+        {
+            var procedureName = Constant.spFundFromAdmin;
+            var parameters = new DynamicParameters();
+            parameters.Add("@Wallettype", adminManageFundViewModel.Wallettype, DbType.Int32);
+            parameters.Add("@CrDr", adminManageFundViewModel.CrDr, DbType.Int32);
+            parameters.Add("@URID", adminManageFundViewModel.URID, DbType.Guid);
+            parameters.Add("@Amt", adminManageFundViewModel.Amt, DbType.Decimal);
+            parameters.Add("@Remark", adminManageFundViewModel.Remark, DbType.String);
+            using (var connection = _dapperContext.createConnection())
+            {
+                var result = await connection.QueryFirstOrDefaultAsync<ResponseViewModel>(procedureName, parameters, commandType: CommandType.StoredProcedure);
+                if (result.statusCode == 1)
+                {
+                    result.statusCode = (int)HttpStatusCode.OK;
+                    result.message = result.message;
+                }
+                else if (result.statusCode == 0)
+                {
+                    result.statusCode = (int)HttpStatusCode.ExpectationFailed;
+                    result.message = result.message;
+                }
+                else
+                {
+                    result.statusCode = (int)HttpStatusCode.ExpectationFailed;
+                    result.message = result.message;
+                }
+                return result;
+            }
+        }
         public async Task<ResponseViewModel> chanegAdminPassword(AdminMasterViewModel adminMasterViewModel)
         {
             var procedureName = Constant.spUpdateAdminPassWord;

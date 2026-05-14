@@ -29,7 +29,7 @@ namespace EmailSystem
                 ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
                 MailMessage Email = new MailMessage();
                 Email.To.Add(EmailID);
-                Email.From = new MailAddress("noreply@smtpmails.online", "noreply@arbionai.com");
+                Email.From = new MailAddress("noreply@smtpmails.online", "noreply@xoxofx.com");
                 Email.Subject = subject;
                 Email.Body = body;
                 Email.IsBodyHtml = IsHTML;
@@ -317,7 +317,7 @@ namespace EmailSystem
         {
             try
             {
-                string userName = "Arbion  User";
+                string userName = "XOXOFX  User";
                 string emailTo = emailId?.Trim();
 
                 string subject = "Arbion Password Reset Details";
@@ -360,7 +360,7 @@ namespace EmailSystem
                 html.Append("<a href='#' style='margin:0 6px;'><img src='https://cdn-icons-png.flaticon.com/512/5968/5968958.png' style='width:22px;'></a>");
                 html.Append("</div>");
 
-                html.Append("<p style='margin-top:10px;color:#aaa;font-size:11px;'>© 2026 Acanza.tech. All rights reserved.</p>");
+                html.Append("<p style='margin-top:10px;color:#aaa;font-size:11px;'>© 2026 XOXOFX.tech. All rights reserved.</p>");
                 html.Append("</div>");
 
                 html.Append("</div>");
@@ -377,7 +377,7 @@ namespace EmailSystem
 
 
         //----------------Send OTP Fund Request
-        public void SendOtpEmailForRequestFund(string otp, string emailId, string name, int actionType = 1, string purpose = "Arbion")
+        public void SendOtpEmailForRequestFund(string otp, string emailId, string name, int actionType = 1, string purpose = "XOXOFX")
         {
             try
             {
@@ -476,7 +476,7 @@ namespace EmailSystem
 
             try
             {
-                string subject = $"🚀 Welcome to Arbion , {Name}!";
+                string subject = $"🚀 Welcome to XOXOFX , {Name}!";
 
                 string body = $@"
 <!DOCTYPE html>
@@ -554,7 +554,7 @@ border-radius:10px; padding:15px; margin:25px 0; text-align:center;'>
 
 <!-- CTA BUTTON -->
 <div style='text-align:center; margin-top:20px;'>
-<a href='https://arbionai.com/'
+<a href='https://xoxofx.com/'
 style='display:inline-block; padding:14px 30px;
 background:linear-gradient(90deg,#6366f1,#8b5cf6);
 color:white; text-decoration:none; border-radius:8px;
@@ -575,7 +575,7 @@ Start Profiting Now 🚀
 <img src='https://cdn-icons-png.flaticon.com/24/5968/5968958.png' style='margin:0 6px; width:24px;'/>
 
 <p style='margin-top:15px;'>
-© {DateTime.Now.Year} Arbion. All rights reserved.
+© {DateTime.Now.Year} XoxoFX. All rights reserved.
 </p>
 
 </div>

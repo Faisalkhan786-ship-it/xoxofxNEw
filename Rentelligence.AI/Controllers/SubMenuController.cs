@@ -62,7 +62,7 @@ namespace Rentelligence.AI.MarketPlace.Controllers
             return Ok(updateSubMenu);
         }
 
-        [HttpPost("deleteSubMenu")]
+        [HttpDelete("deleteSubMenu")]
         public async Task<IActionResult> deleteSubMenu(DeleteSubMenuViewModel deleteSubMenuViewModel)
         {
             _logger.logInfo($" {LoggingEvents.deleteItem} deleteItem");

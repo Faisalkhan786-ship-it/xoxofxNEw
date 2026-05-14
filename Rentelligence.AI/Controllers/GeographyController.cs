@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using ServiceContract;
 using System.Net;
 using ViewModel;
-using static Rentelligence.AI.MarketPlace.Controllers.AuthenticationController;
+
 
 namespace ChatBot_API.Controllers
 

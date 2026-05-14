@@ -125,47 +125,50 @@ namespace Rentelligence.AI.MarketPlace.Controllers
         }
 
         
-        //[HttpPost("adminDeActivate")]
-        //public async Task<IActionResult> adminDeActivate(Guid adminuserId)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.updateItem} getAdminUserDetails");
-        //    var returnData = await _serviceManager.adminAuthenticationContract.updateAdminStatusDeActivate(adminuserId);
-        //    return Ok(returnData);
-        //}
-
-        //[HttpPost("adminActivate")]
-        //public async Task<IActionResult> adminActivate(Guid adminuserId)
-        //{
-
-        //    _logger.logInfo($" {LoggingEvents.updateItem} getAdminUserDetails");
-        //    var returnData = await _serviceManager.adminAuthenticationContract.updateAdminStatusActivate(adminuserId);
-        //    return Ok(returnData);
-        //}
-
-        //[HttpPost("addBulkRegsitration")]
-        //public async Task<IActionResult> addBulkRegsitration(BulkRegsitrationViewModel bulkRegsitrationViewModel)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.updateItem} addBulkRegsitration");
-        //    var addBulkRegsitration = await _serviceManager.adminAuthenticationContract.addBulkRegsitration(bulkRegsitrationViewModel);
-        //    return Ok(addBulkRegsitration);
-        //}
-
-
-        //[HttpPost("adminForgotPassword")]
-        //public async Task<IActionResult> adminForgotPassword(string username)
-        //{
-
-        //    _logger.logInfo($" {LoggingEvents.updateItem} adminForgotPassword");
-        //    var adminForgotPassword = await _serviceManager.adminAuthenticationContract.adminForgotPassword(username);
-        //    return Ok(adminForgotPassword);
-        //}
-
-        //[HttpPost("updateAdminProfile")]
-        //public async Task<IActionResult> updateAdminProfile(UpdateAdminProfileViewModel updateAdminProfileViewModel)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.updateItem} addAdminUser");
-        //    var returnData = await _serviceManager.adminAuthenticationContract.updateAdminProfile(updateAdminProfileViewModel);
-        //    return Ok(returnData);
-        //}
     }
 }
+
+
+
+//[HttpPost("adminDeActivate")]
+//public async Task<IActionResult> adminDeActivate(Guid adminuserId)
+//{
+//    _logger.logInfo($" {LoggingEvents.updateItem} getAdminUserDetails");
+//    var returnData = await _serviceManager.adminAuthenticationContract.updateAdminStatusDeActivate(adminuserId);
+//    return Ok(returnData);
+//}
+
+//[HttpPost("adminActivate")]
+//public async Task<IActionResult> adminActivate(Guid adminuserId)
+//{
+
+//    _logger.logInfo($" {LoggingEvents.updateItem} getAdminUserDetails");
+//    var returnData = await _serviceManager.adminAuthenticationContract.updateAdminStatusActivate(adminuserId);
+//    return Ok(returnData);
+//}
+
+//[HttpPost("addBulkRegsitration")]
+//public async Task<IActionResult> addBulkRegsitration(BulkRegsitrationViewModel bulkRegsitrationViewModel)
+//{
+//    _logger.logInfo($" {LoggingEvents.updateItem} addBulkRegsitration");
+//    var addBulkRegsitration = await _serviceManager.adminAuthenticationContract.addBulkRegsitration(bulkRegsitrationViewModel);
+//    return Ok(addBulkRegsitration);
+//}
+
+
+//[HttpPost("adminForgotPassword")]
+//public async Task<IActionResult> adminForgotPassword(string username)
+//{
+
+//    _logger.logInfo($" {LoggingEvents.updateItem} adminForgotPassword");
+//    var adminForgotPassword = await _serviceManager.adminAuthenticationContract.adminForgotPassword(username);
+//    return Ok(adminForgotPassword);
+//}
+
+//[HttpPost("updateAdminProfile")]
+//public async Task<IActionResult> updateAdminProfile(UpdateAdminProfileViewModel updateAdminProfileViewModel)
+//{
+//    _logger.logInfo($" {LoggingEvents.updateItem} addAdminUser");
+//    var returnData = await _serviceManager.adminAuthenticationContract.updateAdminProfile(updateAdminProfileViewModel);
+//    return Ok(returnData);
+//}
