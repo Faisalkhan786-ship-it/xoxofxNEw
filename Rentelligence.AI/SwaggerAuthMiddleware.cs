@@ -22,7 +22,7 @@ public class SwaggerAuthMiddleware
             var username = parts[0];
             var password = parts[1];
 
-            if (username == "arbion" && password == "667788")
+            if (username == "xoxofx" && password == "667788")
             {
                 await _next(context);
                 return;

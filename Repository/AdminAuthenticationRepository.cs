@@ -187,7 +187,6 @@ namespace Repository
             var parameters = new DynamicParameters();
             parameters.Add("@userName", adminForgotPassword.username, DbType.String);
             parameters.Add("@password", adminForgotPassword.password, DbType.String);
-            //parameters.Add("@password", EncryptDecrypt.EnryptString(updatePassword?.password ?? string.Empty), DbType.String);
             using (var connection = _dapperContext.createConnection())
             {
                 var result = await connection.QueryAsync(procedureName, parameters, commandType: CommandType.StoredProcedure);
@@ -251,22 +250,6 @@ namespace Repository
                 return getAllAppRole;
             }
         }
-        //public class AdminDashboardToday
-        //{
-        //    public int TotalJoining { get; set; }
-        //    public int TotalToadyJoining { get; set; }
-        //    public int Totalactive { get; set; }
-        //    public decimal totalBusiness { get; set; }
-        //    public decimal TodayBusiness { get; set; }
-        //    public decimal totalIncomeWallet { get; set; }
-        //    public decimal totalDepositWallet { get; set; }
-        //    public decimal todayDeposit { get; set; }
-        //    public decimal TotalWithdrawal { get; set; }
-        //    public decimal TotalROI { get; set; }
-        //    public decimal WorkingIncomeToday { get; set; }
-        //    public decimal WorkingIncomeTotal { get; set; }
-
-        //}
 
 
         public async Task<ResponseViewModel> getAdminDashboardDetails(Guid adminUserId)
@@ -327,42 +310,7 @@ namespace Repository
             }
         }
 
-        //public async Task<ResponseViewModel> getAdminDashboardDetails(Guid adminUserId)
-        //{
-        //    var procedureName = Constant.getAdminDashboardDetails;
-        //    var parameters = new DynamicParameters();
-        //    parameters.Add("@adminUserId", adminUserId); 
-
-        //    try
-        //    {
-        //        using (var connection = _dapperContext.createConnection())
-        //        {
-        //            var result = await connection.QueryAsync<AdminDashboardToday>(
-        //                procedureName,
-        //                parameters,   
-        //                commandType: CommandType.StoredProcedure
-        //            );
-
-        //            return new ResponseViewModel
-        //            {
-        //                statusCode = result.Any() ? (int)HttpStatusCode.OK : (int)HttpStatusCode.NotFound,
-        //                message = result.Any() ? "Get Admin Dashboard Users Details." : "Data Not Found",
-        //                data = result
-        //            };
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return new ResponseViewModel
-        //        {
-        //            statusCode = 500,
-        //            message = ex.Message,
-        //            data = null
-        //        };
-        //    }
-        //}
-
-
+       
 
         public async Task<ResponseViewModel> getAllAdminList()
         {

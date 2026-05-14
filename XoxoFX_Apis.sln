@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35919.96
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arbion_Apis", "Rentelligence.AI\Arbion_Apis.csproj", "{D2639CB7-2FB7-4129-92F0-8E5ADB5BB3F6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XoxoFX_Apis", "Rentelligence.AI\XoxoFX_Apis.csproj", "{D2639CB7-2FB7-4129-92F0-8E5ADB5BB3F6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModel", "ViewModel\ViewModel.csproj", "{41E75695-6C80-4357-8415-EA827DD68DF2}"
 EndProject

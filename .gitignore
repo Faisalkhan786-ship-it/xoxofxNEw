@@ -1,19 +1,7 @@
-# Visual Studio
 .vs/
-
-# Build output
 bin/
 obj/
-
-# User files
 *.user
 *.suo
-*.userosscache
-*.sln.docstates
-
-# Logs
+*.cache
 *.log
-
-# OS files
-Thumbs.db
-.DS_Store

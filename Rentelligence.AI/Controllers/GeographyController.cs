@@ -14,7 +14,7 @@ namespace ChatBot_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-  
+
     public class GeographyController : ControllerBase
     {
         private readonly IServiceManager _serviceManager;
@@ -35,8 +35,9 @@ namespace ChatBot_API.Controllers
             }
             return Ok(getAllShippingMethod);
         }
+      
         [HttpGet("getAllState")]
-        [Authorize]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> getAllStateMethod(int Fk_CountryId)
         {
             _logger.logInfo($" {LoggingEvents.getAllItem} getAllStateMethod");
@@ -47,8 +48,9 @@ namespace ChatBot_API.Controllers
             }
             return Ok(getAllShippingMethod);
         }
+       
         [HttpGet("getAllCity")]
-        [Authorize]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> getAllCityMethod(int Fk_StateId)
         {
             _logger.logInfo($" {LoggingEvents.getByIdItem} getAllCityMethod Fk_StateId ${Fk_StateId}");
@@ -59,6 +61,6 @@ namespace ChatBot_API.Controllers
             }
             return Ok(getByIdShipping);
         }
-   
+
     }
 }

@@ -10,7 +10,7 @@ namespace Rentelligence.AI.MarketPlace.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-
+    [Authorize(Roles = "Admin")]
     public class SubMenuController : ControllerBase
     {
         private readonly IServiceManager _serviceManager;
@@ -33,7 +33,6 @@ namespace Rentelligence.AI.MarketPlace.Controllers
             }
             return Ok(getByIdSubMenu);
         }
-
 
         [HttpGet("getAllSubMenu")]
         public async Task<IActionResult> getAllSubMenu()

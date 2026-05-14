@@ -43,19 +43,15 @@ namespace Repository
                 {
                     DynamicParameters param = new DynamicParameters();
                     param.Add("@adminUserId", adminUserId);
-
-                    // 1. Get all menus
                     var menus = (await connection.QueryAsync<Menu>(procedureName, param, commandType: CommandType.StoredProcedure)).ToList();
-
-                    // 2. For each menu, get its submenus
                     foreach (var menu in menus)
                     {
                         DynamicParameters subParam = new DynamicParameters();
-                        subParam.Add("@adminUserId", adminUserId);  //adminUserId param
-                        subParam.Add("@menuId", menu.menuId);  // menuId from menu object
+                        subParam.Add("@adminUserId", adminUserId);  
+                        subParam.Add("@menuId", menu.menuId);  
 
                         var subMenus = await connection.QueryAsync<SubMenu>(procedureSubMenu, subParam, commandType: CommandType.StoredProcedure);
-                        menu.SubMenus = subMenus.ToList();  // assuming Menu model me List<SubMenu> SubMenus property ho
+                        menu.SubMenus = subMenus.ToList(); 
                     }
 
                     var response = new ResponseViewModel
@@ -110,7 +106,6 @@ namespace Repository
             public bool HasSubMenuPermission { get; set; }
 
         }
-
 
         public async Task<ResponseViewModel> getMenuByUserRole(string userName)
         {
@@ -268,64 +263,6 @@ namespace Repository
             }
         }
 
-
-
-        //public async Task<ResponseViewModel> menuAndSubMenuPermisiom(Guid appRoleId)
-        //{
-        //    var procedureName = Constant.getMenuWithSubMenu;
-        //    var procedureSubMenu = Constant.getMenubyMenuId;
-
-        //    try
-        //    {
-        //        using (var connection = _dapperContext.createConnection())
-        //        {
-        //            DynamicParameters param = new DynamicParameters();
-        //            param.Add("@appRoleId", appRoleId);
-
-        //            // 1. Get all menus (Distinct by menuId)
-        //            var menus = (await connection.QueryAsync<MenuPermission>(procedureName, param, commandType: CommandType.StoredProcedure))
-        //                          .GroupBy(m => m.menuId)
-        //                          .Select(g => g.First())
-        //                          .ToList();
-
-        //            // 2. For each menu, get its submenus
-        //            foreach (var menu in menus)
-        //            {
-        //                DynamicParameters subParam = new DynamicParameters();
-        //                subParam.Add("@menuId", menu.menuId);
-        //                param.Add("@appRoleId", appRoleId);
-
-        //                var subMenus = await connection.QueryAsync<SubMenu>(procedureSubMenu, subParam, commandType: CommandType.StoredProcedure);
-
-        //                // Remove duplicates from submenus also
-        //                menu.SubMenus = subMenus
-        //                                .GroupBy(s => s.subMenuId)
-        //                                .Select(g => g.First())
-        //                                .ToList();
-        //            }
-
-        //            var response = new ResponseViewModel
-        //            {
-        //                statusCode = menus.Any() ? (int)HttpStatusCode.OK : (int)HttpStatusCode.NotFound,
-        //                message = menus.Any() ? "Data Found" : "Data Not Found",
-        //                data = menus
-        //            };
-
-        //            return response;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return new ResponseViewModel
-        //        {
-        //            statusCode = (int)HttpStatusCode.InternalServerError,
-        //            message = $"Error: {ex.Message}",
-        //            data = null
-        //        };
-        //    }
-        //}
-
-
         public async Task<ResponseViewModel> menuAndSubMenuPermisiom(Guid appRoleId)
         {
             var procedureName = Constant.getMenuWithSubMenu;
@@ -380,7 +317,6 @@ namespace Repository
                 };
             }
         }
-
 
         public async Task<ResponseViewModel> getAllAdminListbyPermission()
         {
@@ -438,216 +374,6 @@ namespace Repository
             }
         }
 
-        //public async Task<ResponseViewModel> addMenuWithSubMenuBatch(List<AddMenuWithSubMenu> menuList)
-        //{
-        //    var procedureName = Constant.addMenuWithSubMenuBatch; // TVP stored procedure
-
-        //    // Create DataTable for TVP
-        //    DataTable dt = new DataTable();
-        //    dt.Columns.Add("menuId", typeof(Guid));
-        //    dt.Columns.Add("menuName", typeof(string));
-        //    dt.Columns.Add("displayOrder", typeof(int));
-        //    dt.Columns.Add("createdBy", typeof(Guid));
-        //    dt.Columns.Add("menuIcon", typeof(string));
-        //    dt.Columns.Add("pageName", typeof(string));
-        //    dt.Columns.Add("subMenuId", typeof(Guid));
-        //    dt.Columns.Add("subMenuName", typeof(string));
-        //    dt.Columns.Add("subMenuPageName", typeof(string));
-        //    dt.Columns.Add("displayOrderSubMenu", typeof(int));
-        //    dt.Columns.Add("appRoleId", typeof(Guid));
-        //    dt.Columns.Add("Active", typeof(bool));
-
-        //    // Fill DataTable from list
-        //    foreach (var item in menuList)
-        //    {
-        //        dt.Rows.Add(item.menuId, item.menuName, item.displayOrder, item.createdBy, item.menuIcon,
-        //                    item.pageName, item.subMenuId, item.subMenuName, item.subMenuPageName,
-        //                    item.displayOrderSubMenu, item.appRoleId, item.Active);
-        //    }
-
-        //    using (var connection = _dapperContext.createConnection())
-        //    {
-        //        var parameters = new DynamicParameters();
-        //        parameters.Add("@MenuSubMenuTable", dt.AsTableValuedParameter("MenuSubMenuType"));
-
-        //        var result = await connection.QueryFirstOrDefaultAsync<ResponseViewModel>(
-        //            procedureName, parameters, commandType: CommandType.StoredProcedure
-        //        );
-
-        //        if (result == null)
-        //        {
-        //            return new ResponseViewModel
-        //            {
-        //                statusCode = (int)HttpStatusCode.ExpectationFailed,
-        //                message = "Something went wrong. No response from database."
-        //            };
-        //        }
-
-        //        result.statusCode = (result.statusCode == 1) ? (int)HttpStatusCode.OK : (int)HttpStatusCode.ExpectationFailed;
-
-        //        return result;
-        //    }
-        //}
-        //public async Task<ResponseViewModel> addMenuWithSubMenuBatch(List<AddMenuWithSubMenu> menuList)
-        //{
-        //    var procedureName = Constant.addMenuWithSubMenuBatch; // TVP stored procedure
-
-        //    // 1️⃣ Create DataTable for TVP
-        //    DataTable dt = new DataTable();
-        //    dt.Columns.Add("appRoleId", typeof(Guid));
-        //    dt.Columns.Add("menuId", typeof(Guid));
-        //    dt.Columns.Add("menuName", typeof(string));
-        //    dt.Columns.Add("pageName", typeof(string));
-        //    dt.Columns.Add("displayOrder", typeof(int));
-        //    dt.Columns.Add("createdBy", typeof(Guid));
-        //    dt.Columns.Add("menuIcon", typeof(string));
-        //    dt.Columns.Add("subMenuId", typeof(Guid));
-        //    dt.Columns.Add("subMenuName", typeof(string));
-        //    dt.Columns.Add("subMenuPageName", typeof(string));
-        //    dt.Columns.Add("displayOrderSubMenu", typeof(int));
-        //    dt.Columns.Add("ActiveSubmenu", typeof(bool));
-        //    dt.Columns.Add("Activemenu", typeof(bool));
-
-        //    // 2️⃣ Fill DataTable from list
-        //    foreach (var item in menuList)
-        //    {
-        //        dt.Rows.Add(
-        //            item.appRoleId,
-        //            item.menuId,
-        //            item.menuName,
-        //            item.pageName,
-        //            item.displayOrder,
-        //            item.createdBy,
-        //            item.menuIcon,
-        //            item.subMenuId,
-        //            item.subMenuName,
-        //            item.subMenuPageName,
-        //            item.displayOrderSubMenu,
-        //            item.ActiveSubmenu,
-        //            item.Activemenu
-        //        );
-        //    }
-
-        //    // 3️⃣ Execute Stored Procedure
-        //    using (var connection = _dapperContext.createConnection())
-        //    {
-        //        var parameters = new DynamicParameters();
-        //        parameters.Add("@MenuSubMenuTable", dt.AsTableValuedParameter("MenuSubMenuType"));
-
-        //        ResponseViewModel result;
-
-        //        try
-        //        {
-        //            result = await connection.QueryFirstOrDefaultAsync<ResponseViewModel>(
-        //                procedureName, parameters, commandType: CommandType.StoredProcedure
-        //            );
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            return new ResponseViewModel
-        //            {
-        //                statusCode = (int)HttpStatusCode.InternalServerError,
-        //                message = $"Exception: {ex.Message}"
-        //            };
-        //        }
-
-        //        if (result == null)
-        //        {
-        //            return new ResponseViewModel
-        //            {
-        //                statusCode = (int)HttpStatusCode.ExpectationFailed,
-        //                message = "Something went wrong. No response from database."
-        //            };
-        //        }
-
-        //        // Map SP statusCode to HTTP status
-        //        result.statusCode = (result.statusCode == 1) ? (int)HttpStatusCode.OK : (int)HttpStatusCode.ExpectationFailed;
-
-        //        return result;
-        //    }
-        //}
-
-
-        //public async Task<ResponseViewModel> addMenuWithSubMenuBatch(List<AddMenuWithSubMenu> menuList)
-        //{
-        //    var procedureName = Constant.addMenuWithSubMenuBatch; // Stored Procedure name
-
-        //    // 1. Create DataTable for TVP
-        //    DataTable dt = new DataTable();
-        //    dt.Columns.Add("appRoleId", typeof(Guid));
-        //    dt.Columns.Add("menuId", typeof(Guid));
-        //    dt.Columns.Add("menuName", typeof(string));
-        //    dt.Columns.Add("pageName", typeof(string));
-        //    dt.Columns.Add("displayOrder", typeof(int));
-        //    dt.Columns.Add("createdBy", typeof(Guid));
-        //    dt.Columns.Add("menuIcon", typeof(string));
-        //    dt.Columns.Add("subMenuId", typeof(Guid));
-        //    dt.Columns.Add("subMenuName", typeof(string));
-        //    dt.Columns.Add("subMenuPageName", typeof(string));
-        //    dt.Columns.Add("displayOrderSubMenu", typeof(int));
-        //    dt.Columns.Add("ActiveSubmenu", typeof(bool));
-        //    dt.Columns.Add("Activemenu", typeof(bool));
-
-        //    // 2. Fill DataTable from list
-        //    foreach (var item in menuList)
-        //    {
-        //        dt.Rows.Add(
-        //            item.appRoleId,
-        //            item.menuId,
-        //            item.menuName,
-        //            item.pageName,
-        //            item.displayOrder,
-        //            item.createdBy,
-        //            item.menuIcon,
-        //            item.subMenuId,
-        //            item.subMenuName,
-        //            item.subMenuPageName,
-        //            item.displayOrderSubMenu,
-        //            item.ActiveSubmenu,
-        //            item.Activemenu
-        //        );
-        //    }
-
-        //    // 3. Execute Stored Procedure
-        //    using (var connection = _dapperContext.createConnection())
-        //    {
-        //        var parameters = new DynamicParameters();
-        //        parameters.Add("@MenuSubMenuTable", dt.AsTableValuedParameter("MenuSubMenuType"));
-
-        //        ResponseViewModel result;
-
-        //        try
-        //        {
-        //            result = await connection.QueryFirstOrDefaultAsync<ResponseViewModel>(
-        //                procedureName,
-        //                parameters,
-        //                commandType: CommandType.StoredProcedure
-        //            );
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            return new ResponseViewModel
-        //            {
-        //                statusCode = (int)HttpStatusCode.InternalServerError,
-        //                message = $"Exception: {ex.Message}"
-        //            };
-        //        }
-
-        //        if (result == null)
-        //        {
-        //            return new ResponseViewModel
-        //            {
-        //                statusCode = (int)HttpStatusCode.ExpectationFailed,
-        //                message = "Something went wrong. No response from database."
-        //            };
-        //        }
-
-        //        // Map SP statusCode to HTTP status
-        //        result.statusCode = (result.statusCode == 1) ? (int)HttpStatusCode.OK : (int)HttpStatusCode.ExpectationFailed;
-
-        //        return result;
-        //    }
-        //}
        
         public async Task<ResponseViewModel> addMenuWithSubMenuBatch(List<AddMenuWithSubMenu> menuList)
         {

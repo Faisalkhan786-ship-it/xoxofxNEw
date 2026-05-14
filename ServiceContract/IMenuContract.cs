@@ -18,8 +18,6 @@ namespace ServiceContract
         public Task<ResponseViewModel> getAllMenuOfSubMenu(Guid menuId);
 
         public Task<ResponseViewModel> menuAndSubMenuPermisiom(Guid appRoleId);
-        //public Task<ResponseViewModel> addMenuWithSubMenu(AddMenuWithSubMenu addMenuWithSubMenu);
-        //public Task<ResponseViewModel> addMenuWithSubMenuBatch(List<AddMenuWithSubMenu> menuList);
         Task<ResponseViewModel> addMenuWithSubMenuBatch(List<AddMenuWithSubMenu> menuList);
 
         public Task<ResponseViewModel> getAllAdminListbyPermission();

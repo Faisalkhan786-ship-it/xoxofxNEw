@@ -9,7 +9,8 @@ namespace ServiceContract
 {
     public interface IAdminManageService
     {
-        public Task<ResponseViewModel> adminSearchAllUsers(AdminManageViewModel adminManageViewModel);
-        public Task<ResponseViewModel> getRentWallet(AppUnApprentViewModel appUnApprentViewModel);
+        //public Task<ResponseViewModel> adminSearchAllUsers(AdminManageViewModel adminManageViewModel);
+        //public Task<ResponseViewModel> getRentWallet(AppUnApprentViewModel appUnApprentViewModel);
+
     }
 }

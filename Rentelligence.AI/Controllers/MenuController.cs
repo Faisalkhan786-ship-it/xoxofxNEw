@@ -10,6 +10,8 @@ namespace Rentelligence.AI.MarketPlace.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
+
     public class MenuController : ControllerBase
     {
         private readonly IServiceManager _serviceManager;
@@ -76,7 +78,7 @@ namespace Rentelligence.AI.MarketPlace.Controllers
             return Ok(updateMenu);
         }
 
-        [HttpPost("deleteMenu")]
+        [HttpDelete("deleteMenu")]
         public async Task<IActionResult> deleteMenu(DeleteMenuViewModel deleteMenuViewModel)
         {
             _logger.logInfo($" {LoggingEvents.deleteItem} deleteItem");
@@ -118,7 +120,6 @@ namespace Rentelligence.AI.MarketPlace.Controllers
             return Ok(result);
         }
 
-      
 
         [HttpGet("getAllAdminListbyPermission")]
         public async Task<IActionResult> getAllAdminListbyPermission()

@@ -82,7 +82,7 @@ builder.Services.AddHttpContextAccessor();
 var app = builder.Build();
 
 //  Swagger Auth Middleware
-app.UseWhen(context => context.Request.Path.StartsWithSegments("/arbionapis"), appBuilder =>
+app.UseWhen(context => context.Request.Path.StartsWithSegments("/xoxofxapis"), appBuilder =>
 {
     appBuilder.UseMiddleware<SwaggerAuthMiddleware>();
 });
@@ -91,8 +91,8 @@ app.UseWhen(context => context.Request.Path.StartsWithSegments("/arbionapis"), a
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "AgentOnDemand API V1");
-    c.RoutePrefix = "arbionapis";
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "XoxoFx API V1");
+    c.RoutePrefix = "xoxofxapis";
 });
 
 // Middleware Order (IMPORTANT)

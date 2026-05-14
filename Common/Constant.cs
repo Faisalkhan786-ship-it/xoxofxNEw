@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nethereum.RPC.Eth.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,69 @@ namespace Common
 {
     public class Constant
     {
+        //-----------Admin Authentication
+        public static string spAdminUserLogin = "SpAdminUserLogin";
+        public static string addAdminUser = "SpAddAdminUser";
+        public static string spGetAdminDetails = "SpGetAdminDetails";
+        public static string getAdminDashboardDetails = "SpGetAdminDashboardDetails";
+        public static string spGetAllAdminList = "SpGetAllAdminList";
+
+        //----------------END
+
+        //----------Menu And SubMenu
+        public static string spGetByIdMenu = "SpGetByIdMenu";
+        public static string spGetAllMenu = "SpGetAllMenu";
+        public static string getAllSubMenu = "SpGetAllSubMenu";
+        public static string spDeleteMenu = "SpDeleteMenu";
+        public static string getMenubyMenuId = "SpGetMenubyMenuId";
+        public static string addMenu = "SpAddMenu";
+        public static string updateMenu = "SpUpdateMenu";
+        public static string spGetMenuByUserRole = "SpGetMenuByUserRole";
+        public static string getMenuWithSubMenu = "SpGetMenuWithSubMenu";
+        public static string addMenuWithSubMenu = "SpAddMenuWithSubMenu";
+        public static string addMenuWithSubMenuBatch = "SpAddMenuWithSubMenuBatch";
+
+        public static string spGetByIdSubMenu = "SpGetByIdSubMenu";
+        public static string spGetAllSubMenu = "SpGetAllSubMenu";
+        public static string spAddSubMenu = "SpAddSubMenu";
+        public static string spUpdateSubMenu = "SpUpdateSubMenu";
+        public static string spDeleteSubMenu = "SpDeleteSubMenu";
+        public static string spGetSubMenubyMenuId = "SpGetSubMenubyMenuId";
+
+        public static string spGetByIdRoleMenu = "SpGetByIdRoleMenu";
+        public static string spGetAllRoleMenu = "SpGetAllRoleMenu";
+        public static string spAddRoleMenu = "SpAddRoleMenu";
+        public static string spUpdateRoleMenu = "SpUpdateRoleMenu";
+        public static string spDeleteRoleMenu = "SpDeleteRoleMenu";
+
+        //-------------END
+       
+        //-------Withdrawal
+
+        public static string getAllUnAppFundRequestReport_Admin = "SpGetAllUnAppFundRequestReport_Admin";
+        public static string getAllApprovedFundRequestReport_Admin = "SpGetAllApprovedFundRequestReport_Admin";
+
+        public static string allUnApprIncWithdrawalHistory_Admin = "SpAllUnApprIncWithdrawalHistory_Admin";
+        public static string allApprIncWithdrawalHistory_Admin = "SpAllApprIncWithdrawalHistory_Admin";
+
+        public static string allApprROIWithdrawalHistory_Admin = "SpAllApprROIWithdrawalHistory_Admin";
+        public static string unApprROIWithdrawalHistory_Admin = "SpAllUnApprROIWithdrawalHistory_Admin";
+
+        //------------END
+
+        //Admin Master
+        public static string spGetUserNameByLoginId = "SpGetUserNameByLoginId";
+        //End 
+
+        //Country , State , City 
+        public static string spGetAllCountry = "SpGetAllCountry";
+        public static string spGetAllState = "SpGetAllState";
+        public static string spGetAllCity = "SpGetAllCity";
+
+
+
+
+
         //start
         public static string addUsersAccount = "SpAddUsersAccount";
         public static string welcomeDetails = "SpWelcomeDetails";
@@ -26,10 +90,9 @@ namespace Common
         //End
 
 
-        public static string spGetAllCountry = "SpGetAllCountry";
-        public static string spGetAllState = "SpGetAllState";
-        public static string spGetAllCity = "SpGetAllCity";
+        
 
+ 
 
         public static string spAddUserRegistration = "SpAddUserRegistration";
         public static string SpGetAllWalletHistory = "SpGetAllWalletHistory";
@@ -132,7 +195,7 @@ namespace Common
         public static string spGetMandatoryDetailsWithdrawl = "SpGetMandatoryDetailsWithdrawl";
         public static string spGetIncomeWalletBalance = "SpGetIncomeWalletBalance";
         public static string searchAllUsers = "SpSearchAllUsers";
-        public static string spAdminUserLogin = "SpAdminUserLogin";
+
         public static string spGetUser_WalletBalance = "SpGetUser_WalletBalance";
         public static string spDepositWalletReport = "SpDepositWalletReport";
         public static string getIncomeToDepositWalletReport = "SpGetIncomeToDepositWalletReport";
@@ -144,10 +207,8 @@ namespace Common
         public static string upIncWithdReqStatus_Admin = "SpUpIncWithdReqStatus_Admin";
         public static string upRentWithdReqStatus_Admin = "SpUpRentWithdReqStatus_Admin";
         public static string getTokenDepositsByURID = "SpGetTokenDepositsByURID";
-        public static string getAllUnAppFundRequestReport_Admin = "SpGetAllUnAppFundRequestReport_Admin";
-        public static string allApprIncWithdrawalHistory_Admin = "SpAllApprIncWithdrawalHistory_Admin";
-        public static string getAllApprovedFundRequestReport_Admin = "SpGetAllApprovedFundRequestReport_Admin";
-        public static string allUnApprIncWithdrawalHistory_Admin = "SpAllUnApprIncWithdrawalHistory_Admin";
+
+
         public static string spUpdateAdminPassWord = "SpAdminChangePassword";
         public static string spChangeSponsorID = "SpChangeSponsorID";
         public static string updateNews = "SpUpdateNews";
@@ -159,7 +220,6 @@ namespace Common
         public static string spUpdateAdminStatusDeActivate = "spUpdateAdminStatusDeActivate";
         public static string updateAdminProfile = "SpUpdateAdminProfile";
 
-        public static string addAdminUser = "SpAddAdminUser";
         public static string SpAddRechargeTransaction = "SpAddRechargeTransaction";
         public static string bulkRegistrationAdmin = "SpBulkRegistrationAdmin";
         public static string addFundRequest = "SpAddFundRequest";
@@ -168,11 +228,8 @@ namespace Common
         public static string transferIncomeToDepositWallet = "SpTransferIncomeToDepositWallet";
         public static string addToken_Deposits = "SpAddToken_Deposits";
         public static string spFundFromAdmin = "SpFundFromAdmin";
-        public static string spGetAdminDetails = "SpGetAdminDetails";
-        public static string getAdminDashboardDetails = "SpGetAdminDashboardDetails";
         public static string adminForgotPassword = "SpAdminForgotPassword";
         public static string spGetTodayOrderList = "SpGetTodayOrderList";
-        public static string spGetAllAdminList = "SpGetAllAdminList";
 
         public static string spGetByIdAppRole = "SpGetByIdAppRole";
         public static string spGetAllAppRole = "SpGetAllAppRole";
@@ -195,7 +252,7 @@ namespace Common
         public static string getAllTicketReplyByTicketIDTest = "SpGetAllTicketReplyByTicketID";
         public static string getAllTicket = "SpGetAllTicket";
         public static string closeTicketTest = "SpCloseTicket";
-        public static string getAllClosedlistTicket= "SpGetAllClosedlistTicket";
+        public static string getAllClosedlistTicket = "SpGetAllClosedlistTicket";
         public static string gGetAllExpoTokens = "SpGetAllExpoTokens";
         public static string adminReplyCount = "SpAdminReplyCount";
         public static string userReplyCount = "SpUserReplyCount";
@@ -210,30 +267,7 @@ namespace Common
         public static string spDeleteTicketReply = "SpDeleteTicketReply";
 
 
-        public static string spGetByIdMenu = "SpGetByIdMenu";
-        public static string spGetAllMenu = "SpGetAllMenu";
-        public static string getAllSubMenu = "SpGetAllSubMenu";
-        public static string getMenubyMenuId = "SpGetMenubyMenuId";
-        public static string addMenu = "SpAddMenu";
-        public static string updateMenu = "SpUpdateMenu";
-        public static string spDeleteMenu = "SpDeleteMenu";
-        public static string spGetMenuByUserRole = "SpGetMenuByUserRole";
-        public static string getMenuWithSubMenu = "SpGetMenuWithSubMenu";
-        public static string addMenuWithSubMenu = "SpAddMenuWithSubMenu";
-        public static string addMenuWithSubMenuBatch = "SpAddMenuWithSubMenuBatch";
 
-        public static string spGetByIdSubMenu = "SpGetByIdSubMenu";
-        public static string spGetAllSubMenu = "SpGetAllSubMenu";
-        public static string spAddSubMenu = "SpAddSubMenu";
-        public static string spUpdateSubMenu = "SpUpdateSubMenu";
-        public static string spDeleteSubMenu = "SpDeleteSubMenu";
-        public static string spGetSubMenubyMenuId = "SpGetSubMenubyMenuId";
-
-        public static string spGetByIdRoleMenu = "SpGetByIdRoleMenu";
-        public static string spGetAllRoleMenu = "SpGetAllRoleMenu";
-        public static string spAddRoleMenu = "SpAddRoleMenu";
-        public static string spUpdateRoleMenu = "SpUpdateRoleMenu";
-        public static string spDeleteRoleMenu = "SpDeleteRoleMenu";
 
         public static string spGetByIdCategory = "SpGetByIdCategory";
         public static string spGetAllCategory = "SpGetAllCategory";
@@ -377,7 +411,6 @@ namespace Common
         public static string getOrderWithItems = "GetOrderWithItems";
         public static string spBlockUserByAdmin = "SpBlockUserByAdmin";
         public static string sPDownloadExcel = "SPDownloadExcel";
-        public static string spGetUserNameByLoginId = "SpGetUserNameByLoginId";
         public static string getEditNews = "SpGetEditNews";
         public static string getSettings = "SpGetSettings";
 

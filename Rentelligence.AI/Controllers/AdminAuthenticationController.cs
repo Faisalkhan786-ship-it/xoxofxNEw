@@ -88,6 +88,7 @@ namespace Rentelligence.AI.MarketPlace.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost("addAdminUser")]
         public async Task<IActionResult> addAdminUser(AddAdminUserViewModel addAdminUser)
         {
@@ -96,6 +97,7 @@ namespace Rentelligence.AI.MarketPlace.Controllers
             return Ok(returnData);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost("getAdminUserDetails")]
         public async Task<IActionResult> getAdminUserDetails(AdminUserGuidViewModel adminUserGuid)
         {
@@ -103,7 +105,8 @@ namespace Rentelligence.AI.MarketPlace.Controllers
             var returnData = await _serviceManager.adminAuthenticationContract.getAdminUserDetails(adminUserGuid);          
             return Ok(returnData);
         }
-    
+
+        [Authorize(Roles = "Admin")]
         [HttpGet("getAdminDashboardDetails")]
         public async Task<IActionResult> getAdminDashboardDetails(Guid adminUserId)
         {
@@ -112,6 +115,7 @@ namespace Rentelligence.AI.MarketPlace.Controllers
             return Ok(returnData);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("getAllAdminList")]
         public async Task<IActionResult> getAllAdminList()
         {
@@ -120,47 +124,48 @@ namespace Rentelligence.AI.MarketPlace.Controllers
             return Ok(returnData);
         }
 
-        [HttpPost("adminDeActivate")]
-        public async Task<IActionResult> adminDeActivate(Guid adminuserId)
-        {
-            _logger.logInfo($" {LoggingEvents.updateItem} getAdminUserDetails");
-            var returnData = await _serviceManager.adminAuthenticationContract.updateAdminStatusDeActivate(adminuserId);
-            return Ok(returnData);
-        }
+        
+        //[HttpPost("adminDeActivate")]
+        //public async Task<IActionResult> adminDeActivate(Guid adminuserId)
+        //{
+        //    _logger.logInfo($" {LoggingEvents.updateItem} getAdminUserDetails");
+        //    var returnData = await _serviceManager.adminAuthenticationContract.updateAdminStatusDeActivate(adminuserId);
+        //    return Ok(returnData);
+        //}
 
-        [HttpPost("adminActivate")]
-        public async Task<IActionResult> adminActivate(Guid adminuserId)
-        {
+        //[HttpPost("adminActivate")]
+        //public async Task<IActionResult> adminActivate(Guid adminuserId)
+        //{
 
-            _logger.logInfo($" {LoggingEvents.updateItem} getAdminUserDetails");
-            var returnData = await _serviceManager.adminAuthenticationContract.updateAdminStatusActivate(adminuserId);
-            return Ok(returnData);
-        }
+        //    _logger.logInfo($" {LoggingEvents.updateItem} getAdminUserDetails");
+        //    var returnData = await _serviceManager.adminAuthenticationContract.updateAdminStatusActivate(adminuserId);
+        //    return Ok(returnData);
+        //}
 
-        [HttpPost("addBulkRegsitration")]
-        public async Task<IActionResult> addBulkRegsitration(BulkRegsitrationViewModel bulkRegsitrationViewModel)
-        {
-            _logger.logInfo($" {LoggingEvents.updateItem} addBulkRegsitration");
-            var addBulkRegsitration = await _serviceManager.adminAuthenticationContract.addBulkRegsitration(bulkRegsitrationViewModel);
-            return Ok(addBulkRegsitration);
-        }
+        //[HttpPost("addBulkRegsitration")]
+        //public async Task<IActionResult> addBulkRegsitration(BulkRegsitrationViewModel bulkRegsitrationViewModel)
+        //{
+        //    _logger.logInfo($" {LoggingEvents.updateItem} addBulkRegsitration");
+        //    var addBulkRegsitration = await _serviceManager.adminAuthenticationContract.addBulkRegsitration(bulkRegsitrationViewModel);
+        //    return Ok(addBulkRegsitration);
+        //}
 
 
-        [HttpPost("adminForgotPassword")]
-        public async Task<IActionResult> adminForgotPassword(string username)
-        {
+        //[HttpPost("adminForgotPassword")]
+        //public async Task<IActionResult> adminForgotPassword(string username)
+        //{
 
-            _logger.logInfo($" {LoggingEvents.updateItem} adminForgotPassword");
-            var adminForgotPassword = await _serviceManager.adminAuthenticationContract.adminForgotPassword(username);
-            return Ok(adminForgotPassword);
-        }
+        //    _logger.logInfo($" {LoggingEvents.updateItem} adminForgotPassword");
+        //    var adminForgotPassword = await _serviceManager.adminAuthenticationContract.adminForgotPassword(username);
+        //    return Ok(adminForgotPassword);
+        //}
 
-        [HttpPost("updateAdminProfile")]
-        public async Task<IActionResult> updateAdminProfile(UpdateAdminProfileViewModel updateAdminProfileViewModel)
-        {
-            _logger.logInfo($" {LoggingEvents.updateItem} addAdminUser");
-            var returnData = await _serviceManager.adminAuthenticationContract.updateAdminProfile(updateAdminProfileViewModel);
-            return Ok(returnData);
-        }
+        //[HttpPost("updateAdminProfile")]
+        //public async Task<IActionResult> updateAdminProfile(UpdateAdminProfileViewModel updateAdminProfileViewModel)
+        //{
+        //    _logger.logInfo($" {LoggingEvents.updateItem} addAdminUser");
+        //    var returnData = await _serviceManager.adminAuthenticationContract.updateAdminProfile(updateAdminProfileViewModel);
+        //    return Ok(returnData);
+        //}
     }
 }
