@@ -507,7 +507,98 @@ namespace Repository
 
 
 
+        public async Task<ResponseViewModel> getUserWalletDetailsF(string loginId)
+        {
+            var fundTypeProcedure = Constant.fundType;
+            var fundTypeWiseCrDrProcedure = Constant.fundTypeWiseCrDr;
+            //var walletDetailsProcedure = Constant.spGetUserWalletDetails;
+            var walletDetailsProcedure = Constant.getUser_WalletDetails;
 
+            var combinedData = new CombinedWalletResponseViewModel();
+
+            using (var connection = _dapperContext.createConnection())
+            {
+                // Get FundTypes
+                using (var multi1 = await connection.QueryMultipleAsync(fundTypeProcedure, commandType: CommandType.StoredProcedure))
+                {
+                    combinedData.FundTypes = (await multi1.ReadAsync<WalletType>()).ToList();
+                    var status1 = await multi1.ReadFirstOrDefaultAsync<dynamic>();
+                    if ((status1?.statusCode ?? -1) != 1)
+                    {
+                        return new ResponseViewModel { statusCode = 401, message = "Failed to load Fund Types", data = null };
+                    }
+                }
+
+
+                //Get FundTypeWiseCrDr
+                var parameters2 = new DynamicParameters();
+                using (var multi2 = await connection.QueryMultipleAsync(fundTypeWiseCrDrProcedure, parameters2, commandType: CommandType.StoredProcedure))
+                {
+                    combinedData.FundTypeWiseCrDrList = (await multi2.ReadAsync<FundTypeWiseCrDr>()).ToList();
+                    var status2 = await multi2.ReadFirstOrDefaultAsync<dynamic>();
+                    if ((status2?.statusCode ?? -1) != 1)
+                    {
+                        return new ResponseViewModel { statusCode = 401, message = "Failed to load Fund Type Wise CrDr", data = null };
+                    }
+                }
+
+
+                //// Get WalletDetails
+                //var parameters3 = new DynamicParameters();
+                //parameters3.Add("@AuthLogin", loginId, DbType.String);
+                //using (var multi3 = await connection.QueryMultipleAsync(walletDetailsProcedure, parameters3, commandType: CommandType.StoredProcedure))
+                //{
+                //    combinedData.WalletDetails = (await multi3.ReadAsync<WalletDetails>()).FirstOrDefault();
+                //    var status3 = await multi3.ReadFirstOrDefaultAsync<dynamic>();
+                //    if ((status3?.statusCode ?? -1) != 1)
+                //    {
+                //        return new ResponseViewModel { statusCode = 401, message = "Failed to load Wallet Details", data = null };
+                //    }
+                //}
+                // Get WalletDetails
+                var parameters3 = new DynamicParameters();
+                parameters3.Add("@AuthLogin", loginId, DbType.String);
+
+                var result = await connection.QueryFirstOrDefaultAsync<WalletDetails>(
+                    walletDetailsProcedure,
+                    parameters3,
+                    commandType: CommandType.StoredProcedure);
+
+                if (result == null || result.statusCode != 1)
+                {
+                    return new ResponseViewModel { statusCode = 401, message = "Failed to load Wallet Details", data = null };
+                }
+
+                combinedData.WalletDetails = result;
+
+
+            }
+
+            return new ResponseViewModel
+            {
+                statusCode = 200,
+                message = "Success",
+                data = combinedData
+            };
+        }
+        public class WalletDetails
+        {
+            public Guid URID { get; set; }
+            public string Name { get; set; }
+            public decimal IncomeWallet { get; set; }
+            public decimal DepositWallet { get; set; }
+            public decimal RentWallet { get; set; }
+            public decimal ROIWallet { get; set; }
+            public int statusCode { get; set; }
+            public string message { get; set; }
+        }
+        public class CombinedWalletResponseViewModel
+        {
+            public List<WalletType> FundTypes { get; set; }
+
+            public List<FundTypeWiseCrDr> FundTypeWiseCrDrList { get; set; }
+            public WalletDetails? WalletDetails { get; set; }
+        }
     }
 }
 

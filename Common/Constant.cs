@@ -73,6 +73,10 @@ namespace Common
         public static string spGetUserNameByLoginId = "SpGetUserNameByLoginId";
         public static string spFundFromAdmin = "SpFundFromAdmin";
         public static string spUpdateAdminPassWord = "SpAdminChangePassword";
+        public static string fundType = "SpFundType";
+        public static string fundTypeWiseCrDr = "spFundTypeWiseCrDr";
+        public static string getUser_WalletDetails = "SpGetUser_WalletDetails";
+
         //-----End 
 
         //-----Country , State , City 
@@ -85,12 +89,20 @@ namespace Common
 
 
 
-        //start
-        public static string addUsersAccount = "SpAddUsersAccount";
+        //user Authentication start
+        public static string spAddUserRegistration = "SpAddUserRegistration";
         public static string welcomeDetails = "SpWelcomeDetails";
-        public static string userLogin = "SpUserLogin";
-        public static string userForgotPassword = "SpUserForgotPassword";
+        public static string spUserForgotPassword = "SpUserForgotPassword";
+        public static string spAppLogin = "SpUserLogin";
+
+        //End
+
+
+
         public static string userVerifyloginid = "SPThirdPartVerifyLoginId";
+
+        public static string userLoginAdmin = "SpUserLoginAdmin";
+
         public static string insertChatMessage = "SpInsertChatMessage";
         public static string insertNewChat = "SpInsertNewChat";
         public static string getUserChats = "SpGetUserChats";
@@ -100,16 +112,9 @@ namespace Common
         public static string updateCredit = "UpdateCredit";
         public static string insertlinkedid = "spInsertLinkedId";
         public static string userDeleteChat = "SpUserDeleteChat";
-        //End
 
-
-        
-
- 
-
-        public static string spAddUserRegistration = "SpAddUserRegistration";
         public static string SpGetAllWalletHistory = "SpGetAllWalletHistory";
-        public static string spAppLogin = "SpUserLogin";
+
         public static string adminUserLogin = "SpAdminUserLogin";
         public static string directMemberSearch = "SpDirectMemberSearch";
         public static string spGetAllUserRegitration = "SpGetAllUserRegitration";
@@ -187,18 +192,15 @@ namespace Common
 
         public static string spUpdatePassword = "SpChangePassword";
         public static string updateUserProfile = "SpUpdateUserProfile";
-        public static string fundType = "SpFundType";
         public static string getFundRequestReport = "SpGetFundRequestReport";
         public static string getDormantReport = "SpGetDormantReport";
         public static string getRechargeTransaction = "SpGetRechargeTransaction";
         public static string depositWalletBal = "SpDepositWalletBal";
-        public static string fundTypeWiseCrDr = "spFundTypeWiseCrDr";
         public static string spPayModeMaster = "SpPayModeMaster";
         public static string spGetByReferralId = "SpGetByReferralId";
         public static string spChangePassword = "SpChangePassword";
         public static string spGetUserKyc = "SpGetUserKyc";
         public static string spGetUserWalletDetails = "SpGetUserWalletDetails";
-        public static string getUser_WalletDetails = "SpGetUser_WalletDetails";
 
         public static string spSendOtp = "SpSendOtp";
         public static string spVerifyOtp = "SpVerifyOtp";

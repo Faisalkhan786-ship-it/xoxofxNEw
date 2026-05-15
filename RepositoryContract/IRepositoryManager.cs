@@ -19,7 +19,7 @@ namespace RepositoryContract
         IAdminManageRepository adminManageRepository { get; }
         IMenuRepository menuRepository { get; }
         ISubMenuRepository subMenuRepository { get; }
-        IChatMasterRepository chatMasterRepository { get; }
+        //IChatMasterRepository chatMasterRepository { get; }
         IGeographyRepository geographyRepository { get; }
         ITransactionsLogRepository transactionsLogRepository  { get; }
 

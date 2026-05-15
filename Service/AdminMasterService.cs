@@ -86,5 +86,11 @@ namespace Service
             var getGetLeaseStatement = await _repositoryManager.adminMasterRepository.getGetLeaseStatement(leaseStatementViewModel);
             return getGetLeaseStatement;
         }
+
+        public async Task<ResponseViewModel> getUserWalletDetailsF(string loginId)
+        {
+            var getUserWalletDetails = await _repositoryManager.adminMasterRepository.getUserWalletDetailsF(loginId);
+            return getUserWalletDetails;
+        }
     }
 }

@@ -19,6 +19,7 @@ namespace ServiceContract
         public Task<ResponseViewModel> updateNews(UpdateViewModel updateViewModel);
         public Task<ResponseViewModel> getSettinDetails(SettinViewModel settinViewModel);
         public Task<ResponseViewModel> updateSetting(UpdateSettingViewModel updateSettingViewModel);
+        public Task<ResponseViewModel> getUserWalletDetailsF(string loginId);
 
         public Task<ResponseViewModel> getLeaseAgent();
         public Task<ResponseViewModel> getGetLeaseStatement(LeaseStatementViewModel leaseStatementViewModel);

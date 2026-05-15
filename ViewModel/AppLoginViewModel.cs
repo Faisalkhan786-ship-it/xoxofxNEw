@@ -32,7 +32,7 @@ namespace ViewModel
     public class SendOtpFundRequestViewModel
     {
         [Required]
-        public string? EmailId { get; set; }       
+        public string? EmailId { get; set; }
     }
 
 
@@ -50,20 +50,18 @@ namespace ViewModel
         public string otp { get; set; }
     }
 
-    public class ValidateOtpViewModelbyemail
-    {
-        [Required]
-        public string Email { get; set; }
-        public string otp { get; set; }
-    }
-
     public class AddAppUserViewModel
-    {      
-        public string? FullName { get; set; }       
-        public string? countryId { get; set; }       
-        public string? Email { get; set; }       
-        public string? PasswordHash { get; set; }       
-        public string? PhoneNo { get; set; }       
+    {
+        public Guid IntroURID { get; set; }
+        public string? Password { get; set; }
+        public string? FName { get; set; }
+        public string? LName { get; set; }
+
+        public string? Mobile { get; set; }
+        public string? Email { get; set; }
+        public int? CountryId { get; set; }
+        public string? Address { get; set; }
+        //public string? OTPregpage { get; set; }
     }
 
     public class SendOtpRequestViewModel
@@ -73,17 +71,8 @@ namespace ViewModel
     }
     public class ForgotPasswordViewModel
     {
+        public string? UserId { get; set; }
         public string? Email { get; set; }
-    }
-    public class verifyloginidViewModel
-    {
-        public string? Loginid { get; set; }
-    }
-    public class VerifyLoginResponse
-    {
-        public int Status { get; set; }
-        public string? Message { get; set; }
-        public decimal? Package { get; set; }
     }
 
     public class ForgotPasswordResult
@@ -140,6 +129,7 @@ namespace ViewModel
         public string? message { get; set; }
         public object? data { get; set; }
 
+        public string? AuthLogin { get; set; }
         public string? AuthPassword { get; set; }
         public string? Email { get; set; }
         public string? Name { get; set; }
@@ -147,26 +137,6 @@ namespace ViewModel
         {
             return JsonConvert.SerializeObject(this);
         }
-    }
-    public class ResponseViewModelchatmaster
-    {
-        public int statusCode { get; set; }
-        public string? message { get; set; }
-        public int MessageId { get; set; }
-        public int ChatId { get; set; }
-    }
-
-    //public class ResponseViewModelchatmaster
-    //{
-    //    public int statusCode { get; set; }
-    //    public string message { get; set; }
-    //    public int MessageId { get; set; } // ← ADD THIS
-    //}
-    public class ResponseViewModelNewChat
-    {
-        public int statusCode { get; set; }
-        public string message { get; set; }
-        public int ChatId { get; set; } // ← ADD THIS
     }
     public class ResponseViewModel
     {
@@ -195,7 +165,7 @@ namespace ViewModel
         public int statusCode { get; set; }
         public string? message { get; set; }
 
-        public Guid productId { get; set; }  
+        public Guid productId { get; set; }
         public object? data { get; set; }
 
     }
@@ -239,7 +209,7 @@ namespace ViewModel
         [Required]
         public string LoginID { get; set; }
         public string? FName { get; set; }
-  
+
         public string? LName { get; set; }
         public string? Address { get; set; }
         public string? Email { get; set; }

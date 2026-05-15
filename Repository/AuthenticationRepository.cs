@@ -33,9 +33,9 @@ namespace Repository
         }
         public async Task<ResponseViewModel> appLogin(AppLoginViewModel appLogin)
         {
-            var procedureName = Constant.userLogin;
+            var procedureName = Constant.spAppLogin;
             var parameters = new DynamicParameters();
-            parameters.Add("@Email", appLogin.username, DbType.String);
+            parameters.Add("@LoginID", appLogin.username, DbType.String);
             parameters.Add("@Password", appLogin.password, DbType.String);
             using (var connection = _dapperContext.createConnection())
             {
@@ -91,7 +91,7 @@ namespace Repository
         }
         public async Task<ResponseViewModel> adminUserLogin(AppUserAdminLoginViewModel appUserAdminLoginViewModel)
         {
-            var procedureName = Constant.adminUserLogin;
+            var procedureName = Constant.userLoginAdmin;
             var parameters = new DynamicParameters();
             parameters.Add("@LoginID", appUserAdminLoginViewModel.username, DbType.String);
             using (var connection = _dapperContext.createConnection())
@@ -146,24 +146,23 @@ namespace Repository
                 return returnData;
             }
         }
-                      
         public async Task<ResponseViewModellogin> addAppUser(AddAppUserViewModel addAppUser)
         {
-            var procedureName = Constant.addUsersAccount;
-            var welcomeProc = Constant.welcomeDetails;
+            var procedureName = Constant.spAddUserRegistration;
+            var welcomeProc = Constant.spWelcomeDetails;
 
             var parameters = new DynamicParameters();
 
-            // ------------------------------
-            //  MOBILE VALIDATION + CLEANUP
-            // ------------------------------
-            addAppUser.PhoneNo = addAppUser.PhoneNo?
-                .Trim()
-                .Replace(" ", "")
-                .Replace("+91", "");
+            parameters.Add("@IntroURID",
+                addAppUser.IntroURID == null || addAppUser.IntroURID == Guid.Empty
+                ? (object)DBNull.Value
+                : addAppUser.IntroURID,
+                DbType.Guid);
 
-            if (string.IsNullOrEmpty(addAppUser.PhoneNo) ||
-                !Regex.IsMatch(addAppUser.PhoneNo, @"^[0-9]{7,13}$"))
+            //  Mobile Cleanup + Validation
+            addAppUser.Mobile = addAppUser.Mobile?.Trim().Replace(" ", "").Replace("+91", "");
+            if (string.IsNullOrEmpty(addAppUser.Mobile) ||
+                !System.Text.RegularExpressions.Regex.IsMatch(addAppUser.Mobile, @"^[0-9]{7,13}$"))
             {
                 return new ResponseViewModellogin
                 {
@@ -172,11 +171,10 @@ namespace Repository
                 };
             }
 
-            // ------------------------------
-            //       EMAIL VALIDATION
-            // ------------------------------
+            // Email Validation
             if (string.IsNullOrWhiteSpace(addAppUser.Email) ||
-                !Regex.IsMatch(addAppUser.Email.Trim(), @"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.IgnoreCase))
+                !System.Text.RegularExpressions.Regex.IsMatch(addAppUser.Email.Trim(),
+                    @"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.IgnoreCase))
             {
                 return new ResponseViewModellogin
                 {
@@ -185,13 +183,20 @@ namespace Repository
                 };
             }
 
-            // ------------------------------
-            //      STRONG PASSWORD CHECK
-            // ------------------------------
+            // Strong Password Validation
             var strongPasswordRegex =
-                 new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#]).{8,}$");
+                new System.Text.RegularExpressions.Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$");
 
-            if (!strongPasswordRegex.IsMatch(addAppUser.PasswordHash))
+            if (addAppUser.Password.Length < 8)
+            {
+                return new ResponseViewModellogin
+                {
+                    statusCode = (int)HttpStatusCode.BadRequest,
+                    message = "Password must be at least 8 characters."
+                };
+            }
+
+            if (!strongPasswordRegex.IsMatch(addAppUser.Password))
             {
                 return new ResponseViewModellogin
                 {
@@ -200,77 +205,107 @@ namespace Repository
                 };
             }
 
-            // ------------------------------
-            //    PARAMETERS FOR PROCEDURE
-            // ------------------------------
-            parameters.Add("@FullName", addAppUser.FullName);
-            parameters.Add("@Email", addAppUser.Email);
-            parameters.Add("@PasswordHash", addAppUser.PasswordHash);
-            parameters.Add("@PhoneNo", addAppUser.PhoneNo);
-            parameters.Add("@countryid", addAppUser.countryId);
-            parameters.Add("@intResult", dbType: DbType.Int64, direction: ParameterDirection.Output);
+            //  Name Validation (FName + LName)
+            var nameRegex = new System.Text.RegularExpressions.Regex(@"^(?![0-9]+$)[A-Za-z0-9\s]+$");
 
-            using var connection = _dapperContext.createConnection();
-
-            // ------------------------------
-            //    CALL MAIN INSERT PROC
-            // ------------------------------
-            var insertedUser = await connection.QueryFirstOrDefaultAsync<dynamic>(
-                procedureName,
-                parameters,
-                commandType: CommandType.StoredProcedure
-            );
-
-            long intResult = parameters.Get<long>("@intResult");
-
-            if (intResult == 1 && insertedUser != null)
+            if (string.IsNullOrWhiteSpace(addAppUser.FName) ||
+                !nameRegex.IsMatch(addAppUser.FName))
             {
-                string email = insertedUser.Email;
-                string plainPassword = "";
-
-                // ------------------------------
-                //     CALL WELCOME PROC
-                // ------------------------------
-                var welcomeParams = new DynamicParameters();
-                welcomeParams.Add("@Email", email);
-
-                var welcomeResult = await connection.QueryFirstOrDefaultAsync<dynamic>(
-                    welcomeProc,
-                    welcomeParams,
-                    commandType: CommandType.StoredProcedure
-                );
-
-                if (welcomeResult != null && welcomeResult.statusCode == 1)
-                {
-                    plainPassword = welcomeResult.AuthPass;
-
-                    _emailService.SendOtpEmailForUserRegistrationWelcomletter(
-                        plainPassword,
-                        email,
-                        addAppUser.FullName
-                    );
-                }
-
                 return new ResponseViewModellogin
                 {
-                    statusCode = (int)HttpStatusCode.OK,
-                    message = "User Registered Successfully and Login Credentials Sent to Email.",
-                    Email = email,
-                    AuthPassword = plainPassword,
-                    Name = addAppUser.FullName
+                    statusCode = (int)HttpStatusCode.BadRequest,
+                    message = "First Name cannot be only numbers and must contain letters."
                 };
             }
 
-            // ------------------------------
-            //    FAILURE RESPONSE
-            // ------------------------------
-            return new ResponseViewModellogin
+            if (string.IsNullOrWhiteSpace(addAppUser.LName) ||
+                !nameRegex.IsMatch(addAppUser.LName))
             {
-                statusCode = intResult == -1 ? (int)HttpStatusCode.Conflict : (int)HttpStatusCode.BadRequest,
-                message = intResult == -1 ? "Email or Mobile already exists" : "Something went wrong"
-            };
-        }
+                return new ResponseViewModellogin
+                {
+                    statusCode = (int)HttpStatusCode.BadRequest,
+                    message = "Last Name cannot be only numbers and must contain letters."
+                };
+            }
 
+            parameters.Add("@Password", addAppUser.Password, DbType.String);
+            parameters.Add("@FName", addAppUser.FName, DbType.String);
+            parameters.Add("@LName", addAppUser.LName, DbType.String);
+            parameters.Add("@Mobile", addAppUser.Mobile, DbType.String);
+            parameters.Add("@Email", addAppUser.Email, DbType.String);
+            parameters.Add("@CountryId", addAppUser.CountryId, DbType.Int32);
+            parameters.Add("@Address", addAppUser.Address, DbType.String);
+            //parameters.Add("@OTPregpage", addAppUser.OTPregpage, DbType.String);
+            parameters.Add("@intResult", dbType: DbType.Int64, direction: ParameterDirection.Output);
+            
+            // 🔹 Step 2: Email ActionType decide karo
+            int actionType = 1;
+            using (var connection = _dapperContext.createConnection())
+            {
+                var result = await connection.QueryFirstOrDefaultAsync<EmailActionModel>(
+                    "Sp_GetEmailByActionType",
+                    commandType: CommandType.StoredProcedure
+                );
+                actionType = result?.ActionType ?? 1;
+            }
+
+            using (var connection = _dapperContext.createConnection())
+            {
+                // ⚡ Pehle user add karte hain
+                var insertedUser = await connection.QueryFirstOrDefaultAsync<dynamic>(
+                    procedureName,
+                    parameters,
+                    commandType: CommandType.StoredProcedure
+                );
+
+                var intResult = parameters.Get<long>("@intResult");
+
+                if (intResult > 0 && insertedUser != null)
+                {
+                    string authLogin = insertedUser.AuthLogin;  //  SpAddUserRegistration se mila AuthLogin
+                    string plainPassword = string.Empty;
+
+                    // Ab welcome proc call karte hain
+                    var welcomeParams = new DynamicParameters();
+                    welcomeParams.Add("@AuthLogin", authLogin, DbType.String);
+
+                    var welcomeResult = await connection.QueryFirstOrDefaultAsync<dynamic>(
+                        welcomeProc,
+                        welcomeParams,
+                        commandType: CommandType.StoredProcedure
+                    );
+
+                    if (welcomeResult != null && welcomeResult.statusCode == 1)
+                    {
+                        plainPassword = welcomeResult.AuthPass;
+                        string name = addAppUser.FName + " " + addAppUser.LName;
+
+                        // Send email
+                        _emailService.SendOtpEmailForUserRegistrationWelcomletter(authLogin, plainPassword, addAppUser.Email, name,actionType);
+                    }
+
+                    return new ResponseViewModellogin
+                    {
+                        statusCode = (int)HttpStatusCode.OK,
+                        message = "User Registered Successfully and Login Credentials Sent to Email.",
+                        AuthLogin = authLogin,
+                        AuthPassword = plainPassword,
+                        Email = addAppUser.Email,
+                        Name = addAppUser.FName + " " + addAppUser.LName
+                    };
+                }
+                else
+                {
+                    return new ResponseViewModellogin
+                    {
+                        statusCode = intResult == -1 || intResult == -2 ? (int)HttpStatusCode.Conflict : (int)HttpStatusCode.BadRequest,
+                        message = intResult == -1 ? "Email already exists" :
+                                  "Something went wrong"
+                    };
+                }
+            }
+        }                     
+    
         public async Task<ResponseViewModel> getByReferralId(string loginId)
         {
             var procedureName = Constant.spGetByReferralId;
@@ -637,64 +672,6 @@ namespace Repository
                 return returnData;
             }
         }
-        public async Task<ResponseViewModel> validateOtpbyEmail(ValidateOtpViewModelbyemail validateOtpViewModelbyemail)
-        {
-            var procedureName = Constant.validateOtpbtEmailId;
-            var parameters = new DynamicParameters();
-            parameters.Add("@URID", validateOtpViewModelbyemail.Email, DbType.String);
-            parameters.Add("@otp", validateOtpViewModelbyemail.otp, DbType.String);
-            using (var connection = _dapperContext.createConnection())
-            {
-                var result = await connection.QueryAsync(procedureName, parameters, commandType: CommandType.StoredProcedure);
-                ResponseViewModel returnData;
-                if (result != null && result.Any())
-                {
-                    var validation = result.First();
-                    if (validation.statusCode == 1)
-                    {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.OK,
-                            message = validation.message,
-                            data = result
-                        };
-                    }
-                    else if (validation.statusCode == 0)
-                    {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.Conflict,
-                            message = validation.message
-                        };
-                    }
-                    else if (validation.statusCode == -1)
-                    {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.Conflict,
-                            message = validation.message
-                        };
-                    }
-                    else
-                    {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.BadRequest,
-                            message = validation.message
-                        };
-                    }
-                }
-                else
-                {
-                    returnData = new ResponseViewModel
-                    {
-                        statusCode = (int)HttpStatusCode.NotFound,
-                        message = "Something went to wrong with server error."
-                    };
-                }
-                return returnData;
-            }
-        }
 
         public async Task<ResponseViewModel> validateOtp(ValidateOtpViewModel validateOtpViewModel)
         {
@@ -888,15 +865,10 @@ namespace Repository
             var otp = new Random().Next(100000, 999999).ToString();
             await Task.Delay(10);
             // Save OTP in DB
-            //var procedureName = Constant.updateOtp;
-            using (var connection = _dapperContext.createConnection())
-            {
-                var parameters = new DynamicParameters();
-                parameters.Add("@EmailId", sendOtp.EmailId, DbType.String);
-                parameters.Add("@otp", otp, DbType.Int32);
-
-                await connection.ExecuteAsync("SpUpdateOtp", parameters, commandType: CommandType.StoredProcedure);
-            }
+            var procedureName = Constant.updateOtp;
+            var parameters = new DynamicParameters();
+            parameters.Add("@EmailId", sendOtp.EmailId, DbType.String);
+            parameters.Add("@otp", otp, DbType.Int32);
             using (var connection = _dapperContext.createConnection())
             {
                 //  Get Email Routing info from SP
@@ -1033,11 +1005,19 @@ namespace Repository
 
         public async Task<ResponseViewModel> forgotPassword(ForgotPasswordViewModel forgotPassword)
         {
-            var procedureName = Constant.userForgotPassword;
+            var procedureName = Constant.spUserForgotPassword;
             var parameters = new DynamicParameters();
+            parameters.Add("@loginId", forgotPassword.UserId, DbType.String);
             parameters.Add("@Email", forgotPassword.Email, DbType.String);
             int actionType = 1;
-        
+            using (var connection = _dapperContext.createConnection())
+            {
+                var result = await connection.QueryFirstOrDefaultAsync<EmailActionModel>(
+                    "Sp_GetEmailByActionType",
+                    commandType: CommandType.StoredProcedure
+                );
+                actionType = result?.ActionType ?? 1;
+            }
             using (var connection = _dapperContext.createConnection())
             {
                 var result = await connection.QueryFirstOrDefaultAsync<dynamic>(
@@ -1049,12 +1029,13 @@ namespace Repository
 
                     if (status == 1)
                     {
+                        string authLogin = result.AuthLogin ?? string.Empty;
                         string authPass = result.AuthPass ?? string.Empty;
                         string email = result.Email ?? string.Empty;
 
                         if (!string.IsNullOrEmpty(email))
                         {
-                            _emailService.SendOtpEmailForForgotPassword(authPass, email);
+                            _emailService.SendOtpEmailForForgotPassword(authLogin, authPass, email,actionType);
                         }
 
                         return new ResponseViewModel
@@ -1063,6 +1044,7 @@ namespace Repository
                             message = result.message ?? "Password reset email sent.",
                             data = new
                             {
+                                AuthLogin = authLogin,
                                 AuthPass = authPass,
                                 Email = email
                             }
@@ -1074,55 +1056,6 @@ namespace Repository
                         {
                             statusCode = 401,
                             message = result.message ?? "Invalid login ID.",
-                            data = null
-                        };
-                    }
-                }
-                else
-                {
-                    return new ResponseViewModel
-                    {
-                        statusCode = 500,
-                        message = "No response from server.",
-                        data = null
-                    };
-                }
-            }
-        }
-
-        public async Task<ResponseViewModel> VerifyLoginid(verifyloginidViewModel verifyloginid)
-        {
-            var procedureName = Constant.userVerifyloginid;
-            var parameters = new DynamicParameters();
-            parameters.Add("@LoginId", verifyloginid.Loginid, DbType.String);
-
-            using (var connection = _dapperContext.createConnection())
-            {
-                var result = await connection.QueryFirstOrDefaultAsync<dynamic>(
-                    procedureName, parameters, commandType: CommandType.StoredProcedure);
-
-                if (result != null)
-                {
-                    int status = result.Status ?? 0;
-
-                    if (status == 1)
-                    {
-                        return new ResponseViewModel
-                        {
-                            statusCode = 200,
-                            message = result.Message ?? "LoginId verified successfully.",
-                            data = new
-                            {
-                                Package = result.Package
-                            }
-                        };
-                    }
-                    else
-                    {
-                        return new ResponseViewModel
-                        {
-                            statusCode = 401,
-                            message = result.Message ?? "Invalid LoginId.",
                             data = null
                         };
                     }
@@ -1206,296 +1139,7 @@ namespace Repository
                 message = "OTP sent to email successfully."
             };
         }
-        public async Task<ResponseViewModel> userDashboard(Guid URID)
-        {
-            var procedureName = Constant.getUserDashboardDetails;
-            var parameters = new DynamicParameters();
-            parameters.Add("@URID", URID, DbType.Guid);
-            using (var connection = _dapperContext.createConnection())
-            {
-                var result = await connection.QueryAsync(procedureName, parameters, commandType: CommandType.StoredProcedure);
-                ResponseViewModel returnData;
-                if (result != null && result.Any())
-                {
-                    var validation = result.First();
-                    if (validation.statusCode == 1)
-                    {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.OK,
-                            message = validation.message,
-                            data = result
-                        };
-                    }
-                    else if (validation.statusCode == 0)
-                    {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.Conflict,
-                            message = validation.message
-                        };
-                    }
-                    else if (validation.statusCode == -1)
-                    {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.Conflict,
-                            message = validation.message
-                        };
-                    }
-                    else
-                    {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.BadRequest,
-                            message = validation.message
-                        };
-                    }
-                }
-                else
-                {
-                    returnData = new ResponseViewModel
-                    {
-                        statusCode = (int)HttpStatusCode.NotFound,
-                        message = "Something went to wrong with server error."
-                    };
-                }
-                return returnData;
-            }
-        }
 
 
-        public async Task<ResponseViewModel> getTransactionLog(Guid URID)
-        {
-            var procedureName = Constant.getTransactionLog;
-            var parameters = new DynamicParameters();
-            parameters.Add("@URID", URID, DbType.Guid);
-            using (var connection = _dapperContext.createConnection())
-            {
-                var result = await connection.QueryAsync(procedureName, parameters, commandType: CommandType.StoredProcedure);
-                ResponseViewModel returnData;
-                if (result != null && result.Any())
-                {
-                    var validation = result.First();
-                    if (validation.statusCode == 1)
-                    {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.OK,
-                            message = validation.message,
-                            data = result
-                        };
-                    }
-                    else if (validation.statusCode == 0)
-                    {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.Conflict,
-                            message = validation.message
-                        };
-                    }
-                    else if (validation.statusCode == -1)
-                    {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.Conflict,
-                            message = validation.message
-                        };
-                    }
-                    else
-                    {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.BadRequest,
-                            message = validation.message
-                        };
-                    }
-                }
-                else
-                {
-                    returnData = new ResponseViewModel
-                    {
-                        statusCode = (int)HttpStatusCode.NotFound,
-                        message = "Something went to wrong with server error."
-                    };
-                }
-                return returnData;
-            }
-        }
-
-        public async Task<ResponseViewModel> getABREngine(Guid URID)
-        {
-            var procedureName = Constant.getABREngine;
-            var parameters = new DynamicParameters();
-            parameters.Add("@URID", URID, DbType.Guid);
-            using (var connection = _dapperContext.createConnection())
-            {
-                var result = await connection.QueryAsync(procedureName, parameters, commandType: CommandType.StoredProcedure);
-                ResponseViewModel returnData;
-                if (result != null && result.Any())
-                {
-                    var validation = result.First();
-                    if (validation.statusCode == 1)
-                    {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.OK,
-                            message = validation.message,
-                            data = result
-                        };
-                    }
-                    else if (validation.statusCode == 0)
-                    {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.Conflict,
-                            message = validation.message
-                        };
-                    }
-                    else if (validation.statusCode == -1)
-                    {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.Conflict,
-                            message = validation.message
-                        };
-                    }
-                    else
-                    {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.BadRequest,
-                            message = validation.message
-                        };
-                    }
-                }
-                else
-                {
-                    returnData = new ResponseViewModel
-                    {
-                        statusCode = (int)HttpStatusCode.NotFound,
-                        message = "Something went to wrong with server error."
-                    };
-                }
-                return returnData;
-            }
-        }
-
-        public async Task<ResponseViewModel> getUserAnalytics(Guid URID)
-        {
-            var procedureName = Constant.getUserAnalytics;
-            var parameters = new DynamicParameters();
-            parameters.Add("@URID", URID, DbType.Guid);
-            using (var connection = _dapperContext.createConnection())
-            {
-                var result = await connection.QueryAsync(procedureName, parameters, commandType: CommandType.StoredProcedure);
-                ResponseViewModel returnData;
-                if (result != null && result.Any())
-                {
-                    var validation = result.First();
-                    if (validation.statusCode == 1)
-                    {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.OK,
-                            message = validation.message,
-                            data = result
-                        };
-                    }
-                    else if (validation.statusCode == 0)
-                    {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.Conflict,
-                            message = validation.message
-                        };
-                    }
-                    else if (validation.statusCode == -1)
-                    {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.Conflict,
-                            message = validation.message
-                        };
-                    }
-                    else
-                    {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.BadRequest,
-                            message = validation.message
-                        };
-                    }
-                }
-                else
-                {
-                    returnData = new ResponseViewModel
-                    {
-                        statusCode = (int)HttpStatusCode.NotFound,
-                        message = "Something went to wrong with server error."
-                    };
-                }
-                return returnData;
-            }
-        }
-
-
-        public async Task<ResponseViewModel> getUserLinkedIds(Guid URID)
-        {
-            var procedureName = Constant.getUserLinkedIds;
-            var parameters = new DynamicParameters();
-            parameters.Add("@URID", URID, DbType.Guid);
-            using (var connection = _dapperContext.createConnection())
-            {
-                var result = await connection.QueryAsync(procedureName, parameters, commandType: CommandType.StoredProcedure);
-                ResponseViewModel returnData;
-                if (result != null && result.Any())
-                {
-                    var validation = result.First();
-                    if (validation.statusCode == 1)
-                    {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.OK,
-                            message = validation.message,
-                            data = result
-                        };
-                    }
-                    else if (validation.statusCode == 0)
-                    {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.Conflict,
-                            message = validation.message
-                        };
-                    }
-                    else if (validation.statusCode == -1)
-                    {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.Conflict,
-                            message = validation.message
-                        };
-                    }
-                    else
-                    {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.BadRequest,
-                            message = validation.message
-                        };
-                    }
-                }
-                else
-                {
-                    returnData = new ResponseViewModel
-                    {
-                        statusCode = (int)HttpStatusCode.NotFound,
-                        message = "Something went to wrong with server error."
-                    };
-                }
-                return returnData;
-            }
-        }
     }
 }

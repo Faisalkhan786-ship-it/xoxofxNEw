@@ -61,7 +61,7 @@ namespace Rentelligence.AI.MarketPlace.Controllers
             return Ok(update);
         }
       
-        [HttpPut("UpIncomeWithdReqStatus_Admin")]
+        [HttpPost("UpIncomeWithdReqStatus_Admin")]
         public async Task<IActionResult> UpIncomeWithdReqStatus_Admin(AppRejFundViewModel appRejFundViewModel)
         {
             _logger.logInfo($" {LoggingEvents.getByIdItem} adminLogin");
@@ -70,7 +70,7 @@ namespace Rentelligence.AI.MarketPlace.Controllers
         }
        
 
-        [HttpPut("updateRoiWalletAdress")]
+        [HttpPost("updateRoiWalletAdress")]
         public async Task<IActionResult> updateRoiWalletAdress(UpdateIncometWalletAdressViewModel updateIncometWalletAdressViewModel)
         {
             _logger.logInfo($" {LoggingEvents.updateItem} updateRoiWalletAdress");
@@ -78,7 +78,7 @@ namespace Rentelligence.AI.MarketPlace.Controllers
             return Ok(update);
         }
 
-        [HttpPut("upROIWithdReqStatus_Admin")]
+        [HttpPost("upROIWithdReqStatus_Admin")]
         public async Task<IActionResult> upROIWithdReqStatus_Admin(AppRejFundViewModel appRejFundViewModel)
         {
             _logger.logInfo($" {LoggingEvents.getByIdItem} adminLogin");
@@ -87,7 +87,7 @@ namespace Rentelligence.AI.MarketPlace.Controllers
         }
 
 
-        [HttpPut("updateFundRequestStatus_Admin")]
+        [HttpPost("updateFundRequestStatus_Admin")]
         public async Task<IActionResult> updateFundRequestStatus_Admin(AppRejFundViewModel appRejFundViewModel)
         {
             _logger.logInfo($" {LoggingEvents.getByIdItem} adminLogin");

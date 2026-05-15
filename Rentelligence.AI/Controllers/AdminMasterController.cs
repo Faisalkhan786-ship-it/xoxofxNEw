@@ -65,6 +65,13 @@ namespace Rentelligence.AI.Controllers
             var add = await _serviceManager.adminMasterService.addCreditAndDebitFund(adminManageFundViewModel);
             return Ok(add);
         }
+        [HttpGet("getUserWalletDetails")]
+        public async Task<IActionResult> getUserWalletDetails(string loginId)
+        {
+            _logger.logInfo($" {LoggingEvents.updateItem} getUserWalletDetails");
+            var returnData = await _serviceManager.adminMasterService.getUserWalletDetailsF(loginId);
+            return Ok(returnData);
+        }
         //[HttpPost("downloadExcel")]
         //public async Task<IActionResult> downloadExcel(AdminDownloadExcelViewModel adminDownloadExcelViewModel)
         //{

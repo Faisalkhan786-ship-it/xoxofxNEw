@@ -4,15 +4,12 @@ using LoggerService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using Nethereum.ABI.CompilationMetadata;
 using ServiceContract;
-using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Security.Claims;
 using System.Text;
 using ViewModel;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Rentelligence.AI.MarketPlace.Controllers
 {
@@ -23,16 +20,21 @@ namespace Rentelligence.AI.MarketPlace.Controllers
         private readonly IServiceManager _serviceManager;
         private readonly ILoggerManager _logger;
         private readonly IConfiguration _configuration;
-
+        private readonly EmailService emailService;
+        private readonly ExtractToken extractToken;
         public AuthenticationController(IServiceManager serviceManager, ILoggerManager logger, IConfiguration configuration)
         {
             _serviceManager = serviceManager;
             _logger = logger;
             _configuration = configuration;
+            emailService = new EmailService(configuration);
+            extractToken = new ExtractToken(configuration);
         }
+
+
         public class UserDto
         {
-            public Guid UserId { get; set; }
+            public Guid URID { get; set; }
             public string Username { get; set; }
             public string Role { get; set; }
         }
@@ -64,7 +66,7 @@ namespace Rentelligence.AI.MarketPlace.Controllers
 
                 var user = new UserDto
                 {
-                    UserId = userDynamic.UserId,
+                    URID = userDynamic.URID,
                     Username = userDynamic.Email,
                     Role = "User"
                 };
@@ -82,7 +84,8 @@ namespace Rentelligence.AI.MarketPlace.Controllers
             {
                 token,
                 loginDetails.statusCode,
-                loginDetails.message,              
+                loginDetails.message,
+                //data = userData,
                 data = (loginDetails.data as IEnumerable<object>)?.FirstOrDefault()
             });
         }
@@ -94,7 +97,7 @@ namespace Rentelligence.AI.MarketPlace.Controllers
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(ClaimTypes.Name, user.Username),
                 new Claim(ClaimTypes.Role, role),
-                new Claim("UserId", user.UserId.ToString())
+                new Claim("URID", user.URID.ToString())
             };
 
             var key = new SymmetricSecurityKey(
@@ -113,26 +116,80 @@ namespace Rentelligence.AI.MarketPlace.Controllers
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
-       
+
+        [HttpPost("adminUserLogin")]
+        public async Task<IActionResult> adminUserLogin(AppUserAdminLoginViewModel appUserAdminLoginViewModel)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} appLogin");
+            var loginDetails = await _serviceManager.authenticationContract.adminUserLogin(appUserAdminLoginViewModel);
+            string token = null;
+
+            if (loginDetails.statusCode == (int)HttpStatusCode.OK)
+            {
+                token = GenerateTokenForUserNameAdminlogin(appUserAdminLoginViewModel);
+            }
+            else
+            {
+                _logger.logWarn($"{LoggingEvents.getItemNotFound},No User Found");
+            }
+            var response = new
+            {
+                token,
+                loginDetails.statusCode,
+                loginDetails.message,
+                data = (loginDetails.data as IEnumerable<object>)?.FirstOrDefault()
+            };
+
+            return Ok(response);
+        }
+
+        private string GenerateTokenForUserNameAdminlogin(AppUserAdminLoginViewModel appUserAdminLoginViewModel)
+        {
+            var claims = new[]
+            {
+        new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
+        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+        new Claim(ClaimTypes.Name, appUserAdminLoginViewModel.username),
+    };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(
+                _configuration["Jwt:Issuer"],
+                _configuration["Jwt:Audience"],
+                claims: claims,
+                expires: DateTime.Now.AddDays(30),
+                signingCredentials: signIn);
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+
         [HttpPost("userRegistration")]
         public async Task<IActionResult> userRegistration(AddAppUserViewModel addAppUser)
         {
-            var result = await _serviceManager.authenticationContract.addAppUser(addAppUser);
-            return Ok(result);
+            _logger.logInfo($" {LoggingEvents.updateItem} addAppUser");
+            var returnData = await _serviceManager.authenticationContract.addAppUser(addAppUser);
+            return Ok(returnData);
         }
 
         [HttpPost("forgotPassword")]
         public async Task<IActionResult> forgotPassword(ForgotPasswordViewModel updatePassword)
         {
-            var result = await _serviceManager.authenticationContract.forgotPassword(updatePassword);
-            return Ok(result);
+            _logger.logInfo($" {LoggingEvents.updateItem} updatePassword");
+            var returnData = await _serviceManager.authenticationContract.forgotPassword(updatePassword);
+            return Ok(returnData);
         }
-      
-        [HttpPost("VerifyLoginid")]
-        public async Task<IActionResult> VerifyLoginid(verifyloginidViewModel verifyloginid)
+
+        [Authorize(Roles = "User")]
+        [HttpPost("changePassword")]
+
+        public async Task<IActionResult> changePassword(ChangePasswordViewModel changePasswordViewModel)
         {
-            var result = await _serviceManager.authenticationContract.VerifyLoginid(verifyloginid);
-            return Ok(result);
+            _logger.logInfo($" {LoggingEvents.updateItem} changePassword");
+            var returnData = await _serviceManager.authenticationContract.changePassword(changePasswordViewModel);
+            return Ok(returnData);
         }
 
 
@@ -142,6 +199,7 @@ namespace Rentelligence.AI.MarketPlace.Controllers
             try
             {
                 _logger.logInfo($"{LoggingEvents.getByIdItem} sendOtp");
+
                 var loginDetails = await _serviceManager.authenticationContract.sendOtp(sendOtp);
                 if (loginDetails.statusCode == 200)
                 {
@@ -156,6 +214,40 @@ namespace Rentelligence.AI.MarketPlace.Controllers
             }
         }
 
+        [HttpGet("getByReferralId")]
+        public async Task<IActionResult> getByReferralId(string loginId)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} getByIdProduct loginId ${loginId}");
+            var getByRefreralId = await _serviceManager.authenticationContract.getByReferralId(loginId);
+            if (getByRefreralId.statusCode == (int)HttpStatusCode.NotFound)
+            {
+                _logger.logWarn($"{LoggingEvents.getItemNotFound},No Product Found");
+            }
+            return Ok(getByRefreralId);
+        }
+
+        //[HttpGet("getAllUserRegitration")]
+        //[Authorize(Roles = "Admin")]
+        //public async Task<IActionResult> getAllUserRegitration()
+        //{
+        //    _logger.logInfo($" {LoggingEvents.getByIdItem} appLogin");
+        //    var loginDetails = await _serviceManager.authenticationContract.GetAllUserRegitration();
+        //    return Ok(loginDetails);
+        //}
+
+
+
+        [HttpGet("userDashboardDetails")]
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> userDashboardDetails(Guid URID)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} UserDashboardDetails");
+            var UserDashboardDetails = await _serviceManager.authenticationContract.UserDashboardDetails(URID);
+            return Ok(UserDashboardDetails);
+        }
+
+
+
         [HttpPost("validateOtp")]
         public async Task<IActionResult> validateOtp(ValidateOtpViewModel validateOtpViewModel)
         {
@@ -164,232 +256,115 @@ namespace Rentelligence.AI.MarketPlace.Controllers
             return Ok(loginDetails);
 
         }
-       
-        [HttpPost("validateOtpbyEmail")]
-        public async Task<IActionResult> validateOtpbyEmail(ValidateOtpViewModelbyemail validateOtpViewModelbyemail)
-        {
 
-            _logger.logInfo($"{LoggingEvents.getByIdItem} sendOtp");
-            var loginDetails = await _serviceManager.authenticationContract.validateOtpbyEmail(validateOtpViewModelbyemail);
-            return Ok(loginDetails);
 
-        }
-    
-        [HttpGet("userDashboardDetails")]
-        public async Task<IActionResult> userDashboardDetails(Guid URID)
+        //[HttpGet("userAffiliateDashboard")]
+        //[Authorize]
+        //public async Task<IActionResult> userAffiliateDashboard(Guid URID)
+        //{
+        //    _logger.logInfo($" {LoggingEvents.getByIdItem} UserDashboardDetails");
+        //    var UserDashboardDetails = await _serviceManager.authenticationContract.UserUserRentelligenceDashboard(URID);
+        //    return Ok(UserDashboardDetails);
+        //}
+
+        //[HttpGet("getLBRank")]
+        //public async Task<IActionResult> getLBRank()
+        //{
+        //    _logger.logInfo($" {LoggingEvents.getByIdItem} UserDashboardDetails");
+        //    var UserDashboardDetails = await _serviceManager.authenticationContract.getLBRank();
+        //    return Ok(UserDashboardDetails);
+        //}
+
+        [HttpPost("sendOtpFundRequest")]
+        public async Task<IActionResult> sendOtpFundTransfer(SendOtpFundRequestViewModel sendOtp)
         {
-            _logger.logInfo($" {LoggingEvents.getByIdItem} UserDashboardDetails");
-            var UserDashboardDetails = await _serviceManager.authenticationContract.UserDashboardDetails(URID);
-            return Ok(UserDashboardDetails);
+            try
+            {
+                _logger.logInfo($"{LoggingEvents.getByIdItem} sendOtp");
+
+                var loginDetails = await _serviceManager.authenticationContract.sendOtpRequest(sendOtp);
+                if (loginDetails.statusCode == 200)
+                {
+                    loginDetails.message = "OTP Send Your Regsiterd Email successfully.";
+                }
+
+                return Ok(loginDetails);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Something went wrong.", error = ex.Message });
+            }
         }
-        
-        
-        //[HttpGet("getTransactionLog")]
-        //public async Task<IActionResult> getTransactionLog(Guid URID)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} getTransactionLog");
-        //    var getTransactionLog = await _serviceManager.authenticationContract.getTransactionLog(URID);
-        //    return Ok(getTransactionLog);
-        //}
-        //[HttpGet("getABREngine")]
-        //public async Task<IActionResult> getABREngine(Guid URID)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} getABREngine");
-        //    var getABREngine = await _serviceManager.authenticationContract.getABREngine(URID);
-        //    return Ok(getABREngine);
-        //}
-        //[HttpGet("getUserAnalytics")]
-        //public async Task<IActionResult> getUserAnalytics(Guid URID)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} getUserAnalytics");
-        //    var getUserAnalytics = await _serviceManager.authenticationContract.getUserAnalytics(URID);
-        //    return Ok(getUserAnalytics);
-        //}
-        //[HttpGet("getUserLinkedIds")]
-        //public async Task<IActionResult> getUserLinkedIds(Guid URID)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} getUserLinkedIds");
-        //    var getUserLinkedIds = await _serviceManager.authenticationContract.getUserLinkedIds(URID);
-        //    return Ok(getUserLinkedIds);
-        //}
+
+        [HttpPost("sendOtpWithdrawalRequest")]
+        public async Task<IActionResult> sendOtpWithdrawalRequest(SendOtpWithdrawalViewModel sendOtp)
+        {
+            try
+            {
+                _logger.logInfo($"{LoggingEvents.getByIdItem} sendOtp");
+
+                var loginDetails = await _serviceManager.authenticationContract.sendOtpWithdrawal(sendOtp);
+                if (loginDetails.statusCode == 200)
+                {
+                    loginDetails.message = "OTP Send Your Regsiterd Email successfully.";
+                }
+
+                return Ok(loginDetails);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Something went wrong.", error = ex.Message });
+            }
+        }
+
+        [HttpPost("updateUserProfile")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> updateUserProfile(UpdateUserProfileViewModel updateUserProfile)
+        {
+            _logger.logInfo($" {LoggingEvents.updateItem} updateUserProfile");
+            var updatepro = await _serviceManager.authenticationContract.updateUserProfile(updateUserProfile);
+            return Ok(updatepro);
+        }
+
+        [HttpPost("updateUserProfileImage")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> updateUserProfileImage(UpdateUserImageViewModel updateUserImageViewModel)
+        {
+            _logger.logInfo($" {LoggingEvents.updateItem} updateUserProfileImage");
+            var updatepro = await _serviceManager.authenticationContract.updateUserProfileImage(updateUserImageViewModel);
+            return Ok(updatepro);
+        }
+
+        //    [HttpGet("getAgentAnalyticsUser")]
+        //    [Authorize]
+        //    public async Task<IActionResult> getAgentAnalyticsUser(Guid URID)
+        //    {
+        //        _logger.logInfo($" {LoggingEvents.getByIdItem} getAgentAnalyticsUser");
+        //        var getAgentAnalyticsUser = await _serviceManager.authenticationContract.getAgentAnalyticsUser(URID);
+        //        return Ok(getAgentAnalyticsUser);
+        //    }
+
+        //   [Authorize]
+        //    [HttpPost("sendOtpEvent")]
+        //    public async Task<IActionResult> sendOtpEvent(SendOtpFundRequestViewModel sendOtp)
+        //    {
+        //        try
+        //        {
+        //            _logger.logInfo($"{LoggingEvents.getByIdItem} sendOtpEvent");
+
+        //            var loginDetails = await _serviceManager.authenticationContract.sendOtpEvent(sendOtp);
+        //            if (loginDetails.statusCode == 200)
+        //            {
+        //                loginDetails.message = "OTP Send Your Regsiterd Email successfully.";
+        //            }
+
+        //            return Ok(loginDetails);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            return StatusCode(500, new { message = "Something went wrong.", error = ex.Message });
+        //        }
+        //    }
     }
 }
-
-
-////using Common;
-////using EmailSystem;
-////using LoggerService;
-////using Microsoft.AspNetCore.Authorization;
-////using Microsoft.AspNetCore.Mvc;
-////using Microsoft.IdentityModel.Tokens;
-////using ServiceContract;
-////using System.IdentityModel.Tokens.Jwt;
-////using System.Net;
-////using System.Security.Claims;
-////using System.Text;
-////using ViewModel;
-
-////namespace Rentelligence.AI.MarketPlace.Controllers
-////{
-////    [Route("api/[controller]")]
-////    [ApiController]
-////    public class AuthenticationController : ControllerBase
-////    {
-////        private readonly IServiceManager _serviceManager;
-////        private readonly ILoggerManager _logger;
-////        private readonly IConfiguration _configuration;
-////        private readonly EmailService emailService;
-////        private readonly ExtractToken extractToken;
-////        public AuthenticationController(IServiceManager serviceManager, ILoggerManager logger, IConfiguration configuration)
-////        {
-////            _serviceManager = serviceManager;
-////            _logger = logger;
-////            _configuration = configuration;
-////            emailService = new EmailService(configuration);
-////            extractToken = new ExtractToken(configuration);
-////        }
-
-////        [HttpPost("appLogin")]
-////        public async Task<IActionResult> appLogin(AppLoginViewModel appLogin)
-////        {
-////            _logger.logInfo($" {LoggingEvents.getByIdItem} appLogin");
-////            var loginDetails = await _serviceManager.authenticationContract.appLogin(appLogin);
-////            string token = null;
-
-////            if (loginDetails.statusCode == (int)HttpStatusCode.OK)
-////            {
-////                token = GenerateTokenForUserName(appLogin);
-////            }
-////            else
-////            {
-////                _logger.logWarn($"{LoggingEvents.getItemNotFound},No User Found");
-////            }
-////            var response = new
-////            {
-////                token,
-////                loginDetails.statusCode,
-////                loginDetails.message,
-////                data = (loginDetails.data as IEnumerable<object>)?.FirstOrDefault()
-////            };
-
-////            return Ok(response);
-////        }
-
-
-////        private string GenerateTokenForUserName(AppLoginViewModel login)
-////        {
-////            var claims = new[]
-////            {
-////        new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
-////        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-////        new Claim(ClaimTypes.Name, login.username),  
-////    };
-
-////            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-////            var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-////            var token = new JwtSecurityToken(
-////                _configuration["Jwt:Issuer"],
-////                _configuration["Jwt:Audience"],
-////                claims: claims,
-////                expires: DateTime.Now.AddDays(30),
-////                signingCredentials: signIn);
-
-////            return new JwtSecurityTokenHandler().WriteToken(token);
-////        }
-
-
-////        [HttpPost("userRegistration")]
-////        public async Task<IActionResult> userRegistration(AddAppUserViewModel addAppUser)
-////        {
-////            _logger.logInfo($" {LoggingEvents.updateItem} addAppUser");
-////            var returnData = await _serviceManager.authenticationContract.addAppUser(addAppUser);
-////            return Ok(returnData);
-////        }
-
-////        [HttpPost("forgotPassword")]
-////        public async Task<IActionResult> forgotPassword(ForgotPasswordViewModel updatePassword)
-////        {
-////            _logger.logInfo($" {LoggingEvents.updateItem} updatePassword");
-////            var returnData = await _serviceManager.authenticationContract.forgotPassword(updatePassword);
-////            return Ok(returnData);
-////        }
-
-////        //[HttpPost("changePassword")]
-
-////        //public async Task<IActionResult> changePassword(ChangePasswordViewModel changePasswordViewModel)
-////        //{
-////        //    _logger.logInfo($" {LoggingEvents.updateItem} changePassword");
-////        //    var returnData = await _serviceManager.authenticationContract.changePassword(changePasswordViewModel);
-////        //    return Ok(returnData);
-////        //}
-
-
-
-
-////        //[HttpPost("sendOtp")]
-////        //public async Task<IActionResult> sendOtp(SendOtpViewModel sendOtp)
-////        //{
-////        //    try
-////        //    {
-////        //        _logger.logInfo($"{LoggingEvents.getByIdItem} sendOtp");
-
-////        //        var loginDetails = await _serviceManager.authenticationContract.sendOtp(sendOtp);
-////        //        if (loginDetails.statusCode == 200)
-////        //        {
-////        //            loginDetails.message = "OTP generated successfully.";
-////        //        }
-
-////        //        return Ok(loginDetails);
-////        //    }
-////        //    catch (Exception ex)
-////        //    {
-////        //        return StatusCode(500, new { message = "Something went wrong.", error = ex.Message });
-////        //    }
-////        //}
-
-
-
-////        //[HttpGet("userDashboardDetails")]
-////        //public async Task<IActionResult> userDashboardDetails(Guid URID)
-////        //{
-////        //    _logger.logInfo($" {LoggingEvents.getByIdItem} UserDashboardDetails");
-////        //    var UserDashboardDetails = await _serviceManager.authenticationContract.UserDashboardDetails(URID);
-////        //    return Ok(UserDashboardDetails);
-////        //}
-
-
-
-////        //[HttpPost("validateOtp")]
-////        //public async Task<IActionResult> validateOtp(ValidateOtpViewModel validateOtpViewModel)
-////        //{
-
-////        //    _logger.logInfo($"{LoggingEvents.getByIdItem} sendOtp");
-////        //    var loginDetails = await _serviceManager.authenticationContract.validateOtp(validateOtpViewModel);
-////        //    return Ok(loginDetails);
-
-////        //}
-
-
-////        //[HttpPost("updateUserProfile")]
-////        //[Authorize]
-
-////        //public async Task<IActionResult> updateUserProfile(UpdateUserProfileViewModel updateUserProfile)
-////        //{
-////        //    _logger.logInfo($" {LoggingEvents.updateItem} changePassword");
-////        //    var updatepro = await _serviceManager.authenticationContract.updateUserProfile(updateUserProfile);
-////        //    return Ok(updatepro);
-////        //}
-
-////        //[HttpPost("updateUserProfileImage")]
-////        //[Authorize]
-
-////        //public async Task<IActionResult> updateUserProfileImage(UpdateUserImageViewModel updateUserImageViewModel)
-////        //{
-////        //    _logger.logInfo($" {LoggingEvents.updateItem} changePassword");
-////        //    var updatepro = await _serviceManager.authenticationContract.updateUserProfileImage(updateUserImageViewModel);
-////        //    return Ok(updatepro);
-////        //}       
-////    }
-////}
 

@@ -57,10 +57,6 @@ namespace Service
         {
             return await _repositoryManager.authenticationRepository.forgotPassword(forgotPassword);
         }
-        public async Task<ResponseViewModel> VerifyLoginid(verifyloginidViewModel verifyloginid)
-        {
-            return await _repositoryManager.authenticationRepository.VerifyLoginid(verifyloginid);
-        }
         public async Task<ResponseViewModel> GetAllUserRegitration()
         {
             var appLoginDetails = await _repositoryManager.authenticationRepository.GetAllUserRegitration();
@@ -87,12 +83,6 @@ namespace Service
             var validateOtp = await _repositoryManager.authenticationRepository.validateOtp(validateOtpViewModel);
             return validateOtp;
         }
-        public async Task<ResponseViewModel> validateOtpbyEmail(ValidateOtpViewModelbyemail validateOtpViewModelbyemail)
-        {
-            var validateOtp = await _repositoryManager.authenticationRepository.validateOtpbyEmail(validateOtpViewModelbyemail);
-            return validateOtp;
-        }
-
         public async Task<ResponseViewModel> UserUserRentelligenceDashboard(Guid URID)
         {
             var UserUserRentelligenceDashboard = await _repositoryManager.authenticationRepository.UserUserRentelligenceDashboard(URID);
@@ -123,33 +113,6 @@ namespace Service
         {
             var sendOtpEvent = await _repositoryManager.authenticationRepository.sendOtpEvent(sendOtp);
             return sendOtpEvent;
-        }
-
-        public async Task<ResponseViewModel> userDashboard(Guid URID)
-        {
-            var userDashboard = await _repositoryManager.authenticationRepository.userDashboard(URID);
-            return userDashboard;
-        }
-        public async Task<ResponseViewModel> getTransactionLog(Guid URID)
-        {
-            var getTransactionLog = await _repositoryManager.authenticationRepository.getTransactionLog(URID);
-            return getTransactionLog;
-        }
-
-        public async Task<ResponseViewModel> getABREngine(Guid URID)
-        {
-            var getABREngine = await _repositoryManager.authenticationRepository.getABREngine(URID);
-            return getABREngine;
-        }
-        public async Task<ResponseViewModel> getUserAnalytics(Guid URID)
-        {
-            var getUserAnalytics = await _repositoryManager.authenticationRepository.getUserAnalytics(URID);
-            return getUserAnalytics;
-        }
-        public async Task<ResponseViewModel> getUserLinkedIds(Guid URID)
-        {
-            var getUserLinkedIds = await _repositoryManager.authenticationRepository.getUserLinkedIds(URID);
-            return getUserLinkedIds;
         }
     }
 }

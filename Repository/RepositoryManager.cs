@@ -16,7 +16,7 @@ namespace Repository
         private readonly Lazy<IAdminManageRepository> _adminManageRepository;
         private readonly Lazy<IMenuRepository> _menuRepository;
         private readonly Lazy<ISubMenuRepository> _subMenuRepository;
-        private readonly Lazy<IChatMasterRepository> _chatMasterRepository;
+        //private readonly Lazy<IChatMasterRepository> _chatMasterRepository;
         private readonly Lazy<ITransactionsLogRepository> _transactionsLogRepository;
         private readonly Lazy<IGeographyRepository> _geographyRepository;
 
@@ -31,7 +31,7 @@ namespace Repository
             _adminManageRepository = new Lazy<IAdminManageRepository>(() => new AdminManageRepository(_dapperContext));
             _menuRepository = new Lazy<IMenuRepository>(() => new MenuRepository(_dapperContext));
             _subMenuRepository = new Lazy<ISubMenuRepository>(() => new SubMenuRepository(_dapperContext));
-            _chatMasterRepository = new Lazy<IChatMasterRepository>(() => new ChatMasterRepository(_dapperContext));
+            //_chatMasterRepository = new Lazy<IChatMasterRepository>(() => new ChatMasterRepository(_dapperContext));
             _transactionsLogRepository = new Lazy<ITransactionsLogRepository>(() => new TransactionsLogRepository(_dapperContext));
             _geographyRepository = new Lazy<IGeographyRepository>(() => new GeographyRepository(_dapperContext));
 
@@ -44,7 +44,7 @@ namespace Repository
         public IAdminManageRepository adminManageRepository => _adminManageRepository.Value;
         public IMenuRepository menuRepository => _menuRepository.Value;
         public ISubMenuRepository subMenuRepository => _subMenuRepository.Value;
-        public IChatMasterRepository chatMasterRepository => _chatMasterRepository.Value;
+        //public IChatMasterRepository chatMasterRepository => _chatMasterRepository.Value;
         public ITransactionsLogRepository transactionsLogRepository => _transactionsLogRepository.Value;
         public IGeographyRepository geographyRepository => _geographyRepository.Value;
     }
