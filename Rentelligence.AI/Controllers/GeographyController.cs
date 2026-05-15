@@ -9,7 +9,7 @@ using System.Net;
 using ViewModel;
 
 
-namespace ChatBot_API.Controllers
+namespace XoxoFX_Apis.AI.Controllers
 
 {
     [Route("api/[controller]")]

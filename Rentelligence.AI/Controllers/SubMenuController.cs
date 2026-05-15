@@ -6,7 +6,7 @@ using ServiceContract;
 using System.Net;
 using ViewModel;
 
-namespace Rentelligence.AI.MarketPlace.Controllers
+namespace XoxoFX_Apis.AI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

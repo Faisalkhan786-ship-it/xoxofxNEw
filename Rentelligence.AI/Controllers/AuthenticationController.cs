@@ -11,7 +11,7 @@ using System.Security.Claims;
 using System.Text;
 using ViewModel;
 
-namespace Rentelligence.AI.MarketPlace.Controllers
+namespace XoxoFX_Apis.AI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

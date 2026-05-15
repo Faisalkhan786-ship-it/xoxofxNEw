@@ -7,7 +7,7 @@ using System.Net;
 using ViewModel;
 using static ViewModel.TicketViewModel;
 
-namespace Rentelligence.AI.Controllers
+namespace XoxoFX_Apis.AI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

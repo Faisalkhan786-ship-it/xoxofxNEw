@@ -9,7 +9,7 @@
 //using ViewModel;
 //using static Rentelligence.AI.MarketPlace.Controllers.AuthenticationController;
 
-//namespace ChatBot_API.Controllers
+//namespace XoxoFX_Apis.AI.Controllers
 //{
 //    [Route("api/[controller]")]
 //    [ApiController]

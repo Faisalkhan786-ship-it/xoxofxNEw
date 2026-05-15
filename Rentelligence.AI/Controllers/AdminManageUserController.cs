@@ -15,7 +15,7 @@
 //using System.Text;
 
 
-//namespace Rentelligence.AI.Controllers
+//namespace XoxoFX_Apis.AI.Controllers
 //{
 //    [Route("api/[controller]")]
 //    [ApiController]
