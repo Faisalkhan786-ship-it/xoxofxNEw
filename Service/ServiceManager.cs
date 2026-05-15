@@ -20,6 +20,8 @@ namespace Service
         //private readonly Lazy<IChatMasterServices> _chatMasterServices;
         private readonly Lazy<ITransactionsLogService> _transactionsLogService;
         private readonly Lazy<IGeographyContract> _geographyContract;
+        private readonly Lazy<ITicketService> _ticketService;
+
         public ServiceManager(IRepositoryManager repositoryManager)
         {
 
@@ -34,6 +36,7 @@ namespace Service
             //_chatMasterServices = new Lazy<IChatMasterServices>(() => new ChatMasterServices(repositoryManager));
             _transactionsLogService = new Lazy<ITransactionsLogService>(() => new TransactionsLogService(repositoryManager));
             _geographyContract = new Lazy<IGeographyContract>(() => new GeographyService(repositoryManager));
+            _ticketService = new Lazy<ITicketService>(() => new TicketService(repositoryManager));
 
         }
 
@@ -50,5 +53,7 @@ namespace Service
         //public IChatMasterServices chatMasterServices => _chatMasterServices.Value;
         public ITransactionsLogService transactionsLogService => _transactionsLogService.Value;
         public IGeographyContract geographyContract => _geographyContract.Value;
+        public ITicketService ticketService => _ticketService.Value;
+
     }
 }

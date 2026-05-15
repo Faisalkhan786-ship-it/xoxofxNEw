@@ -19,6 +19,7 @@ namespace Repository
         //private readonly Lazy<IChatMasterRepository> _chatMasterRepository;
         private readonly Lazy<ITransactionsLogRepository> _transactionsLogRepository;
         private readonly Lazy<IGeographyRepository> _geographyRepository;
+        private readonly Lazy<ITicketRepository> _ticketRepository;
 
         public RepositoryManager(DapperContext dapperContext, EmailService emailService)
         {
@@ -34,6 +35,7 @@ namespace Repository
             //_chatMasterRepository = new Lazy<IChatMasterRepository>(() => new ChatMasterRepository(_dapperContext));
             _transactionsLogRepository = new Lazy<ITransactionsLogRepository>(() => new TransactionsLogRepository(_dapperContext));
             _geographyRepository = new Lazy<IGeographyRepository>(() => new GeographyRepository(_dapperContext));
+            _ticketRepository = new Lazy<ITicketRepository>(() => new TicketRepository(_dapperContext));
 
         }
 
@@ -47,5 +49,7 @@ namespace Repository
         //public IChatMasterRepository chatMasterRepository => _chatMasterRepository.Value;
         public ITransactionsLogRepository transactionsLogRepository => _transactionsLogRepository.Value;
         public IGeographyRepository geographyRepository => _geographyRepository.Value;
+        public ITicketRepository ticketRepository => _ticketRepository.Value;
+
     }
 }

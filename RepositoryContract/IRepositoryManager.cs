@@ -22,6 +22,6 @@ namespace RepositoryContract
         //IChatMasterRepository chatMasterRepository { get; }
         IGeographyRepository geographyRepository { get; }
         ITransactionsLogRepository transactionsLogRepository  { get; }
-
+        ITicketRepository ticketRepository { get; }
     }
 }

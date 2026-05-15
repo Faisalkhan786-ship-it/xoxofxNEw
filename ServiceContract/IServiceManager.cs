@@ -21,5 +21,7 @@ namespace ServiceContract
         //IChatMasterServices chatMasterServices { get; }
         IGeographyContract geographyContract { get; }
         ITransactionsLogService transactionsLogService { get; }
+        ITicketService ticketService { get; }
+
     }
 }

@@ -89,15 +89,39 @@ namespace Common
 
 
 
-        //user Authentication start
+        //user Authentication 
         public static string spAddUserRegistration = "SpAddUserRegistration";
         public static string welcomeDetails = "SpWelcomeDetails";
         public static string spUserForgotPassword = "SpUserForgotPassword";
         public static string spAppLogin = "SpUserLogin";
-
         //End
 
 
+        //-----------Users Ticket
+        public static string spGetAllTicket = "SpGetAllTicket";
+        public static string spAddTicket = "SpAddTicket";
+        public static string updateTicket = "SpUpdateTicket";
+        public static string deleteTicket = "SpDeleteTicket";
+        public static string getAllTicketReplyByTicketId = "SpGetAllTicketReplyByTicketId";
+        public static string getAllTicketByTicketId = "SpGetAllTicketByTicketId";
+        public static string getAllTicketByUserId = "SpGetAllTicketByUserId";
+        public static string insert_TicketTest = "SpAddTicket";
+        public static string insert_TicketReplyTest = "SpAddTicketReply";
+        public static string getAllTicketBYURIDTEst = "SpGetAllTicketBYURID";
+        public static string getAllTicketBYTicketIdTEst = "SpGetAllTicketBYTicketId";
+        public static string getAllTicketReplyByTicketIDTest = "SpGetAllTicketReplyByTicketID";
+        public static string getAllTicket = "SpGetAllTicket";
+        public static string closeTicketTest = "SpCloseTicket";
+        public static string getAllClosedlistTicket = "SpGetAllClosedlistTicket";
+        public static string adminReplyCount = "SpAdminReplyCount";
+        public static string userReplyCount = "SpUserReplyCount";
+        public static string updateUserReplyCount = "SpUpdateUserReplyCount";
+        public static string updateAdminReplyCount = "SpUpdateAdminReplyCount";
+        public static string spGetAllTicketReply = "SpGetAllTicketReply";
+        public static string addTicketReply = "SpAddTicketReply";
+        public static string updateTicketReply = "SpUpdateTicketReply";
+        public static string spDeleteTicketReply = "SpDeleteTicketReply";
+        //-----------Ticket Ends 
 
         public static string userVerifyloginid = "SPThirdPartVerifyLoginId";
 
@@ -248,35 +272,12 @@ namespace Common
         public static string spUpdateAppRole = "SpUpdateAppRole";
         public static string spDeleteAppRole = "SpDeleteAppRole";
 
-        //new ticket
-        public static string spGetAllTicket = "SpGetAllTicket";
-        public static string spAddTicket = "SpAddTicket";
-        public static string updateTicket = "SpUpdateTicket";
-        public static string deleteTicket = "SpDeleteTicket";
-        public static string getAllTicketReplyByTicketId = "SpGetAllTicketReplyByTicketId";
-        public static string getAllTicketByTicketId = "SpGetAllTicketByTicketId";
-        public static string getAllTicketByUserId = "SpGetAllTicketByUserId";
-        public static string insert_TicketTest = "SpAddTicket";
-        public static string insert_TicketReplyTest = "SpAddTicketReply";
-        public static string getAllTicketBYURIDTEst = "SpGetAllTicketBYURID";
-        public static string getAllTicketBYTicketIdTEst = "SpGetAllTicketBYTicketId";
-        public static string getAllTicketReplyByTicketIDTest = "SpGetAllTicketReplyByTicketID";
-        public static string getAllTicket = "SpGetAllTicket";
-        public static string closeTicketTest = "SpCloseTicket";
-        public static string getAllClosedlistTicket = "SpGetAllClosedlistTicket";
+       
+      
         public static string gGetAllExpoTokens = "SpGetAllExpoTokens";
-        public static string adminReplyCount = "SpAdminReplyCount";
-        public static string userReplyCount = "SpUserReplyCount";
-        public static string updateUserReplyCount = "SpUpdateUserReplyCount";
-        public static string updateAdminReplyCount = "SpUpdateAdminReplyCount";
-
         //Reply ticket
 
-        public static string spGetAllTicketReply = "SpGetAllTicketReply";
-        public static string addTicketReply = "SpAddTicketReply";
-        public static string updateTicketReply = "SpUpdateTicketReply";
-        public static string spDeleteTicketReply = "SpDeleteTicketReply";
-
+      
 
 
 

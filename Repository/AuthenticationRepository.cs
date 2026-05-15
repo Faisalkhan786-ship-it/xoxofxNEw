@@ -235,10 +235,11 @@ namespace Repository
             parameters.Add("@Email", addAppUser.Email, DbType.String);
             parameters.Add("@CountryId", addAppUser.CountryId, DbType.Int32);
             parameters.Add("@Address", addAppUser.Address, DbType.String);
+            parameters.Add("@introSide", addAppUser.introSide, DbType.String);
             //parameters.Add("@OTPregpage", addAppUser.OTPregpage, DbType.String);
             parameters.Add("@intResult", dbType: DbType.Int64, direction: ParameterDirection.Output);
             
-            // 🔹 Step 2: Email ActionType decide karo
+            //  Step 2: Email ActionType decide karo
             int actionType = 1;
             using (var connection = _dapperContext.createConnection())
             {
@@ -262,10 +263,10 @@ namespace Repository
 
                 if (intResult > 0 && insertedUser != null)
                 {
-                    string authLogin = insertedUser.AuthLogin;  //  SpAddUserRegistration se mila AuthLogin
+                    string authLogin = insertedUser.AuthLogin;  
                     string plainPassword = string.Empty;
 
-                    // Ab welcome proc call karte hain
+                    //welcome procedure
                     var welcomeParams = new DynamicParameters();
                     welcomeParams.Add("@AuthLogin", authLogin, DbType.String);
 
