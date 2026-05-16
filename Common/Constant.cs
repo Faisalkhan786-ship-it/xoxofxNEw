@@ -66,7 +66,11 @@ namespace Common
 
         public static string updateFundRequestStatus_Admin = "SpUpdateFundRequestStatus_Admin";
 
-
+        public static string addFundRequest = "SpAddFundRequest";
+        public static string getFundRequestReport = "SpGetFundRequestReport";
+        public static string addRequestUserwithdrawal = "SpAddRequestUserwithdrawal";
+        public static string fundTransferDepositToDeposit = "SpFundTransferDepositToDeposit";
+        public static string transferIncomeToDepositWallet = "SpTransferIncomeToDepositWallet";
         //------------END
 
         //------Admin Master
@@ -84,8 +88,6 @@ namespace Common
         public static string spGetAllState = "SpGetAllState";
         public static string spGetAllCity = "SpGetAllCity";
         //-----End
-
-
 
 
 
@@ -123,6 +125,10 @@ namespace Common
         public static string spDeleteTicketReply = "SpDeleteTicketReply";
         //-----------Ticket Ends 
 
+       
+        
+        
+        
         public static string userVerifyloginid = "SPThirdPartVerifyLoginId";
 
         public static string userLoginAdmin = "SpUserLoginAdmin";
@@ -216,7 +222,7 @@ namespace Common
 
         public static string spUpdatePassword = "SpChangePassword";
         public static string updateUserProfile = "SpUpdateUserProfile";
-        public static string getFundRequestReport = "SpGetFundRequestReport";
+
         public static string getDormantReport = "SpGetDormantReport";
         public static string getRechargeTransaction = "SpGetRechargeTransaction";
         public static string depositWalletBal = "SpDepositWalletBal";
@@ -258,10 +264,8 @@ namespace Common
 
         public static string SpAddRechargeTransaction = "SpAddRechargeTransaction";
         public static string bulkRegistrationAdmin = "SpBulkRegistrationAdmin";
-        public static string addFundRequest = "SpAddFundRequest";
-        public static string addRequestUserwithdrawal = "SpAddRequestUserwithdrawal";
-        public static string fundTransferDepositToDeposit = "SpFundTransferDepositToDeposit";
-        public static string transferIncomeToDepositWallet = "SpTransferIncomeToDepositWallet";
+   
+
         public static string addToken_Deposits = "SpAddToken_Deposits";
         public static string adminForgotPassword = "SpAdminForgotPassword";
         public static string spGetTodayOrderList = "SpGetTodayOrderList";

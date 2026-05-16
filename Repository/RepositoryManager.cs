@@ -20,6 +20,7 @@ namespace Repository
         private readonly Lazy<ITransactionsLogRepository> _transactionsLogRepository;
         private readonly Lazy<IGeographyRepository> _geographyRepository;
         private readonly Lazy<ITicketRepository> _ticketRepository;
+        private readonly Lazy<IFundManagerRepository> _fundManagerRepository;
 
         public RepositoryManager(DapperContext dapperContext, EmailService emailService)
         {
@@ -36,6 +37,7 @@ namespace Repository
             _transactionsLogRepository = new Lazy<ITransactionsLogRepository>(() => new TransactionsLogRepository(_dapperContext));
             _geographyRepository = new Lazy<IGeographyRepository>(() => new GeographyRepository(_dapperContext));
             _ticketRepository = new Lazy<ITicketRepository>(() => new TicketRepository(_dapperContext));
+            _fundManagerRepository = new Lazy<IFundManagerRepository>(() => new FundManagerRepository(_dapperContext));
 
         }
 
@@ -50,6 +52,7 @@ namespace Repository
         public ITransactionsLogRepository transactionsLogRepository => _transactionsLogRepository.Value;
         public IGeographyRepository geographyRepository => _geographyRepository.Value;
         public ITicketRepository ticketRepository => _ticketRepository.Value;
+        public IFundManagerRepository fundManagerRepository => _fundManagerRepository.Value;
 
     }
 }

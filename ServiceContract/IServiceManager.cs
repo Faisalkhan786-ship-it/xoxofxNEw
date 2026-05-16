@@ -22,6 +22,7 @@ namespace ServiceContract
         IGeographyContract geographyContract { get; }
         ITransactionsLogService transactionsLogService { get; }
         ITicketService ticketService { get; }
+        IFundManagerService fundManagerService { get; }
 
     }
 }

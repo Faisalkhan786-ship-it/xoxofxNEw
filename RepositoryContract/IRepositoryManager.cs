@@ -23,5 +23,7 @@ namespace RepositoryContract
         IGeographyRepository geographyRepository { get; }
         ITransactionsLogRepository transactionsLogRepository  { get; }
         ITicketRepository ticketRepository { get; }
+        IFundManagerRepository fundManagerRepository { get; }
+
     }
 }
