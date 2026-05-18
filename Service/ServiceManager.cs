@@ -17,7 +17,7 @@ namespace Service
         private readonly Lazy<IAdminManageService> _adminManageService;
         private readonly Lazy<IMenuContract> _menuContract;
         private readonly Lazy<ISubMenuContract> _subMenuContract;
-        //private readonly Lazy<IChatMasterServices> _chatMasterServices;
+        private readonly Lazy<IWalletReportService> _walletReportService;
         private readonly Lazy<ITransactionsLogService> _transactionsLogService;
         private readonly Lazy<IGeographyContract> _geographyContract;
         private readonly Lazy<ITicketService> _ticketService; 
@@ -34,7 +34,7 @@ namespace Service
             _adminManageService = new Lazy<IAdminManageService>(() => new AdminManageService(repositoryManager));
             _menuContract = new Lazy<IMenuContract>(() => new MenuService(repositoryManager));
             _subMenuContract = new Lazy<ISubMenuContract>(() => new SubMenuService(repositoryManager));
-            //_chatMasterServices = new Lazy<IChatMasterServices>(() => new ChatMasterServices(repositoryManager));
+            _walletReportService = new Lazy<IWalletReportService>(() => new WalletReportService(repositoryManager));
             _transactionsLogService = new Lazy<ITransactionsLogService>(() => new TransactionsLogService(repositoryManager));
             _geographyContract = new Lazy<IGeographyContract>(() => new GeographyService(repositoryManager));
             _ticketService = new Lazy<ITicketService>(() => new TicketService(repositoryManager));
@@ -52,7 +52,7 @@ namespace Service
         public IAdminManageService adminManageService => _adminManageService.Value;
         public IMenuContract menuContract => _menuContract.Value;
         public ISubMenuContract subMenuContract => _subMenuContract.Value;
-        //public IChatMasterServices chatMasterServices => _chatMasterServices.Value;
+        public IWalletReportService walletReportService => _walletReportService.Value;
         public ITransactionsLogService transactionsLogService => _transactionsLogService.Value;
         public IGeographyContract geographyContract => _geographyContract.Value;
         public ITicketService ticketService => _ticketService.Value;

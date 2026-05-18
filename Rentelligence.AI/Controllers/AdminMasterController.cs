@@ -12,7 +12,7 @@ namespace XoxoFX_Apis.AI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
+   
     public class AdminMasterController : ControllerBase
     {
         private readonly IServiceManager _serviceManager;
@@ -29,6 +29,7 @@ namespace XoxoFX_Apis.AI.Controllers
             _configuration = configuration;
         }
         [HttpPost("chanegAdminPassword")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> chanegAdminPassword(AdminMasterViewModel adminMasterViewModel)
         {
             _logger.logInfo($" {LoggingEvents.getByIdItem} chanegAdminPassword");
@@ -59,6 +60,7 @@ namespace XoxoFX_Apis.AI.Controllers
             return Ok(userNameByLoginId);
         }
         [HttpPost("addCreditAndDebitFund")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> addCreditAndDebitFund(AdminManageFundViewModel adminManageFundViewModel)
         {
             _logger.logInfo($" {LoggingEvents.getByIdItem} adminLogin");

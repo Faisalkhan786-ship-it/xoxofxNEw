@@ -219,7 +219,7 @@ namespace Repository
 
         public async Task<ResponseViewModel> addExpoTokens(AddExpoTokensViewModel addExpoTokensViewModel)
         {
-            var incomeProc = Constant.addExpoTokens;
+            var incomeProc = "";
             var parameters = new DynamicParameters();
             parameters.Add("@URID", addExpoTokensViewModel.URID, DbType.Guid);
             parameters.Add("@ExpoToken", addExpoTokensViewModel.ExpoToken, DbType.String);
@@ -271,8 +271,8 @@ namespace Repository
 
         public async Task<ResponseViewModel> getExpoNotiByURID(Guid URID)
         {
-            var spExpoTokens = Constant.getAllExpoTokensByURID;
-            var spExpoNoti = Constant.getExpoNotiByURID;
+            var spExpoTokens ="" ;
+            var spExpoNoti = "";
 
             using (var connection = _dapperContext.createConnection())
             {

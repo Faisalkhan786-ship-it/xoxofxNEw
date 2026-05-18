@@ -30,7 +30,6 @@ namespace Rentelligence.AI.MarketPlace.Controllers
             emailService = new EmailService(configuration);
             _configuration = configuration;
         }
-
         
         [HttpPost("adminLogin")]
         public async Task<IActionResult> adminLogin(AdminUserLoginViewModel adminLogin)
@@ -100,8 +99,7 @@ namespace Rentelligence.AI.MarketPlace.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost("getAdminUserDetails")]
         public async Task<IActionResult> getAdminUserDetails(AdminUserGuidViewModel adminUserGuid)
-        {
-  
+        { 
             var returnData = await _serviceManager.adminAuthenticationContract.getAdminUserDetails(adminUserGuid);          
             return Ok(returnData);
         }
@@ -123,7 +121,6 @@ namespace Rentelligence.AI.MarketPlace.Controllers
             var returnData = await _serviceManager.adminAuthenticationContract.getAllAdminList();
             return Ok(returnData);
         }
-
         
     }
 }

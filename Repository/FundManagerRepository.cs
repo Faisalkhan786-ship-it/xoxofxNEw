@@ -189,8 +189,6 @@ namespace Repository
             }
         }
 
-
-
         public class WalletBalanceModel
         {
             public Guid URID { get; set; }
@@ -222,7 +220,6 @@ namespace Repository
             public string? AdminRemark { get; set; }
             public string? Docpath { get; set; }
         }
-
         public async Task<ResponseViewModel> getPayModeMaster()
         {
             var procedureName = Constant.spPayModeMaster;
@@ -255,7 +252,6 @@ namespace Repository
                 }
             }
         }
-
 
         public class PayModeMaster
         {
@@ -353,13 +349,9 @@ namespace Repository
         {
             var procedureName = Constant.fundTransferDepositToDeposit;
             var parameters = new DynamicParameters();
-
             parameters.Add("@URID", P2PViewModel.URID, DbType.Guid);
             parameters.Add("@AuthLoginReciver", P2PViewModel.AuthLoginReciver, DbType.String);
-            // parameters.Add("@fundtye", P2PViewModel.fundtye, DbType.String);
             parameters.Add("@trnsamount", P2PViewModel.trnsamount, DbType.Int64);
-
-
             parameters.Add("@intResult", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
             using (var connection = _dapperContext.createConnection())
@@ -390,7 +382,6 @@ namespace Repository
                 return response;
             }
         }
-
         public async Task<ResponseViewModel> getUserWalletBalance(Guid URID)
         {
             var procedureName = Constant.spGetUser_WalletBalance;
@@ -442,7 +433,6 @@ namespace Repository
         {
             var procedureName = Constant.transferIncomeToDepositWallet;
             var parameters = new DynamicParameters();
-
             parameters.Add("@URID", model.URID, DbType.Guid);
             parameters.Add("@TrnsAmount", model.trnsamount, DbType.Decimal);
             parameters.Add("@walletType", model.walletType, DbType.Int32);
@@ -488,7 +478,6 @@ namespace Repository
                 }
             }
         }
-        
         public async Task<ResponseViewModel> getIncomeToDepositWalletReport(Guid URID)
         {
             var balanceProc = Constant.spGetUser_WalletBalance;
@@ -548,7 +537,6 @@ namespace Repository
             }
         }
 
- 
         public async Task<ResponseViewModel> getAllFundRequestReport_Admin(AppUnAppFundRequestModel appUnAppFundRequestModel)
         {
             var balanceProc = Constant.getAllApprovedFundRequestReport_Admin;
@@ -659,7 +647,6 @@ namespace Repository
             parameters.Add("@Rfstatus", appRejFundViewModel.Rfstatus, DbType.Int32);
             parameters.Add("@Remark", appRejFundViewModel.Remark, DbType.String);
             parameters.Add("@Id", appRejFundViewModel.Id, DbType.Int32);
-
             using (var connection = _dapperContext.createConnection())
             {
                 try
@@ -695,7 +682,6 @@ namespace Repository
         {
             var UnApWithIncome = Constant.allUnApprIncWithdrawalHistory_Admin;
             var AprWithIncome = Constant.allApprIncWithdrawalHistory_Admin;
-
             var parameters = new DynamicParameters();
             parameters.Add("@AuthLogin", appUnAppIncomeVideoModel.AuthLogin, DbType.String);
             parameters.Add("@FromDate", appUnAppIncomeVideoModel.FromDate, DbType.String);

@@ -82,7 +82,6 @@ namespace Rentelligence.AI.MarketPlace.Controllers
             return Ok(getIncomeToDepositWalletReport);
         }
 
-
         [HttpGet("getfundTransferDepositToDepositReport")]
         public async Task<IActionResult> getUserWalletBalAndWalletReport(Guid URID)
         {
@@ -90,40 +89,6 @@ namespace Rentelligence.AI.MarketPlace.Controllers
             var getUserWalletBalance = await _serviceManager.fundManagerService.getUserWalletBalance(URID);
             return Ok(getUserWalletBalance);
         }
-
-
-        //[HttpPost("getAllIncomeRequest_Admin")]
-        //public async Task<IActionResult> getAllIncomeRequest_Admin(AppUnAppIncomeVideoModel appUnAppIncomeVideoModel)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} adminLogin");
-        //    var getAllUserWithdrawalRequest_Admin = await _serviceManager.fundManagerService.getAllUserWithdrawalRequest_Admin(appUnAppIncomeVideoModel);
-        //    return Ok(getAllUserWithdrawalRequest_Admin);
-        //}
-
-        //[HttpPost("UpIncomeWithdReqStatus_Admin")]
-        //public async Task<IActionResult> UpIncomeWithdReqStatus_Admin(AppRejFundViewModel appRejFundViewModel)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} adminLogin");
-        //    var upIncWithdReqStatus_Admin = await _serviceManager.fundManagerService.upIncWithdReqStatus_Admin(appRejFundViewModel);
-        //    return Ok(upIncWithdReqStatus_Admin);
-        //}
-
-        //[HttpPost("getAllFundRequestReport_Admin")]
-        //public async Task<IActionResult> getAllFundRequestReport_Admin(AppUnAppFundRequestModel appUnAppFundRequestModel)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} adminLogin");
-        //    var getAllFundRequestReport_Admin = await _serviceManager.fundManagerService.getAllFundRequestReport_Admin(appUnAppFundRequestModel);
-        //    return Ok(getAllFundRequestReport_Admin);
-        //}
-
-
-        //[HttpPost("updateFundRequestStatus_Admin")]
-        //public async Task<IActionResult> updateFundRequestStatus_Admin(AppRejFundViewModel appRejFundViewModel)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} adminLogin");
-        //    var getUserWalletBalance = await _serviceManager.fundManagerService.updateFundRequestStatus_Admin(appRejFundViewModel);
-        //    return Ok(getUserWalletBalance);
-        //}
 
         //[HttpGet("getUserAutoDeposit")]
         //public async Task<IActionResult> getUserAutoDeposit(Guid URID)
@@ -142,13 +107,7 @@ namespace Rentelligence.AI.MarketPlace.Controllers
         //    return Ok(add);
         //}
 
-        //[HttpPost("upRentWithdReqStatus_Admin")]
-        //public async Task<IActionResult> upRentWithdReqStatus_Admin(AppRejFundViewModel appRejFundViewModel)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} adminLogin");
-        //    var getUserWalletBalance = await _serviceManager.fundManagerService.upRentWithdReqStatus_Admin(appRejFundViewModel);
-        //    return Ok(getUserWalletBalance);
-        //}
+       
 
         //[HttpPost("addRechargeTransaction")]
         //public async Task<IActionResult> addRechargeTransaction(addRechargeTransactionViewModel addRechargeTransactionViewModel)
@@ -171,13 +130,8 @@ namespace Rentelligence.AI.MarketPlace.Controllers
         //    var getspBindPackageUserSide = await _serviceManager.fundManagerService.getspBindPackageUserSide();
         //    return Ok(getspBindPackageUserSide);
         //}
-        //[HttpGet("getUserDormantReportDetails")]
-        //public async Task<IActionResult> getUserDormantReportDetails(Guid URID)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} adminLogin");
-        //    var getUserDormantReportDetails = await _serviceManager.fundManagerService.getUserDormantReportDetails(URID);
-        //    return Ok(getUserDormantReportDetails);
-        //}
+        
+        
         //[HttpGet("getRechargeTransaction")]
         //public async Task<IActionResult> getRechargeTransaction(Guid URID)
         //{
@@ -186,20 +140,5 @@ namespace Rentelligence.AI.MarketPlace.Controllers
         //    return Ok(getRechargeTransaction);
         //}
 
-        //[HttpPost("getAllUserROIWithdrawalRequest_Admin")]
-        //public async Task<IActionResult> getAllUserROIWithdrawalRequest_Admin(AppUnAppIncomeVideoModel appUnAppIncomeVideoModel)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} getAllUserROIWithdrawalRequest_Admin");
-        //    var getAllUserROIWithdrawalRequest_Admin = await _serviceManager.fundManagerService.getAllUserROIWithdrawalRequest_Admin(appUnAppIncomeVideoModel);
-        //    return Ok(getAllUserROIWithdrawalRequest_Admin);
-        //}
-
-        //[HttpPost("upROIWithdReqStatus_Admin")]
-        //public async Task<IActionResult> upROIWithdReqStatus_Admin(AppRejFundViewModel appRejFundViewModel)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} adminLogin");
-        //    var upROIWithdReqStatus_Admin = await _serviceManager.fundManagerService.upROIWithdReqStatus_Admin(appRejFundViewModel);
-        //    return Ok(upROIWithdReqStatus_Admin);
-        //}
     }
 }

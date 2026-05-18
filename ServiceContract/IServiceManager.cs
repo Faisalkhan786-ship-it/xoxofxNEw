@@ -18,7 +18,7 @@ namespace ServiceContract
         IAdminManageService adminManageService { get; }
         IMenuContract menuContract { get; }
         ISubMenuContract subMenuContract { get; }
-        //IChatMasterServices chatMasterServices { get; }
+        IWalletReportService walletReportService { get; }
         IGeographyContract geographyContract { get; }
         ITransactionsLogService transactionsLogService { get; }
         ITicketService ticketService { get; }
