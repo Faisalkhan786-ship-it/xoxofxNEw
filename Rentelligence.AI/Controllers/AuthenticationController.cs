@@ -318,7 +318,7 @@ namespace XoxoFX_Apis.AI.Controllers
         }
 
         [HttpPost("updateUserProfile")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> updateUserProfile(UpdateUserProfileViewModel updateUserProfile)
         {
             _logger.logInfo($" {LoggingEvents.updateItem} updateUserProfile");
@@ -327,7 +327,7 @@ namespace XoxoFX_Apis.AI.Controllers
         }
 
         [HttpPost("updateUserProfileImage")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> updateUserProfileImage(UpdateUserImageViewModel updateUserImageViewModel)
         {
             _logger.logInfo($" {LoggingEvents.updateItem} updateUserProfileImage");

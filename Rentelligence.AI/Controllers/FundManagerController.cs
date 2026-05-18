@@ -74,25 +74,22 @@ namespace Rentelligence.AI.MarketPlace.Controllers
             return Ok(add);
         }
 
-        //[HttpGet("getTransferIncomeToDepositWalletReport")]
-        //public async Task<IActionResult> getTransferIncomeToDepositWalletReport(Guid URID)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} getIncomeToDepositWalletReport");
-        //    var getIncomeToDepositWalletReport = await _serviceManager.fundManagerService.getIncomeToDepositWalletReport(URID);
-        //    return Ok(getIncomeToDepositWalletReport);
-        //}
+        [HttpGet("getTransferIncomeToDepositWalletReport")]
+        public async Task<IActionResult> getTransferIncomeToDepositWalletReport(Guid URID)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} getIncomeToDepositWalletReport");
+            var getIncomeToDepositWalletReport = await _serviceManager.fundManagerService.getIncomeToDepositWalletReport(URID);
+            return Ok(getIncomeToDepositWalletReport);
+        }
 
 
-
-        //[HttpGet("getfundTransferDepositToDepositReport")]
-        //public async Task<IActionResult> getUserWalletBalAndWalletReport(Guid URID)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} adminLogin");
-        //    var getUserWalletBalance = await _serviceManager.fundManagerService.getUserWalletBalance(URID);
-        //    return Ok(getUserWalletBalance);
-        //}
-
-
+        [HttpGet("getfundTransferDepositToDepositReport")]
+        public async Task<IActionResult> getUserWalletBalAndWalletReport(Guid URID)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} adminLogin");
+            var getUserWalletBalance = await _serviceManager.fundManagerService.getUserWalletBalance(URID);
+            return Ok(getUserWalletBalance);
+        }
 
 
         //[HttpPost("getAllIncomeRequest_Admin")]
