@@ -24,7 +24,7 @@ namespace XoxoFX_Apis.AI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Roles = "User")]
+    [Authorize(Roles = "User")]
     public class WalletReportController : ControllerBase
     {
         private readonly IServiceManager _serviceManager;
@@ -94,6 +94,14 @@ namespace XoxoFX_Apis.AI.Controllers
             _logger.logInfo($" {LoggingEvents.getByIdItem} getDownlineLeftRightCount");
             var getDownlineLeftRightCount = await _serviceManager.walletReportService.getDownlineLeftRightCount(downlineLeftRightCountViewModel);
             return Ok(getDownlineLeftRightCount);
+        }
+
+        [HttpPost("getLeftRightdownline")]
+        public async Task<IActionResult> getLeftRightdownline(LeftRightdownlineTeamViewModel leftRightdownlineTeamViewModel)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} getLeftRightdownline");
+            var getLeftRightdownline = await _serviceManager.walletReportService.getLeftRightdownline(leftRightdownlineTeamViewModel);
+            return Ok(getLeftRightdownline);
         }
 
         //[HttpPost("getTransactionHistory")]

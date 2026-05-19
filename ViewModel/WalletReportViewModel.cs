@@ -118,8 +118,16 @@ namespace ViewModel
     }
     public class DownlineLeftRightCountViewModel
     {
-        public Guid mURID { get; set; }
+        public Guid URID { get; set; }
         public String? side { get; set; }
         public int? totcount { get; set; }
+    }
+    public class LeftRightdownlineTeamViewModel
+    {
+        public Guid Urid { get; set; }
+        public String? side { get; set; }
+        public int? kid { get; set; }
+        public String? fromdate { get; set; }
+        public String? toDate { get; set; }
     }
 }

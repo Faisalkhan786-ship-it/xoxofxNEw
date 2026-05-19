@@ -198,5 +198,10 @@ namespace Service
             var getDownlineLeftRightCount = await _repositoryManager.walletReportRepository.getDownlineLeftRightCount(downlineLeftRightCountViewModel);
             return getDownlineLeftRightCount;
         }
+        public async Task<ResponseViewModel> getLeftRightdownline(LeftRightdownlineTeamViewModel leftRightdownlineTeamViewModel)
+        {
+            var getLeftRightdownline = await _repositoryManager.walletReportRepository.getLeftRightdownline(leftRightdownlineTeamViewModel);
+            return getLeftRightdownline;
+        }
     }
 }

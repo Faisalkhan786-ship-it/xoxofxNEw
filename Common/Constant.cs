@@ -151,6 +151,7 @@ namespace Common
         public static string SpAddRechargeTransactionUser = "SpAddRechargeTransactionUser";
         public static string downLineTree_Details_fourlvl = "nsp_downLineTree_Details_fourlvl";
         public static string downlineLeftRightCount = "SPGetDownlineLeftRightCount";
+        public static string leftRightdownlineTeam = "spGetLeftRightdownlineTeam";
 
         //End
 

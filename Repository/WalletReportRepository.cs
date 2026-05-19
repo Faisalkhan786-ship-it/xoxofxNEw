@@ -1922,7 +1922,7 @@ namespace Repository
             var incomeProc = Constant.downlineLeftRightCount;
             var parameters = new DynamicParameters();
 
-            parameters.Add("@mURID", downlineLeftRightCountViewModel.mURID, DbType.Guid);
+            parameters.Add("@mURID", downlineLeftRightCountViewModel.URID, DbType.Guid);
             parameters.Add("@side", downlineLeftRightCountViewModel.side, DbType.String);
             parameters.Add("@totcount", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
@@ -1947,6 +1947,60 @@ namespace Repository
                             totalCount = totalCount
                         }
                     };
+                }
+                catch (Exception ex)
+                {
+                    return new ResponseViewModel
+                    {
+                        statusCode = (int)HttpStatusCode.InternalServerError,
+                        message = $"Error occurred: {ex.Message}",
+                        data = null
+                    };
+                }
+            }
+        }
+        public async Task<ResponseViewModel> getLeftRightdownline(LeftRightdownlineTeamViewModel leftRightdownlineTeamViewModel)
+        {
+            var incomeProc = Constant.leftRightdownlineTeam;
+            var parameters = new DynamicParameters();
+            parameters.Add("@mUrid", leftRightdownlineTeamViewModel.Urid, DbType.Guid);
+            parameters.Add("@side", leftRightdownlineTeamViewModel.side, DbType.String);
+            parameters.Add("@kid", leftRightdownlineTeamViewModel.kid, DbType.Int32);
+            parameters.Add("@dt_from", leftRightdownlineTeamViewModel.fromdate, DbType.String);
+            parameters.Add("@dt_to", leftRightdownlineTeamViewModel.toDate, DbType.String);
+
+            using (var connection = _dapperContext.createConnection())
+            {
+                try
+                {
+                    var incomeResult = await connection.QueryAsync(incomeProc, parameters, commandType: CommandType.StoredProcedure);
+                    var incomeList = incomeResult.ToList();
+
+
+                    if ((incomeList != null && incomeList.Any()))
+                    {
+                        var message = "Data fetched successfully";
+                        var combinedData = new
+                        {
+                            leftRightdownline = incomeList,
+                        };
+
+                        return new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.OK,
+                            message = message,
+                            data = combinedData
+                        };
+                    }
+                    else
+                    {
+                        return new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.NotFound,
+                            message = "No left Right down line.",
+                            data = null
+                        };
+                    }
                 }
                 catch (Exception ex)
                 {
