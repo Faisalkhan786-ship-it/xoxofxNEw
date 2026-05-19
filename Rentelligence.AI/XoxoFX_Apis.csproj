@@ -43,6 +43,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\Category\" />
     <Folder Include="wwwroot\TicketImage\" />
   </ItemGroup>
 

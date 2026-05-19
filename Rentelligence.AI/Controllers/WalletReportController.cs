@@ -80,6 +80,22 @@ namespace XoxoFX_Apis.AI.Controllers
             return Ok(getIncomeWithdrawalHistory);
         }
 
+        [HttpGet("getdownLineTreeDetails")]
+        public async Task<IActionResult> getdownLineTreeDetails(Guid URID)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} getdownLineTreeDetails");
+            var getdownLineTreeDetails = await _serviceManager.walletReportService.getdownLineTreeDetails(URID);
+            return Ok(getdownLineTreeDetails);
+        }
+       
+        [HttpPost("getDownlineLeftRightCount")]
+        public async Task<IActionResult> getDownlineLeftRightCount(DownlineLeftRightCountViewModel downlineLeftRightCountViewModel)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} getDownlineLeftRightCount");
+            var getDownlineLeftRightCount = await _serviceManager.walletReportService.getDownlineLeftRightCount(downlineLeftRightCountViewModel);
+            return Ok(getDownlineLeftRightCount);
+        }
+
         //[HttpPost("getTransactionHistory")]
         //public async Task<IActionResult> getTransactionHistory(IncomeWithdrawalHistoryViewModel incomeWithdrawalHistoryViewModel)
         //{

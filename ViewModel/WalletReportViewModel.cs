@@ -116,4 +116,10 @@ namespace ViewModel
         public int? LeaseDuration { get; set; }
         public int? PackageType { get; set; }
     }
+    public class DownlineLeftRightCountViewModel
+    {
+        public Guid mURID { get; set; }
+        public String? side { get; set; }
+        public int? totcount { get; set; }
+    }
 }

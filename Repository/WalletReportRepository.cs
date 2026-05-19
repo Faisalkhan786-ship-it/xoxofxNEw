@@ -1865,6 +1865,100 @@ namespace Repository
                 }
             }
         }
+
+        public async Task<ResponseViewModel> getdownLineTreeDetails(Guid URID)
+        {
+            var incomeProc = Constant.downLineTree_Details_fourlvl;
+
+            var parameters = new DynamicParameters();
+            parameters.Add("@URID", URID, DbType.Guid);
+
+            using (var connection = _dapperContext.createConnection())
+            {
+                try
+                {
+                    var incomeResult = await connection.QueryAsync(incomeProc, parameters, commandType: CommandType.StoredProcedure);
+                    var incomeList = incomeResult.ToList();
+
+
+                    if ((incomeList != null && incomeList.Any()))
+                    {
+                        var message = "Data fetched successfully";
+                        var combinedData = new
+                        {
+                            downLineTreeDetails = incomeList,
+                        };
+
+                        return new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.OK,
+                            message = message,
+                            data = combinedData
+                        };
+                    }
+                    else
+                    {
+                        return new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.NotFound,
+                            message = "No transaction types found.",
+                            data = null
+                        };
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return new ResponseViewModel
+                    {
+                        statusCode = (int)HttpStatusCode.InternalServerError,
+                        message = $"Error occurred: {ex.Message}",
+                        data = null
+                    };
+                }
+            }
+        }
+        public async Task<ResponseViewModel> getDownlineLeftRightCount(DownlineLeftRightCountViewModel downlineLeftRightCountViewModel)
+        {
+            var incomeProc = Constant.downlineLeftRightCount;
+            var parameters = new DynamicParameters();
+
+            parameters.Add("@mURID", downlineLeftRightCountViewModel.mURID, DbType.Guid);
+            parameters.Add("@side", downlineLeftRightCountViewModel.side, DbType.String);
+            parameters.Add("@totcount", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+            using (var connection = _dapperContext.createConnection())
+            {
+                try
+                {
+                    await connection.ExecuteAsync(
+                        incomeProc,
+                        parameters,
+                        commandType: CommandType.StoredProcedure
+                    );
+
+                    var totalCount = parameters.Get<int>("@totcount");
+
+                    return new ResponseViewModel
+                    {
+                        statusCode = (int)HttpStatusCode.OK,
+                        message = "Data fetched successfully",
+                        data = new
+                        {
+                            totalCount = totalCount
+                        }
+                    };
+                }
+                catch (Exception ex)
+                {
+                    return new ResponseViewModel
+                    {
+                        statusCode = (int)HttpStatusCode.InternalServerError,
+                        message = $"Error occurred: {ex.Message}",
+                        data = null
+                    };
+                }
+            }
+        }
     }
 }
 
