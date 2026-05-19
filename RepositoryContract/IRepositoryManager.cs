@@ -24,6 +24,7 @@ namespace RepositoryContract
         ITransactionsLogRepository transactionsLogRepository  { get; }
         ITicketRepository ticketRepository { get; }
         IFundManagerRepository fundManagerRepository { get; }
+        ICommunityRepository communityRepository { get; }
 
     }
 }

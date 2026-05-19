@@ -23,6 +23,7 @@ namespace ServiceContract
         ITransactionsLogService transactionsLogService { get; }
         ITicketService ticketService { get; }
         IFundManagerService fundManagerService { get; }
+        ICommunityService communityContract { get; }
 
     }
 }

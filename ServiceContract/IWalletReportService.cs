@@ -44,8 +44,5 @@ namespace ServiceContract
   
         public Task<ResponseViewModel> userSearchBindBuyPackage(string AuthLogin);
         public Task<ResponseViewModel> getSalaryRankList(Guid URID);
-        public Task<ResponseViewModel> getdownLineTreeDetails(Guid URID);
-        public Task<ResponseViewModel> getDownlineLeftRightCount(DownlineLeftRightCountViewModel downlineLeftRightCountViewModel);
-        public Task<ResponseViewModel> getLeftRightdownline(LeftRightdownlineTeamViewModel leftRightdownlineTeamViewModel);
-    }
+          }
 }

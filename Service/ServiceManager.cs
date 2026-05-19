@@ -22,6 +22,7 @@ namespace Service
         private readonly Lazy<IGeographyContract> _geographyContract;
         private readonly Lazy<ITicketService> _ticketService; 
         private readonly Lazy<IFundManagerService> _fundManagerService;
+        private readonly Lazy<ICommunityService> _communityContract;
 
         public ServiceManager(IRepositoryManager repositoryManager)
         {
@@ -39,6 +40,7 @@ namespace Service
             _geographyContract = new Lazy<IGeographyContract>(() => new GeographyService(repositoryManager));
             _ticketService = new Lazy<ITicketService>(() => new TicketService(repositoryManager));
             _fundManagerService = new Lazy<IFundManagerService>(() => new FundManagerService(repositoryManager));
+            _communityContract = new Lazy<ICommunityService>(() => new CommunityService(repositoryManager));
 
         }
 
@@ -57,6 +59,7 @@ namespace Service
         public IGeographyContract geographyContract => _geographyContract.Value;
         public ITicketService ticketService => _ticketService.Value;
         public IFundManagerService fundManagerService => _fundManagerService.Value;
+        public ICommunityService communityContract => _communityContract.Value;
 
     }
 }

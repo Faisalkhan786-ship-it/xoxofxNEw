@@ -188,20 +188,6 @@ namespace Service
             return getSalaryRankList;
         }
 
-        public async Task<ResponseViewModel> getdownLineTreeDetails(Guid URID)
-        {
-            var getdownLineTreeDetails = await _repositoryManager.walletReportRepository.getdownLineTreeDetails(URID);
-            return getdownLineTreeDetails;
-        }
-        public async Task<ResponseViewModel> getDownlineLeftRightCount(DownlineLeftRightCountViewModel downlineLeftRightCountViewModel)
-        {
-            var getDownlineLeftRightCount = await _repositoryManager.walletReportRepository.getDownlineLeftRightCount(downlineLeftRightCountViewModel);
-            return getDownlineLeftRightCount;
-        }
-        public async Task<ResponseViewModel> getLeftRightdownline(LeftRightdownlineTeamViewModel leftRightdownlineTeamViewModel)
-        {
-            var getLeftRightdownline = await _repositoryManager.walletReportRepository.getLeftRightdownline(leftRightdownlineTeamViewModel);
-            return getLeftRightdownline;
-        }
+       
     }
 }

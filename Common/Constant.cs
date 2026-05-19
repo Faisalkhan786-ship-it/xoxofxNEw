@@ -152,7 +152,8 @@ namespace Common
         public static string downLineTree_Details_fourlvl = "nsp_downLineTree_Details_fourlvl";
         public static string downlineLeftRightCount = "SPGetDownlineLeftRightCount";
         public static string leftRightdownlineTeam = "spGetLeftRightdownlineTeam";
-
+        public static string spGetPersonalTeamList_Search = "spGetPersonalTeamList_Search";
+        public static string getPersonalTeamList_Search =   "SpGetPersonalTeamList_Search";
         //End
 
 
@@ -176,9 +177,7 @@ namespace Common
         public static string getUserNameByEmailId = "SpGetUserNameByEmailId";
         public static string spWelcomeDetails = "SpWelcomeDetails";
         public static string getNetworkTree = "SpGetNetworkTree";
-        public static string spGetPersonalTeamList_Search = "spGetPersonalTeamList_Search";
-       
-        public static string getPersonalTeamList_Search = "SpGetPersonalTeamList_Search";
+
         public static string agentLeaseCredit = "GetAgentLeaseCredit";
         public static string getRechargeTransaction_ByTId = "SpGetRechargeTransaction_ByTId";
         public static string getRentWalletByURID = "SpGetRentWalletByURID";
