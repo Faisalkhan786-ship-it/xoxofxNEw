@@ -55,8 +55,7 @@ namespace XoxoFX_Apis.AI.Controllers
         //        _logger.logWarn($"{LoggingEvents.getItemNotFound},No Category Found");
         //    }
         //    return Ok(getAllCategory);
-        //}
-        [Authorize(Roles = "User")]
+        //}      
         [HttpGet("getAllActiveCategory")]       
         public async Task<IActionResult> getAllActiveCategory()
         {

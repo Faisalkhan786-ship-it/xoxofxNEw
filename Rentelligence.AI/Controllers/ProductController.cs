@@ -19,19 +19,19 @@ namespace XoxoFX_Apis.AI.Controllers
             _serviceManager = serviceManager;
             _logger = logger;
         }
-
-        //[HttpPost("getByIdProduct")]      
-        //public async Task<IActionResult> getByIdProduct(getAllProductByIdViewModel getAllProductById)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} getByIdProduct productId ${getAllProductById}");
-        //    var getByIdProduct = await _serviceManager.productContract.getByIdProduct(getAllProductById);
-        //    if (getByIdProduct.statusCode == (int)HttpStatusCode.NotFound)
-        //    {
-        //        _logger.logWarn($"{LoggingEvents.getItemNotFound},No Product Found");
-        //    }
-        //    return Ok(getByIdProduct);
-        //}
-
+        [Authorize(Roles = "Admin")]
+        [HttpGet("getByIdProduct/{productId}")]    
+        public async Task<IActionResult> getByIdProduct(Guid productId)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} getByIdProduct productId ${productId}");
+            var getByIdProduct = await _serviceManager.productContract.getByIdProduct(productId);
+            if (getByIdProduct.statusCode == (int)HttpStatusCode.NotFound)
+            {
+                _logger.logWarn($"{LoggingEvents.getItemNotFound},No Product Found");
+            }
+            return Ok(getByIdProduct);
+        }
+        [Authorize(Roles = "Admin")]
         [HttpGet("getAllProduct")]
         public async Task<IActionResult> getAllProduct()
         {
@@ -43,7 +43,7 @@ namespace XoxoFX_Apis.AI.Controllers
             }
             return Ok(getAllProduct);
         }
-
+        [Authorize(Roles = "User")]
         [HttpGet("getAllProductForUser")]
         public async Task<IActionResult> getAllProductForUser()
         {
@@ -55,19 +55,7 @@ namespace XoxoFX_Apis.AI.Controllers
             }
             return Ok(getAllProductForUser);
         }
-
-        [HttpGet("getAllProductDetails")]
-        public async Task<IActionResult> getAllProductDetails(Int32 id)
-        {
-            _logger.logInfo($" {LoggingEvents.getAllItem} getAllProductDetails");
-            var getAllProductDetails = await _serviceManager.productContract.getAllProductDetails(id);
-            if (getAllProductDetails.statusCode == (int)HttpStatusCode.NotFound)
-            {
-                _logger.logWarn($"{LoggingEvents.getItemNotFound},No Product Details Found");
-            }
-            return Ok(getAllProductDetails);
-        }
-
+        [Authorize(Roles = "Admin")]
         [HttpPost("addProduct")]
         public async Task<IActionResult> addProduct(AddProductViewModel addProduct)
         {
@@ -76,16 +64,30 @@ namespace XoxoFX_Apis.AI.Controllers
             return Ok(add);
         }
 
+        //[HttpGet("getAllProductDetails")]
+        //public async Task<IActionResult> getAllProductDetails(Int32 id)
+        //{
+        //    _logger.logInfo($" {LoggingEvents.getAllItem} getAllProductDetails");
+        //    var getAllProductDetails = await _serviceManager.productContract.getAllProductDetails(id);
+        //    if (getAllProductDetails.statusCode == (int)HttpStatusCode.NotFound)
+        //    {
+        //        _logger.logWarn($"{LoggingEvents.getItemNotFound},No Product Details Found");
+        //    }
+        //    return Ok(getAllProductDetails);
+        //}
+
+
+        [Authorize(Roles = "Admin")]
         [HttpPost("updateProduct")]
         public async Task<IActionResult> updateProduct(UpdateProductViewModel updateProduct)
         {
-            _logger.logInfo($" {LoggingEvents.updateItem} updateProductImage");
+            _logger.logInfo($" {LoggingEvents.updateItem} updateProduct");
             var update = await _serviceManager.productContract.updateProduct(updateProduct);
             return Ok(update);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost("deleteProduct")]
-        [Authorize]
         public async Task<IActionResult> deleteCategory(DeleteProductViewModel deleteProduct)
         {
             _logger.logInfo($" {LoggingEvents.deleteItem} deleteProduct");

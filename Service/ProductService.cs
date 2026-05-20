@@ -12,9 +12,9 @@ namespace Service
             _repositoryManager = repositoryManager;
         }
 
-        public async Task<ResponseViewModel> getByIdProduct(getAllProductByIdViewModel getAllProductById)
+        public async Task<ResponseViewModel> getByIdProduct(Guid productId)
         {
-            var getByIdProduct = await _repositoryManager.productRepository.getByIdProduct(getAllProductById);
+            var getByIdProduct = await _repositoryManager.productRepository.getByIdProduct(productId);
             return getByIdProduct;
         }
 

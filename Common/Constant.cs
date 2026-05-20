@@ -306,6 +306,7 @@ namespace Common
         public static string spGetAllProductById = "SpGetAllProductById";
         public static string spGetByIdProduct = "SpGetByIdProduct";
         public static string spGetAllProduct = "SpGetAllProduct";
+        public static string getAllProByproduId = "SpGetAllProByproduId";
         public static string getAllProductForUser = "SpGetAllProductForUser";
         public static string spGetAllProductDetails = "SpGetAllProductDetails";
         public static string spAddProduct = "SpAddProduct";

@@ -41,176 +41,40 @@ namespace Repository
             public List<string>? images { get; set; } = new List<string>();           
         }
 
-        public async Task<ResponseViewModel> getByIdProduct(getAllProductByIdViewModel getAllProductById)
+        public async Task<ResponseViewModel> getByIdProduct(Guid productId)
         {
-            Guid productId;
-            bool isGuid = Guid.TryParse(getAllProductById.id, out productId);
-            if (!isGuid)
+            var procedureName = Constant.getAllProByproduId;
+            var parameters = new DynamicParameters();
+            try
             {
-                var procedureProductById = Constant.spGetAllProductById;
-                var parametersId = new DynamicParameters();
-                parametersId.Add("@id", getAllProductById.id.ToString(), DbType.String);
-
                 using (var connection = _dapperContext.createConnection())
                 {
-                    productId = connection.QueryFirstOrDefault<Guid>(
-                        procedureProductById,
-                        parametersId,
-                        commandType: CommandType.StoredProcedure
-                    );
+                    parameters.Add("@productId", productId);
+                    var result = await connection.QueryAsync<AllProduct>(procedureName, parameters, commandType: CommandType.StoredProcedure);
+                    var getAllProduct = new ResponseViewModel
+                    {
+                        statusCode = result.Any() ? (int)HttpStatusCode.OK : (int)HttpStatusCode.NotFound,
+                        message = result.Any() ? "Data Found" : "Data Not Found",
+                        data = result
+                    };
+                    return getAllProduct;
                 }
             }
-            //var procedureName = Constant.spGetByIdProduct;
-            //var procedureFAQ = Constant.spGetAllProductFAQbyProductId;
-            //var SkinInsight = Constant.spGetAllSkinInsightByProductId;
-            //var Ingredient = Constant.spGetAllProductFAQIngredientbyProductId;
-            //var FaqWithProduct = Constant.spGetAllProductFAQWithProductbyProductId;
-            //var AllSimilarProduct = Constant.spGetAllSimilarProductByProductId;
-            //var procedureImage = Constant.spGetAllSimilarProductByProductIdImage;
-
-            var procedureName = Constant.spGetByIdProduct;
-            var procedureFAQ = "";
-            var SkinInsight = "";
-            var Ingredient = "";
-            var FaqWithProduct = "";
-            var AllSimilarProduct = "";
-            var procedureImage = "";
-
-            var parameters = new DynamicParameters();
-            parameters.Add("@productId", productId, DbType.Guid);
-
-            using (var connection = _dapperContext.createConnection())
+            catch (Exception ex)
             {
-                // 1) Fetch main product details
-                var result = (await connection
-                    .QueryAsync<Productdetails>(procedureName, parameters, commandType: CommandType.StoredProcedure))
-                    .ToList();
-
-                // 2) Fetch FAQs
-                var faqList = (await connection
-                    .QueryAsync<Faq>(procedureFAQ, parameters, commandType: CommandType.StoredProcedure))
-                    .ToList();
-
-                // 3) Fetch Ingredients
-                var Ingre = (await connection
-                    .QueryAsync<FaqIngredient>(Ingredient, parameters, commandType: CommandType.StoredProcedure))
-                    .ToList();
-
-                // 4) Fetch FAQs With Product
-                var FaqProduct = (await connection
-                    .QueryAsync<FaqWithProduct>(FaqWithProduct, parameters, commandType: CommandType.StoredProcedure))
-                    .ToList();
-
-                // 5) Fetch Similar Products and filter invalid ones
-                var SimilarPsRaw = (await connection
-                    .QueryAsync<SimilarProducts>(AllSimilarProduct, parameters, commandType: CommandType.StoredProcedure))
-                    .ToList();
-
-
-
-                var SimilarPs = SimilarPsRaw
-                    .Where(x =>
-                        x.SimilarProductId != Guid.Empty &&
-                        x.ProductId != Guid.Empty &&
-                        x.SubProductId != Guid.Empty &&
-                        x.description != string.Empty &&
-                        !string.IsNullOrWhiteSpace(x.ProductName) &&
-                        x.Price > 0 &&
-                        x.discountPrice > 0 &&
-                        x.totalReturn > 0 &&
-                        x.weeklyReturn > 0 &&
-                        x.month > 0 &&
-                        x.MRP != string.Empty
-                    )
-                    .ToList();
-                foreach (var item in SimilarPs)
+                return new ResponseViewModel
                 {
-                    DynamicParameters imgParam = new DynamicParameters();
-                    imgParam.Add("@productid", item.SubProductId);
-
-                    var images = await connection.QueryAsync<string>(
-                        procedureImage, imgParam, commandType: CommandType.StoredProcedure);
-
-                    item.images = images.ToList();
-                }
-
-
-
-                // 6) Prepare product data
-                var product = result
-                    .Select(p => new
-                    {
-                        id = p.Id,
-                        productId = p.ProductId.ToString(),
-                        categoryId = p.CategoryId.ToString(),
-                        categoryName = p.CategoryName,
-                        subCategoryId = p.SubCategoryId.ToString(),
-                        subCategoryName = p.SubCategoryName,
-                        subCategoryTypeId = p.SubCategoryTypeId.ToString(),
-                        subCategoryTypeName = p.SubCategoryTypeName,
-                        sellerId = p.SellerId.ToString(),
-                        sellerName = p.SellerName,                      
-                        productName = p.ProductName,
-                        subName = p.SubName,
-                        description = p.Description,
-                        rating = p.Rating,
-                        noOfRating = p.NoOfRating,
-                        stock = p.Stock,
-                        price = p.Price,
-                        discountPrice = p.DiscountPrice,
-                        createdDate = p.CreatedDate,
-                        updatedDate = p.UpdatedDate,
-                        status = p.Status,
-                        active = p.Active,                        
-                        MRP = p.MRP,
-                        metaTitle = p.metaTitle,
-                        metaDescription = p.metaDescription,
-                        metakeyword = p.metakeyword,
-                        imageUrls = result.Select(x => x.ImageUrl).ToList(),
-                        PerHour = p.PerHour,
-                        Unit = p.Unit,
-                        Specification = p.Specification,
-                        task = p.task,
-                        totalReturn = p.totalReturn,
-                        weeklyReturn = p.weeklyReturn,
-                        month = p.month,
-                        NFTurL = p.NFTurL,
-                        TOATALMONTH = p.TOATALMONTH,
-                        TokenId = p.TokenId,
-                    })
-                    .FirstOrDefault();
-
-                //// 7) Fetch Skin Insights
-                //var skin = (await connection
-                //    .QueryAsync<AllSkinInsightProduct>(SkinInsight, parameters, commandType: CommandType.StoredProcedure))
-                //    .ToList();
-
-                // 8) Final response
-                var response = new ResponseViewModel
-                {
-                    statusCode = product != null ? 200 : 404,
-                    message = product != null ? "Data Found" : "Data Not Found",
-                    data = product != null
-                        ? new
-                        {
-                            productDetail = product,
-                            FAQ = faqList,
-                            FaqIngredient = Ingre,
-                            FaqWithProduct = FaqProduct,
-                            SimilarProduct = SimilarPs,
-                            //skin = skin
-                        }
-                        : null
+                    statusCode = (int)HttpStatusCode.InternalServerError,
+                    message = $"Error occurred: {ex.Message}",
+                    data = null
                 };
-
-                return response;
             }
         }
 
         public async Task<ResponseViewModel> getAllProduct()
         {
             var procedureName = Constant.spGetAllProduct;
-
+            var parameters = new DynamicParameters();
             try
             {
                 using (var connection = _dapperContext.createConnection())
@@ -388,38 +252,15 @@ namespace Repository
             var parameters = new DynamicParameters();
             parameters.Add("@productId", updateProduct.productId, DbType.Guid);
             parameters.Add("@categoryId", updateProduct.categoryId, DbType.Guid);
-            parameters.Add("@subCategoryId", updateProduct.subCategoryId, DbType.Guid);
-            parameters.Add("@subCategoryTypeId", updateProduct.subCategoryTypeId, DbType.Guid);
-            parameters.Add("@sellerId", updateProduct.sellerId, DbType.Guid);            
-            parameters.Add("@title", updateProduct.title, DbType.String);
-            parameters.Add("@subTitle", updateProduct.subTitle, DbType.String);
-            parameters.Add("@rating", updateProduct.rating, DbType.Decimal);
-            parameters.Add("@noOfRating", updateProduct.noOfRating, DbType.Int32);
-            parameters.Add("@stock", updateProduct.stock, DbType.Int32);
-            parameters.Add("@price", updateProduct.price, DbType.Decimal);
-            parameters.Add("@discountPrice", updateProduct.discountPrice, DbType.Decimal);
-            parameters.Add("@description", updateProduct.description, DbType.String);
-            parameters.Add("@active", updateProduct.active ? 1 : 0, DbType.Boolean);
+            parameters.Add("@productName", updateProduct.productname, DbType.String);
+            parameters.Add("@tittle", updateProduct.title, DbType.String);
+            parameters.Add("@type", updateProduct.type, DbType.String);
+            parameters.Add("@rOI", updateProduct.rating, DbType.Decimal);
+            parameters.Add("@minInvest", updateProduct.price, DbType.Decimal);
+            parameters.Add("@winRate", updateProduct.totalReturn, DbType.Decimal);
+            parameters.Add("@Traders", updateProduct.noOfRating, DbType.Decimal);
+            parameters.Add("@active", updateProduct.active, DbType.Boolean);
             parameters.Add("@updatedBy", updateProduct.updatedBy, DbType.Guid);
-            parameters.Add("@isNewArrial", updateProduct.isNewArrial ? 1 : 0, DbType.Boolean);
-            parameters.Add("@isBestSeller", updateProduct.isBestSeller ? 1 : 0, DbType.Boolean);
-            parameters.Add("@isRecommended", updateProduct.isRecommended ? 1 : 0, DbType.Boolean);
-            parameters.Add("@categoryName", updateProduct.categoryName ?? string.Empty, DbType.String);
-            parameters.Add("@subCategoryName", updateProduct.subCategoryName ?? string.Empty, DbType.String);
-            parameters.Add("@subCategoryTypeName", updateProduct.subCategoryTypeName ?? string.Empty, DbType.String);
-            parameters.Add("@productname", updateProduct.productname ?? string.Empty, DbType.String);
-            parameters.Add("@MRP", updateProduct.MRP ?? string.Empty, DbType.String);
-            parameters.Add("@PerHour", updateProduct.PerHour, DbType.Int32);
-            parameters.Add("@Unit", updateProduct.Unit, DbType.Decimal);
-            parameters.Add("@Specification", updateProduct.Specification ?? string.Empty, DbType.String);
-            parameters.Add("@task", updateProduct.task ?? string.Empty, DbType.String);
-            parameters.Add("@totalReturn", updateProduct.totalReturn, DbType.Decimal);
-            parameters.Add("@weeklyReturn", updateProduct.weeklyReturn, DbType.Decimal);
-            parameters.Add("@month", updateProduct.month, DbType.Int32);
-            parameters.Add("@NFTurL", updateProduct.NFTurL, DbType.String);
-            parameters.Add("@TOATALMONTH", updateProduct.TOATALMONTH, DbType.String);
-            parameters.Add("@TokenId", updateProduct.TokenId, DbType.String);
-            parameters.Add("@AICredite", updateProduct.AICredite, DbType.Int32);
 
             using (var connection = _dapperContext.createConnection())
             {
@@ -446,9 +287,6 @@ namespace Repository
         {
             var procedureName = Constant.spDeleteProduct;
             var parameters = new DynamicParameters();
-            parameters.Add("@categoryId", deleteProduct.categoryId, DbType.Guid);
-            parameters.Add("@subCategoryId", deleteProduct.subCategoryId, DbType.Guid);
-            parameters.Add("@subCategoryTypeId", deleteProduct.subCategoryTypeId, DbType.Guid);
             parameters.Add("@productId", deleteProduct.productId, DbType.Guid);
             parameters.Add("@updatedBy", deleteProduct.updatedBy, DbType.Guid);
 

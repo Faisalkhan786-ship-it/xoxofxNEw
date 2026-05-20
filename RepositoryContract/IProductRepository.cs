@@ -6,7 +6,7 @@ namespace RepositoryContract
    public interface IProductRepository
     {
         //public Task<ResponseViewModel> getByIdProduct(Guid productId);
-        public Task<ResponseViewModel> getByIdProduct(getAllProductByIdViewModel getAllProductById);
+        public Task<ResponseViewModel> getByIdProduct(Guid productId);
 
         public Task<ResponseViewModel> getAllProduct();
         public Task<ResponseViewModel> getBestSeller();
