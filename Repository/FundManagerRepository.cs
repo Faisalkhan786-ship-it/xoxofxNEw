@@ -1245,7 +1245,67 @@ namespace Repository
                 }
             }
         }
-
+        public async Task<ResponseViewModel> addRechargeTransactionUser(AddRechargeTransactionUserViewModel addRechargeTransactionUserViewModel)
+        {
+            var procedureName = Constant.SpAddRechargeTransactionUser;
+            var parameters = new DynamicParameters();
+            parameters.Add("@URID", addRechargeTransactionUserViewModel.URID, DbType.Guid);
+            parameters.Add("@ProductId", addRechargeTransactionUserViewModel.ProductId, DbType.Guid);
+            parameters.Add("@Rkprice", addRechargeTransactionUserViewModel.Rkprice, DbType.Decimal);
+            parameters.Add("@createdBy", addRechargeTransactionUserViewModel.createdBy, DbType.Guid);
+            parameters.Add("@ByURID", addRechargeTransactionUserViewModel.ByURID, DbType.Guid);
+            using (var connection = _dapperContext.createConnection())
+            {
+                var result = await connection.QueryAsync(procedureName, parameters, commandType: CommandType.StoredProcedure);
+                ResponseViewModel returnData;
+                if (result != null && result.Any())
+                {
+                    var validation = result.First();
+                    if (validation.statusCode == 1)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.OK,
+                            message = validation.message,
+                            data = result
+                        };
+                    }
+                    else if (validation.statusCode == 0)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.Conflict,
+                            message = validation.message
+                        };
+                    }
+                    else if (validation.statusCode == -1)
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.Conflict,
+                            message = validation.message
+                        };
+                    }
+                    else
+                    {
+                        returnData = new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.BadRequest,
+                            message = validation.message
+                        };
+                    }
+                }
+                else
+                {
+                    returnData = new ResponseViewModel
+                    {
+                        statusCode = (int)HttpStatusCode.NotFound,
+                        message = "Data Not Found."
+                    };
+                }
+                return returnData;
+            }
+        }
         public async Task<ResponseViewModel> upROIWithdReqStatus_Admin(AppRejFundViewModel appRejFundViewModel)
         {
             var reportProc = Constant.upROIWithdReqStatus_Admin;

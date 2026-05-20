@@ -34,6 +34,7 @@ namespace RepositoryContract
         public Task<ResponseViewModel> getRechargeTransaction(Guid URID);
         public Task<ResponseViewModel> getAllUserROIWithdrawalRequest_Admin(AppUnAppIncomeVideoModel appUnAppIncomeVideoModel);
         public Task<ResponseViewModel> upROIWithdReqStatus_Admin(AppRejFundViewModel appRejFundViewModel);
+        public Task<ResponseViewModel> addRechargeTransactionUser(AddRechargeTransactionUserViewModel addRechargeTransactionUserViewModel);
 
     }
 }

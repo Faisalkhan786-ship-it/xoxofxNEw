@@ -24,7 +24,7 @@ namespace XoxoFX_Apis.AI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "User")]
+   
     public class WalletReportController : ControllerBase
     {
         private readonly IServiceManager _serviceManager;
@@ -41,6 +41,7 @@ namespace XoxoFX_Apis.AI.Controllers
             extractToken = new ExtractToken(configuration);
         }
         [HttpGet("getAllWalletTransType")]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> getAllWalletTransType(Guid URID)
         {
             _logger.logInfo($" {LoggingEvents.getByIdItem} appLogin");
@@ -49,6 +50,7 @@ namespace XoxoFX_Apis.AI.Controllers
         }
 
         [HttpPost("getDepositWalletReport")]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> getDepositWalletReport(DepositReportViewModel depositReportViewModel)
         {
             _logger.logInfo($" {LoggingEvents.getByIdItem} getDepositWalletReport");
@@ -57,6 +59,7 @@ namespace XoxoFX_Apis.AI.Controllers
         }
 
         [HttpPost("getIncomeWalletReport")]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> getIncomeWalletReport(WalletReportViewModel walletReportViewModel)
         {
             _logger.logInfo($" {LoggingEvents.getByIdItem} getIncomeWalletReport");
@@ -65,6 +68,7 @@ namespace XoxoFX_Apis.AI.Controllers
         }
 
         [HttpPost("getROIWalletWallerReport")]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> getROIWalletWallerReport(ROIWalletReportViewModel rOIWalletReportViewModel)
         {
             _logger.logInfo($" {LoggingEvents.getByIdItem} getROIWalletWallerReport");
@@ -73,6 +77,7 @@ namespace XoxoFX_Apis.AI.Controllers
         }
         
         [HttpPost("getWithdrawalHistory")]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> getWithdrawalHistory(IncomeWithdrawalHistoryViewModel1 incomeWithdrawalHistoryViewModel)
         {
             _logger.logInfo($" {LoggingEvents.getByIdItem} appLogin");
@@ -80,8 +85,15 @@ namespace XoxoFX_Apis.AI.Controllers
             return Ok(getIncomeWithdrawalHistory);
         }
 
+        [HttpPost("getAccStatemtnt")]
+        //[Authorize(Roles = "Admin")]
+        public async Task<IActionResult> getAccStatemtnt(accStateMent accStateMent)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} appLogin");
+            var getIncomeWithdrawalHistory = await _serviceManager.walletReportService.getAccStatemtnt(accStateMent);
+            return Ok(getIncomeWithdrawalHistory);
+        }
         
-
         //[HttpPost("getTransactionHistory")]
         //public async Task<IActionResult> getTransactionHistory(IncomeWithdrawalHistoryViewModel incomeWithdrawalHistoryViewModel)
         //{
@@ -177,14 +189,7 @@ namespace XoxoFX_Apis.AI.Controllers
         //    return Ok(update);
         //}
 
-        //[HttpPost("getAccStatemtnt")]
-        //// [Authorize]
-        //public async Task<IActionResult> getAccStatemtnt(accStateMent accStateMent)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} appLogin");
-        //    var getIncomeWithdrawalHistory = await _serviceManager.walletReportService.getAccStatemtnt(accStateMent);
-        //    return Ok(getIncomeWithdrawalHistory);
-        //}
+
 
         //[HttpPost("getAllWalletHistory")]
         //// [Authorize]
@@ -212,14 +217,7 @@ namespace XoxoFX_Apis.AI.Controllers
         //    return Ok(addRechargeTransactionAdmin);
         //}
 
-        //[HttpPost("addRechargeTransactionUser")]
-        //[Authorize]
-        //public async Task<IActionResult> addRechargeTransactionUser(AddRechargeTransactionUserViewModel addRechargeTransactionUserViewModel)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} addRechargeTransactionUser");
-        //    var addRechargeTransactionUser = await _serviceManager.walletReportService.addRechargeTransactionUser(addRechargeTransactionUserViewModel);
-        //    return Ok(addRechargeTransactionUser);
-        //}
+
         //[HttpPost("getBindBuyPackageList")]
         //[Authorize]
         //public async Task<IActionResult> getBindBuyPackageList(Guid URID)

@@ -152,6 +152,7 @@ namespace Common
         public static string leftRightdownlineTeam = "spGetLeftRightdownlineTeam";
         public static string spGetPersonalTeamList_Search = "spGetPersonalTeamList_Search";
         public static string getPersonalTeamList_Search = "SpGetPersonalTeamList_Search";
+        public static string accStatementAccType = "SpGetAccStatementAccType";
         //------------End
 
         //------------Category
@@ -216,7 +217,7 @@ namespace Common
         public static string getLeaseStatement = "SpGetLeaseStatement";
         public static string validateOtpbtEmailId = "SpValidateOtpbtEmailId";
         public static string getAgentAnalyticsUser = "SpGetAgentAnalyticsUser";
-        public static string accStatementAccType = "SpGetAccStatementAccType";
+
         public static string getAllWalletHistory = "SpGetAllWalletHistory";
         public static string addRechargeTransactionAdmin = "SpAddRechargeTransactionAdmin";
         public static string addAIUnlockUserPlans = "SpAddAIUnlockUserPlans";

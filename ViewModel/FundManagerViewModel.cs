@@ -70,7 +70,15 @@ namespace ViewModel
     //    public int Rfstatus { get; set; }
     //    public string? Remark { get; set; }
     //}
+    public class AddRechargeTransactionUserViewModel
+    {
+        public Guid URID { get; set; }
+        public Guid ProductId { get; set; }
+        public Guid createdBy { get; set; }
+        public Guid ByURID { get; set; }
+        public decimal Rkprice { get; set; }
 
+    }
     public class AppUnAppIncomeVideoModel
     {
         public string? AuthLogin { get; set; }

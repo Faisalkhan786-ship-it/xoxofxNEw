@@ -430,6 +430,10 @@ namespace Model
 
             public string? status { get; set; }
             public bool active { get; set; }
+            public int Startx { get; set; }
+            public int TitanX { get; set; }
+            public int QuantumX { get; set; }
+            public int MegaBullx { get; set; }
            
         }
 

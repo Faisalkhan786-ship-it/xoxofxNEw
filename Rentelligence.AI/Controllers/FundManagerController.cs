@@ -89,7 +89,13 @@ namespace XoxoFX_Apis.AI.Controllers
             var getUserWalletBalance = await _serviceManager.fundManagerService.getUserWalletBalance(URID);
             return Ok(getUserWalletBalance);
         }
-
+        [HttpPost("addRechargeTransactionUser")]
+        public async Task<IActionResult> addRechargeTransactionUser(AddRechargeTransactionUserViewModel addRechargeTransactionUserViewModel)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} addRechargeTransactionUser");
+            var addRechargeTransactionUser = await _serviceManager.fundManagerService.addRechargeTransactionUser(addRechargeTransactionUserViewModel);
+            return Ok(addRechargeTransactionUser);
+        }
         //[HttpGet("getUserAutoDeposit")]
         //public async Task<IActionResult> getUserAutoDeposit(Guid URID)
         //{
@@ -107,7 +113,7 @@ namespace XoxoFX_Apis.AI.Controllers
         //    return Ok(add);
         //}
 
-       
+
 
         //[HttpPost("addRechargeTransaction")]
         //public async Task<IActionResult> addRechargeTransaction(addRechargeTransactionViewModel addRechargeTransactionViewModel)
@@ -130,8 +136,8 @@ namespace XoxoFX_Apis.AI.Controllers
         //    var getspBindPackageUserSide = await _serviceManager.fundManagerService.getspBindPackageUserSide();
         //    return Ok(getspBindPackageUserSide);
         //}
-        
-        
+
+
         //[HttpGet("getRechargeTransaction")]
         //public async Task<IActionResult> getRechargeTransaction(Guid URID)
         //{

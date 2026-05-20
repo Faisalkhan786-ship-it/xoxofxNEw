@@ -983,7 +983,7 @@ namespace Repository
             var walletType = accStateMent.wtype <= 0 ? 1 : accStateMent.wtype;
 
             // Default dates if empty
-            var fromDate = string.IsNullOrWhiteSpace(accStateMent.FromDate) ? "01-01-2025" : accStateMent.FromDate;
+            var fromDate = string.IsNullOrWhiteSpace(accStateMent.FromDate) ? "01-01-2026" : accStateMent.FromDate;
             var toDate = string.IsNullOrWhiteSpace(accStateMent.ToDate) ? DateTime.Now.ToString("dd-MM-yyyy") : accStateMent.ToDate;
 
             parameters.Add("@AuthLogin", accStateMent.AuthLogin ?? "", DbType.String);
@@ -1256,66 +1256,7 @@ namespace Repository
             }
         }
 
-        public async Task<ResponseViewModel> addRechargeTransactionUser(AddRechargeTransactionUserViewModel addRechargeTransactionUserViewModel)
-        {
-            var procedureName = Constant.SpAddRechargeTransactionUser;
-            var parameters = new DynamicParameters();
-            parameters.Add("@URID", addRechargeTransactionUserViewModel.URID, DbType.Guid);
-            parameters.Add("@PackageType", addRechargeTransactionUserViewModel.PackageType, DbType.Int32);
-            parameters.Add("@createdBy", addRechargeTransactionUserViewModel.createdBy, DbType.Guid);
-            parameters.Add("@ByURID", addRechargeTransactionUserViewModel.ByURID, DbType.Guid);
-            using (var connection = _dapperContext.createConnection())
-            {
-                var result = await connection.QueryAsync(procedureName, parameters, commandType: CommandType.StoredProcedure);
-                ResponseViewModel returnData;
-                if (result != null && result.Any())
-                {
-                    var validation = result.First();
-                    if (validation.statusCode == 1)
-                    {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.OK,
-                            message = validation.message,
-                            data = result
-                        };
-                    }
-                    else if (validation.statusCode == 0)
-                    {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.Conflict,
-                            message = validation.message
-                        };
-                    }
-                    else if (validation.statusCode == -1)
-                    {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.Conflict,
-                            message = validation.message
-                        };
-                    }
-                    else
-                    {
-                        returnData = new ResponseViewModel
-                        {
-                            statusCode = (int)HttpStatusCode.BadRequest,
-                            message = validation.message
-                        };
-                    }
-                }
-                else
-                {
-                    returnData = new ResponseViewModel
-                    {
-                        statusCode = (int)HttpStatusCode.NotFound,
-                        message = "Data Not Found."
-                    };
-                }
-                return returnData;
-            }
-        }
+        
         public async Task<ResponseViewModel> getBindBuyPackageList(Guid URID)
         {
             var incomeProc = Constant.bindBuyPackage;

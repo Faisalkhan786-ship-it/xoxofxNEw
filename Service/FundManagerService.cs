@@ -141,6 +141,11 @@ namespace Service
             var upROIWithdReqStatus_Admin = await _repositoryManager.fundManagerRepository.upROIWithdReqStatus_Admin(appRejFundViewModel);
             return upROIWithdReqStatus_Admin;
         }
+        public async Task<ResponseViewModel> addRechargeTransactionUser(AddRechargeTransactionUserViewModel addRechargeTransactionUserViewModel)
+        {
+            var addRechargeTransactionUser = await _repositoryManager.fundManagerRepository.addRechargeTransactionUser(addRechargeTransactionUserViewModel);
+            return addRechargeTransactionUser;
+        }
     }
 }
 

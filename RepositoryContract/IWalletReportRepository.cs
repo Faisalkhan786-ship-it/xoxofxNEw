@@ -34,7 +34,6 @@ namespace RepositoryContract
 
         public Task<ResponseViewModel> addRechargeTransactionAdmin(AddRechargeTransactionAdminViewModel addRechargeTransactionAdminViewModel);
 
-        public Task<ResponseViewModel> addRechargeTransactionUser(AddRechargeTransactionUserViewModel addRechargeTransactionUserViewModel);
         public Task<ResponseViewModel> getBindBuyPackageList(Guid URID);
         public Task<ResponseViewModel> getSingleLeg_Report(String AuthLogin);
         public Task<ResponseViewModel> getUserAllWalletBalance(Guid URID);
