@@ -31,16 +31,12 @@ namespace ViewModel
 
         public string productname { get; set; }
 
-        public string? title { get; set; }
+        public string? tittle { get; set; }
         public string? type { get; set; }
-
-        public decimal? rating { get; set; }
-
-        public decimal? price { get; set; }
-
-        public decimal? totalReturn { get; set; }
-
-        public decimal? noOfRating { get; set; }
+        public decimal? rOI { get; set; }
+        public decimal? minInvest { get; set; }
+        public decimal? winRate { get; set; }
+        public decimal? Traders { get; set; }
 
         public bool active { get; set; }
 

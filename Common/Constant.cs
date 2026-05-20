@@ -87,9 +87,6 @@ namespace Common
         public static string incomeOrRoiWithdrawalHistory = "SpIncOrRoiWithdrawalHistory";
 
 
-
-
-
         //------------END
 
         //------Admin Master
@@ -109,15 +106,16 @@ namespace Common
         //-----End
 
 
-
         //user Authentication 
         public static string spAddUserRegistration = "SpAddUserRegistration";
         public static string welcomeDetails = "SpWelcomeDetails";
+        public static string spWelcomeDetails = "spWelcomeDetails;";
         public static string spUserForgotPassword = "SpUserForgotPassword";
         public static string spAppLogin = "SpUserLogin";
         public static string validateOtp = "SpValidateOtp";
         public static string spSendOtp = "SpSendOtp";
         public static string spVerifyOtp = "SpVerifyOtp";
+
         //End
 
 
@@ -147,16 +145,16 @@ namespace Common
         public static string spDeleteTicketReply = "SpDeleteTicketReply";
         //-----------Ticket Ends 
 
-        //buy package
+        //-----------buy package
         public static string SpAddRechargeTransactionUser = "SpAddRechargeTransactionUser";
         public static string downLineTree_Details_fourlvl = "nsp_downLineTree_Details_fourlvl";
         public static string downlineLeftRightCount = "SPGetDownlineLeftRightCount";
         public static string leftRightdownlineTeam = "spGetLeftRightdownlineTeam";
         public static string spGetPersonalTeamList_Search = "spGetPersonalTeamList_Search";
-        public static string getPersonalTeamList_Search =   "SpGetPersonalTeamList_Search";
-        //End
+        public static string getPersonalTeamList_Search = "SpGetPersonalTeamList_Search";
+        //------------End
 
-        //Category
+        //------------Category
         public static string spGetByIdCategory = "SpGetByIdCategory";
         public static string spGetAllCategory = "SpGetAllCategory";
         public static string spGetAllCategoryForUser = "SpGetAllCategoryForUser";
@@ -164,17 +162,20 @@ namespace Common
         public static string spAddCategorytest = "SpAddCategorytest";
         public static string spUpdateCategory = "SpUpdateCategory";
         public static string spDeleteCategory = "SpDeleteCategory";
-        //End
+        //-------------End
+
+        //--------------Product
+        public static string getAllProByproduId = "SpGetAllProByproduId";
+        public static string spGetAllProduct = "SpGetAllProduct";
+        public static string getAllProductForUser = "SpGetAllProductForUser";
+        public static string spAddProduct = "SpAddProduct";
+        public static string spUpdateProduct = "SpUpdateProduct";
+        public static string spDeleteProduct = "SpDeleteProduct";
+
+        //---------------End
 
 
-        public static string userVerifyloginid = "SPThirdPartVerifyLoginId";
         public static string userLoginAdmin = "SpUserLoginAdmin";
-        public static string insertChatMessage = "SpInsertChatMessage";
-        public static string insertNewChat = "SpInsertNewChat";
-        public static string getUserChats = "SpGetUserChats";
-        public static string getChatMessages = "SpGetChatMessages";
-        public static string getUserChatsAdmin = "spGetUserChatsAdmin";
-        public static string chatMsgByIdAdmin = "SpChatMsgByIdAdmin";
         public static string updateCredit = "UpdateCredit";
         public static string insertlinkedid = "spInsertLinkedId";
         public static string userDeleteChat = "SpUserDeleteChat";
@@ -183,9 +184,7 @@ namespace Common
         public static string directMemberSearch = "SpDirectMemberSearch";
         public static string spGetAllUserRegitration = "SpGetAllUserRegitration";
         public static string getUserNameByEmailId = "SpGetUserNameByEmailId";
-        public static string spWelcomeDetails = "SpWelcomeDetails";
         public static string getNetworkTree = "SpGetNetworkTree";
-
         public static string agentLeaseCredit = "GetAgentLeaseCredit";
         public static string getRechargeTransaction_ByTId = "SpGetRechargeTransaction_ByTId";
         public static string getRentWalletByURID = "SpGetRentWalletByURID";
@@ -247,7 +246,7 @@ namespace Common
         public static string spChangePassword = "SpChangePassword";
         public static string spGetUserKyc = "SpGetUserKyc";
         public static string spGetUserWalletDetails = "SpGetUserWalletDetails";
-        
+
         public static string spAddAppUser = "SpAddAppUser";
         public static string SpUpdateAppuser = "spUpdateAppuser";
         public static string spGetMandatoryDetailsWithdrawl = "SpGetMandatoryDetailsWithdrawl";
@@ -274,20 +273,7 @@ namespace Common
         public static string spGetAllAppRole = "SpGetAllAppRole";
         public static string spAddAppRole = "SpAddAppRole";
         public static string spUpdateAppRole = "SpUpdateAppRole";
-        public static string spDeleteAppRole = "SpDeleteAppRole";
-        //Event Organize
-        
-        public static string getAllActiveRobotics = "SpGetAllActiveRobotics";
-        public static string getAllActiveAIAgent = "SpGetAllActiveAIAgent";
-        public static string allActiveAIAgentSubCat = "SpGetAllActiveAIAgentSubCat";
-        public static string allActiveRoboticsSubCat = "SpGetAllActiveRoboticsSubCat";
-        public static string allActiveProjectSubCat = "SpGetAllActiveProjectSubCat";
-        public static string getCartList = "SpGetCartList";
-        public static string getAllActiveProject = "SpGetAllActiveProject";
-        public static string allUserEvent = "GetAllUserEvent";
-        public static string editScheduleByID = "EditScheduleByID";
-        public static string addEventSchedule = "AddEventScheduleMaster";
-        public static string getScheduleByEID = "GetScheduleByEID";     
+        public static string spDeleteAppRole = "SpDeleteAppRole";       
         public static string bindKitAdmin = "SPBindKitAdmin";
         public static string spGetByIdSubCategory = "SpGetByIdSubCategory";
         public static string spGetAllSubCategory = "SpGetAllSubCategory";
@@ -305,13 +291,8 @@ namespace Common
 
         public static string spGetAllProductById = "SpGetAllProductById";
         public static string spGetByIdProduct = "SpGetByIdProduct";
-        public static string spGetAllProduct = "SpGetAllProduct";
-        public static string getAllProByproduId = "SpGetAllProByproduId";
-        public static string getAllProductForUser = "SpGetAllProductForUser";
         public static string spGetAllProductDetails = "SpGetAllProductDetails";
-        public static string spAddProduct = "SpAddProduct";
-        public static string spUpdateProduct = "SpUpdateProduct";
-        public static string spDeleteProduct = "SpDeleteProduct";
+        
         public static string spGetAllImageById = "SpGetAllImageById";
         public static string spGetAllSteps = "SpGetAllSteps";
         public static string spGetActiveAllSteps = "SpGetActiveAllSteps";

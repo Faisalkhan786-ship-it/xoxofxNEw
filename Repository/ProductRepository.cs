@@ -253,12 +253,12 @@ namespace Repository
             parameters.Add("@productId", updateProduct.productId, DbType.Guid);
             parameters.Add("@categoryId", updateProduct.categoryId, DbType.Guid);
             parameters.Add("@productName", updateProduct.productname, DbType.String);
-            parameters.Add("@tittle", updateProduct.title, DbType.String);
+            parameters.Add("@tittle", updateProduct.tittle, DbType.String);
             parameters.Add("@type", updateProduct.type, DbType.String);
-            parameters.Add("@rOI", updateProduct.rating, DbType.Decimal);
-            parameters.Add("@minInvest", updateProduct.price, DbType.Decimal);
-            parameters.Add("@winRate", updateProduct.totalReturn, DbType.Decimal);
-            parameters.Add("@Traders", updateProduct.noOfRating, DbType.Decimal);
+            parameters.Add("@rOI", updateProduct.rOI, DbType.Decimal);
+            parameters.Add("@minInvest", updateProduct.minInvest, DbType.Decimal);
+            parameters.Add("@winRate", updateProduct.winRate, DbType.Decimal);
+            parameters.Add("@Traders", updateProduct.Traders, DbType.Decimal);
             parameters.Add("@active", updateProduct.active, DbType.Boolean);
             parameters.Add("@updatedBy", updateProduct.updatedBy, DbType.Guid);
 
