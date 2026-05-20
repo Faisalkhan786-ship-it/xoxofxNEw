@@ -22,6 +22,8 @@ namespace Repository
         private readonly Lazy<ITicketRepository> _ticketRepository;
         private readonly Lazy<IFundManagerRepository> _fundManagerRepository;
         private readonly Lazy<ICommunityRepository> _communityRepository;
+        private readonly Lazy<ICategoryRepository> _categoryRepository;
+        private readonly Lazy<IProductRepository> _productRepository;
 
         public RepositoryManager(DapperContext dapperContext, EmailService emailService)
         {
@@ -40,6 +42,8 @@ namespace Repository
             _ticketRepository = new Lazy<ITicketRepository>(() => new TicketRepository(_dapperContext));
             _fundManagerRepository = new Lazy<IFundManagerRepository>(() => new FundManagerRepository(_dapperContext));
             _communityRepository = new Lazy<ICommunityRepository>(() => new CommunityRepository(_dapperContext));
+            _categoryRepository = new Lazy<ICategoryRepository>(() => new CategoryRepository(_dapperContext));
+            _productRepository = new Lazy<IProductRepository>(() => new ProductRepository(_dapperContext));
 
         }
 
@@ -56,6 +60,8 @@ namespace Repository
         public ITicketRepository ticketRepository => _ticketRepository.Value;
         public IFundManagerRepository fundManagerRepository => _fundManagerRepository.Value;
         public ICommunityRepository communityRepository => _communityRepository.Value;
+        public ICategoryRepository categoryRepository => _categoryRepository.Value;
+        public IProductRepository productRepository => _productRepository.Value;
 
     }
 }

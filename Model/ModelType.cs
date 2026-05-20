@@ -285,9 +285,9 @@ namespace Model
         public record SortBy(Int64 id, Guid sortById, string sortByName, string createdDate, string status, bool active);
 
         public record Category(
-            Int64 Id, Guid categoryId, string name, string image, string createdDate, string status, bool active);
+     long id,Guid categoryId,string name,string createdDate,string status,bool active);
         public record AdminUserDetails(Guid adminUserId, Guid appRoleId, string username, string firstName,
-          string lastName, string email, string phoneNumber, string password,string type);
+          string lastName, string email, string phoneNumber, string password, string type);
         public class AdminAllUserDetails
         {
             public Guid AdminUserId { get; set; }
@@ -414,61 +414,23 @@ namespace Model
         {
             public long id { get; set; }
             public Guid productId { get; set; }
-
             public Guid categoryId { get; set; }
-            public string? categoryName { get; set; }
-
-            public Guid subCategoryId { get; set; }
-            public string? subCategoryName { get; set; }
-
-            public Guid subCategoryTypeId { get; set; }
-            public string? subCategoryTypeName { get; set; }
-
-            public Guid sellerId { get; set; }
-            public string? sellerName { get; set; }
-
+            public string? categoryName { get; set; }           
             public string? productName { get; set; }
-            public string? subName { get; set; }
-            public string? description { get; set; }
+            public string? tittle { get; set; }
+            public string? type { get; set; }
+            public decimal? roi { get; set; }
+            public decimal? mininvest { get; set; }
+            public decimal? winrate { get; set; }
+            public decimal? traders { get; set; }
 
-            public int rating { get; set; }
-            public int noOfRating { get; set; }
-
-            public decimal price { get; set; }
-
+        
             public string? createdDate { get; set; }
             public string? updatedDate { get; set; }
 
             public string? status { get; set; }
             public bool active { get; set; }
-
-            public string? imageUrl { get; set; }
-
-            // Flags from Product table
-            public bool isAiAgent { get; set; }
-            public bool isRobotics { get; set; }
-            public bool isTrendingProjects { get; set; }
-
-            // SEO
-            public string? metaTitle { get; set; }
-            public string? metaDescription { get; set; }
-            public string? metakeyword { get; set; }
-
-            // Other fields
-            public int? Unit { get; set; }
-            public int? PerHour { get; set; }
-            public string? Specification { get; set; }
-            public string? task { get; set; }
-
-            public int totalReturn { get; set; }
-            public int weeklyReturn { get; set; }
-            public int month { get; set; }
-
-            public string? NFTurL { get; set; }
-            public string? TOATALMONTH { get; set; }
-
-            public string? TokenId { get; set; }
-            public int AICredite { get; set; }
+           
         }
 
         public record searchProductNew(

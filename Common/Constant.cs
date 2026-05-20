@@ -156,7 +156,15 @@ namespace Common
         public static string getPersonalTeamList_Search =   "SpGetPersonalTeamList_Search";
         //End
 
-
+        //Category
+        public static string spGetByIdCategory = "SpGetByIdCategory";
+        public static string spGetAllCategory = "SpGetAllCategory";
+        public static string spGetAllCategoryForUser = "SpGetAllCategoryForUser";
+        public static string addCategory = "SpAddCategory";
+        public static string spAddCategorytest = "SpAddCategorytest";
+        public static string spUpdateCategory = "SpUpdateCategory";
+        public static string spDeleteCategory = "SpDeleteCategory";
+        //End
 
 
         public static string userVerifyloginid = "SPThirdPartVerifyLoginId";
@@ -267,7 +275,6 @@ namespace Common
         public static string spAddAppRole = "SpAddAppRole";
         public static string spUpdateAppRole = "SpUpdateAppRole";
         public static string spDeleteAppRole = "SpDeleteAppRole";
-        public static string spGetByIdCategory = "SpGetByIdCategory";
         //Event Organize
         
         public static string getAllActiveRobotics = "SpGetAllActiveRobotics";

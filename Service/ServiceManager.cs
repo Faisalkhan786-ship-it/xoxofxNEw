@@ -10,10 +10,8 @@ namespace Service
 
         private readonly Lazy<IAdminAuthenticationContract> _adminAuthenticationContract;
         private readonly Lazy<IAuthenticationService> _authenticationContract;
-
         private readonly Lazy<IAdminManageFundService> _adminManageFundService;
         private readonly Lazy<IAdminMasterService> _adminMasterService;
-
         private readonly Lazy<IAdminManageService> _adminManageService;
         private readonly Lazy<IMenuContract> _menuContract;
         private readonly Lazy<ISubMenuContract> _subMenuContract;
@@ -23,12 +21,13 @@ namespace Service
         private readonly Lazy<ITicketService> _ticketService; 
         private readonly Lazy<IFundManagerService> _fundManagerService;
         private readonly Lazy<ICommunityService> _communityContract;
+        private readonly Lazy<ICategoryContract> _categoryContract;
+        private readonly Lazy<IProductContract> _productContract;
 
         public ServiceManager(IRepositoryManager repositoryManager)
         {
 
             _adminAuthenticationContract = new Lazy<IAdminAuthenticationContract>(() => new AdminAuthenticationService(repositoryManager));
-
             _authenticationContract = new Lazy<IAuthenticationService>(() => new AuthenticationService(repositoryManager));
             _adminManageFundService = new Lazy<IAdminManageFundService>(() => new AdminManageFundService(repositoryManager));
             _adminMasterService = new Lazy<IAdminMasterService>(() => new AdminMasterService(repositoryManager));
@@ -41,6 +40,8 @@ namespace Service
             _ticketService = new Lazy<ITicketService>(() => new TicketService(repositoryManager));
             _fundManagerService = new Lazy<IFundManagerService>(() => new FundManagerService(repositoryManager));
             _communityContract = new Lazy<ICommunityService>(() => new CommunityService(repositoryManager));
+            _categoryContract = new Lazy<ICategoryContract>(() => new CategoryService(repositoryManager));
+            _productContract = new Lazy<IProductContract>(() => new ProductService(repositoryManager));
 
         }
 
@@ -60,6 +61,8 @@ namespace Service
         public ITicketService ticketService => _ticketService.Value;
         public IFundManagerService fundManagerService => _fundManagerService.Value;
         public ICommunityService communityContract => _communityContract.Value;
+        public ICategoryContract categoryContract => _categoryContract.Value;
+        public IProductContract productContract => _productContract.Value;
 
     }
 }

@@ -10,9 +10,7 @@ namespace RepositoryContract
 {
     public interface IRepositoryManager
     {
-        IAdminMasterRepository adminMasterRepository { get; }
-
-        
+        IAdminMasterRepository adminMasterRepository { get; }        
         IAdminAuthenticationRepository adminAuthenticationRepository { get; }
         IAuthenticationRepository authenticationRepository { get; }      
         IAdminManageFundRepository adminManageFundRepository { get; }
@@ -25,6 +23,8 @@ namespace RepositoryContract
         ITicketRepository ticketRepository { get; }
         IFundManagerRepository fundManagerRepository { get; }
         ICommunityRepository communityRepository { get; }
+        ICategoryRepository categoryRepository { get; }
+        IProductRepository productRepository { get; }
 
     }
 }

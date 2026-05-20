@@ -24,6 +24,7 @@ namespace ServiceContract
         ITicketService ticketService { get; }
         IFundManagerService fundManagerService { get; }
         ICommunityService communityContract { get; }
-
+        ICategoryContract categoryContract { get; }
+        IProductContract productContract { get; }
     }
 }

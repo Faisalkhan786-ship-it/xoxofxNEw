@@ -10,7 +10,6 @@ using ViewModel;
 
 
 namespace XoxoFX_Apis.AI.Controllers
-
 {
     [Route("api/[controller]")]
     [ApiController]
