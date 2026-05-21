@@ -1112,22 +1112,14 @@ namespace Repository
         public async Task<ResponseViewModel> getRechargeTransaction(Guid URID)
         {
             var procedureName1 = Constant.getRechargeTransaction;
-
             var parameters = new DynamicParameters();
             parameters.Add("@URID", URID, DbType.Guid);
-
             using (var connection = _dapperContext.createConnection())
             {
                 var fundResult = await connection.QueryAsync<dynamic>(
                     procedureName1, parameters, commandType: CommandType.StoredProcedure);
-
-
                 var fundList = fundResult?.ToList();
-
-
-
                 ResponseViewModel returnData;
-
                 if (fundList != null && fundList.Any())
                 {
                     var validation = fundList.First();
@@ -1138,10 +1130,7 @@ namespace Repository
                         {
                             statusCode = (int)HttpStatusCode.OK,
                             message = validation.message,
-                            data = new
-                            {
-                                recharge = fundList,
-                            }
+                            data = fundList
                         };
                     }
                     else if (validation.statusCode == 0)
@@ -1177,7 +1166,6 @@ namespace Repository
                         message = "Something went wrong with server error."
                     };
                 }
-
                 return returnData;
             }
         }

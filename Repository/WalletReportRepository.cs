@@ -1405,8 +1405,8 @@ namespace Repository
 
         public async Task<ResponseViewModel> genrateROI_BOTCLICK(Guid URID)
         {
-            var incomeProc = "";
-            //var incomeProc = Constant.genrateROI_BOTCLICK;
+            //var incomeProc = "";
+            var incomeProc = Constant.genrateROI_BOTCLICK;
 
             var parameters = new DynamicParameters();
             parameters.Add("@URID", URID, DbType.Guid);

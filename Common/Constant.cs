@@ -109,7 +109,7 @@ namespace Common
         //user Authentication 
         public static string spAddUserRegistration = "SpAddUserRegistration";
         public static string welcomeDetails = "SpWelcomeDetails";
-        public static string spWelcomeDetails = "spWelcomeDetails;";
+        public const string spWelcomeDetails = "SpWelcomeDetails";
         public static string spUserForgotPassword = "SpUserForgotPassword";
         public static string spAppLogin = "SpUserLogin";
         public static string validateOtp = "SpValidateOtp";
@@ -147,12 +147,16 @@ namespace Common
 
         //-----------buy package
         public static string SpAddRechargeTransactionUser = "SpAddRechargeTransactionUser";
+        public static string getRechargeTransaction = "SpGetRechargeTransaction";
         public static string downLineTree_Details_fourlvl = "nsp_downLineTree_Details_fourlvl";
         public static string downlineLeftRightCount = "SPGetDownlineLeftRightCount";
         public static string leftRightdownlineTeam = "spGetLeftRightdownlineTeam";
         public static string spGetPersonalTeamList_Search = "spGetPersonalTeamList_Search";
         public static string getPersonalTeamList_Search = "SpGetPersonalTeamList_Search";
         public static string accStatementAccType = "SpGetAccStatementAccType";
+
+        public static string genrateROI_BOTCLICK = "NSP_GenrateROI_BOTCLICK";
+        public static string checkROI_BOTCLICK = "NSP_CheckROI_BOTCLICK";
         //------------End
 
         //------------Category
@@ -240,7 +244,7 @@ namespace Common
         public static string spUpdatePassword = "SpChangePassword";
         public static string updateUserProfile = "SpUpdateUserProfile";
         public static string getDormantReport = "SpGetDormantReport";
-        public static string getRechargeTransaction = "SpGetRechargeTransaction";
+      
         public static string depositWalletBal = "SpDepositWalletBal";
         public static string spPayModeMaster = "SpPayModeMaster";
         public static string spGetByReferralId = "SpGetByReferralId";

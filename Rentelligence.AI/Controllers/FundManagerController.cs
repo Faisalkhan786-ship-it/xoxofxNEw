@@ -11,12 +11,13 @@ using System.Net;
 using System.Security.Claims;
 using System.Text;
 using ViewModel;
+using static Model.ModelType;
 
 namespace XoxoFX_Apis.AI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "User")]
+    //[Authorize(Roles = "User")]
     public class FundManagerController : ControllerBase
     {
         private readonly IServiceManager _serviceManager;
@@ -96,6 +97,18 @@ namespace XoxoFX_Apis.AI.Controllers
             var addRechargeTransactionUser = await _serviceManager.fundManagerService.addRechargeTransactionUser(addRechargeTransactionUserViewModel);
             return Ok(addRechargeTransactionUser);
         }
+
+        [HttpGet("getRechargeTransaction/{URID}")]
+        public async Task<IActionResult> getRechargeTransaction(Guid URID)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} getRechargeTransaction URID ${URID}");
+            var getRechargeTransaction = await _serviceManager.fundManagerService.getRechargeTransaction(URID);
+            if (getRechargeTransaction.statusCode == (int)HttpStatusCode.NotFound)
+            {
+                _logger.logWarn($"{LoggingEvents.getItemNotFound},No Recharge Found");
+            }
+            return Ok(getRechargeTransaction);
+        }
         //[HttpGet("getUserAutoDeposit")]
         //public async Task<IActionResult> getUserAutoDeposit(Guid URID)
         //{
@@ -138,13 +151,6 @@ namespace XoxoFX_Apis.AI.Controllers
         //}
 
 
-        //[HttpGet("getRechargeTransaction")]
-        //public async Task<IActionResult> getRechargeTransaction(Guid URID)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} getRechargeTransaction");
-        //    var getRechargeTransaction = await _serviceManager.fundManagerService.getRechargeTransaction(URID);
-        //    return Ok(getRechargeTransaction);
-        //}
 
     }
 }
