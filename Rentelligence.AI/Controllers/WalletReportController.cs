@@ -93,7 +93,7 @@ namespace XoxoFX_Apis.AI.Controllers
             var getRewardStatusDashboard = await _serviceManager.walletReportService.getRewardStatusDashboard(URID);
             return Ok(getRewardStatusDashboard);
         }
-        //
+        
         [HttpPost("getAccStatemtnt")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> getAccStatemtnt(accStateMent accStateMent)
