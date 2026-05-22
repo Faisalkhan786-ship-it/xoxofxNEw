@@ -84,7 +84,7 @@ namespace XoxoFX_Apis.AI.Controllers
         }
 
         [HttpGet("getfundTransferDepositToDepositReport")]
-        public async Task<IActionResult> getUserWalletBalAndWalletReport(Guid URID)
+        public async Task<IActionResult> getfundTransferDepositToDepositReport(Guid URID)
         {
             _logger.logInfo($" {LoggingEvents.getByIdItem} adminLogin");
             var getUserWalletBalance = await _serviceManager.fundManagerService.getUserWalletBalance(URID);
@@ -98,8 +98,8 @@ namespace XoxoFX_Apis.AI.Controllers
             return Ok(addRechargeTransactionUser);
         }
 
-        [HttpGet("getRechargeTransaction/{URID}")]
-        public async Task<IActionResult> getRechargeTransaction(Guid URID)
+        [HttpGet("getRechargeTransactionURID")]
+        public async Task<IActionResult> getRechargeTransactionURID(Guid URID)
         {
             _logger.logInfo($" {LoggingEvents.getByIdItem} getRechargeTransaction URID ${URID}");
             var getRechargeTransaction = await _serviceManager.fundManagerService.getRechargeTransaction(URID);

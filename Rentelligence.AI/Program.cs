@@ -132,14 +132,26 @@ app.UseWhen(context => context.Request.Path.StartsWithSegments("/xoxofxapis"), a
 // Swagger
 app.UseSwagger();
 
+//app.UseSwaggerUI(c =>
+//{
+//    c.SwaggerEndpoint("/swagger/v1/swagger.json", "XoxoFx API V1");
+//    c.RoutePrefix = "xoxofxapis";
+//});
+// Middleware
+app.UseHttpsRedirection();
+app.UseStaticFiles();
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "XoxoFx API V1");
+
     c.RoutePrefix = "xoxofxapis";
+
+    // Custom Dark/Light Mode Files
+    c.InjectStylesheet("/swagger-ui/custom.css");
+    c.InjectJavascript("/swagger-ui/custom.js");
 });
 
-// Middleware
-app.UseHttpsRedirection();
+
 app.UseCors("AllowAll");
 app.UseRateLimiter();
 app.UseAuthentication();

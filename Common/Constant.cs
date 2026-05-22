@@ -85,6 +85,7 @@ namespace Common
         public static string getDepositWalletStatement = "SpGetDepositWalletStatement";
         public static string getRoiWalletStatement = "SpGetROIWalletStatement";
         public static string incomeOrRoiWithdrawalHistory = "SpIncOrRoiWithdrawalHistory";
+        public static string rewardStatusDashboard = "nspGetRewardStatusDashboard";
 
 
         //------------END

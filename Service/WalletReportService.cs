@@ -184,6 +184,10 @@ namespace Service
             return getSalaryRankList;
         }
 
-       
+        public async Task<ResponseViewModel> getRewardStatusDashboard(Guid URID)
+        {
+            var getRewardStatusDashboard = await _repositoryManager.walletReportRepository.getRewardStatusDashboard(URID);
+            return getRewardStatusDashboard;
+        }
     }
 }

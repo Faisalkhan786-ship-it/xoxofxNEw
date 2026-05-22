@@ -31,10 +31,11 @@ namespace Common
         private string pvtKeyUSDT = "0xf1819039428ab1609c514871d0670a58975e06b9ee886e24b17893fc85736c9a"; 
         private string pvtKeyBNB = "0xf1819039428ab1609c514871d0670a58975e06b9ee886e24b17893fc85736c9a"; 
        
-        private string DepositAddress = "0xcb22d5bc3fb3027fc8a467e916d8454e127e8b69"; // Self Deposit(Client Address)
-         
+        private string DepositAddress = "0x81E1525e9De69673CE2E28f15F22C23694e10cF0"; //xoxofx Self Deposit(Client Address)
+                                                                                      //private string DepositAddress = "0xcb22d5bc3fb3027fc8a467e916d8454e127e8b69"; // Self Deposit(Client Address)
+
         //usdt Adress
-        private string ContractAddressUSDT = "0x55d398326f99059fF775485246999027B3197955";
+        private string ContractAddressUSDT = "0x55d398326f99059fF775485246999027B3197955";        
         //sito Adress
         private string ContractAddressECLAT = "0x564bb8396308Fc4f2B59e55588cA024a08159232";//sito
         //usdt

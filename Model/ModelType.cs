@@ -119,21 +119,17 @@ namespace Model
             public string? Loginid { get; set; }
             public string? Name { get; set; }
             public string? RegDate { get; set; }
-            public string? Email { get; set; }
             public string? Mobile { get; set; }
-            public string? TopupDate { get; set; }
+            public string? Email { get; set; }
             public string? Topup { get; set; }
-            public decimal SelfTopup { get; set; }
-            public decimal TopupValue { get; set; }
-            public decimal TeamBusiness { get; set; }
-            public decimal MonthlySelf { get; set; }
-            public int MonthlyTeam { get; set; }
-            public int totTeam { get; set; }
-            public int ActiveTeam { get; set; }
-            public string? Urank { get; set; }
-            public string? LeaseAmount { get; set; }
-            public string? DYRPercentage { get; set; }
-
+            public string? Position { get; set; }
+            public string? TopupDate { get; set; }
+            public decimal Package { get; set; }
+            public decimal Leftbusiness { get; set; }
+            public decimal Rightbusiness { get; set; }
+            public string? Country_Code { get; set; }
+            public string? Country_Name { get; set; }
+            public string? CountryFlag { get; set; }
         }
 
         //public class PersonalTeam

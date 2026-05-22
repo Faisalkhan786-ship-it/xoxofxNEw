@@ -1,0 +1,304 @@
+﻿/*body.dark-mode {
+    background: #0f172a !important;
+}*/
+
+/* Swagger Main */
+/*body.dark-mode .swagger-ui {
+    filter: none !important;
+    color: #e2e8f0 !important;
+}*/
+
+/* Topbar */
+/*body.dark-mode .swagger-ui .topbar {
+    background: linear-gradient(90deg, #111827, #1e293b);
+    border-bottom: 1px solid #334155;
+}*/
+
+/* API Container */
+/*body.dark-mode .swagger-ui .scheme-container,
+body.dark-mode .swagger-ui .information-container,
+body.dark-mode .swagger-ui .opblock {
+    background: #1e293b !important;
+    border: 1px solid #334155 !important;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+}*/
+
+/* Text */
+/*body.dark-mode .swagger-ui,
+body.dark-mode .swagger-ui p,
+body.dark-mode .swagger-ui h1,
+body.dark-mode .swagger-ui h2,
+body.dark-mode .swagger-ui h3,
+body.dark-mode .swagger-ui span,
+body.dark-mode .swagger-ui label {
+    color: #f1f5f9 !important;
+}*/
+
+/* Input */
+/*body.dark-mode .swagger-ui input,
+body.dark-mode .swagger-ui textarea,
+body.dark-mode .swagger-ui select {
+    background: #0f172a !important;
+    color: white !important;
+    border: 1px solid #475569 !important;
+}*/
+
+/* Buttons */
+/*body.dark-mode .swagger-ui .btn {
+    border-radius: 8px;
+}*/
+
+/* Toggle Button */
+/*.theme-toggle-btn {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 99999;
+    border: none;
+    padding: 12px 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    color: white;
+    box-shadow: 0 4px 15px rgba(37,99,235,0.4);
+    transition: 0.3s;
+}
+
+.theme-toggle-btn:hover {
+    transform: scale(1.08);
+}*/
+
+/*body.dark-mode {
+    background: #0f172a !important;
+}*/
+
+    /* Swagger Main */
+    /*body.dark-mode .swagger-ui {
+        filter: none !important;
+        color: #e2e8f0 !important;
+    }*/
+
+        /* Topbar */
+        /*body.dark-mode .swagger-ui .topbar {
+            background: linear-gradient(90deg, #111827, #1e293b);
+            border-bottom: 1px solid #334155;
+        }*/
+
+        /* API Container */
+        /*body.dark-mode .swagger-ui .scheme-container,
+        body.dark-mode .swagger-ui .information-container,
+        body.dark-mode .swagger-ui .opblock {
+            background: #1e293b !important;
+            border: 1px solid #334155 !important;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+        }*/
+
+        /* Text */
+        /*body.dark-mode .swagger-ui,
+        body.dark-mode .swagger-ui p,
+        body.dark-mode .swagger-ui h1,
+        body.dark-mode .swagger-ui h2,
+        body.dark-mode .swagger-ui h3,
+        body.dark-mode .swagger-ui span,
+        body.dark-mode .swagger-ui label {
+            color: #f1f5f9 !important;
+        }*/
+
+            /* Input */
+            /*body.dark-mode .swagger-ui input,
+            body.dark-mode .swagger-ui textarea,
+            body.dark-mode .swagger-ui select {
+                background: #0f172a !important;
+                color: white !important;
+                border: 1px solid #475569 !important;
+            }*/
+
+            /* Buttons */
+            /*body.dark-mode .swagger-ui .btn {
+                border-radius: 8px;
+            }*/
+
+/* Toggle Button */
+/*.theme-toggle-btn {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 99999;
+    border: none;
+    padding: 12px 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    color: white;
+    box-shadow: 0 4px 15px rgba(37,99,235,0.4);
+    transition: 0.3s;
+}
+
+    .theme-toggle-btn:hover {
+        transform: scale(1.08);
+    }*/
+
+
+/* Background */
+body.dark-mode {
+    background: linear-gradient(135deg, #0f172a, #111827) !important;
+    min-height: 100vh;
+}
+
+    /* Swagger Main */
+    body.dark-mode .swagger-ui {
+        color: #f8fafc !important;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+        /* Top Navbar */
+        body.dark-mode .swagger-ui .topbar {
+            background: rgba(15, 23, 42, 0.9) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding: 10px 0;
+        }
+
+        /* Hide Swagger Logo */
+        body.dark-mode .swagger-ui .topbar-wrapper img {
+            display: none;
+        }
+
+        /* API Title */
+        body.dark-mode .swagger-ui .topbar-wrapper::after {
+            content: "🚀 XOXOFX API PANEL";
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        /* Section Container */
+        body.dark-mode .swagger-ui .scheme-container,
+        body.dark-mode .swagger-ui .information-container {
+            background: rgba(30, 41, 59, 0.6) !important;
+            border-radius: 18px;
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255,255,255,0.08);
+            margin-top: 20px;
+            padding: 20px;
+        }
+
+        /* API Cards */
+        body.dark-mode .swagger-ui .opblock {
+            background: rgba(30, 41, 59, 0.75) !important;
+            border: 1px solid rgba(255,255,255,0.08) !important;
+            border-radius: 18px;
+            margin-bottom: 18px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+            transition: 0.3s ease;
+        }
+
+            /* Hover Effect */
+            body.dark-mode .swagger-ui .opblock:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 10px 28px rgba(59,130,246,0.25);
+            }
+
+            /* GET */
+            body.dark-mode .swagger-ui .opblock.opblock-get {
+                border-left: 5px solid #22c55e !important;
+            }
+
+            /* POST */
+            body.dark-mode .swagger-ui .opblock.opblock-post {
+                border-left: 5px solid #3b82f6 !important;
+            }
+
+            /* PUT */
+            body.dark-mode .swagger-ui .opblock.opblock-put {
+                border-left: 5px solid #f59e0b !important;
+            }
+
+            /* DELETE */
+            body.dark-mode .swagger-ui .opblock.opblock-delete {
+                border-left: 5px solid #ef4444 !important;
+            }
+
+        /* Text */
+        body.dark-mode .swagger-ui,
+        body.dark-mode .swagger-ui p,
+        body.dark-mode .swagger-ui span,
+        body.dark-mode .swagger-ui h1,
+        body.dark-mode .swagger-ui h2,
+        body.dark-mode .swagger-ui h3,
+        body.dark-mode .swagger-ui label {
+            color: #f8fafc !important;
+        }
+
+            /* Inputs */
+            body.dark-mode .swagger-ui input,
+            body.dark-mode .swagger-ui textarea,
+            body.dark-mode .swagger-ui select {
+                background: rgba(15, 23, 42, 0.9) !important;
+                color: #fff !important;
+                border: 1px solid #334155 !important;
+                border-radius: 12px !important;
+            }
+
+            /* Execute Button */
+            body.dark-mode .swagger-ui .btn.execute {
+                background: linear-gradient(135deg, #2563eb, #7c3aed) !important;
+                color: white !important;
+                border: none !important;
+                border-radius: 12px !important;
+                font-weight: bold;
+                transition: 0.3s;
+            }
+
+                /* Execute Hover */
+                body.dark-mode .swagger-ui .btn.execute:hover {
+                    transform: scale(1.03);
+                    opacity: 0.9;
+                }
+
+            /* Authorize Button */
+            body.dark-mode .swagger-ui .authorize {
+                background: linear-gradient(135deg, #06b6d4, #3b82f6) !important;
+                color: white !important;
+                border-radius: 10px !important;
+                border: none !important;
+            }
+
+/* Toggle Theme Button */
+.theme-toggle-btn {
+    position: fixed;
+    top: 85px;
+    right: 40px;
+    z-index: 99999;
+    border: none;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 22px;
+    background: linear-gradient(135deg, #3b82f6, #7c3aed);
+    color: white;
+    box-shadow: 0 6px 20px rgba(59,130,246,0.4);
+    transition: 0.3s ease;
+}
+
+    /* Hover */
+    .theme-toggle-btn:hover {
+        transform: scale(1.08) rotate(10deg);
+    }
+
+/* Scrollbar */
+body.dark-mode ::-webkit-scrollbar {
+    width: 8px;
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb {
+    background: #475569;
+    border-radius: 20px;
+}

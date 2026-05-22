@@ -45,5 +45,6 @@ namespace RepositoryContract
         public Task<ResponseViewModel> getUplineTeamList(string AuthLogin);
         public Task<ResponseViewModel> userSearchBindBuyPackage(string AuthLogin);
         public Task<ResponseViewModel> getSalaryRankList(Guid URID);
+        public Task<ResponseViewModel> getRewardStatusDashboard(Guid URID);
     }
 }

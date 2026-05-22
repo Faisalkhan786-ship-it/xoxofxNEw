@@ -80,13 +80,22 @@ namespace XoxoFX_Apis.AI.Controllers
         [Authorize(Roles = "User")]
         public async Task<IActionResult> getWithdrawalHistory(IncomeWithdrawalHistoryViewModel1 incomeWithdrawalHistoryViewModel)
         {
-            _logger.logInfo($" {LoggingEvents.getByIdItem} appLogin");
+            _logger.logInfo($" {LoggingEvents.getByIdItem} getWithdrawalHistory");
             var getIncomeWithdrawalHistory = await _serviceManager.walletReportService.getIncomeWithdrawalHistory(incomeWithdrawalHistoryViewModel);
             return Ok(getIncomeWithdrawalHistory);
         }
 
+        [HttpPost("getRewardStatusDashboard")]
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> getRewardStatusDashboard(Guid URID)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} getRewardStatusDashboard");
+            var getRewardStatusDashboard = await _serviceManager.walletReportService.getRewardStatusDashboard(URID);
+            return Ok(getRewardStatusDashboard);
+        }
+
         [HttpPost("getAccStatemtnt")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> getAccStatemtnt(accStateMent accStateMent)
         {
             _logger.logInfo($" {LoggingEvents.getByIdItem} appLogin");
