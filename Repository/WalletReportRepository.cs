@@ -1870,6 +1870,138 @@ namespace Repository
                 };
             }
         }
+
+        public async Task<ResponseViewModel> downLineTree_Details_fourlvl(Guid URID)
+        {
+            try
+            {
+                var procedureName = Constant.nsp_downLineTree_Details_fourlvl;
+
+                var parameters = new DynamicParameters();
+                parameters.Add("@URID", URID, DbType.Guid);
+
+                using (var connection = _dapperContext.createConnection())
+                {
+                    var result = (await connection.QueryAsync(procedureName,
+                                    parameters,
+                                    commandType: CommandType.StoredProcedure))
+                                    .ToList();
+
+                    if (result == null || !result.Any())
+                    {
+                        return new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.NotFound,
+                            message = "No data found."
+                        };
+                    }
+
+                    var firstRow = result.FirstOrDefault();
+
+                    int statusCode = firstRow?.statusCode ?? 0;
+                    string message = firstRow?.message ?? "Something went wrong.";
+
+                    // Position + Level Mapping
+                    var levelMap = new Dictionary<string, string>
+            {
+                { "0",  "Self" },
+
+                { "L1",  "Left Level 1" },
+                { "R1",  "Right Level 1" },
+
+                { "L11", "Left Level 2" },
+                { "R12", "Right Level 2" },
+
+                { "L21", "Left Level 3" },
+                { "R22", "Right Level 3" },
+
+                { "L31", "Left Level 4" },
+                { "R32", "Right Level 4" },
+
+                { "L41", "Left Level 5" },
+                { "R42", "Right Level 5" },
+
+                { "L51", "Left Level 6" },
+                { "R52", "Right Level 6" },
+
+                { "L61", "Left Level 7" },
+                { "R62", "Right Level 7" }
+            };
+
+                    var formattedResult = result.Select(x =>
+                    {
+                        string key = x.level == 0
+                            ? "0"
+                            : $"{x.Position}{x.level}";
+
+                        string levelName = levelMap.ContainsKey(key)
+                            ? levelMap[key]
+                            : "Unknown";
+
+                        return new
+                        {
+                            x.statusCode,
+                            x.message,
+                            x.LeftCount,
+                            x.RightCount,
+                            x.Package,
+                            x.id,
+                            x.IsExists,
+                            x.Position,
+                            x.level,
+                            LevelName = levelName,
+                            x.URID,
+                            x.kid,
+                            x.AuthLogin,
+                            x.Name,
+                            x.ActDate,
+                            x.SponosorDetails,
+                            x.LeftActiveMember,
+                            x.RightActiveMember,
+                            x.LeftBussiness,
+                            x.RighttBussiness,
+                            x.CarryForwardBussiness,
+                            x.LeftUserstTop,
+                            x.RightUsersTop,
+                            x.ButtonLink,
+                            x.binarycolorimg,
+                            x.newRegParentID
+                        };
+                    }).ToList();
+
+                    return statusCode switch
+                    {
+                        1 => new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.OK,
+                            message = message,
+                            data = formattedResult
+                        },
+
+                        0 or -1 => new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.Conflict,
+                            message = message,
+                            data = formattedResult
+                        },
+
+                        _ => new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.BadRequest,
+                            message = message
+                        }
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new ResponseViewModel
+                {
+                    statusCode = (int)HttpStatusCode.InternalServerError,
+                    message = ex.Message
+                };
+            }
+        }
     }
 }
 

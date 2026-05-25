@@ -86,8 +86,8 @@ namespace Common
         public static string getRoiWalletStatement = "SpGetROIWalletStatement";
         public static string incomeOrRoiWithdrawalHistory = "SpIncOrRoiWithdrawalHistory";
         public static string rewardStatusDashboard = "nspGetRewardStatusDashboard";
+        public static string get_TransactionIncome_History = "SpGet_TransactionIncome_History";
         public static string nsp_downLineTree_Details_fourlvl = "nsp_downLineTree_Details_fourlvl";
-
 
         //------------END
 
@@ -195,7 +195,6 @@ namespace Common
         public static string agentLeaseCredit = "GetAgentLeaseCredit";
         public static string getRechargeTransaction_ByTId = "SpGetRechargeTransaction_ByTId";
         public static string getRentWalletByURID = "SpGetRentWalletByURID";
-        public static string get_TransactionIncome_History = "SpGet_TransactionIncome_History";
         public static string get_Diff_Rank_LeaderShip = "SPGet_Diff_Rank_LeaderShip";
         public static string getUser_WalletBalance = "SpGetUser_WalletBalance";
         public static string recDetails_ByTId = "SpGetRecDetails_ByTId";

@@ -189,5 +189,10 @@ namespace Service
             var getRewardStatusDashboard = await _repositoryManager.walletReportRepository.getRewardStatusDashboard(URID);
             return getRewardStatusDashboard;
         }
+        public async Task<ResponseViewModel> downLineTree_Details_fourlvl(Guid URID)
+        {
+            var downLineTree_Details_fourlvl = await _repositoryManager.walletReportRepository.downLineTree_Details_fourlvl(URID);
+            return downLineTree_Details_fourlvl;
+        }
     }
 }

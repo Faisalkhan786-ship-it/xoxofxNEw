@@ -102,15 +102,23 @@ namespace XoxoFX_Apis.AI.Controllers
             var getIncomeWithdrawalHistory = await _serviceManager.walletReportService.getAccStatemtnt(accStateMent);
             return Ok(getIncomeWithdrawalHistory);
         }
-        
-        //[HttpPost("getTransactionHistory")]
-        //public async Task<IActionResult> getTransactionHistory(IncomeWithdrawalHistoryViewModel incomeWithdrawalHistoryViewModel)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} getTransactionHistory");
-        //    var getIncomeWithdrawalHistory = await _serviceManager.walletReportService.getTransactionHistory(incomeWithdrawalHistoryViewModel);
-        //    return Ok(getIncomeWithdrawalHistory);
-        //}
 
+        [HttpPost("getTransactionHistory")]
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> getTransactionHistory(IncomeWithdrawalHistoryViewModel incomeWithdrawalHistoryViewModel)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} getTransactionHistory");
+            var getIncomeWithdrawalHistory = await _serviceManager.walletReportService.getTransactionHistory(incomeWithdrawalHistoryViewModel);
+            return Ok(getIncomeWithdrawalHistory);
+        }
+        [HttpPost("downLineTree_Details_fourlvl")]
+        //[Authorize(Roles = "User")]
+        public async Task<IActionResult> downLineTree_Details_fourlvl(Guid URID)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} downLineTree_Details_fourlvl");
+            var downLineTree_Details_fourlvl = await _serviceManager.walletReportService.downLineTree_Details_fourlvl(URID);
+            return Ok(downLineTree_Details_fourlvl);
+        }
         //[HttpPost("getRechargeTransactByTId")]
         //public async Task<IActionResult> getRechargeTransactByTId(Guid URID)
         //{
