@@ -45,6 +45,7 @@ namespace ServiceContract
         public Task<ResponseViewModel> getSalaryRankList(Guid URID);
         public Task<ResponseViewModel> getRewardStatusDashboard(Guid URID);
         public Task<ResponseViewModel> downLineTree_Details_fourlvl(Guid URID);
+        public Task<ResponseViewModel> getReferalink(string Authlogin);
 
     }
 }

@@ -17,7 +17,7 @@ namespace XoxoFX_Apis.AI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Roles = "User")]
+    [Authorize(Roles = "User")]
     public class FundManagerController : ControllerBase
     {
         private readonly IServiceManager _serviceManager;
@@ -109,6 +109,24 @@ namespace XoxoFX_Apis.AI.Controllers
             }
             return Ok(getRechargeTransaction);
         }
+
+        [HttpPost("genrateROI_BOTCLICK")]
+        public async Task<IActionResult> genrateROI_BOTCLICK(Guid URID)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} genrateROI_BOTCLICK");
+            var genrateROI_BOTCLICK = await _serviceManager.walletReportService.genrateROI_BOTCLICK(URID);
+            return Ok(genrateROI_BOTCLICK);
+        }
+
+        [HttpPost("checkROI_BOTCLICK")]
+        public async Task<IActionResult> checkROI_BOTCLICK(Guid URID)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} checkROI_BOTCLICK");
+            var checkROI_BOTCLICK = await _serviceManager.walletReportService.checkROI_BOTCLICK(URID);
+            return Ok(checkROI_BOTCLICK);
+        }
+
+
         //[HttpGet("getUserAutoDeposit")]
         //public async Task<IActionResult> getUserAutoDeposit(Guid URID)
         //{

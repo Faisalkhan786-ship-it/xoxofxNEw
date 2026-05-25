@@ -1405,9 +1405,7 @@ namespace Repository
 
         public async Task<ResponseViewModel> genrateROI_BOTCLICK(Guid URID)
         {
-            //var incomeProc = "";
             var incomeProc = Constant.genrateROI_BOTCLICK;
-
             var parameters = new DynamicParameters();
             parameters.Add("@URID", URID, DbType.Guid);
 
@@ -1445,12 +1443,9 @@ namespace Repository
 
         public async Task<ResponseViewModel> checkROI_BOTCLICK(Guid URID)
         {
-            //var incomeProc = Constant.checkROI_BOTCLICK;
-            var incomeProc = "";
-
+            var incomeProc = Constant.checkROI_BOTCLICK;
             var parameters = new DynamicParameters();
             parameters.Add("@URID", URID, DbType.Guid);
-
             using (var connection = _dapperContext.createConnection())
             {
                 try
@@ -1488,7 +1483,6 @@ namespace Repository
 
         public async Task<ResponseViewModel> getSettings()
         {
-            //var incomeProc = Constant.getSettingsDetails;
             var incomeProc = "";
             var parameters = new DynamicParameters();
 
@@ -2002,6 +1996,59 @@ namespace Repository
                 };
             }
         }
+
+        public async Task<ResponseViewModel> getReferalink(string Authlogin)
+        {
+            var incomeProc = Constant.referalLink;
+
+            var parameters = new DynamicParameters();
+            parameters.Add("@Authlogin", Authlogin, DbType.String);
+
+            using (var connection = _dapperContext.createConnection())
+            {
+                try
+                {
+                    var incomeResult = await connection.QueryAsync(incomeProc, parameters, commandType: CommandType.StoredProcedure);
+                    var incomeList = incomeResult.ToList();
+
+
+                    if ((incomeList != null && incomeList.Any()))
+                    {
+                        var message = "Data fetched successfully";
+                        var combinedData = new
+                        {
+                            RentWallet = incomeList,
+                        };
+
+                        return new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.OK,
+                            message = message,
+                            data = combinedData
+                        };
+                    }
+                    else
+                    {
+                        return new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.NotFound,
+                            message = "No Referal link.",
+                            data = null
+                        };
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return new ResponseViewModel
+                    {
+                        statusCode = (int)HttpStatusCode.InternalServerError,
+                        message = $"Error occurred: {ex.Message}",
+                        data = null
+                    };
+                }
+            }
+        }
+
     }
 }
 

@@ -67,6 +67,7 @@ namespace XoxoFX_Apis.AI.Controllers
             var add = await _serviceManager.adminMasterService.addCreditAndDebitFund(adminManageFundViewModel);
             return Ok(add);
         }
+       
         [HttpGet("getUserWalletDetails")]
         public async Task<IActionResult> getUserWalletDetails(string loginId)
         {

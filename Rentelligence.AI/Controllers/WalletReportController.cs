@@ -111,6 +111,8 @@ namespace XoxoFX_Apis.AI.Controllers
             var getIncomeWithdrawalHistory = await _serviceManager.walletReportService.getTransactionHistory(incomeWithdrawalHistoryViewModel);
             return Ok(getIncomeWithdrawalHistory);
         }
+
+
         [HttpPost("downLineTree_Details_fourlvl")]
         //[Authorize(Roles = "User")]
         public async Task<IActionResult> downLineTree_Details_fourlvl(Guid URID)
@@ -119,6 +121,18 @@ namespace XoxoFX_Apis.AI.Controllers
             var downLineTree_Details_fourlvl = await _serviceManager.walletReportService.downLineTree_Details_fourlvl(URID);
             return Ok(downLineTree_Details_fourlvl);
         }
+
+
+        [HttpPost("getReferalink")]
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> getReferalink(string Authlogin)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} getReferalink");
+            var getReferalink = await _serviceManager.walletReportService.getReferalink(Authlogin);
+            return Ok(getReferalink);
+        }
+
+
         //[HttpPost("getRechargeTransactByTId")]
         //public async Task<IActionResult> getRechargeTransactByTId(Guid URID)
         //{
@@ -260,23 +274,7 @@ namespace XoxoFX_Apis.AI.Controllers
         //    return Ok(getUserAllWalletBalance);
         //}
 
-        //[HttpPost("genrateROI_BOTCLICK")]
-        //[Authorize]
-        //public async Task<IActionResult> genrateROI_BOTCLICK(Guid URID)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} genrateROI_BOTCLICK");
-        //    var genrateROI_BOTCLICK = await _serviceManager.walletReportService.genrateROI_BOTCLICK(URID);
-        //    return Ok(genrateROI_BOTCLICK);
-        //}
 
-        //[HttpPost("checkROI_BOTCLICK")]
-        //[Authorize]
-        //public async Task<IActionResult> checkROI_BOTCLICK(Guid URID)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} checkROI_BOTCLICK");
-        //    var checkROI_BOTCLICK = await _serviceManager.walletReportService.checkROI_BOTCLICK(URID);
-        //    return Ok(checkROI_BOTCLICK);
-        //}
 
         //[HttpPost("getSettings")]
         ////[Authorize]

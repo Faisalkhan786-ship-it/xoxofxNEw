@@ -88,6 +88,9 @@ namespace Common
         public static string rewardStatusDashboard = "nspGetRewardStatusDashboard";
         public static string get_TransactionIncome_History = "SpGet_TransactionIncome_History";
         public static string nsp_downLineTree_Details_fourlvl = "nsp_downLineTree_Details_fourlvl";
+        public static string getUserDashboardDetails = "SpGetUserDashboardDetails";
+        public static string userSummaryDetails = "SpGetUserSummaryDetails";
+        public static string referalLink = "spGetReferalLink";
 
         //------------END
 
@@ -184,8 +187,6 @@ namespace Common
 
         public static string userLoginAdmin = "SpUserLoginAdmin";
         public static string updateCredit = "UpdateCredit";
-        public static string insertlinkedid = "spInsertLinkedId";
-        public static string userDeleteChat = "SpUserDeleteChat";
         public static string SpGetAllWalletHistory = "SpGetAllWalletHistory";
         public static string adminUserLogin = "SpAdminUserLogin";
         public static string directMemberSearch = "SpDirectMemberSearch";
@@ -209,7 +210,7 @@ namespace Common
         public static string allApprRentWallet = "SpAllApprRentWalletWithdrawal";
         public static string allUnApprRentWalletWithdrawal = "SpAllUnApprRentWalletWithdrawal";
         public static string addRechargeTransaction = "SpAddRechargeTransaction";
-        public static string getUserDashboardDetails = "SpGetUserDashboardDetails";
+
         public static string getTransactionLog = "SpGetTransactionLog";
         public static string getABREngine = "SpGetABREngine";
         public static string getUserAnalytics = "SpGetUserAnalytics";
@@ -244,13 +245,12 @@ namespace Common
         public static string getAllAdminName = "SpGetAllAdminName";
         public static string spUpdatePassword = "SpChangePassword";
         public static string updateUserProfile = "SpUpdateUserProfile";
-        public static string getDormantReport = "SpGetDormantReport";
+
       
         public static string depositWalletBal = "SpDepositWalletBal";
         public static string spPayModeMaster = "SpPayModeMaster";
         public static string spGetByReferralId = "SpGetByReferralId";
         public static string spChangePassword = "SpChangePassword";
-        public static string spGetUserKyc = "SpGetUserKyc";
         public static string spGetUserWalletDetails = "SpGetUserWalletDetails";
 
         public static string spAddAppUser = "SpAddAppUser";
@@ -299,89 +299,30 @@ namespace Common
         public static string spGetByIdProduct = "SpGetByIdProduct";
         public static string spGetAllProductDetails = "SpGetAllProductDetails";
         
-        public static string spGetAllImageById = "SpGetAllImageById";
-        public static string spGetAllSteps = "SpGetAllSteps";
-        public static string spGetActiveAllSteps = "SpGetActiveAllSteps";
-        public static string spAddSteps = "SpAddSteps";
-        public static string spUpdateSteps = "SpUpdateSteps";
-        public static string spDeleteSteps = "SpDeleteSteps";
-        public static string spGetByIdProductImage = "SpGetByIdProductImage";
-        public static string spGetAllProductImage = "SpGetAllProductImage";
-        public static string spGetAllProductImageForUser = "SpGetAllProductImageForUser";
-        public static string spAddProductImage = "SpAddProductImage";
-        public static string spUpdateProductImage = "SpUpdateProductImage";
-        public static string spDeleteProductImage = "SpDeleteProductImage";
-        public static string spGetByIdDiscount = "SpGetByIdDiscount";
-        public static string spGetAllDiscount = "SpGetAllDiscount";
-        public static string spAddDiscount = "SpAddDiscount";
-        public static string spUpdateDiscount = "SpUpdateDiscount";
-        public static string spDeleteDiscount = "SpDeleteDiscount";
-        public static string spGetAllCouponbyId = "SpGetAllCouponbyId";
-        public static string spGetAllCoupon = "SpGetAllCoupon";
-        public static string spAddCoupon = "SpAddCoupon";
-        public static string updateCoupon = "SpUpdateCoupon";
-        public static string spDeleteCoupon = "SpDeleteCoupon";
-        public static string spGetByIdGiftCard = "SpGetByIdGiftCard";
-        public static string spGetAllGiftCard = "SpGetAllGiftCard";
-        public static string spAddGiftCard = "SpAddGiftCard";
-        public static string spUpdateGiftCard = "SpUpdateGiftCard";
-        public static string spDeleteGiftCard = "SpDeleteGiftCard";
         public static string spGetByIdNotification = "SpGetByIdNotification";
         public static string spGetAllNotification = "SpGetAllNotification";
         public static string spGetAllNotificationForUser = "SpGetAllNotificationForUser";
         public static string spAddNotification = "SpAddNotification";
         public static string spUpdateNotification = "SpUpdateNotification";
         public static string spDeleteNotification = "SpDeleteNotification";
-        public static string spGetAllOrder = "SpGetAllOrderList";
-        public static string spGetAllOrderlist = "SpGetAllOrder";
-        public static string spReturnOrderCompleted = "SpReturnOrderCompleted";
-        public static string spReturnOrderAccepted = "SpReturnOrderAccepted";
-        public static string spGetAllcancelAccepted = "SpGetAllcancelAccepted";
-        public static string spGetAllcancelAcceptedCompleted = "SpGetAllcancelAcceptedCompleted";
-        public static string spGetAllReturnOrder = "SpGetAllReturnOrder";
-        public static string spGetOrderArrivedTo = "SpGetOrderArrivedTo";
-        public static string spGetAllPendingOrder = "SpGetAllPeningOrder";
-        public static string spGetAllProcessingOrder = "SpGetAllProcessingOrder";
-        public static string spGetAllCompletedOrder = "SpGetAllCompletedOrder";
-        public static string spGetAllCancelOrder = "SpGetAllCancelOrder";
-        public static string spUpdateOrderStatus = "SpUpdateOrderStatus";
+        public static string spGetAllOrder = "SpGetAllOrderList";        
         public static string getOrderWithItems = "GetOrderWithItems";
         public static string spBlockUserByAdmin = "SpBlockUserByAdmin";
         public static string sPDownloadExcel = "SPDownloadExcel";
         public static string getEditNews = "SpGetEditNews";
         public static string getSettings = "SpGetSettings";
-        public static string spGetAllOrderDetailSearch = "SpGetAllOrderDetails";
-        public static string spGetTrackOrder = "SpGetTrackOrder";
-        public static string spGetAllOrderDetails = "SpGetAllOrderListDetails";
-        public static string spAddOrderWithDetails = "SpAddOrderWithDetails";
         public static string spGetCheckPaymentStatus = "SpGetCheckPaymentStatus";
         public static string spGetPaymentList = "SpGetPaymentList";
         public static string spGetAllPaymentMode = "SpGetAllPaymentMode";
         public static string spAddPaymentMode = "SpAddPaymentMode";
         public static string spUpdatePaymentMode = "SpUpdatePaymentMode";
         public static string spDeletePaymentMode = "SpDeletePaymentMode";
-        public static string spGetByIdShipping = "SpGetByIdShipping";
-        public static string spgetAllPinCodeActive = "SpgetAllPinCodeActive";
-        public static string spGetAllShipping = "SpGetAllShipping";
         public static string spGetContactus = "SpGetContactus";
-        public static string spAddShipping = "SpAddShipping";
         public static string spInsertContactus = "SpInsertContactus";
-        public static string spgetProductNamebyProductId = "SpgetProductNamebyProductId";
-        public static string spGetAdressbyAddressId = "spGetAdressbyAddressId";
-        public static string spGetMRPByProductId = "SpGetMRPByProductId";
-        public static string spAddSimilarProduct = "SpAddSimilarProduct";
-        public static string spDeleteSPByProducId = "SpDeleteSPByProducId";
-        public static string spDeleteSimilarProduct = "SpDeleteSimilarProduct";
         public static string spGetAllAppUser = "SpGetAllAppUser";
-        public static string spGetAllOrderByUserId = "SpGetAllOrderByUserId";
         public static string spAppUserGetProfileDetails = "SpAppUserGetProfileDetails";
         public static string spAppUserUpdateProfile = "SpAppUserUpdateProfile";
         public static string spAppUserUpdatePassword = "SpAppUserUpdatePassword";
-        public static string spGetDefaultAddress = "SpGetDefaultAddress";
-        public static string spGetAddressList = "SpGetAddressList";
-        public static string spAddAddress = "SpAddAddress";
-        public static string spUpdateAddress = "SpUpdateAddress";
-        public static string spDeleteAddress = "SpDeleteAddress";
         public static string sp_GetRatingPercentage = "sp_GetRatingPercentage";
         public static string addTransactionsLog = "SPInsertAPITransactionsLog";
     }

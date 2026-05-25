@@ -313,7 +313,7 @@ namespace Repository
         }
         public async Task<ResponseViewModel> getByIdProductImage(Guid productImageId)
         {
-            var procedureName = Constant.spGetByIdProductImage;
+            var procedureName = "";
             var parameters = new DynamicParameters();
             parameters.Add("@productImageId", productImageId, DbType.Guid);
             using (var connection = _dapperContext.createConnection())
@@ -330,7 +330,7 @@ namespace Repository
         }
         public async Task<ResponseViewModel> getAllProductImage(Guid productId)
         {
-            var procedureName = Constant.spGetAllProductImage;
+            var procedureName = "";
             var parameters = new DynamicParameters();
             parameters.Add("@productId", productId, DbType.Guid);
             using (var connection = _dapperContext.createConnection())
@@ -347,7 +347,7 @@ namespace Repository
         }
         public async Task<ResponseViewModel> getAllProductImageForUser(Guid productId)
         {
-            var procedureName = Constant.spGetAllProductImageForUser;
+            var procedureName = "";
             var parameters = new DynamicParameters();
             parameters.Add("@productId", productId, DbType.Guid);
             using (var connection = _dapperContext.createConnection())
@@ -367,7 +367,7 @@ namespace Repository
         public async Task<ResponseViewModel> addProductImage(AddProductImageViewModel addProductImage)
         {
             var uploadedImageUrls = new List<string>();
-            var procedureName = Constant.spAddProductImage;
+            var procedureName = "";
             ResponseViewModel finalResult = new ResponseViewModel();
 
             if (addProductImage.image != null && addProductImage.image.Count > 0)
@@ -425,12 +425,11 @@ namespace Repository
             return finalResult;
         }
 
-
         //Update Product Image 
         public async Task<ResponseViewModel> updateProductImage(UpdateProductImageViewModel updateProductImage)
         {
             var uploadedImageUrls = new List<string>();
-            var procedureName = Constant.spUpdateProductImage;
+            var procedureName = "";
             ResponseViewModel finalResult = new ResponseViewModel();
 
             if (updateProductImage.image != null && updateProductImage.image.Count > 0)
@@ -493,7 +492,7 @@ namespace Repository
         //delete Product Image 
         public async Task<ResponseViewModel> deleteProductImage(DeleteProductImageViewModel deleteProductImage)
         {
-            var procedureName = Constant.spDeleteProductImage;
+            var procedureName = "";
             var parameters = new DynamicParameters();
             parameters.Add("@productImageId", deleteProductImage.productImageId, DbType.Guid);
             parameters.Add("@productId", deleteProductImage.productId, DbType.Guid);
@@ -523,7 +522,7 @@ namespace Repository
         //Get Product Image by Id
         public async Task<ResponseViewModel> getByIdImage(Guid productId)
         {
-            var procedureName = Constant.spGetAllImageById;
+            var procedureName = "";
             using (var connection = _dapperContext.createConnection())
             {
                 var parameters = new DynamicParameters();

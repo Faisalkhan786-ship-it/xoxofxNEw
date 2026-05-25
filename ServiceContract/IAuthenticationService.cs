@@ -22,6 +22,7 @@ namespace ServiceContract
         public Task<ResponseViewModel> GetAllUserRegitration();
         public Task<ResponseViewModel> updateUserProfile(UpdateUserProfileViewModel updateUserProfileViewModel);
         public Task<ResponseViewModel> UserDashboardDetails(Guid URID);
+        public Task<ResponseViewModel> UserSummaryDetails(Guid URID);
         public Task<ResponseViewModel> sendOtpRequest(SendOtpFundRequestViewModel sendOtp);
         public Task<ResponseViewModel> validateOtp(ValidateOtpViewModel validateOtpViewModel);
         public Task<ResponseViewModel> UserUserRentelligenceDashboard(Guid URID);

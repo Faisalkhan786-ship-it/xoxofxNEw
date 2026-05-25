@@ -245,8 +245,8 @@ namespace XoxoFX_Apis.AI.Controllers
             var UserDashboardDetails = await _serviceManager.authenticationContract.UserDashboardDetails(URID);
             return Ok(UserDashboardDetails);
         }
-
-
+       
+ 
 
         [HttpPost("validateOtp")]
         public async Task<IActionResult> validateOtp(ValidateOtpViewModel validateOtpViewModel)
@@ -333,6 +333,17 @@ namespace XoxoFX_Apis.AI.Controllers
             _logger.logInfo($" {LoggingEvents.updateItem} updateUserProfileImage");
             var updatepro = await _serviceManager.authenticationContract.updateUserProfileImage(updateUserImageViewModel);
             return Ok(updatepro);
+        }
+
+
+
+        [HttpGet("userSummaryDetails")]
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> userSummaryDetails(Guid URID)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} UserSummaryDetails");
+            var UserSummaryDetails = await _serviceManager.authenticationContract.UserSummaryDetails(URID);
+            return Ok(UserSummaryDetails);
         }
 
         //    [HttpGet("getAgentAnalyticsUser")]

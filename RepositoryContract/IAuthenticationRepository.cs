@@ -22,7 +22,7 @@ namespace RepositoryContract
         public Task<ResponseViewModel> validateOtp(ValidateOtpViewModel validateOtpViewModel);
         public Task<ResponseViewModel> UserUserRentelligenceDashboard(Guid URID);
         public Task<ResponseViewModel> getLBRank();
-
+        public Task<ResponseViewModel> UserSummaryDetails(Guid URID);
         public Task<ResponseViewModel> sendOtpWithdrawal(SendOtpWithdrawalViewModel sendOtp);
         public Task<ResponseViewModel> updateUserProfileImage(UpdateUserImageViewModel updateUserImageViewModel);
 

@@ -72,7 +72,11 @@ namespace Service
             var UserDashboardDetails = await _repositoryManager.authenticationRepository.UserDashboardDetails(URID);
             return UserDashboardDetails;
         }
-
+        public async Task<ResponseViewModel> UserSummaryDetails(Guid URID)
+        {
+            var UserSummaryDetails = await _repositoryManager.authenticationRepository.UserSummaryDetails(URID);
+            return UserSummaryDetails;
+        }
         public async Task<ResponseViewModel> sendOtpRequest(SendOtpFundRequestViewModel sendOtp)
         {
             var sendOtpRequest = await _repositoryManager.authenticationRepository.sendOtpRequest(sendOtp);

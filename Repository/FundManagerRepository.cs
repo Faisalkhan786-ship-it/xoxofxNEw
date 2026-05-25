@@ -1034,7 +1034,7 @@ namespace Repository
         //}
         public async Task<ResponseViewModel> getUserDormantReportDetails(Guid URID)
         {
-            var procedureName1 = Constant.getDormantReport;
+            var procedureName1 = "";
             var procedureName2 = Constant.spGetUser_WalletBalance;
 
             var parameters = new DynamicParameters();

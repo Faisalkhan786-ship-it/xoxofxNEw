@@ -194,5 +194,10 @@ namespace Service
             var downLineTree_Details_fourlvl = await _repositoryManager.walletReportRepository.downLineTree_Details_fourlvl(URID);
             return downLineTree_Details_fourlvl;
         }
+        public async Task<ResponseViewModel> getReferalink(string Authlogin)
+        {
+            var getReferalink = await _repositoryManager.walletReportRepository.getReferalink(Authlogin);
+            return getReferalink;
+        }
     }
 }
