@@ -15,6 +15,7 @@ namespace Common
         public static string spGetAdminDetails = "SpGetAdminDetails";
         public static string getAdminDashboardDetails = "SpGetAdminDashboardDetails";
         public static string spGetAllAdminList = "SpGetAllAdminList";
+        public static string getTransType = "SpGetTransType";
 
 
         //----------------END
@@ -92,7 +93,8 @@ namespace Common
         public static string userSummaryDetails = "SpGetUserSummaryDetails";
         public static string referalLink = "spGetReferalLink";
         public static string getNetworkTree = "SpGetNetworkTree";
-
+        public static string userLoginAdmin = "SpUserLoginAdmin";
+        public static string bulkRegistrationAdmin = "SpBulkRegistrationAdmin";
         //------------END
 
         //------Admin Master
@@ -182,12 +184,16 @@ namespace Common
         public static string spAddProduct = "SpAddProduct";
         public static string spUpdateProduct = "SpUpdateProduct";
         public static string spDeleteProduct = "SpDeleteProduct";
+        public static string getLeaseStatement = "SpGetLeaseStatement";
+        public static string spChangeSponsorID = "SpChangeSponsorID";
+        public static string sPDownloadExcel = "SPDownloadExcel";
+        public static string searchAllUsers = "SpSearchAllUsers";
 
         //---------------End
 
 
-        public static string userLoginAdmin = "SpUserLoginAdmin";
-        public static string updateCredit = "UpdateCredit";
+
+
         public static string SpGetAllWalletHistory = "SpGetAllWalletHistory";
         public static string adminUserLogin = "SpAdminUserLogin";
         public static string directMemberSearch = "SpDirectMemberSearch";
@@ -212,7 +218,6 @@ namespace Common
         public static string addRechargeTransaction = "SpAddRechargeTransaction";
 
         public static string getTransactionLog = "SpGetTransactionLog";
-        public static string getABREngine = "SpGetABREngine";
         public static string getUserAnalytics = "SpGetUserAnalytics";
         public static string getUserLinkedIds = "SpGetUserLinkedIds";
         public static string getUserAffiliateDashboard = "SpGetUserAffiliateDashboard";
@@ -220,7 +225,7 @@ namespace Common
         public static string leaseAgent = "SpLeaseAgent";
         public static string SpAddRechargeTransactionAdmin = "SpAddRechargeTransactionAdmin";
 
-        public static string getLeaseStatement = "SpGetLeaseStatement";
+
         public static string validateOtpbtEmailId = "SpValidateOtpbtEmailId";
         public static string getAgentAnalyticsUser = "SpGetAgentAnalyticsUser";
 
@@ -257,11 +262,10 @@ namespace Common
         public static string SpUpdateAppuser = "spUpdateAppuser";
         public static string spGetMandatoryDetailsWithdrawl = "SpGetMandatoryDetailsWithdrawl";
         public static string spGetIncomeWalletBalance = "SpGetIncomeWalletBalance";
-        public static string searchAllUsers = "SpSearchAllUsers";
         public static string bindPackageUserSide = "SPBindPackageUserSide";
         public static string upRentWithdReqStatus_Admin = "SpUpRentWithdReqStatus_Admin";
         public static string getTokenDepositsByURID = "SpGetTokenDepositsByURID";
-        public static string spChangeSponsorID = "SpChangeSponsorID";
+
         public static string updateNews = "SpUpdateNews";
         public static string updateSettings = "SpUpdateSettings";
         public static string spAdminSendOtp = "SpAdminSendOtp";
@@ -271,7 +275,7 @@ namespace Common
         public static string spUpdateAdminStatusDeActivate = "spUpdateAdminStatusDeActivate";
         public static string updateAdminProfile = "SpUpdateAdminProfile";
         public static string SpAddRechargeTransaction = "SpAddRechargeTransaction";
-        public static string bulkRegistrationAdmin = "SpBulkRegistrationAdmin";
+
         public static string addToken_Deposits = "SpAddToken_Deposits";
         public static string adminForgotPassword = "SpAdminForgotPassword";
         public static string spGetTodayOrderList = "SpGetTodayOrderList";
@@ -308,7 +312,6 @@ namespace Common
         public static string spGetAllOrder = "SpGetAllOrderList";        
         public static string getOrderWithItems = "GetOrderWithItems";
         public static string spBlockUserByAdmin = "SpBlockUserByAdmin";
-        public static string sPDownloadExcel = "SPDownloadExcel";
         public static string getEditNews = "SpGetEditNews";
         public static string getSettings = "SpGetSettings";
         public static string spGetCheckPaymentStatus = "SpGetCheckPaymentStatus";

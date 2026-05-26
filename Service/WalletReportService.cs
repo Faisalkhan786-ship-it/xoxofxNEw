@@ -199,5 +199,10 @@ namespace Service
             var getReferalink = await _repositoryManager.walletReportRepository.getReferalink(Authlogin);
             return getReferalink;
         }
+        public async Task<ResponseViewModel> getTransType(int? Type)
+        {
+            var getTransType = await _repositoryManager.walletReportRepository.getTransType(Type);
+            return getTransType;
+        }
     }
 }

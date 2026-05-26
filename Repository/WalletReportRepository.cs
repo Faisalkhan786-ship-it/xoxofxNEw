@@ -2048,7 +2048,59 @@ namespace Repository
                 }
             }
         }
+        public async Task<ResponseViewModel> getTransType(int? Type)
+        {
+            var transType = Constant.getTransType;
 
+            var parameters = new DynamicParameters();
+            parameters.Add("@Type", Type, DbType.Int32);
+
+            using (var connection = _dapperContext.createConnection())
+            {
+                try
+                {
+                    var transTypes = await connection.QueryAsync(transType, parameters, commandType: CommandType.StoredProcedure);
+                    var transTypess = transType.ToList();
+
+
+
+                    if ((transType != null && transType.Any()))
+                    {
+                        var message = "Data fetched successfully";
+                        var combinedData = new
+                        {
+                            incomeTransTypes = transTypes,
+
+                        };
+
+                        return new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.OK,
+                            message = message,
+                            data = combinedData
+                        };
+                    }
+                    else
+                    {
+                        return new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.NotFound,
+                            message = "No transtype types found.",
+                            data = null
+                        };
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return new ResponseViewModel
+                    {
+                        statusCode = (int)HttpStatusCode.InternalServerError,
+                        message = $"Error occurred: {ex.Message}",
+                        data = null
+                    };
+                }
+            }
+        }
     }
 }
 

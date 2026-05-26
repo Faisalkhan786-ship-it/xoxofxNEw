@@ -19,21 +19,34 @@ namespace Repository
         {
             _dapperContext = dapperContext;
         }
-    
+
         public async Task<ResponseViewModel> adminSearchAllUsers(AdminManageViewModel adminManageViewModel)
         {
             var procedureName = Constant.searchAllUsers;
+
             var parameters = new DynamicParameters();
-            parameters.Add("@Fullname", adminManageViewModel.Fullname ?? "", DbType.String);
+
+            parameters.Add("@AuthLogin", "", DbType.String);
+            parameters.Add("@Fname", adminManageViewModel.Fullname ?? "", DbType.String);
             parameters.Add("@Active", adminManageViewModel.Active ?? "", DbType.String);
-            parameters.Add("@PhoneNo", adminManageViewModel.PhoneNo ?? "", DbType.String);
+            parameters.Add("@Mobile", adminManageViewModel.PhoneNo ?? "", DbType.String);
             parameters.Add("@Email", adminManageViewModel.Email ?? "", DbType.String);
-            parameters.Add("@FromDate", string.IsNullOrEmpty(adminManageViewModel.FromDate) ? null : adminManageViewModel.FromDate);
-            parameters.Add("@ToDate", string.IsNullOrEmpty(adminManageViewModel.ToDate) ? null : adminManageViewModel.ToDate);
+            parameters.Add("@Kid", 0, DbType.Int32);
+            parameters.Add("@Walletid", "", DbType.String);
+            parameters.Add("@FromDate",string.IsNullOrEmpty(adminManageViewModel.FromDate)
+                    ? null
+                    : adminManageViewModel.FromDate);
+            parameters.Add("@ToDate",
+                string.IsNullOrEmpty(adminManageViewModel.ToDate)
+                    ? null
+                    : adminManageViewModel.ToDate);
 
             using (var connection = _dapperContext.createConnection())
             {
-                var result = await connection.QueryAsync<dynamic>(procedureName, parameters, commandType: CommandType.StoredProcedure);
+                var result = await connection.QueryAsync<dynamic>(
+                    procedureName,
+                    parameters,
+                    commandType: CommandType.StoredProcedure);
 
                 if (result == null || !result.Any())
                 {
@@ -44,7 +57,6 @@ namespace Repository
                     };
                 }
 
-                // Take first row for statusCode & message
                 var firstRow = result.First();
 
                 int status = firstRow.statusCode;
@@ -68,7 +80,6 @@ namespace Repository
                 }
             }
         }
-
         public async Task<ResponseViewModel> getRentWallet(AppUnApprentViewModel appUnApprentViewModel)
         {
             var UnApWithIncome = Constant.allUnApprRentWalletWithdrawal;

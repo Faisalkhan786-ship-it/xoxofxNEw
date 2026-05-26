@@ -120,7 +120,7 @@ namespace XoxoFX_Apis.AI.Controllers
         [HttpPost("adminUserLogin")]
         public async Task<IActionResult> adminUserLogin(AppUserAdminLoginViewModel appUserAdminLoginViewModel)
         {
-            _logger.logInfo($" {LoggingEvents.getByIdItem} appLogin");
+            _logger.logInfo($" {LoggingEvents.getByIdItem} adminUserLogin");
             var loginDetails = await _serviceManager.authenticationContract.adminUserLogin(appUserAdminLoginViewModel);
             string token = null;
 

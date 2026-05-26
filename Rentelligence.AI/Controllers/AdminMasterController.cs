@@ -36,22 +36,15 @@ namespace XoxoFX_Apis.AI.Controllers
             var chanegAdminPassword = await _serviceManager.adminMasterService.chanegAdminPassword(adminMasterViewModel);
             return Ok(chanegAdminPassword);
         }
-        //[HttpPost("chanegAdminSponsorID")]
-        //public async Task<IActionResult> chanegAdminSponsorID(AdminChangeSponsorIdViewModel AdminChangeSponsorIdViewModel)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} chanegAdminSponsorID");
-        //    var chanegAdminSponsorID = await _serviceManager.adminMasterService.chanegAdminSponsorID(AdminChangeSponsorIdViewModel);
-        //    return Ok(chanegAdminSponsorID);
-        //}
+        [HttpPost("chanegAdminSponsorID")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> chanegAdminSponsorID(AdminChangeSponsorIdViewModel AdminChangeSponsorIdViewModel)
+        {
+            _logger.logInfo($" {LoggingEvents.updateItem} chanegAdminSponsorID");
+            var chanegAdminSponsorID = await _serviceManager.adminMasterService.chanegAdminSponsorID(AdminChangeSponsorIdViewModel);
+            return Ok(chanegAdminSponsorID);
+        }
 
-        //[HttpPost("blockUserByAdmin")]
-        //public async Task<IActionResult> blockUserByAdmin(string authLogin)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} blockUserByAdmin");
-        //    var blockUserByAdmin = await _serviceManager.adminMasterService.blockUserByAdmin(authLogin);
-        //    return Ok(blockUserByAdmin);
-        //}
-       
         [HttpGet("userNameByLoginId")]
         public async Task<IActionResult> userNameByLoginId(string authLogin)
         {
@@ -59,6 +52,7 @@ namespace XoxoFX_Apis.AI.Controllers
             var userNameByLoginId = await _serviceManager.adminMasterService.userNameByLoginId(authLogin);
             return Ok(userNameByLoginId);
         }
+       
         [HttpPost("addCreditAndDebitFund")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> addCreditAndDebitFund(AdminManageFundViewModel adminManageFundViewModel)
@@ -75,13 +69,51 @@ namespace XoxoFX_Apis.AI.Controllers
             var returnData = await _serviceManager.adminMasterService.getUserWalletDetailsF(loginId);
             return Ok(returnData);
         }
-        //[HttpPost("downloadExcel")]
-        //public async Task<IActionResult> downloadExcel(AdminDownloadExcelViewModel adminDownloadExcelViewModel)
+        
+        [HttpPost("downloadExcel")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> downloadExcel(AdminDownloadExcelViewModel adminDownloadExcelViewModel)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} downloadExcel");
+            var downloadExcel = await _serviceManager.adminMasterService.downloadExcel(adminDownloadExcelViewModel);
+            return Ok(downloadExcel);
+        }
+
+        [HttpPost("getAccStatemtnt")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> getAccStatemtnt(accStateMent accStateMent)
+        {
+            _logger.logInfo($" {LoggingEvents.getAllItem} getAccStatemtnt");
+            var getAccStatemtnt = await _serviceManager.walletReportService.getAccStatemtnt(accStateMent);
+            return Ok(getAccStatemtnt);
+        }
+
+        [HttpPost("getGetLeaseStatement")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetGetLeaseStatement([FromBody] LeaseStatementViewModel leaseStatementViewModel)
+        {
+            _logger.logInfo($"{LoggingEvents.getByIdItem} getGetLeaseStatement");
+            var response = await _serviceManager.adminMasterService.getGetLeaseStatement(leaseStatementViewModel);
+            return Ok(response);
+        }
+        
+        [HttpPost("getTransType")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> getTransType(int? Type)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} getTransType");
+            var getTransType = await _serviceManager.walletReportService.getTransType(Type);
+            return Ok(getTransType);
+        }
+
+        //[HttpPost("blockUserByAdmin")]
+        //public async Task<IActionResult> blockUserByAdmin(string authLogin)
         //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} downloadExcel");
-        //    var downloadExcel = await _serviceManager.adminMasterService.downloadExcel(adminDownloadExcelViewModel);
-        //    return Ok(downloadExcel);
+        //    _logger.logInfo($" {LoggingEvents.getByIdItem} blockUserByAdmin");
+        //    var blockUserByAdmin = await _serviceManager.adminMasterService.blockUserByAdmin(authLogin);
+        //    return Ok(blockUserByAdmin);
         //}
+
 
         //[HttpPost("getNews")]
         //public async Task<IActionResult> getNews(NewsViewModel newsViewModel)
@@ -119,14 +151,6 @@ namespace XoxoFX_Apis.AI.Controllers
         //    _logger.logInfo($" {LoggingEvents.getByIdItem} blockUserByAdmin");
         //    var getLeaseAgent = await _serviceManager.adminMasterService.getLeaseAgent();
         //    return Ok(getLeaseAgent);
-        //}
-
-        //[HttpPost("getGetLeaseStatement")]
-        //public async Task<IActionResult> GetGetLeaseStatement([FromBody] LeaseStatementViewModel leaseStatementViewModel)
-        //{
-        //    _logger.logInfo($"{LoggingEvents.getByIdItem} getGetLeaseStatement");
-        //    var response = await _serviceManager.adminMasterService.getGetLeaseStatement(leaseStatementViewModel);
-        //    return Ok(response);
         //}
     }
 }

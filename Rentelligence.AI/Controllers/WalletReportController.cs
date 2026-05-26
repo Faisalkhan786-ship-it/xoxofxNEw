@@ -24,7 +24,7 @@ namespace XoxoFX_Apis.AI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-   
+
     public class WalletReportController : ControllerBase
     {
         private readonly IServiceManager _serviceManager;
@@ -75,7 +75,7 @@ namespace XoxoFX_Apis.AI.Controllers
             var getROIWalletWallerReport = await _serviceManager.walletReportService.getROIWalletWallerReport(rOIWalletReportViewModel);
             return Ok(getROIWalletWallerReport);
         }
-        
+
         [HttpPost("getWithdrawalHistory")]
         [Authorize(Roles = "User")]
         public async Task<IActionResult> getWithdrawalHistory(IncomeWithdrawalHistoryViewModel1 incomeWithdrawalHistoryViewModel)
@@ -93,15 +93,8 @@ namespace XoxoFX_Apis.AI.Controllers
             var getRewardStatusDashboard = await _serviceManager.walletReportService.getRewardStatusDashboard(URID);
             return Ok(getRewardStatusDashboard);
         }
-        //
-        [HttpPost("getAccStatemtnt")]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> getAccStatemtnt(accStateMent accStateMent)
-        {
-            _logger.logInfo($" {LoggingEvents.getByIdItem} appLogin");
-            var getIncomeWithdrawalHistory = await _serviceManager.walletReportService.getAccStatemtnt(accStateMent);
-            return Ok(getIncomeWithdrawalHistory);
-        }
+
+       
 
         [HttpPost("getTransactionHistory")]
         [Authorize(Roles = "User")]

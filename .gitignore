@@ -1,7 +1,26 @@
-.vs/
+# Build folders
 bin/
 obj/
+
+# Visual Studio
+.vs/
 *.user
 *.suo
-*.cache
+*.userosscache
+*.sln.docstates
+
+# Logs
 *.log
+
+# Publish
+publish/
+
+# Node modules (agar frontend hai)
+node_modules/
+
+# App secrets
+appsettings.Development.json
+
+# OS files
+.DS_Store
+Thumbs.db

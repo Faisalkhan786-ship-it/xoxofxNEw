@@ -121,7 +121,15 @@ namespace Rentelligence.AI.MarketPlace.Controllers
             var returnData = await _serviceManager.adminAuthenticationContract.getAllAdminList();
             return Ok(returnData);
         }
-        
+
+        [HttpPost("addBulkRegsitration")]
+        public async Task<IActionResult> addBulkRegsitration(BulkRegsitrationViewModel bulkRegsitrationViewModel)
+        {
+            _logger.logInfo($" {LoggingEvents.addItem} addBulkRegsitration");
+            var add = await _serviceManager.adminAuthenticationContract.addBulkRegsitration(bulkRegsitrationViewModel);
+            return Ok(add);
+        }
+
     }
 }
 
@@ -144,13 +152,7 @@ namespace Rentelligence.AI.MarketPlace.Controllers
 //    return Ok(returnData);
 //}
 
-//[HttpPost("addBulkRegsitration")]
-//public async Task<IActionResult> addBulkRegsitration(BulkRegsitrationViewModel bulkRegsitrationViewModel)
-//{
-//    _logger.logInfo($" {LoggingEvents.updateItem} addBulkRegsitration");
-//    var addBulkRegsitration = await _serviceManager.adminAuthenticationContract.addBulkRegsitration(bulkRegsitrationViewModel);
-//    return Ok(addBulkRegsitration);
-//}
+
 
 
 //[HttpPost("adminForgotPassword")]

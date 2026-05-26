@@ -46,6 +46,8 @@ namespace ServiceContract
         public Task<ResponseViewModel> getRewardStatusDashboard(Guid URID);
         public Task<ResponseViewModel> downLineTree_Details_fourlvl(Guid URID);
         public Task<ResponseViewModel> getReferalink(string Authlogin);
+        public Task<ResponseViewModel> getTransType(int? Type);
+
 
     }
 }
