@@ -91,6 +91,7 @@ namespace Common
         public static string getUserDashboardDetails = "SpGetUserDashboardDetails";
         public static string userSummaryDetails = "SpGetUserSummaryDetails";
         public static string referalLink = "spGetReferalLink";
+        public static string getNetworkTree = "SpGetNetworkTree";
 
         //------------END
 
@@ -191,8 +192,7 @@ namespace Common
         public static string adminUserLogin = "SpAdminUserLogin";
         public static string directMemberSearch = "SpDirectMemberSearch";
         public static string spGetAllUserRegitration = "SpGetAllUserRegitration";
-        public static string getUserNameByEmailId = "SpGetUserNameByEmailId";
-        public static string getNetworkTree = "SpGetNetworkTree";
+        public static string getUserNameByEmailId = "SpGetUserNameByEmailId";     
         public static string agentLeaseCredit = "GetAgentLeaseCredit";
         public static string getRechargeTransaction_ByTId = "SpGetRechargeTransaction_ByTId";
         public static string getRentWalletByURID = "SpGetRentWalletByURID";

@@ -132,6 +132,13 @@ namespace XoxoFX_Apis.AI.Controllers
             return Ok(getReferalink);
         }
 
+        [HttpPost("getNetworkTree")]
+        public async Task<IActionResult> getNetworkTree(string authlogin)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} getNetworkTree");
+            var getRentWalletByURID = await _serviceManager.walletReportService.getNetworkTree(authlogin);
+            return Ok(getRentWalletByURID);
+        }
 
         //[HttpPost("getRechargeTransactByTId")]
         //public async Task<IActionResult> getRechargeTransactByTId(Guid URID)
@@ -157,13 +164,6 @@ namespace XoxoFX_Apis.AI.Controllers
         //    return Ok(getRentWalletByURID);
         //}
 
-        //[HttpPost("getNetworkTree")]
-        //public async Task<IActionResult> getNetworkTree(string authlogin)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} appLogin");
-        //    var getRentWalletByURID = await _serviceManager.walletReportService.getNetworkTree(authlogin);
-        //    return Ok(getRentWalletByURID);
-        //}
 
         //[HttpPost("getRentWalletWallerReport")]
         //// [Authorize]
