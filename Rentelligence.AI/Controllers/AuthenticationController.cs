@@ -233,7 +233,7 @@ namespace XoxoFX_Apis.AI.Controllers
         //    _logger.logInfo($" {LoggingEvents.getByIdItem} appLogin");
         //    var loginDetails = await _serviceManager.authenticationContract.GetAllUserRegitration();
         //    return Ok(loginDetails);
-        //}
+        ///}
 
 
 
