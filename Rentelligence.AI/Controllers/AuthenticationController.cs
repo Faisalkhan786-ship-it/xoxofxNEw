@@ -38,7 +38,6 @@ namespace XoxoFX_Apis.AI.Controllers
             public string Username { get; set; }
             public string Role { get; set; }
         }
-
         public static class Roles
         {
             public const string Admin = "Admin";
@@ -226,17 +225,6 @@ namespace XoxoFX_Apis.AI.Controllers
             return Ok(getByRefreralId);
         }
 
-        //[HttpGet("getAllUserRegitration")]
-        //[Authorize(Roles = "Admin")]
-        //public async Task<IActionResult> getAllUserRegitration()
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} appLogin");
-        //    var loginDetails = await _serviceManager.authenticationContract.GetAllUserRegitration();
-        //    return Ok(loginDetails);
-        ///}
-
-
-
         [HttpGet("userDashboardDetails")]
         [Authorize(Roles = "User")]
         public async Task<IActionResult> userDashboardDetails(Guid URID)
@@ -246,8 +234,6 @@ namespace XoxoFX_Apis.AI.Controllers
             return Ok(UserDashboardDetails);
         }
        
- 
-
         [HttpPost("validateOtp")]
         public async Task<IActionResult> validateOtp(ValidateOtpViewModel validateOtpViewModel)
         {
@@ -256,24 +242,7 @@ namespace XoxoFX_Apis.AI.Controllers
             return Ok(loginDetails);
 
         }
-
-
-        //[HttpGet("userAffiliateDashboard")]
-        //[Authorize]
-        //public async Task<IActionResult> userAffiliateDashboard(Guid URID)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} UserDashboardDetails");
-        //    var UserDashboardDetails = await _serviceManager.authenticationContract.UserUserRentelligenceDashboard(URID);
-        //    return Ok(UserDashboardDetails);
-        //}
-
-        //[HttpGet("getLBRank")]
-        //public async Task<IActionResult> getLBRank()
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} UserDashboardDetails");
-        //    var UserDashboardDetails = await _serviceManager.authenticationContract.getLBRank();
-        //    return Ok(UserDashboardDetails);
-        //}
+             
 
         [HttpPost("sendOtpFundRequest")]
         public async Task<IActionResult> sendOtpFundTransfer(SendOtpFundRequestViewModel sendOtp)
@@ -336,7 +305,6 @@ namespace XoxoFX_Apis.AI.Controllers
         }
 
 
-
         [HttpGet("userSummaryDetails")]
         [Authorize(Roles = "User")]
         public async Task<IActionResult> userSummaryDetails(Guid URID)
@@ -345,6 +313,34 @@ namespace XoxoFX_Apis.AI.Controllers
             var UserSummaryDetails = await _serviceManager.authenticationContract.UserSummaryDetails(URID);
             return Ok(UserSummaryDetails);
         }
+
+
+
+        //[HttpGet("getAllUserRegitration")]
+        //[Authorize(Roles = "Admin")]
+        //public async Task<IActionResult> getAllUserRegitration()
+        //{
+        //    _logger.logInfo($" {LoggingEvents.getByIdItem} appLogin");
+        //    var loginDetails = await _serviceManager.authenticationContract.GetAllUserRegitration();
+        //    return Ok(loginDetails);
+        ///}
+
+        //[HttpGet("userAffiliateDashboard")]
+        //[Authorize]
+        //public async Task<IActionResult> userAffiliateDashboard(Guid URID)
+        //{
+        //    _logger.logInfo($" {LoggingEvents.getByIdItem} UserDashboardDetails");
+        //    var UserDashboardDetails = await _serviceManager.authenticationContract.UserUserRentelligenceDashboard(URID);
+        //    return Ok(UserDashboardDetails);
+        //}
+
+        //[HttpGet("getLBRank")]
+        //public async Task<IActionResult> getLBRank()
+        //{
+        //    _logger.logInfo($" {LoggingEvents.getByIdItem} UserDashboardDetails");
+        //    var UserDashboardDetails = await _serviceManager.authenticationContract.getLBRank();
+        //    return Ok(UserDashboardDetails);
+        //}
 
         //    [HttpGet("getAgentAnalyticsUser")]
         //    [Authorize]
@@ -355,27 +351,6 @@ namespace XoxoFX_Apis.AI.Controllers
         //        return Ok(getAgentAnalyticsUser);
         //    }
 
-        //   [Authorize]
-        //    [HttpPost("sendOtpEvent")]
-        //    public async Task<IActionResult> sendOtpEvent(SendOtpFundRequestViewModel sendOtp)
-        //    {
-        //        try
-        //        {
-        //            _logger.logInfo($"{LoggingEvents.getByIdItem} sendOtpEvent");
-
-        //            var loginDetails = await _serviceManager.authenticationContract.sendOtpEvent(sendOtp);
-        //            if (loginDetails.statusCode == 200)
-        //            {
-        //                loginDetails.message = "OTP Send Your Regsiterd Email successfully.";
-        //            }
-
-        //            return Ok(loginDetails);
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            return StatusCode(500, new { message = "Something went wrong.", error = ex.Message });
-        //        }
-        //    }
     }
 }
 
