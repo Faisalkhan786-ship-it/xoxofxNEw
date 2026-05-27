@@ -12,7 +12,7 @@ namespace XoxoFX_Apis.AI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "User")]
+   
     public class CommunityController : ControllerBase
     {
 
@@ -38,6 +38,8 @@ namespace XoxoFX_Apis.AI.Controllers
             return Ok(returnData);
         }
         [HttpGet("getdownLineTreeDetails")]
+        [Authorize(Roles = "User")]
+
         public async Task<IActionResult> getdownLineTreeDetails(Guid URID)
         {
             _logger.logInfo($" {LoggingEvents.getByIdItem} getdownLineTreeDetails");
@@ -46,6 +48,8 @@ namespace XoxoFX_Apis.AI.Controllers
         }
 
         [HttpPost("getDownlineLeftRightCount")]
+        [Authorize(Roles = "User")]
+
         public async Task<IActionResult> getDownlineLeftRightCount(DownlineLeftRightCountViewModel downlineLeftRightCountViewModel)
         {
             _logger.logInfo($" {LoggingEvents.getByIdItem} getDownlineLeftRightCount");
@@ -54,6 +58,7 @@ namespace XoxoFX_Apis.AI.Controllers
         }
 
         [HttpPost("getLeftRightdownline")]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> getLeftRightdownline(LeftRightdownlineTeamViewModel leftRightdownlineTeamViewModel)
         {
             _logger.logInfo($" {LoggingEvents.getByIdItem} getLeftRightdownline");
@@ -61,13 +66,13 @@ namespace XoxoFX_Apis.AI.Controllers
             return Ok(getLeftRightdownline);
         }
 
-        //[HttpPost("getPersonalTeam")]
-        //public async Task<IActionResult> getPersonalTeam(PersonalTeamViewModel PersonalTeamViewModel)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.updateItem} personalTeam");
-        //    var returnData = await _serviceManager.communityContract.GetPersonalTeam(PersonalTeamViewModel);
-        //    return Ok(returnData);
-        //}
+        [HttpPost("getPersonalTeam")]
+        public async Task<IActionResult> getPersonalTeam(PersonalTeamViewModel PersonalTeamViewModel)
+        {
+            _logger.logInfo($" {LoggingEvents.updateItem} personalTeam");
+            var returnData = await _serviceManager.communityContract.GetPersonalTeam(PersonalTeamViewModel);
+            return Ok(returnData);
+        }
 
         //[HttpPost("getPersonalTeamList")]
         //public async Task<IActionResult> getPersonalTeamList(PersonalTeamReportViewModel personalTeamReportViewModel)

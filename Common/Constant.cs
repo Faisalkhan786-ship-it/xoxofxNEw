@@ -188,6 +188,7 @@ namespace Common
         public static string spChangeSponsorID = "SpChangeSponsorID";
         public static string sPDownloadExcel = "SPDownloadExcel";
         public static string searchAllUsers = "SpSearchAllUsers";
+        public static string directMemberSearch = "SpDirectMemberSearch";
 
         //---------------End
 
@@ -196,7 +197,6 @@ namespace Common
 
         public static string SpGetAllWalletHistory = "SpGetAllWalletHistory";
         public static string adminUserLogin = "SpAdminUserLogin";
-        public static string directMemberSearch = "SpDirectMemberSearch";
         public static string spGetAllUserRegitration = "SpGetAllUserRegitration";
         public static string getUserNameByEmailId = "SpGetUserNameByEmailId";     
         public static string agentLeaseCredit = "GetAgentLeaseCredit";
