@@ -18,7 +18,7 @@ namespace RepositoryContract
         public Task<ResponseViewModel> getRechargeTransact(Guid URID);
         public Task<ResponseViewModel> getRentWalletByURID(Guid URID);
         public Task<ResponseViewModel> getRentWalletWallerReport(RentWalletReportViewModel rentWalletReportViewModel);
-        public Task<ResponseViewModel> getleaderShipURID(Guid URID);
+        public Task<ResponseViewModel> getRankAchievementbyURID(Guid URID);
         public Task<ResponseViewModel> getPerformanceRewardList(Guid URID);
         public Task<ResponseViewModel> getTransactionHistory(IncomeWithdrawalHistoryViewModel incomeWithdrawalHistoryViewModel);
         public Task<ResponseViewModel> getNetworkTree(string authlogin);

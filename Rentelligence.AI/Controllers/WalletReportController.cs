@@ -132,7 +132,23 @@ namespace XoxoFX_Apis.AI.Controllers
             var getRentWalletByURID = await _serviceManager.walletReportService.getNetworkTree(authlogin);
             return Ok(getRentWalletByURID);
         }
+        [HttpPost("getPerformanceRewardListByURID")]
+         //[Authorize]
+        public async Task<IActionResult> getPerformanceRewardListByURID(Guid URID)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} getLeaderShipbyURID");
+            var getLeaderShipbyURID = await _serviceManager.walletReportService.getPerformanceRewardList(URID);
+            return Ok(getLeaderShipbyURID);
+        }
 
+        [HttpPost("getRankAchievementbyURID")]
+        //[Authorize]
+        public async Task<IActionResult> getRankAchievementbyURID(Guid URID)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} getRankAchievementbyURID");
+            var getRankAchievementbyURID = await _serviceManager.walletReportService.getRankAchievementbyURID(URID);
+            return Ok(getRankAchievementbyURID);
+        }
         //[HttpPost("getRechargeTransactByTId")]
         //public async Task<IActionResult> getRechargeTransactByTId(Guid URID)
         //{
@@ -167,24 +183,7 @@ namespace XoxoFX_Apis.AI.Controllers
         //    return Ok(getRentWalletWallerReport);
         //}
 
-        //[HttpPost("getLeaderShipbyURID")]
-        //[Authorize]
-        //public async Task<IActionResult> getLeaderShipbyURID(Guid URID)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} getLeaderShipbyURID");
-        //    var getLeaderShipbyURID = await _serviceManager.walletReportService.getleaderShipURID(URID);
-        //    return Ok(getLeaderShipbyURID);
-        //}
-
-        //[HttpPost("getPerformanceRewardListByURID")]
-        ////  [Authorize]
-        //public async Task<IActionResult> getPerformanceRewardListByURID(Guid URID)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} getLeaderShipbyURID");
-        //    var getLeaderShipbyURID = await _serviceManager.walletReportService.getPerformanceRewardList(URID);
-        //    return Ok(getLeaderShipbyURID);
-        //}
-
+        
 
         //[HttpPost("getTransactionHistory")]
         //// [Authorize]

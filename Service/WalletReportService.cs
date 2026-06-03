@@ -61,9 +61,9 @@ namespace Service
             return getRentWalletWallerReport;
         }
 
-        public async Task<ResponseViewModel> getleaderShipURID(Guid URID)
+        public async Task<ResponseViewModel> getRankAchievementbyURID(Guid URID)
         {
-            var getleaderShipURID = await _repositoryManager.walletReportRepository.getleaderShipURID(URID);
+            var getleaderShipURID = await _repositoryManager.walletReportRepository.getRankAchievementbyURID(URID);
             return getleaderShipURID;
         }
         public async Task<ResponseViewModel> getPerformanceRewardList(Guid URID)

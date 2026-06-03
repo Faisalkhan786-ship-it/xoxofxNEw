@@ -58,7 +58,7 @@ namespace XoxoFX_Apis.AI.Controllers
         }
 
         [HttpPost("getLeftRightdownline")]
-        [Authorize(Roles = "User")]
+        //[Authorize(Roles = "User")]
         public async Task<IActionResult> getLeftRightdownline(LeftRightdownlineTeamViewModel leftRightdownlineTeamViewModel)
         {
             _logger.logInfo($" {LoggingEvents.getByIdItem} getLeftRightdownline");

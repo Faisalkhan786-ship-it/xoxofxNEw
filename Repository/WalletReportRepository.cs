@@ -486,9 +486,9 @@ namespace Repository
             }
         }
 
-        public async Task<ResponseViewModel> getleaderShipURID(Guid URID)
+        public async Task<ResponseViewModel> getRankAchievementbyURID(Guid URID)
         {
-            var incomeProc = Constant.get_Diff_Rank_LeaderShip;
+            var incomeProc = Constant.getRankAchievementbyURID;
 
             var parameters = new DynamicParameters();
             parameters.Add("@URID", URID, DbType.Guid);

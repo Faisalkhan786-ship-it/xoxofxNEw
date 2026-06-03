@@ -202,11 +202,11 @@ namespace Common
         public static string agentLeaseCredit = "GetAgentLeaseCredit";
         public static string getRechargeTransaction_ByTId = "SpGetRechargeTransaction_ByTId";
         public static string getRentWalletByURID = "SpGetRentWalletByURID";
-        public static string get_Diff_Rank_LeaderShip = "SPGet_Diff_Rank_LeaderShip";
+        public static string getRankAchievementbyURID = "nspGetRankAchievement";
         public static string getUser_WalletBalance = "SpGetUser_WalletBalance";
         public static string recDetails_ByTId = "SpGetRecDetails_ByTId";
         public static string getSingleLeg_Report = "SpGetSingleLeg_Report";
-        public static string getPerformanceRewardList = "SPGetPerformanceRewardList";
+        public static string getPerformanceRewardList = "nspGetRewardStatus";
         public static string bindBuyPackage = "SPBindBuyPackage";
         public static string getUserUnseenNotiCount = "SpGetUserUnseenNotiCount";
         public static string updateUserNotiSeenStatus = "SpUpdateUserNotiSeenStatus";

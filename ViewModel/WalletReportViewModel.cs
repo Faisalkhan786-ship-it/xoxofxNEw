@@ -34,7 +34,7 @@ namespace ViewModel
         public Guid URID { get; set; }
         public string? transtype { get; set; }
     }
-
+    
     public class IncomeWithdrawalHistoryViewModel1
     {
         public Guid URID { get; set; }
@@ -122,5 +122,6 @@ namespace ViewModel
         public int? kid { get; set; }
         public String? fromdate { get; set; }
         public String? toDate { get; set; }
+        public String? Authlogin { get; set; }
     }
 }
