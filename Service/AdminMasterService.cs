@@ -29,7 +29,11 @@ namespace Service
         }
 
 
-
+        public async Task<ResponseViewModel> chanegAdminlvl(AdminChangelvlViewModel adminChangelvlViewModel)
+        {
+            var chanegAdminlvl = await _repositoryManager.adminMasterRepository.chanegAdminlvl(adminChangelvlViewModel);
+            return chanegAdminlvl;
+        }
         public async Task<ResponseViewModel> chanegAdminPassword(AdminMasterViewModel adminMasterViewModel)
         {
             var chanegAdminPassword = await _repositoryManager.adminMasterRepository.chanegAdminPassword(adminMasterViewModel);

@@ -12,6 +12,10 @@ namespace ViewModel
         public string? OldPassword { get; set; }
         public string? NewPassword { get; set; }
     }
+    public class AdminChangelvlViewModel
+    {
+        public string AuthLogin { get; set; }
+    }
     public class AdminChangeSponsorIdViewModel
     {
         public string AuthLogin { get; set; }

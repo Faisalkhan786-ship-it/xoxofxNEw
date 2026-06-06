@@ -21,6 +21,39 @@ namespace Repository
         {
             _dapperContext = dapperContext;
         }
+       
+        public async Task<ResponseViewModel> chanegAdminlvl(AdminChangelvlViewModel adminChangelvlViewModel)
+        {
+            var procedureName = Constant.updateLvl;
+            var parameters = new DynamicParameters();
+            parameters.Add("@authLogin", adminChangelvlViewModel.AuthLogin, DbType.String);
+
+            using (var connection = _dapperContext.createConnection())
+            {
+                var result = await connection.QueryAsync<SponsorUpdateResponse>(
+                    procedureName, parameters, commandType: CommandType.StoredProcedure);
+
+                if (result != null && result.Any())
+                {
+                    var validation = result.First();
+                    return new ResponseViewModel
+                    {
+                        statusCode = validation.statusCode == 1 ? (int)HttpStatusCode.OK : (int)HttpStatusCode.Conflict,
+                        message = validation.message,
+                        data = validation.statusCode == 1 ? result : null
+                    };
+                }
+                else
+                {
+                    return new ResponseViewModel
+                    {
+                        statusCode = (int)HttpStatusCode.NotFound,
+                        message = "Something went wrong with the server."
+                    };
+                }
+            }
+        }
+
         public async Task<ResponseViewModel> addCreditAndDebitFund(AdminManageFundViewModel adminManageFundViewModel)
         {
             var procedureName = Constant.spFundFromAdmin;

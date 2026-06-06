@@ -183,7 +183,7 @@ namespace XoxoFX_Apis.AI.Controllers
         //    return Ok(getRentWalletWallerReport);
         //}
 
-        
+
 
         //[HttpPost("getTransactionHistory")]
         //// [Authorize]
@@ -223,91 +223,90 @@ namespace XoxoFX_Apis.AI.Controllers
         //    return Ok(getAllWalletHistory);
         //}
 
-        //[HttpPost("getRechargeTransactionAdmin")]
-        ////  [Authorize]
-        //public async Task<IActionResult> getRechargeTransactionAdmin(RechargeTransactionAdminViewModel rechargeTransactionAdminViewModel)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} appLogin");
-        //    var getRechargeTransactionAdmin = await _serviceManager.walletReportService.getRechargeTransactionAdmin(rechargeTransactionAdminViewModel);
-        //    return Ok(getRechargeTransactionAdmin);
-        //}
-        //[HttpPost("addRechargeTransactionAdmin")]
-        ////  [Authorize]
-        //public async Task<IActionResult> addRechargeTransactionAdmin(AddRechargeTransactionAdminViewModel addRechargeTransactionAdminViewModel)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} addRechargeTransactionAdmin");
-        //    var addRechargeTransactionAdmin = await _serviceManager.walletReportService.addRechargeTransactionAdmin(addRechargeTransactionAdminViewModel);
-        //    return Ok(addRechargeTransactionAdmin);
-        //}
+        [HttpPost("getRechargeTransactionAdmin")]
+        public async Task<IActionResult> getRechargeTransactionAdmin(RechargeTransactionAdminViewModel rechargeTransactionAdminViewModel)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} appLogin");
+            var getRechargeTransactionAdmin = await _serviceManager.walletReportService.getRechargeTransactionAdmin(rechargeTransactionAdminViewModel);
+            return Ok(getRechargeTransactionAdmin);
+        }
+
+        [HttpPost("addRechargeTransactionAdmin")]
+        public async Task<IActionResult> addRechargeTransactionAdmin(AddRechargeTransactionAdminViewModel addRechargeTransactionAdminViewModel)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} addRechargeTransactionAdmin");
+            var addRechargeTransactionAdmin = await _serviceManager.walletReportService.addRechargeTransactionAdmin(addRechargeTransactionAdminViewModel);
+            return Ok(addRechargeTransactionAdmin);
+        }
 
 
-        //[HttpPost("getBindBuyPackageList")]
+        [HttpPost("getBindBuyPackageList")]
         //[Authorize]
-        //public async Task<IActionResult> getBindBuyPackageList(Guid URID)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} getBindBuyPackageList");
-        //    var getBindBuyPackageList = await _serviceManager.walletReportService.getBindBuyPackageList(URID);
-        //    return Ok(getBindBuyPackageList);
-        //}
-        //[HttpPost("getSingleLeg_Report")]
+        public async Task<IActionResult> getBindBuyPackageList(Guid URID)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} getBindBuyPackageList");
+            var getBindBuyPackageList = await _serviceManager.walletReportService.getBindBuyPackageList(URID);
+            return Ok(getBindBuyPackageList);
+        }
+        [HttpPost("getSingleLeg_Report")]
+        [Authorize]
+        public async Task<IActionResult> getSingleLeg_Report(String AuthLogin)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} getSingleLeg_Report");
+            var getSingleLeg_Report = await _serviceManager.walletReportService.getSingleLeg_Report(AuthLogin);
+            return Ok(getSingleLeg_Report);
+        }
+        [HttpPost("getUserAllWalletBalance")]
+        [Authorize]
+        public async Task<IActionResult> getUserAllWalletBalance(Guid URID)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} getUserAllWalletBalance");
+            var getUserAllWalletBalance = await _serviceManager.walletReportService.getUserAllWalletBalance(URID);
+            return Ok(getUserAllWalletBalance);
+        }
+
+
+
+        [HttpPost("getSettings")]
         //[Authorize]
-        //public async Task<IActionResult> getSingleLeg_Report(String AuthLogin)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} getSingleLeg_Report");
-        //    var getSingleLeg_Report = await _serviceManager.walletReportService.getSingleLeg_Report(AuthLogin);
-        //    return Ok(getSingleLeg_Report);
-        //}
-        //[HttpPost("getUserAllWalletBalance")]
-        //[Authorize]
-        //public async Task<IActionResult> getUserAllWalletBalance(Guid URID)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} getUserAllWalletBalance");
-        //    var getUserAllWalletBalance = await _serviceManager.walletReportService.getUserAllWalletBalance(URID);
-        //    return Ok(getUserAllWalletBalance);
-        //}
+        public async Task<IActionResult> getSettings()
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} getSettings");
+            var getSettings = await _serviceManager.walletReportService.getSettings();
+            return Ok(getSettings);
+        }
 
+        [HttpPost("updateSettings")]
+        // [Authorize]
+        public async Task<IActionResult> updateSettings(updateSettingsViewModel updateSettingsViewModel)
+        {
+            _logger.logInfo($" {LoggingEvents.updateItem} updateSettings");
+            var update = await _serviceManager.walletReportService.updateSettings(updateSettingsViewModel);
+            return Ok(update);
+        }
 
+        [HttpPost("getUplineTeamList")]
+        public async Task<IActionResult> getUplineTeamList(string authlogin)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} getUplineTeamList");
+            var getUplineTeamList = await _serviceManager.walletReportService.getUplineTeamList(authlogin);
+            return Ok(getUplineTeamList);
+        }
 
-        //[HttpPost("getSettings")]
-        ////[Authorize]
-        //public async Task<IActionResult> getSettings()
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} getSettings");
-        //    var getSettings = await _serviceManager.walletReportService.getSettings();
-        //    return Ok(getSettings);
-        //}
+        [HttpPost("userSearchBindBuyPackage")]
+        public async Task<IActionResult> userSearchBindBuyPackage(string AuthLogin)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} userSearchBindBuyPackage");
+            var userSearchBindBuyPackage = await _serviceManager.walletReportService.userSearchBindBuyPackage(AuthLogin);
+            return Ok(userSearchBindBuyPackage);
+        }
 
-        //[HttpPost("updateSettings")]
-        //// [Authorize]
-        //public async Task<IActionResult> updateSettings(updateSettingsViewModel updateSettingsViewModel)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.updateItem} updateSettings");
-        //    var update = await _serviceManager.walletReportService.updateSettings(updateSettingsViewModel);
-        //    return Ok(update);
-        //}
-
-        //[HttpPost("getUplineTeamList")]
-        //public async Task<IActionResult> getUplineTeamList(string authlogin)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} getUplineTeamList");
-        //    var getUplineTeamList = await _serviceManager.walletReportService.getUplineTeamList(authlogin);
-        //    return Ok(getUplineTeamList);
-        //}
-
-        //[HttpPost("userSearchBindBuyPackage")]
-        //public async Task<IActionResult> userSearchBindBuyPackage(string AuthLogin)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} userSearchBindBuyPackage");
-        //    var userSearchBindBuyPackage = await _serviceManager.walletReportService.userSearchBindBuyPackage(AuthLogin);
-        //    return Ok(userSearchBindBuyPackage);
-        //}
-
-        //[HttpPost("getSalaryRankList")]
-        //public async Task<IActionResult> getSalaryRankList(Guid URID)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} getSalaryRankList");
-        //    var getSalaryRankList = await _serviceManager.walletReportService.getSalaryRankList(URID);
-        //    return Ok(getSalaryRankList);
-        //}
+        [HttpPost("getSalaryRankList")]
+        public async Task<IActionResult> getSalaryRankList(Guid URID)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} getSalaryRankList");
+            var getSalaryRankList = await _serviceManager.walletReportService.getSalaryRankList(URID);
+            return Ok(getSalaryRankList);
+        }
     }
 }

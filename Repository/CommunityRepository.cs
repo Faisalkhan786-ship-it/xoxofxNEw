@@ -362,7 +362,7 @@ namespace Repository
             parameters.Add("@kid", leftRightdownlineTeamViewModel.kid, DbType.Int32);
             parameters.Add("@dt_from", leftRightdownlineTeamViewModel.fromdate, DbType.String);
             parameters.Add("@dt_to", leftRightdownlineTeamViewModel.toDate, DbType.String);
-            parameters.Add("@Loginid", leftRightdownlineTeamViewModel.Authlogin, DbType.String);
+            //parameters.Add("@Loginid", leftRightdownlineTeamViewModel.Authlogin, DbType.String);
 
             using (var connection = _dapperContext.createConnection())
             {

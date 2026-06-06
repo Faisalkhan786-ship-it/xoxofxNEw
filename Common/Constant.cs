@@ -16,6 +16,8 @@ namespace Common
         public static string getAdminDashboardDetails = "SpGetAdminDashboardDetails";
         public static string spGetAllAdminList = "SpGetAllAdminList";
         public static string getTransType = "SpGetTransType";
+        public static string updateLvl = "spUpdateLvl";
+
 
 
         //----------------END

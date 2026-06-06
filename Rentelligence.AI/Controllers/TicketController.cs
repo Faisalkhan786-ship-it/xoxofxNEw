@@ -95,37 +95,37 @@ namespace XoxoFX_Apis.AI.Controllers
         }
 
 
-        //[HttpPost("getUserNotificationListbyURID")]
-        
-        //[Authorize(Roles = "User")]
-        //public async Task<IActionResult> getUserNotificationListbyURID(Guid URID)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} getLeaderShipbyURID");
-        //    var getLeaderShipbyURID = await _serviceManager.ticketService.getUserNotificationList(URID);
-        //    return Ok(getLeaderShipbyURID);
-        //}
-      
-        //[HttpPost("updateUserNotification")]
-        //[Authorize(Roles = "User")]
-        //public async Task<IActionResult> updateUserNotification(Guid URID)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} getLeaderShipbyURID");
-        //    var getLeaderShipbyURID = await _serviceManager.ticketService.updateUserNotiSeenStatus(URID);
-        //    return Ok(getLeaderShipbyURID);
-        //}
+        [HttpPost("getUserNotificationListbyURID")]
 
-        //[HttpPost("getAllUserNotificationList")]
-        //[Authorize(Roles = "User")]
-        //public async Task<IActionResult> getAllUserNotificationList(Guid URID)
-        //{
-        //    _logger.logInfo($" {LoggingEvents.getByIdItem} getLeaderShipbyURID");
-        //    var getLeaderShipbyURID = await _serviceManager.ticketService.getAllUserNotificationList(URID);
-        //    return Ok(getLeaderShipbyURID);
-        //}
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> getUserNotificationListbyURID(Guid URID)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} getUserNotificationListbyURID");
+            var getUserNotificationListbyURID = await _serviceManager.ticketService.getUserNotificationList(URID);
+            return Ok(getUserNotificationListbyURID);
+        }
+
+        [HttpPost("updateUserNotification")]
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> updateUserNotification(Guid URID)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} getLeaderShipbyURID");
+            var getLeaderShipbyURID = await _serviceManager.ticketService.updateUserNotiSeenStatus(URID);
+            return Ok(getLeaderShipbyURID);
+        }
+
+        [HttpPost("getAllUserNotificationList")]
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> getAllUserNotificationList(Guid URID)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} getAllUserNotificationList");
+            var getLeaderShipbyURID = await _serviceManager.ticketService.getAllUserNotificationList(URID);
+            return Ok(getLeaderShipbyURID);
+        }
 
         //[HttpPost("addExpoTokens")]
         //public async Task<IActionResult> addExpoTokens(AddExpoTokensViewModel addExpoTokensViewModel)
-        //{            
+        //{
         //    var addExpoTokens = await _serviceManager.ticketService.addExpoTokens(addExpoTokensViewModel);
         //    return Ok(addExpoTokens);
         //}

@@ -122,6 +122,6 @@ namespace ViewModel
         public int? kid { get; set; }
         public String? fromdate { get; set; }
         public String? toDate { get; set; }
-        public String? Authlogin { get; set; }
+        //public String? Authlogin { get; set; }
     }
 }

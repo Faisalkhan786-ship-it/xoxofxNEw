@@ -105,7 +105,13 @@ namespace XoxoFX_Apis.AI.Controllers
             var getTransType = await _serviceManager.walletReportService.getTransType(Type);
             return Ok(getTransType);
         }
-
+        [HttpPost("updatelvlAdmin")]
+        public async Task<IActionResult> updatelvlAdmin(AdminChangelvlViewModel adminChangelvlViewModel)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} chanegAdminlvl");
+            var chanegAdminlvl = await _serviceManager.adminMasterService.chanegAdminlvl(adminChangelvlViewModel);
+            return Ok(chanegAdminlvl);
+        }
         //[HttpPost("blockUserByAdmin")]
         //public async Task<IActionResult> blockUserByAdmin(string authLogin)
         //{
