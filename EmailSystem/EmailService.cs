@@ -40,7 +40,8 @@ namespace EmailSystem
                     Port = 587,
                     EnableSsl = true,
                     DeliveryMethod = SmtpDeliveryMethod.Network,
-                    Credentials = new NetworkCredential("AKIAUHKMWX7RB4RJ72MG", "BHdwy2xUY3HkrXxtAYM5UK+dhBaMg5PXHK9awpnYOZom")
+                    //Credentials = new NetworkCredential("AKIAUHKMWX7RB4RJ72MG", "BHdwy2xUY3HkrXxtAYM5UK+dhBaMg5PXHK9awpnYOZom")
+                    Credentials = new NetworkCredential("AKIAUHKMWX7RHYDFWWLA", "BJbpEOEfUH66OE+EtQaLNQRZtHb7cGsfEvOijckMGa/1")
                 };
 
                 smtp.Send(Email);
