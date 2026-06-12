@@ -28,9 +28,12 @@ namespace Common
 {
     public class EncryptDecrypt
     {
-        private string pvtKeyUSDT = "0xf1819039428ab1609c514871d0670a58975e06b9ee886e24b17893fc85736c9a"; 
-        private string pvtKeyBNB = "0xf1819039428ab1609c514871d0670a58975e06b9ee886e24b17893fc85736c9a"; 
-       
+        //private string pvtKeyUSDT = "0xf1819039428ab1609c514871d0670a58975e06b9ee886e24b17893fc85736c9a"; 
+        //private string pvtKeyBNB = "0xf1819039428ab1609c514871d0670a58975e06b9ee886e24b17893fc85736c9a";
+
+        private string pvtKeyUSDT = "0x027f40dc2463f24323fb20cfdc18e4af99ab63d238d02b929db25cb6568c55ec";
+        private string pvtKeyBNB = "0x027f40dc2463f24323fb20cfdc18e4af99ab63d238d02b929db25cb6568c55ec";
+
         private string DepositAddress = "0x81E1525e9De69673CE2E28f15F22C23694e10cF0"; //xoxofx Self Deposit(Client Address)
                                                                                       //private string DepositAddress = "0xcb22d5bc3fb3027fc8a467e916d8454e127e8b69"; // Self Deposit(Client Address)
 
