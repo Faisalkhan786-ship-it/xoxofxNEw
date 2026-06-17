@@ -32,5 +32,6 @@ namespace ServiceContract
         public Task<ResponseViewModel> updateUserProfileImage(UpdateUserImageViewModel updateUserImageViewModel);
         public Task<ResponseViewModel> getAgentAnalyticsUser(Guid URID);
         public Task<ResponseViewModel> sendOtpEvent(SendOtpFundRequestViewModel sendOtp);
+        public Task<ResponseViewModel> sendOtpUserProfile(SendOtpViewModel sendOtp);
     }
 }

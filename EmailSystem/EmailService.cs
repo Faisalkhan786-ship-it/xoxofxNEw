@@ -116,7 +116,7 @@ namespace EmailSystem
         }
 
         //-----------------Send OTP User Registration
-        public void SendOtpEmailForUser(string otp, string emailId, int actionType = 1, string purpose = "Arbion")
+        public void SendOtpEmailForUser(string otp, string emailId, int actionType = 1, string purpose = "XoxoFX")
         {
             try
             {
@@ -319,7 +319,7 @@ namespace EmailSystem
                 string userName = "XOXOFX  User";
                 string emailTo = emailId?.Trim();
 
-                string subject = "Arbion Password Reset Details";
+                string subject = "XoxoFX Password Reset Details";
 
                 StringBuilder html = new StringBuilder();
 
@@ -375,6 +375,95 @@ namespace EmailSystem
         }
 
 
+
+        //profile Update 
+        public void SendOtpEmailUserProfileUpdate(string otp, string emailId, string name, int actionType = 1, string purpose = "XOXOFX")
+        {
+            try
+            {
+                string subject = "One-Time Passcode (OTP)";                               
+                string body = $@"
+<div style='max-width:600px;margin:auto;font-family:Arial,sans-serif;
+    border:2px solid transparent;
+    border-radius:12px;
+    background-image: linear-gradient(white, white), linear-gradient(90deg, #4A3AFF, #00C6FF);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);'>
+
+    <div style='background-color:#ffffff;padding:25px 20px;text-align:center;border-bottom:1px solid #f0f0f0;'>
+        <h2 style='color:#2c3e50;margin-bottom:10px;font-weight:600;'>Dear {name},</h2>
+
+        <p style='color:#444;font-size:15px;margin:0;'>Thank you for choosing <strong>{purpose}</strong>.</p>
+        <p style='color:#444;font-size:15px;margin-top:10px;'>To complete your verification, please use the One-Time Password (OTP) provided below:</p>
+
+        <div style='margin:25px 0;'>
+            <span style='display:inline-block;padding:14px 24px;font-size:26px;
+                color:#4A3AFF;
+                background:#eef3ff;
+                border:1px solid #d0d9ff;
+                border-radius:10px;
+                font-weight:600;
+                letter-spacing:6px;'>🎯 {otp}</span>
+        </div>
+        <p style='color:#444;font-size:14px;margin-top:20px;'>Please enter this code on the verification screen to proceed.</p>
+<p style='color:#444;font-size:14px;margin-top:20px;'>For your security, this OTP is valid for a limited time and should not be shared with anyone.</p>
+        <p style='color:#777;font-size:13px;'>Note: If you did not request this verification, please ignore this email or contact our support team immediately.</p>
+    </div>
+
+    <div style='background-color:#fafafa;padding:16px 20px;text-align:center;font-size:12px;color:#999;'>
+        <p style='margin:4px 0;'>Thank you,<br/>The XoxoFX Team</p>
+
+        <div style='margin-top:12px; text-align:center;'>
+            <a href='' target='_blank' style='margin: 0 8px; text-decoration:none;'>
+                <img src='https://cdn-icons-png.flaticon.com/24/174/174855.png' alt='Instagram' style='width:24px;height:24px;' />
+            </a>
+            <a href='' target='_blank' style='margin: 0 8px; text-decoration:none;'>
+                <img src='https://cdn-icons-png.flaticon.com/24/733/733547.png' alt='Facebook' style='width:24px;height:24px;' />
+            </a>
+            <a href='' target='_blank' style='margin: 0 8px; text-decoration:none;'>
+                <img src='https://cdn-icons-png.flaticon.com/512/5968/5968958.png' alt='X' style='width:24px;height:24px;' />
+            </a>
+        </div>
+    </div>
+</div>";
+                //SendEmailCommonone(emailId.Trim(), subject, body, true);
+
+                bool sent = false;
+
+                // 🔹 ActionType == 1 → pehle One, fallback Two
+                if (actionType == 1)
+                {
+                    sent = SendEmailCommonone(emailId.Trim(), subject, body, true);
+
+                    if (!sent)
+                        sent = SendEmailCommonTWO(emailId.Trim(), subject, body, true);
+                }
+                // 🔹 ActionType == 2 → pehle Two, fallback One
+                else if (actionType == 2)
+                {
+                    sent = SendEmailCommonTWO(emailId.Trim(), subject, body, true);
+
+                    if (!sent)
+                        sent = SendEmailCommonone(emailId.Trim(), subject, body, true);
+                }
+                // 🔹 Baaki sab (3, 4, 5... ya koi unknown) → sirf One
+                else
+                {
+                    sent = SendEmailCommonone(emailId.Trim(), subject, body, true);
+                }
+
+                if (!sent)
+                {
+                    Console.WriteLine("Both email methods failed!");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("OTP Email Error (Fund Request): " + ex.Message);
+            }
+        }
+
         //----------------Send OTP Fund Request
         public void SendOtpEmailForRequestFund(string otp, string emailId, string name, int actionType = 1, string purpose = "XOXOFX")
         {
@@ -395,7 +484,6 @@ namespace EmailSystem
     box-shadow: 0 4px 12px rgba(0,0,0,0.06);'>
 
     <div style='background-color:#ffffff;padding:25px 20px;text-align:center;border-bottom:1px solid #f0f0f0;'>
-        <img src='{logoUrl}' alt='Rentelligence Logo' style='height:38px;margin-bottom:15px;' />
         <h2 style='color:#2c3e50;margin-bottom:10px;font-weight:600;'>Dear {name},</h2>
 
         <p style='color:#444;font-size:15px;margin:0;'>Thank you for choosing <strong>{purpose}</strong>.</p>
@@ -415,7 +503,7 @@ namespace EmailSystem
     </div>
 
     <div style='background-color:#fafafa;padding:16px 20px;text-align:center;font-size:12px;color:#999;'>
-        <p style='margin:4px 0;'>Thank you,<br/>The Arbion Team</p>
+        <p style='margin:4px 0;'>Thank you,<br/>The XoxoFX Team</p>
 
         <div style='margin-top:12px; text-align:center;'>
             <a href='' target='_blank' style='margin: 0 8px; text-decoration:none;'>
@@ -501,7 +589,7 @@ border:1px solid #1f2937; color:#e5e7eb;'>
 
 <!-- TITLE -->
 <h2 style='text-align:center; margin:0; color:#ffffff;'>
-Welcome to Arbion, {Name}! 🚀
+Welcome to XoxoFX, {Name}! 🚀
 </h2>
 
 <p style='text-align:center; color:#9ca3af; margin-top:8px;'>
@@ -512,7 +600,7 @@ Your AI-powered arbitrage engine is now live
 <div style='margin-top:25px; line-height:1.7; font-size:15px;'>
 
 <p>
-Welcome to <b>Arbion  Engine</b> — your gateway to automated crypto arbitrage profits.
+Welcome to <b>XoxoFX  Engine</b> — your gateway to automated crypto arbitrage profits.
 </p>
 
 <p>
@@ -537,7 +625,7 @@ Let the system work continuously with optimized execution strategies.
 
 <h3 style='color:#a78bfa;'>🔐 Secure & Smart</h3>
 <p>
-Your funds stay in your control while Arbion handles analysis.
+Your funds stay in your control while XoxoFX handles analysis.
 </p>
 
 </div>
@@ -743,11 +831,11 @@ Start Profiting Now 🚀
         //        }
 
 
-        public void SendOtpEmailForEventUser(string otp, string emailId, int actionType = 1, string purpose = "Arbion")
+        public void SendOtpEmailForEventUser(string otp, string emailId, int actionType = 1, string purpose = "XoxoFX")
         {
             try
             {
-                string subject = "Your Event Arbion Verification Code";
+                string subject = "Your Event XoxoFX Verification Code";
 
                 string body = $@"
 <div style='max-width:650px;margin:auto;padding:0;font-family:Arial,Helvetica,sans-serif;
@@ -780,12 +868,12 @@ background:#ffffff;border-radius:8px;border:3px solid #003399;'>   <!-- BLUE BOL
          <p style='margin-top:10px;'>
       If you have any questions or need further assistance, please do not hesitate to contact us at 
       <a href='' style='color:#0047d1;text-decoration:none;font-weight:bold;'>
-          support@Arbion.ai
+          support@xoxofx.ai
       </a>.
       We are here to support you and ensure your experience with us is exceptional.
   </p>
 
-        <p style='margin-top:25px;'>Best Regards,<br/>Arbion Team</p>
+        <p style='margin-top:25px;'>Best Regards,<br/>XoxoFX Team</p>
     </div>
 
     <!-- FOOTER SOCIAL -->

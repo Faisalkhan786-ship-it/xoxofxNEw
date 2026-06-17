@@ -118,6 +118,11 @@ namespace Service
             var sendOtpEvent = await _repositoryManager.authenticationRepository.sendOtpEvent(sendOtp);
             return sendOtpEvent;
         }
+        public async Task<ResponseViewModel> sendOtpUserProfile(SendOtpViewModel sendOtp)
+        {
+            var sendOtpUserProfile = await _repositoryManager.authenticationRepository.sendOtpUserProfile(sendOtp);
+            return sendOtpUserProfile;
+        }
     }
 }
 

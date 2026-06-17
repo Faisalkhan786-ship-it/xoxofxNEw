@@ -1105,6 +1105,59 @@ namespace Repository
             };
         }
 
+        public async Task<ResponseViewModel> sendOtpUserProfile(SendOtpViewModel sendOtp)
+        {
+            var otp = new Random().Next(100000, 999999);
+            await Task.Delay(10);
+            string userName = "User";
+            //  Step 1: User ka naam nikaal lo
+            using (var connection = _dapperContext.createConnection())
+            {
+                var result = connection.QueryFirstOrDefault<dynamic>(
+                    Constant.getUserNameByEmailId,
+                    new { Email = sendOtp.EmailId },
+                    commandType: CommandType.StoredProcedure
+                );
+
+                if (result != null)
+                {
+                    userName = result.FullName ?? "User";
+                }
+            }
+
+            // 🔹 Step 2: Email ActionType decide karo
+            int actionType = 1;
+            using (var connection = _dapperContext.createConnection())
+            {
+                var result = await connection.QueryFirstOrDefaultAsync<EmailActionModel>(
+                    "Sp_GetEmailByActionType",
+                    commandType: CommandType.StoredProcedure
+                );
+                actionType = result?.ActionType ?? 1;
+            }
+
+            // 🔹 Step 3: OTP DB me save karo
+            using (var connection = _dapperContext.createConnection())
+            {
+                var parameters = new DynamicParameters();
+                parameters.Add("@EmailId", sendOtp.EmailId, DbType.String);
+                parameters.Add("@otp", otp, DbType.Int32);
+
+                await connection.ExecuteAsync("SpUpdateOtp", parameters, commandType: CommandType.StoredProcedure);
+            }
+
+            // 🔹 Step 4: OTP Email bhejo
+            _emailService.SendOtpEmailUserProfileUpdate(otp.ToString(), sendOtp.EmailId,
+                userName, actionType);
+            // 🔹 Step 5: Response
+            return new ResponseViewModel
+            {
+                statusCode = 200,
+                message = "OTP sent to email successfully.",
+                data = null
+            };
+        }
+
         //--------Forgot password
 
         public async Task<ResponseViewModel> forgotPassword(ForgotPasswordViewModel forgotPassword)

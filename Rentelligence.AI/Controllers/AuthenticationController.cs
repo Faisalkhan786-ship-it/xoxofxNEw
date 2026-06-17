@@ -265,6 +265,27 @@ namespace XoxoFX_Apis.AI.Controllers
             }
         }
 
+        [HttpPost("sendOtpUserProfile")]
+        public async Task<IActionResult> sendOtpUserProfile(SendOtpViewModel sendOtp)
+        {
+            try
+            {
+                _logger.logInfo($"{LoggingEvents.getByIdItem} sendOtp");
+
+                var loginDetails = await _serviceManager.authenticationContract.sendOtpUserProfile(sendOtp);
+                if (loginDetails.statusCode == 200)
+                {
+                    loginDetails.message = "OTP Send Your Regsiterd Email successfully.";
+                }
+
+                return Ok(loginDetails);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Something went wrong.", error = ex.Message });
+            }
+        }
+
         [HttpPost("sendOtpWithdrawalRequest")]
         public async Task<IActionResult> sendOtpWithdrawalRequest(SendOtpWithdrawalViewModel sendOtp)
         {
