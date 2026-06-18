@@ -310,7 +310,8 @@ namespace Repository
 
                         if (Convert.ToDouble(userBNBBalance) <= 0.00007)
                         {
-                            await encryptDecrypt.TransferBNBToAWallet(WalletAddress, "0.00009");
+                            //await encryptDecrypt.TransferBNBToAWallet(WalletAddress, "0.00009");
+                            await encryptDecrypt.TransferBNBToAWallet(WalletAddress, "0.00017");
                             await Task.Delay(2000);
                         }
 
