@@ -22,6 +22,36 @@ namespace EmailSystem
         }
 
         //--------------Action Type 1 Smtp Wali Mail jayegi 
+        //public bool SendEmailCommonone(string EmailID, string subject, string body, bool IsHTML = true)
+        //{
+        //    try
+        //    {
+        //        ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
+        //        MailMessage Email = new MailMessage();
+        //        Email.To.Add(EmailID);
+        //        Email.From = new MailAddress("noreply@smtpmails.online", "noreply@xoxofx.com");
+        //        Email.Subject = subject;
+        //        Email.Body = body;
+        //        Email.IsBodyHtml = IsHTML;
+
+        //        SmtpClient smtp = new SmtpClient
+        //        {
+        //            Host = "email-smtp.us-east-1.amazonaws.com",
+        //            Port = 587,
+        //            EnableSsl = true,
+        //            DeliveryMethod = SmtpDeliveryMethod.Network,
+        //            //Credentials = new NetworkCredential("AKIAUHKMWX7RB4RJ72MG", "BHdwy2xUY3HkrXxtAYM5UK+dhBaMg5PXHK9awpnYOZom")
+        //            Credentials = new NetworkCredential("AKIAUHKMWX7RHYDFWWLA", "BJbpEOEfUH66OE+EtQaLNQRZtHb7cGsfEvOijckMGa/1")
+        //        };
+
+        //        smtp.Send(Email);
+        //        return true;
+        //    }
+        //    catch
+        //    {
+        //        return false;
+        //    }
+        //}
         public bool SendEmailCommonone(string EmailID, string subject, string body, bool IsHTML = true)
         {
             try
@@ -29,7 +59,7 @@ namespace EmailSystem
                 ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
                 MailMessage Email = new MailMessage();
                 Email.To.Add(EmailID);
-                Email.From = new MailAddress("noreply@smtpmails.online", "noreply@xoxofx.com");
+                Email.From = new MailAddress("info@smtpemail.online", "noreply@xoxofx.com");
                 Email.Subject = subject;
                 Email.Body = body;
                 Email.IsBodyHtml = IsHTML;
@@ -41,7 +71,7 @@ namespace EmailSystem
                     EnableSsl = true,
                     DeliveryMethod = SmtpDeliveryMethod.Network,
                     //Credentials = new NetworkCredential("AKIAUHKMWX7RB4RJ72MG", "BHdwy2xUY3HkrXxtAYM5UK+dhBaMg5PXHK9awpnYOZom")
-                    Credentials = new NetworkCredential("AKIAUHKMWX7RHYDFWWLA", "BJbpEOEfUH66OE+EtQaLNQRZtHb7cGsfEvOijckMGa/1")
+                    Credentials = new NetworkCredential("AKIASCC4ECSDLYLTXO2N", "BAsovSC6sUE3c007dejOe+TPV5OWVTby3x96ej82y4rM")
                 };
 
                 smtp.Send(Email);
@@ -52,7 +82,6 @@ namespace EmailSystem
                 return false;
             }
         }
-
 
         //----------Action Type 2 per ye wali
 
