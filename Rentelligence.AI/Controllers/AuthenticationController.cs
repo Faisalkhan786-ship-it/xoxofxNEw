@@ -308,7 +308,7 @@ namespace XoxoFX_Apis.AI.Controllers
         }
 
         [HttpPost("updateUserProfile")]
-        [Authorize(Roles = "User")]
+        //[Authorize(Roles = "User")]
         public async Task<IActionResult> updateUserProfile(UpdateUserProfileViewModel updateUserProfile)
         {
             _logger.logInfo($" {LoggingEvents.updateItem} updateUserProfile");

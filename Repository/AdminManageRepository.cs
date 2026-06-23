@@ -26,7 +26,7 @@ namespace Repository
 
             var parameters = new DynamicParameters();
 
-            parameters.Add("@AuthLogin", "", DbType.String);
+            parameters.Add("@AuthLogin", adminManageViewModel.AuthLogin ?? "", DbType.String);
             parameters.Add("@Fname", adminManageViewModel.Fullname ?? "", DbType.String);
             parameters.Add("@Active", adminManageViewModel.Active ?? "", DbType.String);
             parameters.Add("@Mobile", adminManageViewModel.PhoneNo ?? "", DbType.String);

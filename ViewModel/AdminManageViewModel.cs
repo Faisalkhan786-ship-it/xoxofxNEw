@@ -9,6 +9,7 @@ namespace ViewModel
     public class AdminManageViewModel
     {
         public string? Fullname { get; set; }
+        public string? AuthLogin { get; set; }
         public string? Active { get; set; }
         public string? PhoneNo { get; set; }
         public string? Email { get; set; }
