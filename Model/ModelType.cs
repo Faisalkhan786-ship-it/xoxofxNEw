@@ -416,7 +416,7 @@ namespace Model
             public string? tittle { get; set; }
             public string? type { get; set; }
             public decimal? roi { get; set; }
-            public decimal? mininvest { get; set; }
+            public string   ? mininvest { get; set; }
             public decimal? winrate { get; set; }
             public decimal? traders { get; set; }
 
