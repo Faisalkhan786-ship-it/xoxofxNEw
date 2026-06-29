@@ -363,14 +363,14 @@ namespace XoxoFX_Apis.AI.Controllers
         //    return Ok(UserDashboardDetails);
         //}
 
-        //    [HttpGet("getAgentAnalyticsUser")]
-        //    [Authorize]
-        //    public async Task<IActionResult> getAgentAnalyticsUser(Guid URID)
-        //    {
-        //        _logger.logInfo($" {LoggingEvents.getByIdItem} getAgentAnalyticsUser");
-        //        var getAgentAnalyticsUser = await _serviceManager.authenticationContract.getAgentAnalyticsUser(URID);
-        //        return Ok(getAgentAnalyticsUser);
-        //    }
+        [HttpGet("getAgentAnalyticsUser")]
+        //[Authorize]
+        public async Task<IActionResult> getAgentAnalyticsUser(Guid URID)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} getAgentAnalyticsUser");
+            var getAgentAnalyticsUser = await _serviceManager.authenticationContract.getAgentAnalyticsUser(URID);
+            return Ok(getAgentAnalyticsUser);
+        }
 
     }
 }
