@@ -314,8 +314,8 @@ namespace Repository
                                     authLogin,
                                     plainPassword,
                                     addAppUser.Email,
-                                    name,
-                                    actionType);
+                                    name
+                                    );
                         }
 
                         return new ResponseViewModellogin
@@ -983,7 +983,7 @@ namespace Repository
 
                 int actionType = result?.ActionType ?? 1; // default = 1
                 //  Single common method
-                _emailService.SendOtpEmailForUser(otp, sendOtp.EmailId, actionType);
+                _emailService.SendOtpEmailForUser(otp, sendOtp.EmailId);
             }
 
             return new ResponseViewModel
@@ -1040,7 +1040,7 @@ namespace Repository
 
             // 🔹 Step 4: OTP Email bhejo
             _emailService.SendOtpEmailForRequestFundWithdrawal(otp.ToString(), sendOtp.EmailId, sendOtp.WalletAddress,
-                userName, actionType, ukTime);
+                userName, ukTime);
             // 🔹 Step 5: Response
             return new ResponseViewModel
             {
@@ -1095,7 +1095,7 @@ namespace Repository
 
             // 🔹 Step 4: OTP Email bhejo
             _emailService.SendOtpEmailForRequestFund(otp.ToString(), sendOtp.EmailId,
-                userName, actionType);
+                userName);
             // 🔹 Step 5: Response
             return new ResponseViewModel
             {
@@ -1148,7 +1148,7 @@ namespace Repository
 
             // 🔹 Step 4: OTP Email bhejo
             _emailService.SendOtpEmailUserProfileUpdate(otp.ToString(), sendOtp.EmailId,
-                userName, actionType);
+                userName);
             // 🔹 Step 5: Response
             return new ResponseViewModel
             {
@@ -1192,7 +1192,7 @@ namespace Repository
 
                         if (!string.IsNullOrEmpty(email))
                         {
-                            _emailService.SendOtpEmailForForgotPassword(authLogin, authPass, email,actionType);
+                            _emailService.SendOtpEmailForForgotPassword(authLogin, authPass, email);
                         }
 
                         return new ResponseViewModel
@@ -1287,7 +1287,7 @@ namespace Repository
                 int actionType = result?.ActionType ?? 1;
 
                 // Send OTP Email
-                _emailService.SendOtpEmailForEventUser(otp, sendOtp.EmailId, actionType);
+                //_emailService.SendOtpEmailForEventUser(otp, sendOtp.EmailId);
             }
 
             return new ResponseViewModel
