@@ -2101,6 +2101,72 @@ namespace Repository
                 }
             }
         }
+
+
+        public async Task<ResponseViewModel> getAgentAnalyticsUser(Guid URID)
+        {
+            try
+            {
+                var procedureName = Constant.agentAnalyticsUser;
+
+                var parameters = new DynamicParameters();
+                parameters.Add("@URID", URID, DbType.Guid);
+
+                using (var connection = _dapperContext.createConnection())
+                {
+                    var result = (await connection.QueryAsync(procedureName,
+                                    parameters,
+                                    commandType: CommandType.StoredProcedure))
+                                    .ToList();
+
+                    if (result == null || !result.Any())
+                    {
+                        return new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.NotFound,
+                            message = "No data found."
+                        };
+                    }
+
+                    var firstRow = result.FirstOrDefault();
+
+                    int statusCode = firstRow?.statusCode ?? 0;
+                    string message = firstRow?.message ?? "Something went wrong.";
+
+                    return statusCode switch
+                    {
+                        1 => new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.OK,
+                            message = message,
+                            data = result
+                        },
+
+                        0 or -1 => new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.Conflict,
+                            message = message,
+                            data = result
+                        },
+
+                        _ => new ResponseViewModel
+                        {
+                            statusCode = (int)HttpStatusCode.BadRequest,
+                            message = message
+                        }
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new ResponseViewModel
+                {
+                    statusCode = (int)HttpStatusCode.InternalServerError,
+                    message = ex.Message
+                };
+            }
+        }
+
     }
 }
 

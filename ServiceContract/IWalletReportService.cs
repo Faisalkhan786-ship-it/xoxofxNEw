@@ -48,6 +48,6 @@ namespace ServiceContract
         public Task<ResponseViewModel> getReferalink(string Authlogin);
         public Task<ResponseViewModel> getTransType(int? Type);
 
-
+        public Task<ResponseViewModel> getAgentAnalyticsUser(Guid URID);
     }
 }

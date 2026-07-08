@@ -44,7 +44,11 @@ namespace Service
             var getRechargeTransact = await _repositoryManager.walletReportRepository.getRechargeTransact(URID);
             return getRechargeTransact;
         }
-
+        public async Task<ResponseViewModel> getAgentAnalyticsUser(Guid URID)
+        {
+            var getAgentAnalyticsUser = await _repositoryManager.walletReportRepository.getAgentAnalyticsUser(URID);
+            return getAgentAnalyticsUser;
+        }
         public async Task<ResponseViewModel> addRechargeTransact(AddRechargeTransactionViewModel addRechargeTransactionViewModel)
         {
             var addRechargeTransact = await _repositoryManager.walletReportRepository.addRechargeTransact(addRechargeTransactionViewModel);

@@ -149,6 +149,16 @@ namespace XoxoFX_Apis.AI.Controllers
             var getRankAchievementbyURID = await _serviceManager.walletReportService.getRankAchievementbyURID(URID);
             return Ok(getRankAchievementbyURID);
         }
+
+        [HttpPost("getAgentAnalyticsUser")]
+        //[Authorize(Roles = "User")]
+        public async Task<IActionResult> getAgentAnalyticsUser(Guid URID)
+        {
+            _logger.logInfo($" {LoggingEvents.getByIdItem} getAgentAnalyticsUser");
+            var getAgentAnalyticsUser = await _serviceManager.walletReportService.getAgentAnalyticsUser(URID);
+            return Ok(getAgentAnalyticsUser);
+        }
+
         //[HttpPost("getRechargeTransactByTId")]
         //public async Task<IActionResult> getRechargeTransactByTId(Guid URID)
         //{

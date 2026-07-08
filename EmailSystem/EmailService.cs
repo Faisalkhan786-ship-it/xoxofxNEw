@@ -1,7 +1,10 @@
 ﻿using Dapper;
+using System.IO;
+using System.Net;
 using MailKit.Security;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
+using Newtonsoft.Json;
 using System;
 using System.Data;
 using System.Net;
@@ -10,6 +13,7 @@ using System.Text;
 using static QRCoder.PayloadGenerator;
 using static QRCoder.PayloadGenerator.ShadowSocksConfig;
 using static System.Net.WebRequestMethods;
+using File = System.IO.File;
 
 namespace EmailSystem
 {
@@ -21,67 +25,86 @@ namespace EmailSystem
             this.configuration = configuration;
         }
 
-        //--------------Action Type 1 Smtp Wali Mail jayegi 
-        //public bool SendEmailCommonone(string EmailID, string subject, string body, bool IsHTML = true)
-        //{
-        //    try
-        //    {
-        //        ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
-        //        MailMessage Email = new MailMessage();
-        //        Email.To.Add(EmailID);
-        //        Email.From = new MailAddress("noreply@smtpmails.online", "noreply@xoxofx.com");
-        //        Email.Subject = subject;
-        //        Email.Body = body;
-        //        Email.IsBodyHtml = IsHTML;
 
-        //        SmtpClient smtp = new SmtpClient
-        //        {
-        //            Host = "email-smtp.us-east-1.amazonaws.com",
-        //            Port = 587,
-        //            EnableSsl = true,
-        //            DeliveryMethod = SmtpDeliveryMethod.Network,
-        //            //Credentials = new NetworkCredential("AKIAUHKMWX7RB4RJ72MG", "BHdwy2xUY3HkrXxtAYM5UK+dhBaMg5PXHK9awpnYOZom")
-        //            Credentials = new NetworkCredential("AKIAUHKMWX7RHYDFWWLA", "BJbpEOEfUH66OE+EtQaLNQRZtHb7cGsfEvOijckMGa/1")
-        //        };
-
-        //        smtp.Send(Email);
-        //        return true;
-        //    }
-        //    catch
-        //    {
-        //        return false;
-        //    }
-        //}
         public bool SendEmailCommonone(string EmailID, string subject, string body, bool IsHTML = true)
         {
             try
             {
-                ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
-                MailMessage Email = new MailMessage();
-                Email.To.Add(EmailID);
-                Email.From = new MailAddress("info@smtpemail.online", "noreply@xoxofx.com");
-                Email.Subject = subject;
-                Email.Body = body;
-                Email.IsBodyHtml = IsHTML;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
-                SmtpClient smtp = new SmtpClient
+                string url = "https://apis.arbionai.com/api/commonEmail/commonSendOtp";
+
+                var requestObj = new
                 {
-                    Host = "email-smtp.us-east-1.amazonaws.com",
-                    Port = 587,
-                    EnableSsl = true,
-                    DeliveryMethod = SmtpDeliveryMethod.Network,
-                    //Credentials = new NetworkCredential("AKIAUHKMWX7RB4RJ72MG", "BHdwy2xUY3HkrXxtAYM5UK+dhBaMg5PXHK9awpnYOZom")
-                    Credentials = new NetworkCredential("AKIASCC4ECSDLYLTXO2N", "BAsovSC6sUE3c007dejOe+TPV5OWVTby3x96ej82y4rM")
+                    projectCode = "46.250.225.82",
+                    templateCode = "Em$24237%dsfhjG2454#2023$frAll",
+                    fromEmail = "noreply@xoxofx.com",
+                    toEmail = EmailID,
+                    body = body,
+                    subject = subject
                 };
 
-                smtp.Send(Email);
+                string json = JsonConvert.SerializeObject(requestObj);
+
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+
+                request.Method = "POST";
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+                request.UserAgent = "Mozilla/5.0";
+                request.Timeout = 300000;
+                request.KeepAlive = false;
+
+                byte[] data = Encoding.UTF8.GetBytes(json);
+
+                using (Stream stream = request.GetRequestStream())
+                {
+                    stream.Write(data, 0, data.Length);
+                }
+
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                {
+                    string result = reader.ReadToEnd();
+                    //File.WriteAllText(@"C:\EmailResponse.txt", result);
+                }
+
                 return true;
             }
-            catch
+            catch (WebException ex)
             {
+                string error = "";
+
+                if (ex.Response != null)
+                {
+                    using (HttpWebResponse response = (HttpWebResponse)ex.Response)
+                    using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                    {
+                        error = "HTTP Status : " + (int)response.StatusCode +
+                                Environment.NewLine +
+                                "Description : " + response.StatusDescription +
+                                Environment.NewLine +
+                                "Response :" +
+                                Environment.NewLine +
+                                reader.ReadToEnd();
+                    }
+                }
+                else
+                {
+                    error = ex.ToString();
+                }
+
+                //File.WriteAllText(@"C:\EmailError.txt", error);
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                //File.WriteAllText(@"C:\EmailError.txt", ex.ToString());
                 return false;
             }
         }
+        
 
         //----------Action Type 2 per ye wali
 
