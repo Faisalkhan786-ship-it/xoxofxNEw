@@ -181,7 +181,7 @@ namespace XoxoFX_Apis.AI.Controllers
             return Ok(returnData);
         }
 
-        [Authorize(Roles = "User")]
+        //[Authorize(Roles = "User")]
         [HttpPost("changePassword")]
 
         public async Task<IActionResult> changePassword(ChangePasswordViewModel changePasswordViewModel)

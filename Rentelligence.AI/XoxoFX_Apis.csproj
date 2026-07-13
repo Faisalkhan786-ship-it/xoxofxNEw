@@ -8,9 +8,17 @@
 
   <ItemGroup>
     <Compile Remove="Views\**" />
+    <Compile Remove="wwwroot\Category\**" />
+    <Compile Remove="wwwroot\TicketImage\**" />
     <Content Remove="Views\**" />
+    <Content Remove="wwwroot\Category\**" />
+    <Content Remove="wwwroot\TicketImage\**" />
     <EmbeddedResource Remove="Views\**" />
+    <EmbeddedResource Remove="wwwroot\Category\**" />
+    <EmbeddedResource Remove="wwwroot\TicketImage\**" />
     <None Remove="Views\**" />
+    <None Remove="wwwroot\Category\**" />
+    <None Remove="wwwroot\TicketImage\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,8 +51,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\Category\" />
-    <Folder Include="wwwroot\TicketImage\" />
+    <Folder Include="wwwroot\NewFolder\" />
   </ItemGroup>
 
 </Project>
